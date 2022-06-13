@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gym.GYM.trainingplan.dto.TrainingPlanDTO;
@@ -40,6 +41,7 @@ public class TrainingPlanController {
     @PostMapping("/trainingPlanRegist")
     public ModelAndView trainingPlanRegist(@ModelAttribute TrainingPlanDTO trainingplan){
 
+    	
     	 mav = trainingsvc.trainingPlanRegist(trainingplan);
 
         return mav;
@@ -60,6 +62,7 @@ public class TrainingPlanController {
     @GetMapping("/trainingPlanList")
     public ModelAndView trainingPlanList(@RequestParam("trainingPlanId")String trainingPlanId){
 
+    	System.out.println(trainingPlanId);
         mav = trainingsvc.trainingPlanList(trainingPlanId);
 
         return mav;
@@ -93,12 +96,5 @@ public class TrainingPlanController {
         return mav;
     }
 
-    @GetMapping("/sendGrade")
-    public ModelAndView sendGrade(@RequestParam("trainingPlanGrade")String trainingPlanGrade){
-
-        mav = trainingsvc.sendGrade(trainingPlanGrade);
-
-        return mav;
-    }
-
+    
 }

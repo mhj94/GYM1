@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gym.GYM.trainingplan.dao.TrainingPlanAjaxDAO">
+
+   <select id ="beginner" resultType = "training">
+   		SELECT * FROM EASYTRAINING
+   </select>
+   
+   <select id ="expert" resultType = "training">
+   		SELECT * FROM HARDTRAINING
+   </select>
+</mapper>

@@ -54,7 +54,7 @@
 
 
 
-<button onclick = 'location.href = "trainingPlanList"'>견적서 페이지 이동</button>
+<button th:if = "${session.login != null}" th:onclick = "|location.href='@{trainingPlanList(trainingPlanId=${session.login.memberId})}'|">견적서 페이지 이동</button>
 <button onclick = 'location.href = "boardList"'>게시판 페이지 이동</button>
 <button onclick = 'location.href = "companyList"'>기업 페이지 이동</button>
 <button onclick = 'location.href = "enterpriseMemberRegistForm"'>(기업)회원가입 페이지 이동</button>

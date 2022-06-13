@@ -20,5 +20,5 @@ public interface TrainingPlanService {
     ModelAndView trainingPlanDelete(String trainingPlanCode);
 
 
-    ModelAndView sendGrade(String trainingPlanGrade);
+
 }

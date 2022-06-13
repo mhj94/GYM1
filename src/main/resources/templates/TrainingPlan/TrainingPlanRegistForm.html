@@ -28,7 +28,11 @@
             <th>등급</th>
            <td><input type="button" onclick="sendGrade('초급')" id="beginner" name="trainingPlanGrade" th:value="초급">
            <input type="button" onclick="sendGrade('중급')" id="expert" name="trainingPlanGrade" th:value="중급"></td>
+           
+          
         </tr>
+        
+        
         <tr>
             <th>운동루틴</th>
             <td><input type="text" name="trainingPlanMyRoutineCode"></td>
@@ -44,24 +48,58 @@
             </td>
         </tr>
     </table>
+    
+     <div id = "sendGradeView"></div>
+    
 </form>
 </body>
-<script>
-    function sendGrade(grade){
 
+<script src = "https://code.jquery.com/jquery-latest.js"></script>
+<script th:inline ="javascript">
+    function sendGrade(grade){
+    	const sendGradeView = document.getElementById('sendGradeView');
+    	const beginner = '초급';
+    	const expert = '중급';
         $.ajax({
-            url:"/sendGrade",
+            url:"ajax/sendGrade",
             type:"GET",
-            dataType:"Json",
+            dataType:"text",
             data:{"trainingPlanGrade":grade},
-            success:function(data){
-                alert('sendGrade 성공')
+            success:function(result){
+                if(grade == beginner){
+                	showBeginner(result);
+                } else if(grade == expert){
+                	showExpert(result);
+                }
+                
             },
-            error:function(e){
-             alert('sendGrade 실패')
-            }
+            error:function(request, status, error){
+
+        		alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+
+        	}
         });
 
     }
+    
+    
+    function showBeginner(result){
+    	
+    	console.log(result);
+    	var output = "";
+    	output += "<div>";
+    	for(var i in result){
+    		output += "<button>"+result[i].easyTrainingCode+"</button>";
+    	}
+    	output += "</div>";
+    	
+    	
+    	var sendGradeView = document.getElementById('sendGradeView');
+    	sendGradeView.innerHTML = output;
+   
+    }
+    
+    
+    
 </script>
 </html>
