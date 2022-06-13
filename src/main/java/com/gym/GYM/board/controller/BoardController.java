@@ -16,6 +16,9 @@ import com.gym.GYM.board.service.BoardService;
 @Controller
 public class BoardController {
 
+	
+	// 테스트 주석
+	
 	@Autowired
 	private BoardService boardsvc;
 
