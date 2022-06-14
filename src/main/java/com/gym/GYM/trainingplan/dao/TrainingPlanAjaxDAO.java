@@ -13,4 +13,6 @@ public interface TrainingPlanAjaxDAO {
 
 	List<TrainingDTO> expert();
 
+	List<TrainingDTO> sendPart(String trainingPart);
+
 }

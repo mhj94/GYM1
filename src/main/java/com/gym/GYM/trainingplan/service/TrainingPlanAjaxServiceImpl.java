@@ -21,16 +21,24 @@ public class TrainingPlanAjaxServiceImpl implements TrainingPlanAjaxService {
 	private ModelAndView mav = new ModelAndView();
 
 	@Override
-	public List<TrainingDTO> sendGrade(String trainingPlanGrade) {
+	public List<TrainingDTO> sendGrade(String trainingGrade) {
 
-		if (trainingPlanGrade.equals("초급")) {
+		if (trainingGrade.equals("초급")) {
 			trainingList = trainingplanajaxdao.beginner();
 
-		} else if (trainingPlanGrade.equals("중급")) {
+		} else if (trainingGrade.equals("중급")) {
 			trainingList = trainingplanajaxdao.expert();
 
 		}
 
+		return trainingList;
+	}
+
+	@Override
+	public List<TrainingDTO> sendPart(String trainingPart) {
+
+		trainingList = trainingplanajaxdao.sendPart(trainingPart);
+		
 		return trainingList;
 	}
 

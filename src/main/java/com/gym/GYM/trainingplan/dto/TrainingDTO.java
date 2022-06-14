@@ -5,45 +5,53 @@ import org.apache.ibatis.type.Alias;
 @Alias("training")
 public class TrainingDTO {
 
-	private String TrainingCode;
-	private String TrainingName;
-	private String TrainingComment;
-	private String TrainingGifName;
-	private String TrainingPart;
+	private String trainingCode;
+	private String trainingName;
+	private String trainingComment;
+	private String trainingGifName;
+	private String trainingPart;
+	private String trainingGrade;
 	public String getTrainingCode() {
-		return TrainingCode;
+		return trainingCode;
 	}
 	public void setTrainingCode(String trainingCode) {
-		TrainingCode = trainingCode;
+		this.trainingCode = trainingCode;
 	}
 	public String getTrainingName() {
-		return TrainingName;
+		return trainingName;
 	}
 	public void setTrainingName(String trainingName) {
-		TrainingName = trainingName;
+		this.trainingName = trainingName;
 	}
 	public String getTrainingComment() {
-		return TrainingComment;
+		return trainingComment;
 	}
 	public void setTrainingComment(String trainingComment) {
-		TrainingComment = trainingComment;
+		this.trainingComment = trainingComment;
 	}
 	public String getTrainingGifName() {
-		return TrainingGifName;
+		return trainingGifName;
 	}
 	public void setTrainingGifName(String trainingGifName) {
-		TrainingGifName = trainingGifName;
+		this.trainingGifName = trainingGifName;
 	}
 	public String getTrainingPart() {
-		return TrainingPart;
+		return trainingPart;
 	}
 	public void setTrainingPart(String trainingPart) {
-		TrainingPart = trainingPart;
+		this.trainingPart = trainingPart;
+	}
+	public String getTrainingGrade() {
+		return trainingGrade;
+	}
+	public void setTrainingGrade(String trainingGrade) {
+		this.trainingGrade = trainingGrade;
 	}
 	@Override
 	public String toString() {
-		return "TrainingDTO [TrainingCode=" + TrainingCode + ", TrainingName=" + TrainingName + ", TrainingComment="
-				+ TrainingComment + ", TrainingGifName=" + TrainingGifName + ", TrainingPart=" + TrainingPart + "]";
+		return "TrainingDTO [trainingCode=" + trainingCode + ", trainingName=" + trainingName + ", trainingComment="
+				+ trainingComment + ", trainingGifName=" + trainingGifName + ", trainingPart=" + trainingPart
+				+ ", trainingGrade=" + trainingGrade + "]";
 	}
 	
 	

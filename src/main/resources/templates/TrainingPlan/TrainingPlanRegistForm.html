@@ -49,9 +49,11 @@
         </tr>
     </table>
     
-     <div id = "sendGradeView"></div>
+    
     
 </form>
+ <div id = "sendGradeView"></div>
+ <div id = "sendPartView"></div>
 </body>
 
 <script src = "https://code.jquery.com/jquery-latest.js"></script>
@@ -63,10 +65,11 @@
         $.ajax({
             url:"ajax/sendGrade",
             type:"GET",
-            dataType:"text",
-            data:{"trainingPlanGrade":grade},
+            dataType:"json",
+            data:{"trainingGrade":grade},
             success:function(result){
                 if(grade == beginner){
+                	console.log(result);
                 	showBeginner(result);
                 } else if(grade == expert){
                 	showExpert(result);
@@ -88,10 +91,14 @@
     	console.log(result);
     	var output = "";
     	output += "<div>";
+    	
     	for(var i in result){
-    		output += "<button>"+result[i].easyTrainingCode+"</button>";
+    		
+    		output += "<button id = 'Part' onclick ='sendPart()' value = '"+result[i].trainingPart+"'>"+result[i].trainingPart+"</button>";
+    		
     	}
     	output += "</div>";
+    	
     	
     	
     	var sendGradeView = document.getElementById('sendGradeView');
@@ -99,7 +106,44 @@
    
     }
     
+    function sendPart(){
+    	const sendPartView = document.getElementById('sendPartView');
+     	var trainingPart = document.getElementById("Part").value;
+     	console.log(trainingPart);
+        $.ajax({
+            url:"ajax/sendPart",
+            type:"GET",
+            dataType:"json",
+            data:{"trainingPart":trainingPart},
+            success:function(resultPart){
+                showPart(resultPart);
+            },
+            error:function(request, status, error){
+
+        		alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+
+        	}
+        });
+    }
     
+    function showPart(resultPart){
+    	console.log(resultPart);
+    	var output = "";
+    	output += "<div>";
+    	
+    	for(var i in resultPart){
+    		
+    		output += "<button>"+resultPart[i].trainingName+"</button>";
+    		
+    	}
+    	output += "</div>";
+    	
+    	
+    	
+    	var sendPartView = document.getElementById('sendPartView');
+    	sendGradeView.innerHTML = output;
+    	
+    }
     
 </script>
 </html>

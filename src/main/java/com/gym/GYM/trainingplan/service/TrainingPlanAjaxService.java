@@ -8,6 +8,8 @@ import com.gym.GYM.trainingplan.dto.TrainingDTO;
 
 public interface TrainingPlanAjaxService {
 
-	List<TrainingDTO> sendGrade(String trainingPlanGrade);
+	List<TrainingDTO> sendGrade(String trainingGrade);
+
+	List<TrainingDTO> sendPart(String trainingPart);
 
 }

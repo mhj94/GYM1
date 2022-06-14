@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,9 +26,18 @@ public class TrainingPlanAjaxController {
 	List<TrainingDTO> trainingList = new ArrayList<TrainingDTO>();
 	
 
-    @PostMapping("/sendGrade")
-	public @ResponseBody List<TrainingDTO> sendGrade(@RequestParam(value = "trainingPlanGrade", required = true)String trainingPlanGrade){
-    	trainingList = trainingplanajaxsvc.sendGrade(trainingPlanGrade);
+    @GetMapping("/sendGrade")
+	public @ResponseBody List<TrainingDTO> sendGrade(@RequestParam(value = "trainingGrade", required = true)String trainingGrade){
+    	trainingList = trainingplanajaxsvc.sendGrade(trainingGrade);
+    	System.out.println(trainingList);
+    	return trainingList;
+    }
+    
+    
+    @GetMapping("/sendPart")
+    public @ResponseBody List<TrainingDTO> sendPart(@RequestParam(value = "trainingPart", required = true)String trainingPart){
+    	trainingList = trainingplanajaxsvc.sendPart(trainingPart);
+    	
     	return trainingList;
     }
 }
