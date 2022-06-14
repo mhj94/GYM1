@@ -22,14 +22,7 @@ public class TrainingPlanAjaxServiceImpl implements TrainingPlanAjaxService {
 
 	@Override
 	public List<TrainingDTO> sendGrade(String trainingGrade) {
-
-		if (trainingGrade.equals("초급")) {
-			trainingList = trainingplanajaxdao.beginner();
-
-		} else if (trainingGrade.equals("중급")) {
-			trainingList = trainingplanajaxdao.expert();
-
-		}
+		trainingList = trainingplanajaxdao.sendGrade(trainingGrade);
 
 		return trainingList;
 	}
@@ -38,7 +31,7 @@ public class TrainingPlanAjaxServiceImpl implements TrainingPlanAjaxService {
 	public List<TrainingDTO> sendPart(String trainingPart) {
 
 		trainingList = trainingplanajaxdao.sendPart(trainingPart);
-		
+
 		return trainingList;
 	}
 

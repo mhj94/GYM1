@@ -29,7 +29,6 @@ public class TrainingPlanAjaxController {
     @GetMapping("/sendGrade")
 	public @ResponseBody List<TrainingDTO> sendGrade(@RequestParam(value = "trainingGrade", required = true)String trainingGrade){
     	trainingList = trainingplanajaxsvc.sendGrade(trainingGrade);
-    	System.out.println(trainingList);
     	return trainingList;
     }
     

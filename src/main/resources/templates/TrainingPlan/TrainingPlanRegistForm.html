@@ -58,22 +58,23 @@
 
 <script src = "https://code.jquery.com/jquery-latest.js"></script>
 <script th:inline ="javascript">
-    function sendGrade(grade){
+
+    function sendGrade(Grade){
     	const sendGradeView = document.getElementById('sendGradeView');
-    	const beginner = '초급';
-    	const expert = '중급';
+    	
+    	
+    	var grade = Grade;
+    	
+    	console.log(grade);
         $.ajax({
             url:"ajax/sendGrade",
             type:"GET",
             dataType:"json",
             data:{"trainingGrade":grade},
             success:function(result){
-                if(grade == beginner){
-                	console.log(result);
-                	showBeginner(result);
-                } else if(grade == expert){
-                	showExpert(result);
-                }
+                
+                showGrade(result);
+               
                 
             },
             error:function(request, status, error){
@@ -86,7 +87,7 @@
     }
     
     
-    function showBeginner(result){
+    function showGrade(result){
     	
     	console.log(result);
     	var output = "";
@@ -94,7 +95,7 @@
     	
     	for(var i in result){
     		
-    		output += "<button id = 'Part' onclick ='sendPart()' value = '"+result[i].trainingPart+"'>"+result[i].trainingPart+"</button>";
+    		output += "<button onclick =sendPart('"+result[i].trainingPart+"') value = '"+result[i].trainingPart+"'>"+result[i].trainingPart+"</button>";
     		
     	}
     	output += "</div>";
@@ -106,9 +107,9 @@
    
     }
     
-    function sendPart(){
+    function sendPart(Part){
     	const sendPartView = document.getElementById('sendPartView');
-     	var trainingPart = document.getElementById("Part").value;
+     	var trainingPart = Part;
      	console.log(trainingPart);
         $.ajax({
             url:"ajax/sendPart",
@@ -117,6 +118,9 @@
             data:{"trainingPart":trainingPart},
             success:function(resultPart){
                 showPart(resultPart);
+                select = Part;
+                console.log(Part);
+                console.log(select);
             },
             error:function(request, status, error){
 
@@ -141,9 +145,11 @@
     	
     	
     	var sendPartView = document.getElementById('sendPartView');
-    	sendGradeView.innerHTML = output;
+    	sendView.innerHTML = output;
     	
     }
+    
+  
     
 </script>
 </html>
