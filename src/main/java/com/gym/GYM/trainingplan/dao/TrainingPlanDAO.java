@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+
 import com.gym.GYM.trainingplan.dto.TrainingPlanDTO;
 
 @Mapper
@@ -18,4 +19,5 @@ public interface TrainingPlanDAO {
     int trainingPlanModify(TrainingPlanDTO trainingplan);
 
     int trainingPlanDelete(String trainingPlanCode);
+
 }

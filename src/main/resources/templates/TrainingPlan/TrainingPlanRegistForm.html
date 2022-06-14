@@ -28,7 +28,11 @@
             <th>등급</th>
            <td><input type="button" onclick="sendGrade('초급')" id="beginner" name="trainingPlanGrade" th:value="초급">
            <input type="button" onclick="sendGrade('중급')" id="expert" name="trainingPlanGrade" th:value="중급"></td>
+           
+          
         </tr>
+        
+        
         <tr>
             <th>운동루틴</th>
             <td><input type="text" name="trainingPlanMyRoutineCode"></td>
@@ -44,24 +48,108 @@
             </td>
         </tr>
     </table>
+    
+    
+    
 </form>
+ <div id = "sendGradeView"></div>
+ <div id = "sendPartView"></div>
 </body>
-<script>
-    function sendGrade(grade){
 
+<script src = "https://code.jquery.com/jquery-latest.js"></script>
+<script th:inline ="javascript">
+
+    function sendGrade(Grade){
+    	const sendGradeView = document.getElementById('sendGradeView');
+    	
+    	
+    	var grade = Grade;
+    	
+    	console.log(grade);
         $.ajax({
-            url:"/sendGrade",
+            url:"ajax/sendGrade",
             type:"GET",
-            dataType:"Json",
-            data:{"trainingPlanGrade":grade},
-            success:function(data){
-                alert('sendGrade 성공')
+            dataType:"json",
+            data:{"trainingGrade":grade},
+            success:function(result){
+                
+                showGrade(result);
+               
+                
             },
-            error:function(e){
-             alert('sendGrade 실패')
-            }
+            error:function(request, status, error){
+
+        		alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+
+        	}
         });
 
     }
+    
+    
+    function showGrade(result){
+    	
+    	console.log(result);
+    	var output = "";
+    	output += "<div>";
+    	
+    	for(var i in result){
+    		
+    		output += "<button onclick =sendPart('"+result[i].trainingPart+"') value = '"+result[i].trainingPart+"'>"+result[i].trainingPart+"</button>";
+    		
+    	}
+    	output += "</div>";
+    	
+    	
+    	
+    	var sendGradeView = document.getElementById('sendGradeView');
+    	sendGradeView.innerHTML = output;
+   
+    }
+    
+    function sendPart(Part){
+    	const sendPartView = document.getElementById('sendPartView');
+     	var trainingPart = Part;
+     	console.log(trainingPart);
+        $.ajax({
+            url:"ajax/sendPart",
+            type:"GET",
+            dataType:"json",
+            data:{"trainingPart":trainingPart},
+            success:function(resultPart){
+                showPart(resultPart);
+                select = Part;
+                console.log(Part);
+                console.log(select);
+            },
+            error:function(request, status, error){
+
+        		alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+
+        	}
+        });
+    }
+    
+    function showPart(resultPart){
+    	console.log(resultPart);
+    	var output = "";
+    	output += "<div>";
+    	
+    	for(var i in resultPart){
+    		
+    		output += "<button>"+resultPart[i].trainingName+"</button>";
+    		
+    	}
+    	output += "</div>";
+    	
+    	
+    	
+    	var sendPartView = document.getElementById('sendPartView');
+    	sendView.innerHTML = output;
+    	
+    }
+    
+  
+    
 </script>
 </html>

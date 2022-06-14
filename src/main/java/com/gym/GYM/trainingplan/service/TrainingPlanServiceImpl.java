@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gym.GYM.trainingplan.dao.TrainingPlanDAO;
+
 import com.gym.GYM.trainingplan.dto.TrainingPlanDTO;
 
 @Service
@@ -44,6 +45,7 @@ public class TrainingPlanServiceImpl implements TrainingPlanService{
     @Override
     public ModelAndView trainingPlanList(String trainingPlanId) {
 
+    	System.out.println(trainingPlanId);
         List<TrainingPlanDTO> trainingPlanList = trainingplandao.trainingPlanList(trainingPlanId);
 
         mav.setViewName("TrainingPlan/TrainingPlanList");
@@ -91,16 +93,5 @@ public class TrainingPlanServiceImpl implements TrainingPlanService{
         }
         return mav;
     }
-
-    @Override
-    public ModelAndView sendGrade(String trainingPlanGrade) {
-
-        if(trainingPlanGrade.equals("초급")){
-
-        } else {
-
-        }
-
-        return mav;
-    }
+   
 }
