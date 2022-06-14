@@ -9,10 +9,10 @@ import com.gym.GYM.trainingplan.dto.TrainingDTO;
 @Mapper
 public interface TrainingPlanAjaxDAO {
 
-	List<TrainingDTO> beginner();
-
-	List<TrainingDTO> expert();
+	List<TrainingDTO> sendGrade(String trainingGrade);
 
 	List<TrainingDTO> sendPart(String trainingPart);
+
+
 
 }

@@ -5,12 +5,8 @@
 <mapper
 	namespace="com.gym.GYM.trainingplan.dao.TrainingPlanAjaxDAO">
 
-	<select id="beginner" resultType="training">
-		SELECT DISTINCT TRAININGPART FROM TRAINING WHERE TRAININGGRADE = '초급'
-	</select>
-
-	<select id="expert" resultType="training">
-		SELECT * FROM TRAINING WHERE TRAININGGRADE = '중급'
+	<select id="sendGrade" parameterType = "String" resultType="training">
+		SELECT DISTINCT TRAININGPART FROM TRAINING WHERE TRAININGGRADE = #{trainingGrade}
 	</select>
 
 
