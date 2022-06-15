@@ -59,6 +59,7 @@
 <button onclick = 'location.href = "companyList"'>기업 페이지 이동</button>
 <button onclick = 'location.href = "enterpriseMemberRegistForm"'>(기업)회원가입 페이지 이동</button>
 <button onclick = 'location.href = "normalMemberRegistForm"'>(일반)회원가입 페이지 이동</button>
+<button onclick = 'location.href = "normalMemberRegistForm"'>(일반)회원가입 페이지 이동</button>
 <button th:if = "${session.login != null}" onclick = 'location.href = "memberSignOut"'>로그아웃</button>
 <button th:if = "${session.login != null}" th:onclick = "|location.href='@{memberModifyForm(memberId=${session.login.memberId})}'|">회원 수정 페이지 이동</button>
 <button th:if = "${session.login != null}" th:onclick = "|location.href='@{memberView(memberId=${session.login.memberId})}'|">내정보보기</button>
