@@ -42,7 +42,6 @@
         </td>
     </tr>
 </table>
-<fieldset>
     <span>별점 선택</span>
     <input type="radio" name="reviewRate" value="1" id="rate1"><label
         for="rate1">★</label>
@@ -52,9 +51,8 @@
         for="rate3">★★★</label>
     <input type="radio" name="reviewRate" value="4" id="rate4"><label
         for="rate4">★★★★</label>
-    <input type="radio" name="reviewRate" value="5" id="rate5"><label
+    <input type="radio" name="reviewRate" value="5" id="rate5" checked><label
         for="rate5">★★★★★</label>
-</fieldset>
 <input type="hidden" th:id="memberId" th:value="${session.login.memberId}">
 <input type="hidden" th:id="companyCode" th:value="${view.companyCode}">
 <div id="commentArea"></div>
@@ -92,8 +90,7 @@
                 var reviewWriter = loginId;
                 var reviewCompanyCode = document.getElementById("companyCode").value;
                 var reviewContent = $('#reviewContent').val();
-                var reviewRate = $('#rate1,#rate2,#rate3,#rate4,#rate5').val();
-                console.log(reviewContent);
+                var reviewRate = $('input[name="reviewRate"]:checked').val();
 
                 $.ajax({
                     type: "POST",
