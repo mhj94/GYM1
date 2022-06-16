@@ -17,6 +17,8 @@ import com.gym.GYM.company.dao.CompanyDAO;
 import com.gym.GYM.company.dto.CompanyDTO;
 import com.gym.GYM.company.dto.PageDTO;
 
+import javax.servlet.http.HttpSession;
+
 @Service
 public class CompanyServiceImpl implements CompanyService{
 
@@ -24,6 +26,9 @@ public class CompanyServiceImpl implements CompanyService{
 
     @Autowired
     private CompanyDAO companydao;
+
+    @Autowired
+    private HttpSession session;
 
     @Override
     public ModelAndView companyRegist(CompanyDTO company) throws IOException {

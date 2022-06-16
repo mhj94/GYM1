@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gym.GYM.company.dao.CommentDAO">
+    <select id="commentList" parameterType="String" resultType="comment">
+        SELECT * FROM COMPANYREVIEW WHERE COMPANYCODE = #{reviewCompanyCode} ORDER BY REVIEWNO DESC
+    </select>
+    <insert id="commentRegist" parameterType="comment">
+        INSERT INTO COMPANYREVIEW VALUES (#{reviewCompanyCode}, REVIEW_SEQ.NEXTVAL, #{reviewWriter}, #{reviewContent}, SYSDATE, #{reviewRate, jdbcType=VARCHAR})
+    </insert>
+    <update id="commentModify" parameterType="comment">
+        UPDATE COMPANYREVIEW SET REVIEWCONTENT=#{reviewContent} WHERE REVIEWNO=#{reviewNo} AND COMPANYCODE=#{reviewCompanyCode}
+    </update>
+    <delete id="commentDelete" parameterType="comment">
+        DELETE FROM COMPANYREVIEW WHERE REVIEWNO=#{reviewNo} AND COMPANYCODE=#{reviewCompanyCode}
+    </delete>
+</mapper>
