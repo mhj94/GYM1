@@ -6,6 +6,5 @@ public interface ShoppingService {
 
     ModelAndView shoppingList();
 
-
     ModelAndView shoppingView(String productCode);
 }
