@@ -1,8 +1,14 @@
 package com.gym.GYM.shopping.dao;
 
+import com.gym.GYM.shopping.dto.ProductDTO;
 import org.apache.ibatis.annotations.Mapper;
 
-@Mapper
-public class ShoppingDAO {
+import java.util.List;
 
+@Mapper
+public interface ShoppingDAO {
+
+    List<ProductDTO> shoppingList();
+
+    ProductDTO shoppingView(String productCode);
 }

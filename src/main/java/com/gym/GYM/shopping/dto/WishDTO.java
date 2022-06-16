@@ -2,7 +2,7 @@ package com.gym.GYM.shopping.dto;
 
 import org.apache.ibatis.type.Alias;
 
-@Alias("shopping")
+@Alias("wish")
 public class WishDTO {
 
     /*
@@ -16,80 +16,80 @@ public class WishDTO {
         WISHDINNERSNACK      NVARCHAR2(6),   -- 저녁간식
      */
 
-    private String WishId;
-    private String WishMorning;
-    private String WishLaunch;
-    private String WishDinner;
-    private String WishMorningSnack;
-    private String WishLaunchSnack;
-    private String WishDinnerSnack;
+    private String wishId;
+    private String wishMorning;
+    private String wishLaunch;
+    private String wishDinner;
+    private String wishMorningSnack;
+    private String wishLaunchSnack;
+    private String wishDinnerSnack;
 
     public String getWishId() {
-        return WishId;
+        return wishId;
     }
 
     public void setWishId(String wishId) {
-        WishId = wishId;
+        this.wishId = wishId;
     }
 
     public String getWishMorning() {
-        return WishMorning;
+        return wishMorning;
     }
 
     public void setWishMorning(String wishMorning) {
-        WishMorning = wishMorning;
+        this.wishMorning = wishMorning;
     }
 
     public String getWishLaunch() {
-        return WishLaunch;
+        return wishLaunch;
     }
 
     public void setWishLaunch(String wishLaunch) {
-        WishLaunch = wishLaunch;
+        this.wishLaunch = wishLaunch;
     }
 
     public String getWishDinner() {
-        return WishDinner;
+        return wishDinner;
     }
 
     public void setWishDinner(String wishDinner) {
-        WishDinner = wishDinner;
+        this.wishDinner = wishDinner;
     }
 
     public String getWishMorningSnack() {
-        return WishMorningSnack;
+        return wishMorningSnack;
     }
 
     public void setWishMorningSnack(String wishMorningSnack) {
-        WishMorningSnack = wishMorningSnack;
+        this.wishMorningSnack = wishMorningSnack;
     }
 
     public String getWishLaunchSnack() {
-        return WishLaunchSnack;
+        return wishLaunchSnack;
     }
 
     public void setWishLaunchSnack(String wishLaunchSnack) {
-        WishLaunchSnack = wishLaunchSnack;
+        this.wishLaunchSnack = wishLaunchSnack;
     }
 
     public String getWishDinnerSnack() {
-        return WishDinnerSnack;
+        return wishDinnerSnack;
     }
 
     public void setWishDinnerSnack(String wishDinnerSnack) {
-        WishDinnerSnack = wishDinnerSnack;
+        this.wishDinnerSnack = wishDinnerSnack;
     }
 
     @Override
     public String toString() {
         return "WishDTO{" +
-                "WishId='" + WishId + '\'' +
-                ", WishMorning='" + WishMorning + '\'' +
-                ", WishLaunch='" + WishLaunch + '\'' +
-                ", WishDinner='" + WishDinner + '\'' +
-                ", WishMorningSnack='" + WishMorningSnack + '\'' +
-                ", WishLaunchSnack='" + WishLaunchSnack + '\'' +
-                ", WishDinnerSnack='" + WishDinnerSnack + '\'' +
+                "wishId='" + wishId + '\'' +
+                ", wishMorning='" + wishMorning + '\'' +
+                ", wishLaunch='" + wishLaunch + '\'' +
+                ", wishDinner='" + wishDinner + '\'' +
+                ", wishMorningSnack='" + wishMorningSnack + '\'' +
+                ", wishLaunchSnack='" + wishLaunchSnack + '\'' +
+                ", wishDinnerSnack='" + wishDinnerSnack + '\'' +
                 '}';
     }
 }

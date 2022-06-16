@@ -4,7 +4,7 @@ import org.apache.ibatis.type.Alias;
 
 import java.sql.Date;
 
-@Alias("shopping")
+@Alias("orders")
 public class OrdersDTO {
 
     /*CREATE TABLE ORDERS(
@@ -19,110 +19,111 @@ public class OrdersDTO {
     ORDERDDAY				DATE,					        -- 배송일
     ORDERPAYSELECT			NVARCHAR2(30),                  -- 결제 수단*/
 
-    private String OrderCode;
-    private String OrderProductCode;
-    private String OrderId;
-    private String OrderAddress;
-    private String OrderInvoiceNumber;
-    private String OrderRequest;
-    private Date OrderDate;
-    private String OrderDelivery;
-    private Date OrderDay;
-    private String OrderPaySelect;
+    private String orderCode;
+    private String orderProductCode;
+    private String orderId;
+    private String orderAddress;
+    private String orderInvoiceNumber;
+    private String orderRequest;
+    private Date orderDate;
+    private String orderDelivery;
+    private Date orderDay;
+    private String orderPaySelect;
 
     public String getOrderCode() {
-        return OrderCode;
+        return orderCode;
     }
 
     public void setOrderCode(String orderCode) {
-        OrderCode = orderCode;
+        this.orderCode = orderCode;
     }
 
     public String getOrderProductCode() {
-        return OrderProductCode;
+        return orderProductCode;
     }
 
     public void setOrderProductCode(String orderProductCode) {
-        OrderProductCode = orderProductCode;
+        this.orderProductCode = orderProductCode;
     }
 
     public String getOrderId() {
-        return OrderId;
+        return orderId;
     }
 
     public void setOrderId(String orderId) {
-        OrderId = orderId;
+        this.orderId = orderId;
     }
 
     public String getOrderAddress() {
-        return OrderAddress;
+        return orderAddress;
     }
 
     public void setOrderAddress(String orderAddress) {
-        OrderAddress = orderAddress;
+        this.orderAddress = orderAddress;
     }
 
     public String getOrderInvoiceNumber() {
-        return OrderInvoiceNumber;
+        return orderInvoiceNumber;
     }
 
     public void setOrderInvoiceNumber(String orderInvoiceNumber) {
-        OrderInvoiceNumber = orderInvoiceNumber;
+        this.orderInvoiceNumber = orderInvoiceNumber;
     }
 
     public String getOrderRequest() {
-        return OrderRequest;
+        return orderRequest;
     }
 
     public void setOrderRequest(String orderRequest) {
-        OrderRequest = orderRequest;
+        this.orderRequest = orderRequest;
     }
 
     public Date getOrderDate() {
-        return OrderDate;
+        return orderDate;
     }
 
     public void setOrderDate(Date orderDate) {
-        OrderDate = orderDate;
+        this.orderDate = orderDate;
     }
 
     public String getOrderDelivery() {
-        return OrderDelivery;
+        return orderDelivery;
     }
 
     public void setOrderDelivery(String orderDelivery) {
-        OrderDelivery = orderDelivery;
+        this.orderDelivery = orderDelivery;
     }
 
     public Date getOrderDay() {
-        return OrderDay;
+        return orderDay;
     }
 
     public void setOrderDay(Date orderDay) {
-        OrderDay = orderDay;
+        this.orderDay = orderDay;
     }
 
     public String getOrderPaySelect() {
-        return OrderPaySelect;
+        return orderPaySelect;
     }
 
     public void setOrderPaySelect(String orderPaySelect) {
-        OrderPaySelect = orderPaySelect;
+        this.orderPaySelect = orderPaySelect;
     }
 
     @Override
     public String toString() {
         return "OrdersDTO{" +
-                "OrderCode='" + OrderCode + '\'' +
-                ", OrderProductCode='" + OrderProductCode + '\'' +
-                ", OrderId='" + OrderId + '\'' +
-                ", OrderAddress='" + OrderAddress + '\'' +
-                ", OrderInvoiceNumber='" + OrderInvoiceNumber + '\'' +
-                ", OrderRequest='" + OrderRequest + '\'' +
-                ", OrderDate=" + OrderDate +
-                ", OrderDelivery='" + OrderDelivery + '\'' +
-                ", OrderDay=" + OrderDay +
-                ", OrderPaySelect='" + OrderPaySelect + '\'' +
+                "orderCode='" + orderCode + '\'' +
+                ", orderProductCode='" + orderProductCode + '\'' +
+                ", orderId='" + orderId + '\'' +
+                ", orderAddress='" + orderAddress + '\'' +
+                ", orderInvoiceNumber='" + orderInvoiceNumber + '\'' +
+                ", orderRequest='" + orderRequest + '\'' +
+                ", orderDate=" + orderDate +
+                ", orderDelivery='" + orderDelivery + '\'' +
+                ", orderDay=" + orderDay +
+                ", orderPaySelect='" + orderPaySelect + '\'' +
                 '}';
     }
 }
+
