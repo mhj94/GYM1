@@ -6,5 +6,11 @@
 
 
 
+<select id="wishdtoList" parameterType="String" resultType="wish">
+SELECT * FROM WISH WHERE WISHID=#{memeberId}
+</select>
+
+
+
 
 </mapper>

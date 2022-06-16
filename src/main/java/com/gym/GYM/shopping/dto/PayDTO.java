@@ -2,7 +2,7 @@ package com.gym.GYM.shopping.dto;
 
 import org.apache.ibatis.type.Alias;
 
-@Alias("shopping")
+@Alias("pay")
 public class PayDTO {
 
     /*CREATE TABLE PAY (
@@ -10,40 +10,31 @@ public class PayDTO {
     PAYPOINT		NUMBER,					-- 포인트
     PAYLIST			NVARCHAR2(10),			-- 결제수단목록*/
 
-    private String PayId;
-    private String PayPoint;
-    private String PayList;
+    private String payId;
+    private String payPoint;
+    private String payList;
+	public String getPayId() {
+		return payId;
+	}
+	public void setPayId(String payId) {
+		this.payId = payId;
+	}
+	public String getPayPoint() {
+		return payPoint;
+	}
+	public void setPayPoint(String payPoint) {
+		this.payPoint = payPoint;
+	}
+	public String getPayList() {
+		return payList;
+	}
+	public void setPayList(String payList) {
+		this.payList = payList;
+	}
+	@Override
+	public String toString() {
+		return "PayDTO [payId=" + payId + ", payPoint=" + payPoint + ", payList=" + payList + "]";
+	}
 
-    public String getPayId() {
-        return PayId;
-    }
-
-    public void setPayId(String payId) {
-        PayId = payId;
-    }
-
-    public String getPayPoint() {
-        return PayPoint;
-    }
-
-    public void setPayPoint(String payPoint) {
-        PayPoint = payPoint;
-    }
-
-    public String getPayList() {
-        return PayList;
-    }
-
-    public void setPayList(String payList) {
-        PayList = payList;
-    }
-
-    @Override
-    public String toString() {
-        return "PayDTO{" +
-                "PayId='" + PayId + '\'' +
-                ", PayPoint='" + PayPoint + '\'' +
-                ", PayList='" + PayList + '\'' +
-                '}';
-    }
+   
 }

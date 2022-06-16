@@ -4,7 +4,7 @@ import org.apache.ibatis.type.Alias;
 
 import java.sql.Date;
 
-@Alias("shopping")
+@Alias("orders")
 public class OrdersDTO {
 
     /*CREATE TABLE ORDERS(
@@ -19,110 +19,83 @@ public class OrdersDTO {
     ORDERDDAY				DATE,					        -- 배송일
     ORDERPAYSELECT			NVARCHAR2(30),                  -- 결제 수단*/
 
-    private String OrderCode;
-    private String OrderProductCode;
-    private String OrderId;
-    private String OrderAddress;
-    private String OrderInvoiceNumber;
-    private String OrderRequest;
-    private Date OrderDate;
-    private String OrderDelivery;
-    private Date OrderDay;
-    private String OrderPaySelect;
+    private String orderCode;
+    private String orderProductCode;
+    private String orderId;
+    private String orderAddress;
+    private String orderInvoiceNumber;
+    private String orderRequest;
+    private Date orderDate;
+    private String orderDelivery;
+    private Date orderDay;
+    private String orderPaySelect;
+	public String getOrderCode() {
+		return orderCode;
+	}
+	public void setOrderCode(String orderCode) {
+		this.orderCode = orderCode;
+	}
+	public String getOrderProductCode() {
+		return orderProductCode;
+	}
+	public void setOrderProductCode(String orderProductCode) {
+		this.orderProductCode = orderProductCode;
+	}
+	public String getOrderId() {
+		return orderId;
+	}
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
+	}
+	public String getOrderAddress() {
+		return orderAddress;
+	}
+	public void setOrderAddress(String orderAddress) {
+		this.orderAddress = orderAddress;
+	}
+	public String getOrderInvoiceNumber() {
+		return orderInvoiceNumber;
+	}
+	public void setOrderInvoiceNumber(String orderInvoiceNumber) {
+		this.orderInvoiceNumber = orderInvoiceNumber;
+	}
+	public String getOrderRequest() {
+		return orderRequest;
+	}
+	public void setOrderRequest(String orderRequest) {
+		this.orderRequest = orderRequest;
+	}
+	public Date getOrderDate() {
+		return orderDate;
+	}
+	public void setOrderDate(Date orderDate) {
+		this.orderDate = orderDate;
+	}
+	public String getOrderDelivery() {
+		return orderDelivery;
+	}
+	public void setOrderDelivery(String orderDelivery) {
+		this.orderDelivery = orderDelivery;
+	}
+	public Date getOrderDay() {
+		return orderDay;
+	}
+	public void setOrderDay(Date orderDay) {
+		this.orderDay = orderDay;
+	}
+	public String getOrderPaySelect() {
+		return orderPaySelect;
+	}
+	public void setOrderPaySelect(String orderPaySelect) {
+		this.orderPaySelect = orderPaySelect;
+	}
+	@Override
+	public String toString() {
+		return "OrdersDTO [orderCode=" + orderCode + ", orderProductCode=" + orderProductCode + ", orderId=" + orderId
+				+ ", orderAddress=" + orderAddress + ", orderInvoiceNumber=" + orderInvoiceNumber + ", orderRequest="
+				+ orderRequest + ", orderDate=" + orderDate + ", orderDelivery=" + orderDelivery + ", orderDay="
+				+ orderDay + ", orderPaySelect=" + orderPaySelect + "]";
+	}
 
-    public String getOrderCode() {
-        return OrderCode;
-    }
-
-    public void setOrderCode(String orderCode) {
-        OrderCode = orderCode;
-    }
-
-    public String getOrderProductCode() {
-        return OrderProductCode;
-    }
-
-    public void setOrderProductCode(String orderProductCode) {
-        OrderProductCode = orderProductCode;
-    }
-
-    public String getOrderId() {
-        return OrderId;
-    }
-
-    public void setOrderId(String orderId) {
-        OrderId = orderId;
-    }
-
-    public String getOrderAddress() {
-        return OrderAddress;
-    }
-
-    public void setOrderAddress(String orderAddress) {
-        OrderAddress = orderAddress;
-    }
-
-    public String getOrderInvoiceNumber() {
-        return OrderInvoiceNumber;
-    }
-
-    public void setOrderInvoiceNumber(String orderInvoiceNumber) {
-        OrderInvoiceNumber = orderInvoiceNumber;
-    }
-
-    public String getOrderRequest() {
-        return OrderRequest;
-    }
-
-    public void setOrderRequest(String orderRequest) {
-        OrderRequest = orderRequest;
-    }
-
-    public Date getOrderDate() {
-        return OrderDate;
-    }
-
-    public void setOrderDate(Date orderDate) {
-        OrderDate = orderDate;
-    }
-
-    public String getOrderDelivery() {
-        return OrderDelivery;
-    }
-
-    public void setOrderDelivery(String orderDelivery) {
-        OrderDelivery = orderDelivery;
-    }
-
-    public Date getOrderDay() {
-        return OrderDay;
-    }
-
-    public void setOrderDay(Date orderDay) {
-        OrderDay = orderDay;
-    }
-
-    public String getOrderPaySelect() {
-        return OrderPaySelect;
-    }
-
-    public void setOrderPaySelect(String orderPaySelect) {
-        OrderPaySelect = orderPaySelect;
-    }
-
-    @Override
-    public String toString() {
-        return "OrdersDTO{" +
-                "OrderCode='" + OrderCode + '\'' +
-                ", OrderProductCode='" + OrderProductCode + '\'' +
-                ", OrderId='" + OrderId + '\'' +
-                ", OrderAddress='" + OrderAddress + '\'' +
-                ", OrderInvoiceNumber='" + OrderInvoiceNumber + '\'' +
-                ", OrderRequest='" + OrderRequest + '\'' +
-                ", OrderDate=" + OrderDate +
-                ", OrderDelivery='" + OrderDelivery + '\'' +
-                ", OrderDay=" + OrderDay +
-                ", OrderPaySelect='" + OrderPaySelect + '\'' +
-                '}';
-    }
+   
 }
