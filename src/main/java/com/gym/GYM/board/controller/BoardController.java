@@ -27,9 +27,9 @@ public class BoardController {
 		mav = boardsvc.boardList();
 		return mav;
 	}
-
+	
+	
 	// BoardRegistForm : 게시글 작성페이지 이동
-
 	@GetMapping("/boardRegistForm")
 	private String boardRegistForm() {
 
@@ -37,8 +37,8 @@ public class BoardController {
 
 	}
 
+	
 	// BoardRegist:게시글 작성 메소드
-
 	@PostMapping("/boardRegist")
 	private ModelAndView boardRegist(@ModelAttribute BoardDTO board) throws IllegalStateException, IOException{
 		mav = boardsvc.boardRegist(board);

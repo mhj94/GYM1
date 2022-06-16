@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="생로병사"/>
+    <meta name="description" content="shoppingMain index"/>
+    <title>책임GYM 쇼핑몰</title>
+</head>
+<body>
+    <h1>쇼핑몰 메인</h1>
+    <img src="GYM1/src/main/resources/static/ShoppingImg/123.png" width="150dp" height="100dp" alt="짱구">
+    <table>
+    <caption>Product List</caption>
+
+        <tr>
+            <th>상품코드</th>
+            <th>상품사진명</th>
+            <th>상품이름</th>
+            <th>상품가격</th>
+
+        </tr>
+
+            <tr th:each="list : ${shoppingList}">
+                <td th:text="${list.productCode}"></td>
+            <td><a th:href="@{ShoppingView(productCode=${list.productCode})}" th:text="${list.productPhoto}"></a></td>
+            <td th:text="${list.productName}"></td>
+            <td th:text="${list.productPrice}"></td>
+
+        </tr>
+    </table>
+
+</body>
+</html>

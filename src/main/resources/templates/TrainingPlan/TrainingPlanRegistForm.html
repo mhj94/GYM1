@@ -125,10 +125,10 @@
 
     function sendGrade(Grade){
     	const sendGradeView = document.getElementById('sendGradeView');
-    	
-    	
+
+
     	var grade = Grade;
-    	
+
     	console.log(grade);
         $.ajax({
             url:"ajax/sendGrade",
@@ -136,9 +136,9 @@
             dataType:"json",
             data:{"trainingGrade":grade},
             success:function(result){
-                
+
                 showGrade(result);
-               
+
                 
             },
             error:function(request, status, error){
@@ -209,7 +209,7 @@
     	
     	
     	var sendPartView = document.getElementById('sendPartView');
-    	sendPartView.innerHTML = output;
+    	sendGradeView.innerHTML = output;
     	
     }
 
@@ -228,10 +228,6 @@
 
 
     }
-
-
-
-
-
+    
 </script>
 </html>
