@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gym.GYM.company.dao.CommentDAO">
     <select id="commentList" parameterType="String" resultType="comment">
-        SELECT * FROM COMPANYREVIEW WHERE COMPANYCODE = #{reviewCompanyCode}
+        SELECT * FROM COMPANYREVIEW WHERE COMPANYCODE = #{reviewCompanyCode} ORDER BY REVIEWNO DESC
     </select>
     <insert id="commentRegist" parameterType="comment">
         INSERT INTO COMPANYREVIEW VALUES (#{reviewCompanyCode}, REVIEW_SEQ.NEXTVAL, #{reviewWriter}, #{reviewContent}, SYSDATE, #{reviewRate, jdbcType=VARCHAR})

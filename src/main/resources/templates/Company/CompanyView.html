@@ -126,8 +126,6 @@
         output += "<th><내용></th>";
         output += "<th><별점></th>";
         output += "<th><작성일></th>";
-        output += "<th><수정></th>";
-        output += "<th><삭제></th>";
         output += "</tr>";
 
         for (var i in list) {
@@ -159,7 +157,6 @@
         // div 영역 commentArea
         var commentArea = document.getElementById("commentArea");
 
-
         // commentArea에 output 내용 넣기
         commentArea.innerHTML = output;
 
@@ -183,7 +180,6 @@
                     alert('리뷰 삭제 실패');
                 }
             });
-
         }
     }
 

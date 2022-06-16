@@ -10,20 +10,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class CommentServiceImpl implements CommentService{
-
-    private ModelAndView mav = new ModelAndView();
+public class CommentServiceImpl implements CommentService {
 
     List<CommentDTO> commentList = new ArrayList<CommentDTO>();
 
     @Autowired
     private CommentDAO commentdao;
+
     @Override
     public List<CommentDTO> commentRegist(CommentDTO comment) {
         int result = commentdao.commentRegist(comment);
 
-        if(result>0){
-            commentList = commentdao.commentList(comment.getReviewCompanyCode());
+        if (result > 0) {
+            int result1 = commentdao.commentReviewRate(comment);
+            if (result1 > 0) {
+                commentList = commentdao.commentList(comment.getReviewCompanyCode());
+            }
         } else {
             commentList = null;
         }
@@ -40,7 +42,7 @@ public class CommentServiceImpl implements CommentService{
     public List<CommentDTO> commentModify(CommentDTO comment) {
         int result = commentdao.commentModify(comment);
 
-        if(result>0){
+        if (result > 0) {
             commentList = commentdao.commentList(comment.getReviewCompanyCode());
         } else {
             commentList = null;
@@ -52,7 +54,7 @@ public class CommentServiceImpl implements CommentService{
     public List<CommentDTO> commentDelete(CommentDTO comment) {
         int result = commentdao.commentDelete(comment);
 
-        if(result>0){
+        if (result > 0) {
             commentList = commentdao.commentList(comment.getReviewCompanyCode());
         } else {
             commentList = null;

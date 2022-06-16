@@ -15,6 +15,8 @@ public class CompanyDTO {
     private int companyRate;
     private String companyEquipment;
     private MultipartFile companyPhoto;
+	private CommentDTO comment;
+
 	public String getCompanyCode() {
 		return companyCode;
 	}

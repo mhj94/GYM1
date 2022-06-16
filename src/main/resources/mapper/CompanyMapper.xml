@@ -8,7 +8,7 @@
         INSERT INTO COMPANY VALUES ('COM' || COMPANY_SEQ.NEXTVAL, #{companyId}, #{companyComment}, #{companyPhotoName}, 0, #{companyEquipment})
     </insert>
     <select id="companyList" parameterType="paging" resultType="company">
-        SELECT * FROM COMPANYLIST WHERE ROWNUMBER BETWEEN #{startRow} AND #{endRow}
+        SELECT * FROM COMPANYLIST WHERE ROWNUMBER BETWEEN #{startRow} AND #{endRow} ORDER BY COMPANYCODE ASC
     </select>
     <select id="companyCount" resultType="int">
         SELECT COUNT(*) FROM COMPANY
@@ -23,6 +23,9 @@
     <delete id="companyDelete" parameterType="company">
         DELETE FROM COMPANY WHERE COMPANYCODE=#{companyCode}
     </delete>
+    <select id="rateSum" parameterType="String" resultType="double">
+        SELECT AVG (REVIEWRATE) FROM COMPANYREVIEW WHERE COMPANYCODE=#{companyCode}
+    </select>
 
 <!--  처음 기업 등록할 때 시퀀스 사용해서 companyCode 문자열 + 숫자로 받기 해야함.  -->
 </mapper>
