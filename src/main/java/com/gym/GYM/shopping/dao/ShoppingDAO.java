@@ -16,7 +16,7 @@ import java.util.List;
 @Mapper
 public interface ShoppingDAO {
 
-
+//
     List<ProductDTO> shoppingList();
 
     ProductDTO shoppingView(String productCode);
