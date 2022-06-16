@@ -13,7 +13,7 @@ public class PayDTO {
     private String payId;
     private String payPoint;
     private String payList;
-<<<<<<< HEAD
+
 	public String getPayId() {
 		return payId;
 	}
@@ -36,43 +36,5 @@ public class PayDTO {
 	public String toString() {
 		return "PayDTO [payId=" + payId + ", payPoint=" + payPoint + ", payList=" + payList + "]";
 	}
-=======
->>>>>>> branch 'MHY' of https://github.com/mumgod/GYM1.git
 
-<<<<<<< HEAD
-   
-=======
-    public String getPayId() {
-        return payId;
-    }
-
-    public void setPayId(String payId) {
-        this.payId = payId;
-    }
-
-    public String getPayPoint() {
-        return payPoint;
-    }
-
-    public void setPayPoint(String payPoint) {
-        this.payPoint = payPoint;
-    }
-
-    public String getPayList() {
-        return payList;
-    }
-
-    public void setPayList(String payList) {
-        this.payList = payList;
-    }
-
-    @Override
-    public String toString() {
-        return "PayDTO{" +
-                "payId='" + payId + '\'' +
-                ", payPoint='" + payPoint + '\'' +
-                ", payList='" + payList + '\'' +
-                '}';
-    }
->>>>>>> branch 'MHY' of https://github.com/mumgod/GYM1.git
 }
