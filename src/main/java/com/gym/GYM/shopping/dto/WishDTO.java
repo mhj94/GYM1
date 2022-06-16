@@ -23,6 +23,7 @@ public class WishDTO {
     private String wishMorningSnack;
     private String wishLaunchSnack;
     private String wishDinnerSnack;
+<<<<<<< HEAD
 	public String getWishId() {
 		return wishId;
 	}
@@ -71,6 +72,79 @@ public class WishDTO {
 				+ ", wishDinner=" + wishDinner + ", wishMorningSnack=" + wishMorningSnack + ", wishLaunchSnack="
 				+ wishLaunchSnack + ", wishDinnerSnack=" + wishDinnerSnack + "]";
 	}
+=======
+>>>>>>> branch 'MHY' of https://github.com/mumgod/GYM1.git
 
+<<<<<<< HEAD
    
+=======
+    public String getWishId() {
+        return wishId;
+    }
+
+    public void setWishId(String wishId) {
+        this.wishId = wishId;
+    }
+
+    public String getWishMorning() {
+        return wishMorning;
+    }
+
+    public void setWishMorning(String wishMorning) {
+        this.wishMorning = wishMorning;
+    }
+
+    public String getWishLaunch() {
+        return wishLaunch;
+    }
+
+    public void setWishLaunch(String wishLaunch) {
+        this.wishLaunch = wishLaunch;
+    }
+
+    public String getWishDinner() {
+        return wishDinner;
+    }
+
+    public void setWishDinner(String wishDinner) {
+        this.wishDinner = wishDinner;
+    }
+
+    public String getWishMorningSnack() {
+        return wishMorningSnack;
+    }
+
+    public void setWishMorningSnack(String wishMorningSnack) {
+        this.wishMorningSnack = wishMorningSnack;
+    }
+
+    public String getWishLaunchSnack() {
+        return wishLaunchSnack;
+    }
+
+    public void setWishLaunchSnack(String wishLaunchSnack) {
+        this.wishLaunchSnack = wishLaunchSnack;
+    }
+
+    public String getWishDinnerSnack() {
+        return wishDinnerSnack;
+    }
+
+    public void setWishDinnerSnack(String wishDinnerSnack) {
+        this.wishDinnerSnack = wishDinnerSnack;
+    }
+
+    @Override
+    public String toString() {
+        return "WishDTO{" +
+                "wishId='" + wishId + '\'' +
+                ", wishMorning='" + wishMorning + '\'' +
+                ", wishLaunch='" + wishLaunch + '\'' +
+                ", wishDinner='" + wishDinner + '\'' +
+                ", wishMorningSnack='" + wishMorningSnack + '\'' +
+                ", wishLaunchSnack='" + wishLaunchSnack + '\'' +
+                ", wishDinnerSnack='" + wishDinnerSnack + '\'' +
+                '}';
+    }
+>>>>>>> branch 'MHY' of https://github.com/mumgod/GYM1.git
 }

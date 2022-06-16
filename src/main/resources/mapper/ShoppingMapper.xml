@@ -3,14 +3,25 @@
 
 <mapper namespace="com.gym.GYM.shopping.dao.ShoppingDAO">
 
+	<select id="shoppingList" resultType="product">
+		SELECT * FROM PRODUCT
+	</select>
 
 
 
-<select id="wishdtoList" parameterType="String" resultType="wish">
-SELECT * FROM WISH WHERE WISHID=#{memeberId}
-</select>
+
+	<select id="wishdtoList" parameterType="String"
+		resultType="wish">
+		SELECT * FROM WISH WHERE WISHID=#{memeberId}
+	</select>
 
 
+
+
+	<select id="shoppingView" parameterType="String"
+		resultType="product">
+		SELECT * FROM PRODUCT WHERE PRODUCTCODE =#{productCode}
+	</select>
 
 
 </mapper>
