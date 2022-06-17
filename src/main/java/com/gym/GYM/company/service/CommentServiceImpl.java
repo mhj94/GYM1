@@ -22,10 +22,7 @@ public class CommentServiceImpl implements CommentService {
         int result = commentdao.commentRegist(comment);
 
         if (result > 0) {
-            int result1 = commentdao.commentReviewRate(comment);
-            if (result1 > 0) {
-                commentList = commentdao.commentList(comment.getReviewCompanyCode());
-            }
+            commentList = commentdao.commentList(comment.getReviewCompanyCode());
         } else {
             commentList = null;
         }
