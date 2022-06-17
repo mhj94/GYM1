@@ -1,0 +1,27 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gym.GYM.shopping.dao.ShoppingDAO">
+
+	<select id="shoppingList" resultType="product">
+		SELECT * FROM PRODUCT
+	</select>
+
+
+
+
+	<select id="wishdtoList" parameterType="String"
+		resultType="wish">
+		SELECT * FROM WISH WHERE WISHID=#{memeberId}
+	</select>
+
+
+
+
+	<select id="shoppingView" parameterType="String"
+		resultType="product">
+		SELECT * FROM PRODUCT WHERE PRODUCTCODE =#{productCode}
+	</select>
+
+
+</mapper>

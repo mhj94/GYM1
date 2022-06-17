@@ -7,8 +7,11 @@
 <meta name="author" content="생로병사"/>
 <meta name="description" content="TrainingPlanWriteForm"/>
 <title>책임GYM</title>
+
+
 </head>
 <body>
+<div>
 <form action="trainingPlanRegist" method="post" enctype="multipart/form-data">
     <table>
         <caption>견적서 등록</caption>
@@ -44,24 +47,187 @@
             </td>
         </tr>
     </table>
+    </form>
+</div>
+    
+    
 </form>
+ <div id = "sendGradeView"></div>
+ <div id = "sendPartView"></div>
+ <div id = "viewDetail" style="display:none" >
+     <div >
+        123
+     </div>
+     <div style="float: right">
+        456
+     </div>
+ </div>
+ <div id = "trainingSelect" style="position:absolute; right:20px; top:20px; display:none">운동리스트
+ <form>
+     <table>
+         <tr>
+         <th>1day</th>
+          <td>
+              <select name="">
+              <option th:value="하체어깨" th:text="하체어깨"></option>
+              <option th:value="가슴삼두" th:text="가슴삼두"></option>
+              <option th:value="등이두" th:text="등이두"></option>
+              </select>
+          </td>
+         </tr>
+         <tr>
+             <th>2day</th>
+             <td>
+                 <select name="">
+                     <option th:value="하체어깨" th:text="하체어깨"></option>
+                     <option th:value="가슴삼두" th:text="가슴삼두"></option>
+                     <option th:value="등이두" th:text="등이두"></option>
+                 </select>
+             </td>
+         </tr>
+         <tr>
+             <th>3day</th>
+             <td>
+                 <select name="">
+                     <option th:value="하체어깨" th:text="하체어깨"></option>
+                     <option th:value="가슴삼두" th:text="가슴삼두"></option>
+                     <option th:value="등이두" th:text="등이두"></option>
+                 </select>
+             </td>
+         </tr>
+         <tr>
+             <th>4day</th>
+             <td>
+                 <select name="">
+                     <option th:value="하체어깨" th:text="하체어깨"></option>
+                     <option th:value="가슴삼두" th:text="가슴삼두"></option>
+                     <option th:value="등이두" th:text="등이두"></option>
+                 </select>
+             </td>
+         </tr>
+         <tr>
+             <th>5day</th>
+             <td>
+                 <select name="">
+                     <option th:value="하체어깨" th:text="하체어깨"></option>
+                     <option th:value="가슴삼두" th:text="가슴삼두"></option>
+                     <option th:value="등이두" th:text="등이두"></option>
+                 </select>
+             </td>
+         </tr>
+     </table>
+ </form>
+ </div>
 </body>
-<script>
-    function sendGrade(grade){
 
+<script src = "https://code.jquery.com/jquery-latest.js"></script>
+<script th:inline ="javascript">
+
+    function sendGrade(Grade){
+    	const sendGradeView = document.getElementById('sendGradeView');
+
+
+    	var grade = Grade;
+
+    	console.log(grade);
         $.ajax({
-            url:"/sendGrade",
+            url:"ajax/sendGrade",
             type:"GET",
-            dataType:"Json",
-            data:{"trainingPlanGrade":grade},
-            success:function(data){
-                alert('sendGrade 성공')
+            dataType:"json",
+            data:{"trainingGrade":grade},
+            success:function(result){
+
+                showGrade(result);
+
+                
             },
-            error:function(e){
-             alert('sendGrade 실패')
-            }
+            error:function(request, status, error){
+
+        		alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+
+        	}
         });
 
     }
+    
+    
+    function showGrade(result){
+    	
+    	console.log(result);
+    	var output = "";
+    	output += "<div>";
+    	
+    	for(var i in result){
+    		
+    		output += "<button onclick =sendPart('"+result[i].trainingPart+"') value = '"+result[i].trainingPart+"'>"+result[i].trainingPart+"</button>";
+    		
+    	}
+    	output += "</div>";
+    	
+    	
+    	
+    	var sendGradeView = document.getElementById('sendGradeView');
+    	sendGradeView.innerHTML = output;
+   
+    }
+    
+    function sendPart(Part){
+    	const sendPartView = document.getElementById('sendPartView');
+     	var trainingPart = Part;
+     	console.log(trainingPart);
+        $.ajax({
+            url:"ajax/sendPart",
+            type:"GET",
+            dataType:"json",
+            data:{"trainingPart":trainingPart},
+            success:function(resultPart){
+                showPart(resultPart);
+                select = Part;
+                console.log(Part);
+                console.log(select);
+            },
+            error:function(request, status, error){
+
+        		alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+
+        	}
+        });
+    }
+    
+    function showPart(resultPart){
+    	console.log(resultPart);
+    	var output = "";
+    	output += "<div>";
+    	
+    	for(var i in resultPart){
+    		
+    		output += "<button onclick='viewDetail()'>"+resultPart[i].trainingName+"</button>";
+    		
+    	}
+    	output += "</div>";
+    	
+    	
+    	
+    	var sendPartView = document.getElementById('sendPartView');
+    	sendGradeView.innerHTML = output;
+    	
+    }
+
+    // 버튼 클릭시 상세보기 숨기기/나타내기
+    function viewDetail(){
+        const div = document.getElementById('viewDetail');
+        const div1 = document.getElementById('trainingSelect')
+
+        if(div.style.display==='none'){
+            div.style.display = 'block';
+            div1.style.display = 'block';
+        } else {
+            div.style.display = 'none';
+            div1.style.display = 'block';
+        }
+
+
+    }
+    
 </script>
 </html>

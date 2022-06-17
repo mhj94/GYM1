@@ -25,4 +25,6 @@
     <delete id="trainingPlanDelete" parameterType="String">
         DELETE FROM TRAININGPLAN WHERE TRAININGPLANCODE = #{trainingPlanCode}
     </delete>
+    
+
 </mapper>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.gym.GYM.trainingplan.dao.TrainingPlanAjaxDAO">
+
+	<select id="sendGrade" parameterType = "String" resultType="training">
+		SELECT DISTINCT TRAININGPART FROM TRAINING WHERE TRAININGGRADE = #{trainingGrade}
+	</select>
+
+
+	<select id="sendPart" parameterType="String" resultType="training">
+		SELECT * FROM TRAINING WHERE TRAININGPART = #{trainingPart}
+	</select>
+</mapper>
