@@ -20,4 +20,6 @@ public interface CompanyDAO {
     int companyModify(CompanyDTO company);
 
     int companyDelete(String companyCode);
+
+
 }

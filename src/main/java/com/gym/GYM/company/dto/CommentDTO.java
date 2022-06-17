@@ -9,11 +9,13 @@ import java.sql.Date;
 @Data
 @Alias("comment")
 public class CommentDTO {
+
     private int reviewNo;
     private String reviewWriter;
     private String reviewCompanyCode;
     private String reviewContent;
     private double reviewRate;
+    private CompanyDTO company;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date reviewDate;

@@ -17,6 +17,5 @@ public class CompanyDTO {
     private double companyRate;
     private String companyEquipment;
     private MultipartFile companyPhoto;
-	private CommentDTO comment;
     
 }
