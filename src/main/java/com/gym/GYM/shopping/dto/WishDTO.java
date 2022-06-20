@@ -18,59 +18,78 @@ public class WishDTO {
 
     private String wishId;
     private String wishMorning;
-    private String wishLaunch;
+    private String wishLunch;
     private String wishDinner;
     private String wishMorningSnack;
-    private String wishLaunchSnack;
+    private String wishLunchSnack;
     private String wishDinnerSnack;
 
 	public String getWishId() {
 		return wishId;
 	}
+
 	public void setWishId(String wishId) {
 		this.wishId = wishId;
 	}
+
 	public String getWishMorning() {
 		return wishMorning;
 	}
+
 	public void setWishMorning(String wishMorning) {
 		this.wishMorning = wishMorning;
 	}
-	public String getWishLaunch() {
-		return wishLaunch;
+
+	public String getWishLunch() {
+		return wishLunch;
 	}
-	public void setWishLaunch(String wishLaunch) {
-		this.wishLaunch = wishLaunch;
+
+	public void setWishLunch(String wishLunch) {
+		this.wishLunch = wishLunch;
 	}
+
 	public String getWishDinner() {
 		return wishDinner;
 	}
+
 	public void setWishDinner(String wishDinner) {
 		this.wishDinner = wishDinner;
 	}
+
 	public String getWishMorningSnack() {
 		return wishMorningSnack;
 	}
+
 	public void setWishMorningSnack(String wishMorningSnack) {
 		this.wishMorningSnack = wishMorningSnack;
 	}
-	public String getWishLaunchSnack() {
-		return wishLaunchSnack;
+
+	public String getWishLunchSnack() {
+		return wishLunchSnack;
 	}
-	public void setWishLaunchSnack(String wishLaunchSnack) {
-		this.wishLaunchSnack = wishLaunchSnack;
+
+	public void setWishLunchSnack(String wishLunchSnack) {
+		this.wishLunchSnack = wishLunchSnack;
 	}
+
 	public String getWishDinnerSnack() {
 		return wishDinnerSnack;
 	}
+
 	public void setWishDinnerSnack(String wishDinnerSnack) {
 		this.wishDinnerSnack = wishDinnerSnack;
 	}
+
 	@Override
 	public String toString() {
-		return "WishDTO [wishId=" + wishId + ", wishMorning=" + wishMorning + ", wishLaunch=" + wishLaunch
-				+ ", wishDinner=" + wishDinner + ", wishMorningSnack=" + wishMorningSnack + ", wishLaunchSnack="
-				+ wishLaunchSnack + ", wishDinnerSnack=" + wishDinnerSnack + "]";
+		return "WishDTO{" +
+				"wishId='" + wishId + '\'' +
+				", wishMorning='" + wishMorning + '\'' +
+				", wishLunch='" + wishLunch + '\'' +
+				", wishDinner='" + wishDinner + '\'' +
+				", wishMorningSnack='" + wishMorningSnack + '\'' +
+				", wishLunchSnack='" + wishLunchSnack + '\'' +
+				", wishDinnerSnack='" + wishDinnerSnack + '\'' +
+				'}';
 	}
-
 }

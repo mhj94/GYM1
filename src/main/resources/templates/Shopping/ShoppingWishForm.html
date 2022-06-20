@@ -19,10 +19,11 @@
 		</tr>
 
 	</table>
-
+	<input type="hidden" th:id="memberId" th:value="${session.login.memberId}">
 	<input type="hidden" th:id="morning" th:value="${wish.wishMorning}">
 	<input type="hidden" th:id="launch" th:value="${wish.wishLaunch}">
 	<input type="hidden" th:id="dinner" th:value="${wish.wishDinner}">
+
 	<input type="hidden" th:id="morningSnack"
 		th:value="${wish.wishMorningSnack}">
 	<input type="hidden" th:id="launchSnack"
@@ -30,9 +31,14 @@
 	<input type="hidden" th:id="dinnerSnack"
 		th:value="${wish.wishDinnerSnack}">
 
+	<h3 th:if = "${session.login !=null}" th:text ="${session.login.memberId}"></h3>
+	<h3 th:if = "${session.login !=null}" th:text ="${session.login.memberRole}"></h3>
 
 
-	<div id="myWishList"></div>
+
+	<div id="myWishList">
+
+	</div>
 
 
 </body>
@@ -43,22 +49,30 @@
 <script th:inline="javascript">
 </script>
 <script>
+
+var ajaxMemberId = document.getElementById('memberId').value;
 var ajaxMorning = document.getElementById('morning').value;
 var ajaxLaunch = document.getElementById('launch').value;
 var ajaxDinner = document.getElementById('dinner').value;
 var ajaxMorningSnack = document.getElementById('morningSnack').value;
 var ajaxLaunchSnack = document.getElementById('launchSnack').value;
-var ajaxDinnerSnack = document.getElementById('dinnerSnack').value
-var ajaxWishList= new Array(ajaxMorning,ajaxLaunch,ajaxDinner,ajaxMorningSnack,ajaxLaunchSnack,ajaxDinnerSnack); 
+var ajaxDinnerSnack = document.getElementById('dinnerSnack').value;
 
-console.log(ajaxWishList);
+
 
 
 $(document).ready(function(){
 	$.ajax({
 		type : "POST",
 		url : "wishList",
-		data : {"wish": ajaxWishList},
+		data : {"wishId" : ajaxMemberId,
+			"wishMorning": ajaxMorning,
+			"wishLaunch": ajaxLaunch,
+			"wishDinner": ajaxDinner,
+			"wishMorningSnack": ajaxMorningSnack,
+			"wishLaunchSnack": ajaxLaunchSnack,
+			"wishDinnerSnack": ajaxDinnerSnack,
+		},
 		dataType : "json",
 		success : function(product){
 			wishList(product);
@@ -75,13 +89,19 @@ $(document).ready(function(){
 		output+="<table>";
 		output+="<tr>";
 		output+="<th>상품이름</th>";
-		output+="<th>단백질</th>;
+		output+="<th>단백질</th>";
 		output+="<th>탄수화물</th>";
-		output+="<th>지방</th>;
-		output+="<th>칼로리/th>;	
-		
-		output+="<tr th:each='list: ${productView.}'>";
-		
+		output+="<th>지방</th>";
+		output+="<th>칼로리/th>";
+		output+="</tr>"
+
+
+		output+="<tr th:each='list: ${productView.productName}'>";
+		output+="<th th:text='+${productView.productProtein}+'></tr>";
+		output+="<th th:text='+${productView.productCarbohydrate}+'></tr>";
+		output+="<th th:text='+${productView.productFat}+'></tr>";
+		output+="<th th:text='+${productView.productKcal}+'></tr>";
+		output+="</tr>";
 	
 		
 	}

@@ -21,5 +21,5 @@ public interface ShoppingDAO {
 
     ProductDTO shoppingView(String productCode);
 
-	WishDTO wishdtoList(String memberId);
+	WishDTO     wishdtoList(String memberId);
 }

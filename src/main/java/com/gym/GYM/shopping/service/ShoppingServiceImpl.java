@@ -2,6 +2,7 @@ package com.gym.GYM.shopping.service;
 
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 //github.com/mumgod/GYM1.git
@@ -21,15 +22,17 @@ public class ShoppingServiceImpl implements ShoppingService {
 
 	private ModelAndView mav = new ModelAndView();
 
+	List<ProductDTO>productDTOList =new ArrayList<ProductDTO>();
+
 	@Override
-	public ModelAndView shoppionWishFrom(String memberId) {
+	public ModelAndView shoppingWishFrom(String memberId) {
 		System.out.println(memberId);
 		WishDTO wishdtoList = shoppingdao.wishdtoList(memberId);
 
 		mav.addObject("wish", wishdtoList);
 
 		System.out.println(wishdtoList);
-		mav.setViewName("Shopping/ShoppionWishFrom");
+		mav.setViewName("Shopping/ShoppingWishFrom");
 		return mav;
 	}
 
@@ -49,5 +52,16 @@ public class ShoppingServiceImpl implements ShoppingService {
 
 		return mav;
 	}
+
+
+//찜 목록 불러오는 ajax 메소드
+	@Override
+	public List<ProductDTO> wishList(WishDTO wishDTOList) {
+
+
+		productDTOList = shoppingdao.wishdtoList(wishDTOList);
+		return productDTOList;
+	}
+
 
 }

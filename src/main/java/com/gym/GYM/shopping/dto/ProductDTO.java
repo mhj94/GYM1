@@ -21,6 +21,7 @@ public class ProductDTO {
     PRODUCTCOMMENT NVARCHAR2(100),              --상품설명
     PRODUCTPHOTO NVARCHAR2(100),                --상품사진명
     PRODUCTHITS NUMBER                          --조회수
+    PRODUCTLISTCODE NVARCHAR2(6)                --상품 분류 코드
 );*/
     private String productCode;
     private String productName;
@@ -35,6 +36,8 @@ public class ProductDTO {
     private String productComment;
     private String productPhoto;
     private int productHits;
+
+    private String productListCode;
 
     public String getProductCode() {
         return productCode;
@@ -140,6 +143,14 @@ public class ProductDTO {
         this.productHits = productHits;
     }
 
+    public String getProductListCode() {
+        return productListCode;
+    }
+
+    public void setProductListCode(String productListCode) {
+        this.productListCode = productListCode;
+    }
+
     @Override
     public String toString() {
         return "ProductDTO{" +
@@ -156,6 +167,7 @@ public class ProductDTO {
                 ", productComment='" + productComment + '\'' +
                 ", productPhoto='" + productPhoto + '\'' +
                 ", productHits=" + productHits +
+                ", productListCode='" + productListCode + '\'' +
                 '}';
     }
 }
