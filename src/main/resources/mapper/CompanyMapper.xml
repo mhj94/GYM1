@@ -5,9 +5,7 @@
 
 
     <insert id="companyRegist" parameterType="company">
-        INSERT INTO COMPANY
-        VALUES ('COM' || COMPANY_SEQ.NEXTVAL, #{companyId}, #{companyComment}, #{companyPhotoName}, 0,
-                #{companyEquipment})
+        INSERT INTO COMPANY VALUES ('COM' || COMPANY_SEQ.NEXTVAL, #{companyId}, #{companyComment}, #{companyPhotoName}, 0, #{companyEquipment}, #{companyName})
     </insert>
     <select id="companyList" parameterType="paging" resultType="company">
         SELECT *
