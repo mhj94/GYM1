@@ -47,6 +47,7 @@ public class CommentServiceImpl implements CommentService {
         int result = commentdao.commentModify(comment);
 
 
+
         if (result > 0) {
             commentList = commentdao.commentList(comment.getCompanyCode());
         } else {

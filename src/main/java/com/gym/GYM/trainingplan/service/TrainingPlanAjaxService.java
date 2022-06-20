@@ -12,4 +12,6 @@ public interface TrainingPlanAjaxService {
 
 	List<TrainingDTO> sendPart(String trainingPart);
 
+
+
 }

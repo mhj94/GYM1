@@ -35,4 +35,7 @@ public class TrainingPlanAjaxServiceImpl implements TrainingPlanAjaxService {
 		return trainingList;
 	}
 
+
+
+
 }

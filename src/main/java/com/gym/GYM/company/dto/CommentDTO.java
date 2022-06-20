@@ -12,7 +12,7 @@ public class CommentDTO {
 
     private int reviewNo;
     private String reviewWriter;
-    private String CompanyCode;
+    private String companyCode;
     private String reviewContent;
     private double reviewRate;
 

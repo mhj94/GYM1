@@ -39,5 +39,12 @@ public class TrainingPlanAjaxController {
     	
     	return trainingList;
     }
+
+	@GetMapping("/sendTrainingPart")
+	public @ResponseBody List<TrainingDTO> sendTrainingPart(@RequestParam(value ="trainingPart", required = true)String trainingPart){
+		trainingList = trainingplanajaxsvc.sendPart(trainingPart);
+
+		return trainingList;
+	}
 }
 

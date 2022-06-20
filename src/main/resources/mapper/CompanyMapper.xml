@@ -35,10 +35,6 @@
         FROM COMPANY
         WHERE COMPANYCODE = #{companyCode}
     </delete>
-    <select id="rateSum" parameterType="String" resultType="double">
-        SELECT AVG(REVIEWRATE)
-        FROM COMPANYREVIEW
-        WHERE COMPANYCODE = #{companyCode}
-    </select>
+
 
 </mapper>

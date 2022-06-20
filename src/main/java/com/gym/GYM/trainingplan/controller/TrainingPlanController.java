@@ -21,17 +21,16 @@ public class TrainingPlanController {
     private ModelAndView mav = new ModelAndView();
 
 
-    // 운동견적 작성 페이지 : trainingPlanForm
-    @GetMapping("/trainingPlanForm")
-    public String trainingPlanForm(){
+    // 견적서 종류 선택 페이지 이동 : selectPlanForm
 
-        return "index";
+    @GetMapping("/selectPlanForm")
+    public String selectPlanForm(){
 
-        //TODO  페이지 지정하기
+        return "SelectPlanForm";
     }
 
     @GetMapping("/trainingPlanRegistForm")
-    public String trainingPlanRegistForm(){
+    public String trainingRegistForm(){
 
         return "TrainingPlan/TrainingPlanRegistForm";
 

@@ -19,6 +19,7 @@ public class CommentController {
     @Autowired
     private CommentService commentsvc;
 
+    
     List<CommentDTO> commentList = new ArrayList<CommentDTO>();
 
     // 리뷰 목록 메소드

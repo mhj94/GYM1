@@ -16,7 +16,9 @@ public interface CommentDAO {
 
     int commentDelete(CommentDTO comment);
 
-    double companyReviewRate (String companyCode);
+
 
     int updateRate(CompanyDTO company);
+
+    Double companyReviewRate(String companyCode);
 }

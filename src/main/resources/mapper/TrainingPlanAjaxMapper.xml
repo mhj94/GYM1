@@ -13,4 +13,8 @@
 	<select id="sendPart" parameterType="String" resultType="training">
 		SELECT * FROM TRAINING WHERE TRAININGPART = #{trainingPart}
 	</select>
+
+
+
+
 </mapper>
