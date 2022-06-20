@@ -1,9 +1,11 @@
 package com.gym.GYM.trainingplan.dto;
 
 
+import lombok.Data;
 import org.apache.ibatis.type.Alias;
 
 @Alias("MyMealCode")
+@Data
 public class MyMealCodeDTO {
 
    /* CREATE TABLE MYMEALCODE(
@@ -23,63 +25,5 @@ public class MyMealCodeDTO {
     private String lunchSnack;
     private String dinnerSnack;
 
-    public String getMorning() {
-        return morning;
-    }
 
-    public void setMorning(String morning) {
-        this.morning = morning;
-    }
-
-    public String getLunch() {
-        return lunch;
-    }
-
-    public void setLunch(String lunch) {
-        this.lunch = lunch;
-    }
-
-    public String getDinner() {
-        return dinner;
-    }
-
-    public void setDinner(String dinner) {
-        this.dinner = dinner;
-    }
-
-    public String getMorningSnack() {
-        return morningSnack;
-    }
-
-    public void setMorningSnack(String morningSnack) {
-        this.morningSnack = morningSnack;
-    }
-
-    public String getLunchSnack() {
-        return lunchSnack;
-    }
-
-    public void setLunchSnack(String lunchSnack) {
-        this.lunchSnack = lunchSnack;
-    }
-
-    public String getDinnerSnack() {
-        return dinnerSnack;
-    }
-
-    public void setDinnerSnack(String dinnerSnack) {
-        this.dinnerSnack = dinnerSnack;
-    }
-
-    @Override
-    public String toString() {
-        return "MyMealCodeDTO{" +
-                "morning='" + morning + '\'' +
-                ", lunch='" + lunch + '\'' +
-                ", dinner='" + dinner + '\'' +
-                ", morningSnack='" + morningSnack + '\'' +
-                ", lunchSnack='" + lunchSnack + '\'' +
-                ", dinnerSnack='" + dinnerSnack + '\'' +
-                '}';
-    }
 }

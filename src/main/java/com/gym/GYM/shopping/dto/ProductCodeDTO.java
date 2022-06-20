@@ -1,8 +1,11 @@
 package com.gym.GYM.shopping.dto;
 
+import lombok.Data;
 import org.apache.ibatis.type.Alias;
 
 @Alias("productCode")
+@Data
+
 public class ProductCodeDTO {
 
    /* CREATE TABLE PRODUCTCODE(
@@ -17,36 +20,5 @@ public class ProductCodeDTO {
     private String snack;
     private String supplements;
 
-    public String getChickenBreast() {
-        return chickenBreast;
-    }
 
-    public void setChickenBreast(String chickenBreast) {
-        this.chickenBreast = chickenBreast;
-    }
-
-    public String getSnack() {
-        return snack;
-    }
-
-    public void setSnack(String snack) {
-        this.snack = snack;
-    }
-
-    public String getSupplements() {
-        return supplements;
-    }
-
-    public void setSupplements(String supplements) {
-        this.supplements = supplements;
-    }
-
-    @Override
-    public String toString() {
-        return "ProductCode{" +
-                "chickenBreast='" + chickenBreast + '\'' +
-                ", snack='" + snack + '\'' +
-                ", supplements='" + supplements + '\'' +
-                '}';
-    }
 }

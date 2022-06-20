@@ -1,8 +1,10 @@
 package com.gym.GYM.shopping.dto;
 
+import lombok.Data;
 import org.apache.ibatis.type.Alias;
 
 @Alias("wish")
+@Data
 public class WishDTO {
 
     /*
@@ -17,36 +19,5 @@ public class WishDTO {
 		private String wishCode;
 		private String wishProductCode;
 
-	public String getWishId() {
-		return wishId;
-	}
 
-	public void setWishId(String wishId) {
-		this.wishId = wishId;
-	}
-
-	public String getWishCode() {
-		return wishCode;
-	}
-
-	public void setWishCode(String wishCode) {
-		this.wishCode = wishCode;
-	}
-
-	public String getWishProductCode() {
-		return wishProductCode;
-	}
-
-	public void setWishProductCode(String wishProductCode) {
-		this.wishProductCode = wishProductCode;
-	}
-
-	@Override
-	public String toString() {
-		return "WishDTO{" +
-				"wishId='" + wishId + '\'' +
-				", wishCode='" + wishCode + '\'' +
-				", wishProductCode='" + wishProductCode + '\'' +
-				'}';
-	}
 }

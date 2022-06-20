@@ -1,10 +1,12 @@
 package com.gym.GYM.shopping.dto;
 
+import lombok.Data;
 import org.apache.ibatis.type.Alias;
 
 import java.sql.Date;
 
 @Alias("orders")
+@Data
 public class OrdersDTO {
 
     /*CREATE TABLE ORDERS(
@@ -30,73 +32,6 @@ public class OrdersDTO {
     private Date orderDay;
     private String orderPaySelect;
 
-	public String getOrderCode() {
-		return orderCode;
-	}
-	public void setOrderCode(String orderCode) {
-		this.orderCode = orderCode;
-	}
-	public String getOrderProductCode() {
-		return orderProductCode;
-	}
-	public void setOrderProductCode(String orderProductCode) {
-		this.orderProductCode = orderProductCode;
-	}
-	public String getOrderId() {
-		return orderId;
-	}
-	public void setOrderId(String orderId) {
-		this.orderId = orderId;
-	}
-	public String getOrderAddress() {
-		return orderAddress;
-	}
-	public void setOrderAddress(String orderAddress) {
-		this.orderAddress = orderAddress;
-	}
-	public String getOrderInvoiceNumber() {
-		return orderInvoiceNumber;
-	}
-	public void setOrderInvoiceNumber(String orderInvoiceNumber) {
-		this.orderInvoiceNumber = orderInvoiceNumber;
-	}
-	public String getOrderRequest() {
-		return orderRequest;
-	}
-	public void setOrderRequest(String orderRequest) {
-		this.orderRequest = orderRequest;
-	}
-	public Date getOrderDate() {
-		return orderDate;
-	}
-	public void setOrderDate(Date orderDate) {
-		this.orderDate = orderDate;
-	}
-	public String getOrderDelivery() {
-		return orderDelivery;
-	}
-	public void setOrderDelivery(String orderDelivery) {
-		this.orderDelivery = orderDelivery;
-	}
-	public Date getOrderDay() {
-		return orderDay;
-	}
-	public void setOrderDay(Date orderDay) {
-		this.orderDay = orderDay;
-	}
-	public String getOrderPaySelect() {
-		return orderPaySelect;
-	}
-	public void setOrderPaySelect(String orderPaySelect) {
-		this.orderPaySelect = orderPaySelect;
-	}
-	@Override
-	public String toString() {
-		return "OrdersDTO [orderCode=" + orderCode + ", orderProductCode=" + orderProductCode + ", orderId=" + orderId
-				+ ", orderAddress=" + orderAddress + ", orderInvoiceNumber=" + orderInvoiceNumber + ", orderRequest="
-				+ orderRequest + ", orderDate=" + orderDate + ", orderDelivery=" + orderDelivery + ", orderDay="
-				+ orderDay + ", orderPaySelect=" + orderPaySelect + "]";
-	}
 
 }
 
