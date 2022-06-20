@@ -31,7 +31,7 @@ public class CommentServiceImpl implements CommentService {
             commentList = null;
         }
 
-        companyReviewRate(company.getCompanyCode());
+        companyReviewRate(comment.getReviewCompanyCode());
 
         return commentList;
     }
@@ -46,13 +46,14 @@ public class CommentServiceImpl implements CommentService {
     public List<CommentDTO> commentModify(CommentDTO comment) {
         int result = commentdao.commentModify(comment);
 
-        companyReviewRate(company.getCompanyCode());
 
         if (result > 0) {
             commentList = commentdao.commentList(comment.getReviewCompanyCode());
         } else {
             commentList = null;
         }
+
+        companyReviewRate(comment.getReviewCompanyCode());
         return commentList;
     }
 
@@ -60,26 +61,27 @@ public class CommentServiceImpl implements CommentService {
     public List<CommentDTO> commentDelete(CommentDTO comment) {
         int result = commentdao.commentDelete(comment);
 
-        companyReviewRate(company.getCompanyCode());
 
         if (result > 0) {
             commentList = commentdao.commentList(comment.getReviewCompanyCode());
         } else {
             commentList = null;
         }
+
+        companyReviewRate(comment.getReviewCompanyCode());
         return commentList;
     }
 
-    public void companyReviewRate(String companyCode){
+    public void companyReviewRate(String companyCode) {
         Double companyReviewRate = commentdao.companyReviewRate(companyCode);
-        if(companyReviewRate == null) {
+        if (companyReviewRate == null) {
             companyReviewRate = 0.0;
         }
 
-        CommentDTO comment = new CommentDTO();
-        company.setCompanyCode(companyCode);
-        comment.setReviewRate(companyReviewRate);
 
-        commentdao.updateRate(comment);
+        company.setCompanyCode(companyCode);
+        company.setCompanyRate(companyReviewRate);
+
+        commentdao.updateRate(company);
     }
 }

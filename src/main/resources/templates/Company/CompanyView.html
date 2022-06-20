@@ -60,10 +60,11 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script th:inline="javascript">
+    var reviewCompanyCode = [[${view.companyCode}]];
     $(document).ready(function () {
 
 // 리뷰 목록
-        var reviewCompanyCode = [[${view.companyCode}]];
+
         console.log(reviewCompanyCode);
 
         $.ajax({
@@ -136,7 +137,8 @@
             output += "<td>" + list[i].reviewDate + "</td>";
 
             if (list[i].reviewWriter == loginId) {
-                output += "<td><button onclick='commentModify(" + list[i].reviewNo + ", " + list[i].reviewCompanyCode + ")'>수정</button></td>";
+
+                output += "<td><button onclick='commentModify(" + list[i].reviewNo + "," +reviewCompanyCode+ ")'>수정</button></td>";
             } else {
                 output += "<td><button>수정</button></td>";
 
@@ -144,7 +146,7 @@
 
             // 작성자와 로그인한 아이디가 같거나 관리자일 경우에만 삭제 가능
             if (list[i].reviewWriter == loginId || loginId == 'admin1111') {
-                output += "<td><button onclick='commentDelete(" + list[i].reviewNo + ", " + list[i].reviewCompanyCode + ")'>삭제</button></td>";
+                output += "<td><button onclick='commentDelete(" + list[i].reviewNo + "," + reviewCompanyCode + ")'>삭제</button></td>";
             } else {
                 output += "<td><button>삭제</button></td>";
             }

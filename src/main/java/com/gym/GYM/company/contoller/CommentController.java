@@ -38,6 +38,7 @@ public class CommentController {
     // 리뷰 수정 메소드
     @PostMapping("/commentModify")
     public @ResponseBody List<CommentDTO> commentModify(@ModelAttribute CommentDTO comment){
+        System.out.println("comment : "+ comment);
         commentList = commentsvc.commentModify(comment);
         return commentList;
     }

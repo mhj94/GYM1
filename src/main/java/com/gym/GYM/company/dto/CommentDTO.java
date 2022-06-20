@@ -15,7 +15,7 @@ public class CommentDTO {
     private String reviewCompanyCode;
     private String reviewContent;
     private double reviewRate;
-    private CompanyDTO company;
+
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date reviewDate;

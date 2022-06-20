@@ -14,10 +14,10 @@
     <delete id="commentDelete" parameterType="comment">
         DELETE FROM COMPANYREVIEW WHERE REVIEWNO=#{reviewNo} AND COMPANYCODE=#{reviewCompanyCode}
     </delete>
-    <select id="companyReviewRate" parameterType="String">
+    <select id="companyReviewRate" parameterType="String" resultType="double">
         SELECT AVG(REVIEWRATE) FROM COMPANYREVIEW WHERE COMPANYCODE = (SELECT COMPANYCODE FROM COMPANY WHERE COMPANYCODE = #{companyCode})
     </select>
-    <update id="updateRate" parameterType="String">
+    <update id="updateRate" parameterType="com.gym.GYM.company.dto.CompanyDTO">
         UPDATE COMPANY SET COMPANYRATE = #{companyRate} WHERE COMPANYCODE = #{companyCode}
     </update>
 </mapper>
