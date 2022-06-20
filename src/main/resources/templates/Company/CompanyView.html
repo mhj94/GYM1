@@ -25,7 +25,7 @@
     </tr>
     <tr>
         <th>기업 사진</th>
-        <td><img th:src="@{/CompanyPhoto/{photo}(${view.companyPhotoName})}" style="width:200px;"/></td>
+        <td><img th:src="@{/CompanyPhoto/{photo}(photo=${view.companyPhotoName})}" style="width:200px;"/></td>
     </tr>
     <tr>
         <th>기업 평점</th>
@@ -60,17 +60,17 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script th:inline="javascript">
-    var reviewCompanyCode = [[${view.companyCode}]];
+    var companyCode = [[${view.companyCode}]];
     $(document).ready(function () {
 
 // 리뷰 목록
 
-        console.log(reviewCompanyCode);
+        console.log(companyCode);
 
         $.ajax({
             type: "POST",
             url: "comment/commentList",
-            data: {"reviewCompanyCode": reviewCompanyCode},
+            data: {"companyCode": companyCode},
             dataType: "json",
             success: function (list) {
                 commentList(list);
@@ -89,7 +89,7 @@
                 location.href = "index";
             } else {
                 var reviewWriter = loginId;
-                var reviewCompanyCode = document.getElementById("companyCode").value;
+                var companyCode = document.getElementById("companyCode").value;
                 var reviewContent = $('#reviewContent').val();
                 var reviewRate = $('input[name="reviewRate"]:checked').val();
 
@@ -98,7 +98,7 @@
                     url: "comment/commentRegist",
                     data: {
                         "reviewWriter": reviewWriter,
-                        "reviewCompanyCode": reviewCompanyCode,
+                        "companyCode": companyCode,
                         "reviewContent": reviewContent,
                         "reviewRate": reviewRate
                     },
@@ -106,6 +106,7 @@
                     success: function (list) {
                         commentList(list);
                         $('#reviewContent').val("");
+                        reload();
                     },
                     error: function () {
                         alert('리뷰 등록 실패');
@@ -123,6 +124,7 @@
 
         output += "<table>";
         output += "<tr>";
+        output += "<th><코드></th>>"
         output += "<th><작성자></th>";
         output += "<th><내용></th>";
         output += "<th><별점></th>";
@@ -131,6 +133,7 @@
 
         for (var i in list) {
             output += "<tr>";
+            output += "<td>" + list[i].companyCode + "</td>";
             output += "<td>" + list[i].reviewWriter + "</td>";
             output += "<td>" + list[i].reviewContent + "</td>";
             output += "<td>" + list[i].reviewRate + "</td>";
@@ -138,7 +141,7 @@
 
             if (list[i].reviewWriter == loginId) {
 
-                output += "<td><button onclick='commentModify(" + list[i].reviewNo + "," +reviewCompanyCode+ ")'>수정</button></td>";
+                output += "<td><button onclick=commentModify(" + list[i].reviewNo + ",'" +list[i].companyCode+ "')>수정</button></td>";
             } else {
                 output += "<td><button>수정</button></td>";
 
@@ -146,7 +149,7 @@
 
             // 작성자와 로그인한 아이디가 같거나 관리자일 경우에만 삭제 가능
             if (list[i].reviewWriter == loginId || loginId == 'admin1111') {
-                output += "<td><button onclick='commentDelete(" + list[i].reviewNo + "," + reviewCompanyCode + ")'>삭제</button></td>";
+                output += "<td><button onclick=commentDelete(" + list[i].reviewNo + ",'" +list[i].companyCode+ "')>삭제</button></td>";
             } else {
                 output += "<td><button>삭제</button></td>";
             }
@@ -165,18 +168,19 @@
     }
 
     // 리뷰 삭제
-    function commentDelete(reviewNo, reviewCompanyCode) {
+    function commentDelete(reviewNo, companyCode) {
         var check = confirm('리뷰를 삭제하시겠습니까?');
-        var reviewCompanyCode = [[${view.companyCode}]];
+        var companyCode = [[${view.companyCode}]];
 
         if (check) {
             $.ajax({
                 type: "POST",
                 url: "comment/commentDelete",
-                data: {"reviewNo": reviewNo, "reviewCompanyCode": reviewCompanyCode},
+                data: {"reviewNo": reviewNo, "companyCode": companyCode},
                 dataType: "json",
                 success: function (list) {
                     commentList(list);
+                    reload();
                 },
                 error: function () {
                     alert('리뷰 삭제 실패');
@@ -186,25 +190,30 @@
     }
 
     // 리뷰 수정
-    function commentModify(reviewNo, reviewCompanyCode) {
+    function commentModify(reviewNo, companyCode) {
         var check = confirm('리뷰를 수정하시겠습니까?');
         var reviewContent = $('#reviewContent').val();
-        var reviewCompanyCode = [[${view.companyCode}]];
+        var companyCode = [[${view.companyCode}]];
+        var reviewRate = $('input[name="reviewRate"]:checked').val();
 
         if (check) {
             $.ajax({
                 type: "POST",
                 url: "comment/commentModify",
-                data: {"reviewNo": reviewNo, "reviewCompanyCode": reviewCompanyCode, "reviewContent": reviewContent},
+                data: {"reviewNo": reviewNo, "companyCode": companyCode, "reviewContent": reviewContent, "reviewRate": reviewRate},
                 dataType: "json",
                 success: function (list) {
                     commentList(list);
+                    reload();
                 },
                 error: function () {
                     alert('리뷰 수정 실패');
                 }
             });
         }
+    }
+    function reload(){
+        history.go(0);
     }
 </script>
 </html>

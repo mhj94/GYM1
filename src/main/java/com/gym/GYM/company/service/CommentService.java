@@ -7,7 +7,7 @@ import java.util.List;
 public interface CommentService {
     List<CommentDTO> commentRegist(CommentDTO comment);
 
-    List<CommentDTO> commentList(String reviewCompanyCode);
+    List<CommentDTO> commentList(String companyCode);
 
     List<CommentDTO> commentModify(CommentDTO comment);
 

@@ -8,7 +8,7 @@ import java.util.List;
 
 @Mapper
 public interface CommentDAO {
-    List<CommentDTO> commentList(String reviewCompanyCode);
+    List<CommentDTO> commentList(String companyCode);
 
     int commentRegist(CommentDTO comment);
 

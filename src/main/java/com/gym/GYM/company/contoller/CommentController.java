@@ -23,8 +23,8 @@ public class CommentController {
 
     // 리뷰 목록 메소드
     @PostMapping( "/commentList")
-    public @ResponseBody List<CommentDTO> commentList(@RequestParam(value = "reviewCompanyCode", required = true) String reviewCompanyCode) {
-        commentList = commentsvc.commentList(reviewCompanyCode);
+    public @ResponseBody List<CommentDTO> commentList(@RequestParam(value = "companyCode", required = true) String companyCode) {
+        commentList = commentsvc.commentList(companyCode);
         return commentList;
     }
 

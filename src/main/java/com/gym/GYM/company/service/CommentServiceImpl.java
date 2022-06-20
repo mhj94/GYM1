@@ -26,12 +26,12 @@ public class CommentServiceImpl implements CommentService {
         int result = commentdao.commentRegist(comment);
 
         if (result > 0) {
-            commentList = commentdao.commentList(comment.getReviewCompanyCode());
+            commentList = commentdao.commentList(comment.getCompanyCode());
         } else {
             commentList = null;
         }
 
-        companyReviewRate(comment.getReviewCompanyCode());
+        companyReviewRate(comment.getCompanyCode());
 
         return commentList;
     }
@@ -48,12 +48,12 @@ public class CommentServiceImpl implements CommentService {
 
 
         if (result > 0) {
-            commentList = commentdao.commentList(comment.getReviewCompanyCode());
+            commentList = commentdao.commentList(comment.getCompanyCode());
         } else {
             commentList = null;
         }
 
-        companyReviewRate(comment.getReviewCompanyCode());
+        companyReviewRate(comment.getCompanyCode());
         return commentList;
     }
 
@@ -63,12 +63,12 @@ public class CommentServiceImpl implements CommentService {
 
 
         if (result > 0) {
-            commentList = commentdao.commentList(comment.getReviewCompanyCode());
+            commentList = commentdao.commentList(comment.getCompanyCode());
         } else {
             commentList = null;
         }
 
-        companyReviewRate(comment.getReviewCompanyCode());
+        companyReviewRate(comment.getCompanyCode());
         return commentList;
     }
 
