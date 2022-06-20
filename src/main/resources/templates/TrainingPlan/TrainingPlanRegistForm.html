@@ -54,10 +54,10 @@
 <div id="sendGradeView"></div>
 <div id="sendPartView"></div>
 
-<div>
+<div id="showTrainingGif">
     123
 </div>
-<div style="float: right">
+<div style="float: right" id="showTrainingDetail">
     456
 </div>
 </div>
@@ -78,17 +78,17 @@
 
         console.log(grade);
         $.ajax({
-            url: "ajax/sendGrade",
-            type: "GET",
+            url     : "ajax/sendGrade",
+            type    : "GET",
             dataType: "json",
-            data: {"trainingGrade": grade},
-            success: function (result) {
+            data    : {"trainingGrade": grade},
+            success : function (result) {
 
                 showGrade(result);
                 showTrainingPart(result);
 
             },
-            error: function (request, status, error) {
+            error   : function (request, status, error) {
 
                 alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
 
@@ -122,17 +122,17 @@
         var trainingPart = Part;
         console.log(trainingPart);
         $.ajax({
-            url: "ajax/sendPart",
-            type: "GET",
+            url     : "ajax/sendPart",
+            type    : "GET",
             dataType: "json",
-            data: {"trainingPart": trainingPart},
-            success: function (resultPart) {
+            data    : {"trainingPart": trainingPart},
+            success : function (resultPart) {
                 showPart(resultPart);
                 select = Part;
                 console.log(Part);
                 console.log(select);
             },
-            error: function (request, status, error) {
+            error   : function (request, status, error) {
 
                 alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
 
@@ -147,8 +147,8 @@
 
         for (var i in resultPart) {
 
-            output += "<button>" + resultPart[i].trainingName + "</button>";
-
+            output += "<button onclick=sendTraining('" + resultPart[i].trainingCode + "')>" + resultPart[i].trainingName + "</button>";
+            console.log(resultPart[i].trainingCode);
         }
         output += "</div>";
 
@@ -158,6 +158,52 @@
 
     }
 
+    function sendTraining(trainingCode) {
+        $.ajax({
+            url     : "ajax/sendTraining",
+            dataType: "json",
+            type    : "GET",
+            data    : {"trainingCode": trainingCode},
+            success : function (result) {
+                alert('sendTraining 성공');
+                console.log(result);
+                sendTrainingView(result);
+
+
+            }, error: function (request, status, error) {
+
+                alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+
+            }
+        })
+    }
+
+    function sendTrainingView(result) {
+        var output1 = "";
+        var output2 = "";
+
+        output1 += "<div>";
+
+        for(var i in result) {
+            output1 += "<img src='" + result[i].trainingGifName + "'/>";
+        }
+        output1 += "</div>";
+
+        output2 += "<div>";
+
+        for (var j in result) {
+            output2 += "<h1>" + result[j].trainingName + "</h1>";
+            output2 += "<p>" + result[j].trainingComment + "</p>";
+
+        }
+        output2 += "</div>";
+
+        var showTrainingGif = document.getElementById('showTrainingGif');
+        showTrainingGif.innerHTML = output1;
+
+        var showTrainingDetail = document.getElementById('showTrainingDetail');
+        showTrainingDetail.innerHTML = output2;
+    }
 
     function showTrainingPart(resultPart) {
         var output = "";
@@ -181,16 +227,16 @@
     function sendTrainingPart() {
         var trainingPart = $("#trainingPart").val();
         $.ajax({
-            url: "ajax/sendTrainingPart",
-            type: "GET",
+            url     : "ajax/sendTrainingPart",
+            type    : "GET",
             dataType: "json",
-            data: {"trainingPart": trainingPart},
-            success: function (result) {
+            data    : {"trainingPart": trainingPart},
+            success : function (result) {
 
                 showTraining(result);
                 console.log(result);
             },
-            error: function (request, status, error) {
+            error   : function (request, status, error) {
 
                 alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
 

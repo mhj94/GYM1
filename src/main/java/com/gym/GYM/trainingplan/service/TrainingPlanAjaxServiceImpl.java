@@ -35,7 +35,13 @@ public class TrainingPlanAjaxServiceImpl implements TrainingPlanAjaxService {
 		return trainingList;
 	}
 
+	@Override
+	public List<TrainingDTO> sendTraining(String trainingCode) {
 
+		trainingList = trainingplanajaxdao.sendTraining(trainingCode);
+
+		return trainingList;
+	}
 
 
 }
