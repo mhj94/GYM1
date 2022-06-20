@@ -24,6 +24,8 @@ public class TrainingPlanAjaxController {
 	private TrainingPlanAjaxService trainingplanajaxsvc;
 	
 	List<TrainingDTO> trainingList = new ArrayList<TrainingDTO>();
+
+	TrainingDTO training = new TrainingDTO();
 	
 
     @GetMapping("/sendGrade")
@@ -48,10 +50,10 @@ public class TrainingPlanAjaxController {
 	}
 
 	@GetMapping("/sendTraining")
-	public @ResponseBody List<TrainingDTO> sendTraining(@RequestParam(value = "trainingCode", required = true)String trainingCode){
-		trainingList = trainingplanajaxsvc.sendTraining(trainingCode);
+	public @ResponseBody TrainingDTO sendTraining(@RequestParam(value = "trainingCode", required = true)String trainingCode){
+		training = trainingplanajaxsvc.sendTraining(trainingCode);
 
-		return trainingList;
+		return training;
 	}
 }
 

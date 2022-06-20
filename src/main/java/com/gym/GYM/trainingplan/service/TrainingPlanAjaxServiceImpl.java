@@ -18,6 +18,8 @@ public class TrainingPlanAjaxServiceImpl implements TrainingPlanAjaxService {
 
 	List<TrainingDTO> trainingList = new ArrayList<TrainingDTO>();
 
+	TrainingDTO training = new TrainingDTO();
+
 	private ModelAndView mav = new ModelAndView();
 
 	@Override
@@ -36,11 +38,11 @@ public class TrainingPlanAjaxServiceImpl implements TrainingPlanAjaxService {
 	}
 
 	@Override
-	public List<TrainingDTO> sendTraining(String trainingCode) {
+	public TrainingDTO sendTraining(String trainingCode) {
 
-		trainingList = trainingplanajaxdao.sendTraining(trainingCode);
+		training = trainingplanajaxdao.sendTraining(trainingCode);
 
-		return trainingList;
+		return training;
 	}
 
 
