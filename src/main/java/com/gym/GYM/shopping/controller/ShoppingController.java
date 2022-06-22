@@ -13,27 +13,35 @@ public class ShoppingController {
 	@Autowired
 	private ShoppingService shoppingsvc;
 
-
 	private ModelAndView mav = new ModelAndView();
 
-	@GetMapping("/shoppingMainFrom")
-	private String shoppingMain(){
-	return "Shopping/ShoppingMainFrom";
+	//shoppingMainForm : 쇼핑메인인덱스이동
+	@GetMapping("/JJ")
+	private String ShoppingMainForm(){
+
+		return "Shopping/ShoppingMainForm";
+	}
+
+	//shoppingList
+	@GetMapping("/shoppingMainForm")
+	private ModelAndView shoppingList(){
+		mav = shoppingsvc.shoppingList();
+		return mav;
+	}
+
+	// shoppingView
+	@GetMapping("/shoppingView")
+	private ModelAndView shoppingView(@RequestParam(value = "productCode")String productCode){
+
+		mav = shoppingsvc.shoppingView(productCode);
+		return mav;
 	}
 
 	// shoppionWishFrom : 찜한상품 보기 페이지
-
 	@GetMapping("/shoppionWishFrom")
 	private ModelAndView shoppionWishFrom(@RequestParam String memberId) {
 		System.out.println(memberId);
 		mav = shoppingsvc.shoppionWishFrom(memberId);
 		return mav;
 	}
-	
-
-	
-	
-	
-
-	
 }

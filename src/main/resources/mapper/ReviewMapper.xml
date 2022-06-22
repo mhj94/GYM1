@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gym.GYM.shopping.dao.ReviewDAO">
+    <select id="reviewList" parameterType="String" resultType="review">
+        SELECT * FROM PRODUCTREVIEW WHERE PRODUCTCODE = #{productCode} ORDER BY PRODUCTREVIEWNO DESC
+    </select>
+
+    <insert id="reviewRegist" parameterType="review">
+        INSERT INTO PRODUCTREVIEW VALUES (#{productCode},REVIEW_SEQ.NEXTVAL, #{productReviewWriter},#{productReviewContent}, SYSDATE, #{productReviewRate, jdbcType=VARCHAR})
+    </insert>
+
+    <update id="reviewModify" parameterType="review">
+        UPDATE PRODUCTREVIEW SET PRODUCTREVIEWCONTENT=#{productReviewContent}, PRODUCTREVIEWRATE=#{productReviewRate} WHERE PRODUCTREVIEWNO=#{productReviewNo} AND PRODUCTCODE=#{productCode}
+    </update>
+
+    <delete id="reviewDelete" parameterType="review">
+        DELETE FROM PRODUCTREVIEW WHERE PRODUCTREVIEWNO=#{productReviewNo} AND PRODUCTCODE=#{productCode}
+    </delete>
+
+    <select id="productReviewRate" parameterType="String" resultType="double">
+        SELECT AVG(PRODUCTREVIEWRATE) FROM PRODUCTREVIEW WHERE PRODUCTCODE = (SELECT PRODUCTCODE FROM PRODUCT WHERE PRODUCTCODE = #{productCode})
+    </select>
+
+    <update id="updateRate" parameterType="com.gym.GYM.shopping.dto.ProductDTO">
+        UPDATE PRODUCT SET PRODUCTRATE = #{productRate} WHERE PRODUCTCODE = #{productCode}
+    </update>
+
+</mapper>

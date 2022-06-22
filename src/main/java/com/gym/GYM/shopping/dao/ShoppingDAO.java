@@ -22,4 +22,6 @@ public interface ShoppingDAO {
     ProductDTO shoppingView(String productCode);
 
 	WishDTO wishdtoList(String memberId);
+
+    void count(String productCode);
 }
