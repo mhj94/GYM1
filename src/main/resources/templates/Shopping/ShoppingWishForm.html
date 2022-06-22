@@ -10,103 +10,70 @@
 <title>책임GYM 쇼핑몰 찜 목록 보기</title>
 </head>
 <body>
-	<H1>홈페이지 나오나 테스트</H1>
+	<H1>찜목록 보기 페이지</H1>
 
-	<table>
-		<tr>
-			<td th:if="${session.login !=null}" th:text="${wish.wishMorning}"></td>
-			<td></td>
-		</tr>
 
-	</table>
-	<input type="hidden" th:id="memberId" th:value="${session.login.memberId}">
-	<input type="hidden" th:id="morning" th:value="${wish.wishMorning}">
-	<input type="hidden" th:id="launch" th:value="${wish.wishLaunch}">
-	<input type="hidden" th:id="dinner" th:value="${wish.wishDinner}">
-
-	<input type="hidden" th:id="morningSnack"
-		th:value="${wish.wishMorningSnack}">
-	<input type="hidden" th:id="launchSnack"
-		th:value="${wish.wishLaunchSnack}">
-	<input type="hidden" th:id="dinnerSnack"
-		th:value="${wish.wishDinnerSnack}">
 
 	<h3 th:if = "${session.login !=null}" th:text ="${session.login.memberId}"></h3>
 	<h3 th:if = "${session.login !=null}" th:text ="${session.login.memberRole}"></h3>
 
 
 
-	<div id="myWishList">
+<table>
+
+
+	<tr>
+		<td>
+
+		<th>상품이름</th>
+		<th>칼로리</th>
+		<th>탄수화물</th>
+		<th>단백질</th>
+		<th>지방</th>
+		<th>나트륨</th>
+		<th>가격</th>
+		</td>
+
+
+	</tr>
+
+	<tr th:each="list : ${productDTOList}">
+
+		<td><img th:src="@{/uploadfile/{aa}(aa=${list.productPhoto})}" style="width:200px;"></td>
+
+		<td th:href="" th:text="${list.productName}"></td>
+		<td th:text="${list.productKcal}"></td>
+		<td th:text="${list.productCarbohydrate}"></td>
+		<td th:text="${list.productProtein}"></td>
+		<td th:text="${list.productFat}"></td>
+		<td th:text="${list.productSalt}"></td>
+		<td th:text="${list.productPrice}"></td>
+
+
+
+<!--
+<tr th:each="list:${MemberList}">
+<td><a th:href="@{mView(mId=${list.mId})}" th:text="${list.mId}"></a> </td>
+		-->
+
+
+	</tr>
+
+
+</table>
+
+
+
 
 	</div>
 
 
 </body>
 
-<script
-	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js">
-</script>
-<script th:inline="javascript">
-</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script th:inline="javascript"> </script>
 <script>
-
-var ajaxMemberId = document.getElementById('memberId').value;
-var ajaxMorning = document.getElementById('morning').value;
-var ajaxLaunch = document.getElementById('launch').value;
-var ajaxDinner = document.getElementById('dinner').value;
-var ajaxMorningSnack = document.getElementById('morningSnack').value;
-var ajaxLaunchSnack = document.getElementById('launchSnack').value;
-var ajaxDinnerSnack = document.getElementById('dinnerSnack').value;
-
-
-
-
-$(document).ready(function(){
-	$.ajax({
-		type : "POST",
-		url : "wishList",
-		data : {"wishId" : ajaxMemberId,
-			"wishMorning": ajaxMorning,
-			"wishLaunch": ajaxLaunch,
-			"wishDinner": ajaxDinner,
-			"wishMorningSnack": ajaxMorningSnack,
-			"wishLaunchSnack": ajaxLaunchSnack,
-			"wishDinnerSnack": ajaxDinnerSnack,
-		},
-		dataType : "json",
-		success : function(product){
-			wishList(product);
-			
-		},error: function(){
-			alert('wishList 실패')
-		}
-
-	});
-	
-	function wishList(product){
-		var output="";
-		
-		output+="<table>";
-		output+="<tr>";
-		output+="<th>상품이름</th>";
-		output+="<th>단백질</th>";
-		output+="<th>탄수화물</th>";
-		output+="<th>지방</th>";
-		output+="<th>칼로리/th>";
-		output+="</tr>"
-
-
-		output+="<tr th:each='list: ${productView.productName}'>";
-		output+="<th th:text='+${productView.productProtein}+'></tr>";
-		output+="<th th:text='+${productView.productCarbohydrate}+'></tr>";
-		output+="<th th:text='+${productView.productFat}+'></tr>";
-		output+="<th th:text='+${productView.productKcal}+'></tr>";
-		output+="</tr>";
-	
-		
-	}
-	
-});
 
 
 

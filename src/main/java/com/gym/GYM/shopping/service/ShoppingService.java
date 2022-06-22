@@ -9,12 +9,12 @@ import java.util.List;
 public interface ShoppingService {
 
 
-	ModelAndView shoppingWishFrom(String memberId);
+	ModelAndView shoppingWishForm(String memberId);
 
     ModelAndView shoppingList();
 
     ModelAndView shoppingView(String productCode);
 
 
-    List<ProductDTO> wishList(WishDTO wishDTOList);
+
 }

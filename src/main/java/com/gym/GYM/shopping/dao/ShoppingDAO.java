@@ -11,8 +11,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.gym.GYM.shopping.dto.WishDTO;
 
-import java.util.List;
-
 @Mapper
 public interface ShoppingDAO {
 
@@ -21,5 +19,16 @@ public interface ShoppingDAO {
 
     ProductDTO shoppingView(String productCode);
 
-	WishDTO     wishdtoList(String memberId);
+
+
+    WishDTO myWishDtoList(WishDTO wishdtoList);
+
+    int wishCount(String memberId);
+
+
+
+    List<WishDTO> wishList(String memberId);
+
+
+    ProductDTO myWishList(String productCode);
 }

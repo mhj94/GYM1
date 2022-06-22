@@ -34,7 +34,6 @@ public class ProductDTO {
     private int productFat;
     private int productSalt;
     private int productPrice;
-    private String productLink;
     private String productComment;
     private String productPhoto;
     private int productHits;

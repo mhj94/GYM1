@@ -24,30 +24,27 @@ public class ShoppingController {
 
 	private ModelAndView mav = new ModelAndView();
 
-	@GetMapping("/shoppingMainFrom")
-	private String shoppingMain(){
-	return "Shopping/ShoppingMainFrom";
+
+	@GetMapping("/shoppingMainForm")
+	private String shoppingMainForm(){
+		return "Shopping/shoppingMainForm";
 	}
 
 	// shoppionWishFrom : 찜한상품 보기 페이지
 
-	@GetMapping("/shoppingWishFrom")
-	private ModelAndView shoppingWishFrom(@RequestParam String memberId) {
+	@GetMapping("/shoppingWishForm")
+	private ModelAndView shoppingWishForm(@RequestParam String memberId) {
 
-		mav = shoppingsvc.shoppingWishFrom(memberId);
+
+		mav = shoppingsvc.shoppingWishForm(memberId);
 
 		return mav;
 	}
 
+	//myWishList: 찜한상품 List 불러오는 메소드
 
-	//찜 목록 불러오는 ajax 메소드
-	@PostMapping(value ="/wishList")
-	private ResponseBody wishDTOList (@ModelAttribute WishDTO wishDTOList){
 
-		productDTOList=shoppingsvc.wishList(wishDTOList);
 
-		return (ResponseBody) productDTOList;
-	}
 
 
 }
