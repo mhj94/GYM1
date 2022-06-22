@@ -55,7 +55,7 @@
 <div id="sendPartView"></div>
 
 <div id="showTrainingGif">
-    123
+
 </div>
 <div style="float: right" id="showTrainingDetail">
     456
@@ -64,7 +64,11 @@
 <div id="showTrainingPart" style="position:absolute; right:260px; top:60px;">운동리스트
 </div>
 
-<div id="showTraining" style="position:absolute; right:20px; top:20px;"></div>
+<div id="showTrainingDay1" style="float:right;"></div></br>
+<div id="showTrainingDay2" style="float:right;"></div></br>
+<div id="showTrainingDay3" style="float:right;"></div></br>
+<div id="showTrainingDay4" style="float:right;"></div></br>
+<div id="showTrainingDay5" style="float:right;"></div>
 </body>
 
 <script src="https://code.jquery.com/jquery-latest.js"></script>
@@ -205,10 +209,11 @@
     // trainingRegist 시작
     function showTrainingPart(result) {
         var output = "";
+        output += "<input type ='text' name = 'myRoutineTitle' placeholder='루틴명을 입력하세요'>";
         output += "<div>";
 
-        for (var i = 0; i < 5; i++) {
-            output += "<select name = 'trainingPart' id ='trainingPart' onchange ='sendTrainingPart()'>";
+        for (var i = 1; i <= 5; i++) {
+            output += "<select name = 'trainingPart' onchange ='sendTrainingPart("+i+",this.value)'>";
             output += "<option value =''>선택하세요</option>"
             for (var j in result) {
                 output += "<option value = '" + result[j].trainingPart + "'>" + result[j].trainingPart + "</option>";
@@ -222,8 +227,8 @@
         showTrainingPart.innerHTML = output;
     }
 
-    function sendTrainingPart() {
-        var trainingPart = $("#trainingPart").val();
+    function sendTrainingPart(number,trainingPart) {
+
         $.ajax({
             url     : "ajax/sendTrainingPart",
             type    : "GET",
@@ -231,7 +236,7 @@
             data    : {"trainingPart": trainingPart},
             success : function (result) {
 
-                showTraining(result);
+                showTraining(number,result);
                 console.log(result);
             },
             error   : function (request, status, error) {
@@ -244,16 +249,14 @@
 
     }
 
-    var buttonCount = 0;
-
-    function showTraining(training) {
+    function showTraining(number,training) {
 
         var output = "";
         output += "<div>";
 
-        for (var i = 0; i < 5; i++) {
+        for (var i = 1; i <= 5; i++) {
 
-            output += "<select name = 'training'>";
+            output += "<select name = 'training' id ='training"+i+"'>";
             output += "<option value = ''>선택하세요</option>";
 
             for (var j in training) {
@@ -264,15 +267,10 @@
 
         }
         output += "</div>";
-
-        var showTraining = document.getElementById('showTraining');
+        var id = 'showTrainingDay'+number;
+        var showTraining = document.getElementById(id);
         showTraining.innerHTML = output;
 
-    }
-
-    function Count() {
-        buttonCount++;
-        console.log(buttonCount);
     }
 </script>
 </html>
