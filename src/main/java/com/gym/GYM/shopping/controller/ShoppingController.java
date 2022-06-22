@@ -20,14 +20,11 @@ public class ShoppingController {
 	@Autowired
 	private ShoppingService shoppingsvc;
 
-
-
 	private ModelAndView mav = new ModelAndView();
 
-
 	@GetMapping("/shoppingMainForm")
-	private String shoppingMainForm(){
-		return "Shopping/shoppingMainForm";
+	private String shoppingMain(){
+	return "Shopping/ShoppingMainFrom";
 	}
 
 	// shoppionWishFrom : 찜한상품 보기 페이지
@@ -41,13 +38,25 @@ public class ShoppingController {
 		return mav;
 	}
 
-	//myWishList: 찜한상품 List 불러오는 메소드
 
+	//shoppingList
+	@GetMapping("/shoppingMainForm")
+	private ModelAndView shoppingList(){
+		mav = shoppingsvc.shoppingList();
+		return mav;
+	}
 
+	// shoppingView
+	@GetMapping("/shoppingView")
+	private ModelAndView shoppingView(@RequestParam(value = "productCode")String productCode){
 
+		mav = shoppingsvc.shoppingView(productCode);
+		return mav;
+	}
 
+	
+	
+	
 
+	
 }
-
-
-

@@ -20,15 +20,11 @@ public interface ShoppingDAO {
     ProductDTO shoppingView(String productCode);
 
 
-
-    WishDTO myWishDtoList(WishDTO wishdtoList);
-
     int wishCount(String memberId);
 
-
+    void count(String productCode);
 
     List<WishDTO> wishList(String memberId);
-
 
     ProductDTO myWishList(String productCode);
 }

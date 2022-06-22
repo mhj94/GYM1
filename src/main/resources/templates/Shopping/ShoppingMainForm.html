@@ -15,18 +15,17 @@
     <caption>Product List</caption>
 
         <tr>
-            <th>상품코드</th>
             <th>상품사진명</th>
             <th>상품이름</th>
             <th>상품가격</th>
-
+            <th>상품평점</th>
         </tr>
 
             <tr th:each="list : ${shoppingList}">
-                <td th:text="${list.productCode}"></td>
-            <td><a th:href="@{ShoppingView(productCode=${list.productCode})}" th:text="${list.productPhoto}"></a></td>
+            <td><a th:href="@{shoppingView(productCode=${list.productCode})}" th:text="${list.productPhoto}"></a></td>
             <td th:text="${list.productName}"></td>
             <td th:text="${list.productPrice}"></td>
+                <td th:text="${list.productRate}"></td>
 
         </tr>
     </table>

@@ -80,14 +80,15 @@ public class ShoppingServiceImpl implements ShoppingService {
         return mav;
     }
 
-    @Override
-    public ModelAndView shoppingView(String productCode) {
-        ProductDTO shoppingView = shoppingdao.shoppingView(productCode);
-        mav.addObject("view", shoppingView);
-        mav.setViewName("Shopping/ShoppingView");
 
-        return mav;
-    }
+	@Override
+	public ModelAndView shoppingView(String productCode) {
+		shoppingdao.count(productCode);
+		ProductDTO shoppingView = shoppingdao.shoppingView(productCode);
+		mav.addObject("view",shoppingView);
+		mav.setViewName("Shopping/ShoppingView");
+		return mav;
+	}
 
 
 }
