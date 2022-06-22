@@ -30,7 +30,7 @@ public class CompanyController {
     // 기업 등록 페이지로 이동
     @GetMapping("/companyRegistForm")
     public String companyRegistForm() {
-        return "CompanyRegistForm";
+        return "Company/CompanyRegistForm";
     }
 
     // 기업 등록 메소드
@@ -74,4 +74,6 @@ public class CompanyController {
         mav = companysvc.companyDelete(companyCode);
         return mav;
     }
+
+
 }

@@ -5,27 +5,40 @@
 
 
     <insert id="companyRegist" parameterType="company">
-        INSERT INTO COMPANY VALUES ('COM' || COMPANY_SEQ.NEXTVAL, #{companyId}, #{companyComment}, #{companyPhotoName}, 0, #{companyEquipment})
+        INSERT INTO COMPANY VALUES ('COM' || COMPANY_SEQ.NEXTVAL, #{companyId}, #{companyComment}, #{companyPhotoName}, 0, #{companyEquipment}, #{companyName})
     </insert>
     <select id="companyList" parameterType="paging" resultType="company">
-        SELECT * FROM COMPANYLIST WHERE ROWNUMBER BETWEEN #{startRow} AND #{endRow} ORDER BY COMPANYCODE ASC
+        SELECT *
+        FROM COMPANYLIST
+        WHERE ROWNUMBER BETWEEN #{startRow} AND #{endRow}
+        ORDER BY COMPANYCODE ASC
     </select>
     <select id="companyCount" resultType="int">
-        SELECT COUNT(*) FROM COMPANY
+        SELECT COUNT(*)
+        FROM COMPANY
     </select>
     <select id="companyView" parameterType="String" resultType="company">
-        SELECT * FROM COMPANY WHERE COMPANYCODE = #{companyCode}
+        SELECT *
+        FROM COMPANY
+        WHERE COMPANYCODE = #{companyCode}
     </select>
     <update id="companyModify" parameterType="company">
-        UPDATE COMPANY SET COMPANYID=#{companyId}, COMPANYCOMMENT=#{companyComment}, COMPANYPHOTONAME=#{companyPhotoName}, COMPANYEQUIPMENT=#{companyEquipment}
-        WHERE COMPANYCODE=#{companyCode}
+        UPDATE COMPANY
+        SET COMPANYID=#{companyId},
+            COMPANYCOMMENT=#{companyComment},
+            COMPANYPHOTONAME=#{companyPhotoName},
+            COMPANYEQUIPMENT=#{companyEquipment}
+        WHERE COMPANYCODE = #{companyCode}
     </update>
     <delete id="companyDelete" parameterType="company">
-        DELETE FROM COMPANY WHERE COMPANYCODE=#{companyCode}
+        DELETE
+        FROM COMPANY
+        WHERE COMPANYCODE = #{companyCode}
     </delete>
     <select id="rateSum" parameterType="String" resultType="double">
-        SELECT AVG (REVIEWRATE) FROM COMPANYREVIEW WHERE COMPANYCODE=#{companyCode}
+        SELECT AVG(REVIEWRATE)
+        FROM COMPANYREVIEW
+        WHERE COMPANYCODE = #{companyCode}
     </select>
 
-<!--  처음 기업 등록할 때 시퀀스 사용해서 companyCode 문자열 + 숫자로 받기 해야함.  -->
 </mapper>

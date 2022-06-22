@@ -12,10 +12,11 @@
 <form action="companyRegist" method="POST" enctype="multipart/form-data">
     <table>
         <tr>
-            <td><input type="hidden" name="companyCode"></td>
+            <td><input type="hidden" name="companyId" th:value="${session.login.memberId}"/></td>
         </tr>
         <tr>
-            <td><input type="hidden" name="companyId" value="coso01057"/></td>
+            <th>기업 이름</th>
+            <td><input type="text" name="companyName"/></td>
         </tr>
         <tr>
             <th>기업 상세설명</th>
