@@ -7,11 +7,17 @@
     <meta name="author" content="생로병사"/>
     <meta name="description" content="지우고 해당 html에 대한 설명 작성"/>
     <title>Title</title>
+    <link rel = "stylesheet" type = "text/css" href = "css/style.css">
 </head>
 <link rel = "stylesheet" type = "text/css" href = "css/style.css">
 <body>
 <h1>견적서 종류 선택 페이지</h1>
 <button th:if = "${session.login != null}" th:onclick = "|location.href='@{trainingPlanList(trainingPlanId=${session.login.memberId})}'|">견적서 페이지 이동</button>
 <!--식단 버튼 추가 220620-->
+
+
+
+
+
 </body>
 </html>
