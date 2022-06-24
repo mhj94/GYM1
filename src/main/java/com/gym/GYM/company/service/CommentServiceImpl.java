@@ -23,6 +23,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<CommentDTO> commentRegist(CommentDTO comment) {
+
         int result = commentdao.commentRegist(comment);
 
         if (result > 0) {
@@ -46,8 +47,6 @@ public class CommentServiceImpl implements CommentService {
     public List<CommentDTO> commentModify(CommentDTO comment) {
         int result = commentdao.commentModify(comment);
 
-
-
         if (result > 0) {
             commentList = commentdao.commentList(comment.getCompanyCode());
         } else {
@@ -61,7 +60,6 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public List<CommentDTO> commentDelete(CommentDTO comment) {
         int result = commentdao.commentDelete(comment);
-
 
         if (result > 0) {
             commentList = commentdao.commentList(comment.getCompanyCode());
@@ -79,10 +77,8 @@ public class CommentServiceImpl implements CommentService {
             companyReviewRate = 0.0;
         }
 
-
         company.setCompanyCode(companyCode);
         company.setCompanyRate(companyReviewRate);
-
         commentdao.updateRate(company);
     }
 }

@@ -24,12 +24,5 @@ public interface BoardDAO {
 
 	void count(int boardNo);
 
-	
-
-
-
-
-
-	
-
+	int boardDelete(int boardNo);
 }

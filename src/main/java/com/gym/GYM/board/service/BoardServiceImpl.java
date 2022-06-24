@@ -15,11 +15,16 @@ import org.springframework.web.servlet.ModelAndView;
 import com.gym.GYM.board.dao.BoardDAO;
 import com.gym.GYM.board.dto.BoardDTO;
 
+import javax.servlet.http.HttpSession;
+
 @Service
 public class BoardServiceImpl implements BoardService {
 
 	@Autowired
 	private BoardDAO boarddao;
+
+	@Autowired
+	private HttpSession session;
 
 	private ModelAndView mav = new ModelAndView();
 
@@ -28,6 +33,7 @@ public class BoardServiceImpl implements BoardService {
 		List<BoardDTO> boardlist = boarddao.boardList();
 		mav.addObject("boardList", boardlist);
 		mav.setViewName("Board/BoardList");
+
 		return mav;
 	}
 
@@ -35,6 +41,7 @@ public class BoardServiceImpl implements BoardService {
 	public ModelAndView boardRegist(BoardDTO board) throws IllegalStateException, IOException {
 		// 1.파일 불러오기
 		MultipartFile boardFile = board.getBoardFile();
+
 		// 2.파일 이름 불러오기
 		String originalFileName = boardFile.getOriginalFilename();
 
@@ -42,7 +49,6 @@ public class BoardServiceImpl implements BoardService {
 		String uuid = UUID.randomUUID().toString().substring(0, 8);
 
 		// 3+2
-
 		String boardUploadFileName = uuid + "_" + originalFileName;
 
 		// 5.파일 저장 위치 설정
@@ -52,19 +58,18 @@ public class BoardServiceImpl implements BoardService {
 		// 6.파일 선택 여부
 		if (!boardFile.isEmpty()) {
 			board.setBoardUploadFileName(boardUploadFileName);
-
 			boardFile.transferTo(new File(savePath));
 		} else {
 			board.setBoardUploadFileName("default.png");
 		}
+
 		int result = boarddao.boardRegist(board);
+
 		if (result > 0) {
-			
-			mav.setViewName("Board/BoardList");
+			mav.setViewName("redirect:/boardList");
 		} else {
 			mav.setViewName("index");
 		}
-
 		return mav;
 	}
 
@@ -91,6 +96,7 @@ public class BoardServiceImpl implements BoardService {
 	public ModelAndView boardModify(BoardDTO board) throws IllegalStateException, IOException {
 		// 1.파일 불러오기
 		MultipartFile boardFile = board.getBoardFile();
+
 		// 2.파일 이름 불러오기
 		String originalFileName = boardFile.getOriginalFilename();
 
@@ -98,7 +104,6 @@ public class BoardServiceImpl implements BoardService {
 		String uuid = UUID.randomUUID().toString().substring(0, 8);
 
 		// 3+2
-
 		String boardUploadFileName = uuid + "_" + originalFileName;
 
 		// 5.파일 저장 위치 설정
@@ -108,20 +113,30 @@ public class BoardServiceImpl implements BoardService {
 		// 6.파일 선택 여부
 		if (!boardFile.isEmpty()) {
 			board.setBoardUploadFileName(boardUploadFileName);
-
 			boardFile.transferTo(new File(savePath));
 		} else {
 			board.setBoardUploadFileName("default.png");
 		}
+
 		int result = boarddao.boardModify(board);
+
 		if (result > 0) {
-			
 			mav.setViewName("Board/BoardView");
 		} else {
 			mav.setViewName("index");
 		}
-
 		return mav;
 	}
 
+	@Override
+	public ModelAndView boardDelete(int boardNo) {
+
+		int result = boarddao.boardDelete(boardNo);
+
+		if (result > 0) {
+			mav.setViewName("redirect:/boardList");
+		}
+
+		return mav;
+	}
 }
