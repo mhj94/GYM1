@@ -11,24 +11,25 @@
 
 </head>
 <body>
-<div style="width: 50%; float: left;">
-    <form action="trainingPlanRegist" method="post" enctype="multipart/form-data">
+
+    <form action="myRoutineRegist" method="post" enctype="multipart/form-data">
+        <div style="width: 40%; height: 20%; background-size: cover; float: left;">
         <table>
             <caption>견적서 등록</caption>
             <tr>
                 <th>아이디</th>
-                <td><input type="text" name="trainingPlanId" th:value="${session.login.memberId}"></td>
+                <td><input type="text" name="myRoutineId" th:value="${session.login.memberId}"></td>
                 <!-- hidden값으로 바꿀 예정 220620 -->
             </tr>
             <tr>
                 <th>운동목적</th>
                 <td>
                     <label class="test_obj">
-                        <input type="radio" name="trainingPlanPurpose" th:value="벌크업">
+                        <input type="radio" name="myRoutinePurpose" value="벌크업">
                         <span>벌크업</span>
                     </label>
                     <label class="test_obj">
-                        <input type="radio" name="trainingPlanPurpose" th:value="다이어트">
+                        <input type="radio" name="myRoutinePurpose" value="다이어트">
                         <span>다이어트</span>
                     </label>
 
@@ -38,11 +39,11 @@
                 <th>등급</th>
                 <td>
                     <label class="test_obj">
-                        <input type="radio" name="trainingPlanGrade" th:value="초급" onclick="sendGrade(this.value)">
+                        <input type="radio" name="myRoutineGrade" value="초급" onclick="sendGrade(this.value)">
                         <span>초급</span>
                     </label>
                     <label class="test_obj">
-                        <input type="radio" name="trainingPlanGrade" th:value="중급" onclick="sendGrade(this.value)">
+                        <input type="radio" name="myRoutineGrade" value="중급" onclick="sendGrade(this.value)">
                         <span>중급</span>
                     </label>
                 </td>
@@ -52,6 +53,11 @@
                 <td><input type="text" name="trainingPlanMyRoutineCode"></td>
             </tr>
 
+<tr>
+    <th>식별코드</th>
+    <td><input type="text" size="15" id="uuid" name="myRoutineCode"/></td>
+</tr>
+
             <tr>
                 <td>
                     <input type="submit" value="제출">
@@ -59,22 +65,24 @@
                 </td>
             </tr>
         </table>
-    </form>
 </div>
 
 
-</form>
+
 <div id="sendGradeView"></div>
 <div id="sendPartView"></div>
 
 <div id="showTrainingGif">
 
 </div>
-<div style="float: right" id="showTrainingDetail">
+<div style="float: right" id="showTrainingDetail" >
 </div>
+
+
+
+<div id="showTrainingPart" style="float:right;"  class="container">운동리스트
 </div>
-<div id="showTrainingPart" style="float:right;">운동리스트
-</div>
+
 
 <div class="container">
     <div class="container" id="showTrainingDay1" style="float:right; flex-direction: column;"></div>
@@ -90,6 +98,11 @@
     <div class="container" id="showTrainingDay6" style="float:right;flex-direction: column;"></div>
     <div class="container" id="showTrainingDay7" style="float:right;flex-direction: column;"></div>
 </div>
+
+
+
+<div id ="showLive"  class="container"></div>
+</form>
 </body>
 
 <script src="https://code.jquery.com/jquery-latest.js"></script>
@@ -108,7 +121,6 @@
             data: {"trainingGrade": grade},
             success: function (result) {
 
-                showGrade(result);
                 showTrainingPart(result);
 
             },
@@ -236,12 +248,13 @@
         for (var i = 1; i <= 7; i++) {
             output += "<h1>Day" + i + "</h1>"
 
-            output += "<select name = 'trainingPart' onchange ='sendTrainingPart(" + i + ",this.value)'>";
+            output += "<select onchange ='sendTrainingPart(" + i + ",this.value)'>";
             output += "<option value =''>선택하세요</option>"
             for (var j in result) {
                 output += "<option value = '" + result[j].trainingPart + "'>" + result[j].trainingPart + "</option>";
             }
             output += "</select></br>";
+            output += ""
         }
         output += "</div>";
 
@@ -272,7 +285,7 @@
 
     }
 
-    function showTraining(number, training) {
+    function showTraining(day, training) {
 
 
         var output = "";
@@ -280,7 +293,7 @@
 
         for (var i = 1; i <= 5; i++) {
 
-            output += "<select name = 'myRoutineTrainingCode[]' id ='" + i + "' onchange='saveTemp(" + number + ",this.value," + i + ")'>";
+            output += "<select id ='" + i + "' onchange='saveTemp(" + day + ",this.value," + i + ")'>";
             output += "<option value = ''>선택하세요</option>";
 
             for (var j in training) {
@@ -291,11 +304,15 @@
 
         }
         output += "</div>";
-        var id = 'showTrainingDay' + number;
+        var id = 'showTrainingDay' + day;
         var showTraining = document.getElementById(id);
         showTraining.innerHTML = output;
 
     }
+
+
+
+
 
     var dayTrainingArray1 = new Array(1, '', '', '', '', '');
     var dayTrainingArray2 = new Array(2, '', '', '', '', '');
@@ -310,8 +327,29 @@
 
         if (day == 1) {
             dayTrainingArray1.splice(number, 1, trainingCode);
+            var output = "";
+            output += "<div>";
+            for(var i=1; i<dayTrainingArray1.length; i++){
+                output +=  "<button onclick=sendTraining('"+dayTrainingArray1[i]+"')>상세보기</button>";
+            }
+            output += "</div>";
+            output += "<input type ='hidden' name ='myRoutineCode' value = "+dayTrainingArray1+">";
+
+            var showLive = document.getElementById('showLive');
+            showLive.innerHTML = output;
+
         } else if (day == 2) {
             dayTrainingArray2.splice(number, 1, trainingCode);
+            var output = "";
+            output += "<div>";
+            for(var i=1; i<dayTrainingArray2.length; i++){
+                output +=  "<button onclick=sendTraining('"+dayTrainingArray2[i]+"')>상세보기</button>";
+            }
+            output += "</div>";
+            output += "<input type ='hidden' name ='myRoutineTrainingCode[]' value = "+dayTrainingArray2+">";
+
+            var showLive = document.getElementById('showLive');
+            showLive.innerHTML = output;
         } else if (day == 3) {
             dayTrainingArray3.splice(number, 1, trainingCode);
         } else if (day == 4) {
@@ -358,5 +396,5 @@
     })
 </script>
 
-<input type='text' size='40' id='uuid'/>
+
 </html>
