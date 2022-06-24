@@ -1,5 +1,6 @@
 package com.gym.GYM.shopping.service;
 
+import com.gym.GYM.shopping.dto.OrdersDTO;
 import com.gym.GYM.shopping.dto.ProductDTO;
 import com.gym.GYM.shopping.dto.WishDTO;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,5 +17,7 @@ public interface ShoppingService {
     ModelAndView shoppingView(String productCode);
 
 
+    ModelAndView basketView(String memberId);
 
+    List<OrdersDTO> basketList(String productCode, String memberId);
 }

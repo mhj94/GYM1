@@ -17,9 +17,6 @@
 		SELECT WISHPRODUCTCODE FROM WISH WHERE WISHID=#{memberId}
 	</select>
 
-
-
-
 	<select id="shoppingView" parameterType="String" resultType="product">
 SELECT * FROM PRODUCT WHERE PRODUCTCODE =#{productCode}
 	</select>
@@ -29,14 +26,23 @@ SELECT * FROM PRODUCT WHERE PRODUCTCODE =#{productCode}
 SELECT COUNT(WISHID) FROM WISH WHERE WISHID =#{memberId}
 </select>
 
-
 <select id="myWishList"	 parameterType="String" resultType="product">
 SELECT * FROM PRODUCT WHERE PRODUCTCODE = #{productCode}
 
 
 </select>
-	<select id="shoppingView" parameterType="String" resultType="product">
-		SELECT * FROM PRODUCT WHERE PRODUCTCODE =#{productCode}
+
+	<insert id="basketRegist" parameterType="String">
+	INSERT INTO ORDERS VALUES (#{orderCode},#{productCode},#{memberId},0,0,0,NULL,0,NULL,0,0,0)
+	</insert>
+
+	<select id="basketList" parameterType="String" resultType="orders">
+		SELECT ORDERPRODUCTCODE FROM ORDERS WHERE ORDERID =#{memberId} AND ORDERPRICE=0
+	</select>
+
+
+	<select id="basketCount" parameterType="String" resultType="int" >
+		SELECT COUNT(ORDERPRODUCTCODE) FROM ORDERS WHERE WISHID =#{memberId} AND ORDERPRICE=0
 	</select>
 
 </mapper>

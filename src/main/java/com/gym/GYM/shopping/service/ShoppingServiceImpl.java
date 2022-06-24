@@ -4,8 +4,10 @@ package com.gym.GYM.shopping.service;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 //github.com/mumgod/GYM1.git
+import com.gym.GYM.shopping.dto.OrdersDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
@@ -27,13 +29,14 @@ public class ShoppingServiceImpl implements ShoppingService {
 
 
     List<WishDTO> wishList = new ArrayList<WishDTO>();
-    boolean start = true;
+
 
     //shoppingWishForm으로 이동하는 메소드
     @Override
     public ModelAndView shoppingWishForm(String memberId) {
 
         List<ProductDTO> productDTOList = new ArrayList<ProductDTO>();
+        List<OrdersDTO> basketDTOList = new ArrayList<OrdersDTO>();
 
         //wish에서 product를 조회할 코드를 가지고 오기 위한 wishList
         wishList = shoppingdao.wishList(memberId);
@@ -60,9 +63,9 @@ public class ShoppingServiceImpl implements ShoppingService {
                 //	System.out.println("productCode:"+productCode);
                 productDTOList.add(shoppingdao.myWishList(productCode));
                 //	productDTOList1.addAll(i,productDTOList);
-                System.out.println(productDTOList);
+           //     System.out.println(productDTOList);
             }
-            mav.addObject("productDTOList", productDTOList);
+             mav.addObject("productDTOList", productDTOList);
             //	System.out.println(productDTOList1);
             mav.setViewName("Shopping/ShoppingWishForm");
 
@@ -89,6 +92,57 @@ public class ShoppingServiceImpl implements ShoppingService {
 		mav.setViewName("Shopping/ShoppingView");
 		return mav;
 	}
+
+
+
+    @Override
+    public List<OrdersDTO> basketList(String productCode, String memberId) {
+        List<OrdersDTO> basketDTOList = new ArrayList<OrdersDTO>();
+        String  uuid = UUID.randomUUID().toString().substring(0,6);
+        String orderCode= uuid;
+
+        System.out.println("service : "+productCode);
+        System.out.println(memberId);
+        System.out.println(orderCode);
+        boolean basketRegist=shoppingdao.basketRegist(productCode,memberId,orderCode);
+
+
+        basketDTOList= shoppingdao.basketList(memberId);
+
+        return basketDTOList;
+    }
+
+    @Override
+    public ModelAndView basketView(String memberId) {
+        List<ProductDTO> productDTOList = new ArrayList<ProductDTO>();
+        List<OrdersDTO> basketDTOList = new ArrayList<OrdersDTO>();
+
+        basketDTOList= shoppingdao.basketList(memberId);
+
+        int count = shoppingdao.basketCount(memberId);
+
+        String[] basketArr=basketDTOList.toArray(new String[count]);
+        String basketCode;
+
+        if(count>0){
+            for ( int i=0; i<count; i++){
+                basketCode = basketArr[i];
+
+                productDTOList.add(shoppingdao.myBasketList(basketCode));
+
+                System.out.println(productDTOList);
+            }
+            mav.addObject("myBasketList", productDTOList);
+            mav.setViewName("Shopping/ShoppingBascket");
+
+        }else{
+
+
+        }
+
+
+        return mav;
+    }
 
 
 }

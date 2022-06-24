@@ -4,6 +4,7 @@ package com.gym.GYM.shopping.dao;
 import java.util.List;
 
 
+import com.gym.GYM.shopping.dto.OrdersDTO;
 import com.gym.GYM.shopping.dto.ProductDTO;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -27,4 +28,13 @@ public interface ShoppingDAO {
     List<WishDTO> wishList(String memberId);
 
     ProductDTO myWishList(String productCode);
+
+
+    boolean basketRegist(String productCode, String memberId, String orderCode);
+
+    List<OrdersDTO> basketList(String memberId);
+
+    int basketCount(String memberId);
+
+    ProductDTO myBasketList(String basketCode);
 }

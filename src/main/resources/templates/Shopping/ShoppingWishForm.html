@@ -1,82 +1,140 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="생로병사" />
-<meta name="description" content="지우고 해당 html에 대한 설명 작성" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="생로병사"/>
+    <meta name="description" content="지우고 해당 html에 대한 설명 작성"/>
+    <title>책임GYM 쇼핑몰 찜 목록 보기</title>
 
-<title>책임GYM 쇼핑몰 찜 목록 보기</title>
-</head>
+    <style>
+        .modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: none;
+
+    background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal.show {
+    display: block;
+    }
+
+    .modal_body {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    width: 400px;
+    height: 600px;
+
+    padding: 40px;
+
+    text-align: center;
+
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+
+    transform: translateX(-50%) translateY(-50%);
+    }
+    </style>
+
+
 <body>
-	<H1>찜목록 보기 페이지</H1>
 
+<H1>찜목록 보기 페이지</H1>
 
-
-	<h3 th:if = "${session.login !=null}" th:text ="${session.login.memberId}"></h3>
-	<h3 th:if = "${session.login !=null}" th:text ="${session.login.memberRole}"></h3>
-
-
+<h3 id="loginId" th:if="${session.login !=null}" th:text="${session.login.memberId}" th:value="${session.login.memberId}"></h3>
+<h3 th:if="${session.login !=null}" th:text="${session.login.memberRole}"></h3>
 
 <table>
 
+    <tr>
+        <td>
+        <th>상품이름</th>
+        <th>칼로리</th>
+        <th>탄수화물</th>
+        <th>단백질</th>
+        <th>지방</th>
+        <th>나트륨</th>
+        <th>가격</th>
+        </td>
+    </tr>
+    <tr th:each="list : ${productDTOList}">
 
-	<tr>
-		<td>
+        <td><img th:src="@{/uploadfile/{aa}(aa=${list.productPhoto})}" style="width:200px;"></td>
 
-		<th>상품이름</th>
-		<th>칼로리</th>
-		<th>탄수화물</th>
-		<th>단백질</th>
-		<th>지방</th>
-		<th>나트륨</th>
-		<th>가격</th>
-		</td>
+        <td> <a th:href="@{shoppingView(productCode=${list.productCode})}" th:text="${list.productName}"></a></td>
+        <td th:text="${list.productKcal}"></td>
+        <td th:text="${list.productCarbohydrate}"></td>
+        <td th:text="${list.productProtein}"></td>
+        <td th:text="${list.productFat}"></td>
+        <td th:text="${list.productSalt}"></td>
+        <td th:text="${list.productPrice}+원"></td>
 
-
-	</tr>
-
-	<tr th:each="list : ${productDTOList}">
-
-		<td><img th:src="@{/uploadfile/{aa}(aa=${list.productPhoto})}" style="width:200px;"></td>
-
-		<td th:href="" th:text="${list.productName}"></td>
-		<td th:text="${list.productKcal}"></td>
-		<td th:text="${list.productCarbohydrate}"></td>
-		<td th:text="${list.productProtein}"></td>
-		<td th:text="${list.productFat}"></td>
-		<td th:text="${list.productSalt}"></td>
-		<td th:text="${list.productPrice}"></td>
-
-
-
-<!--
-<tr th:each="list:${MemberList}">
-<td><a th:href="@{mView(mId=${list.mId})}" th:text="${list.mId}"></a> </td>
-		-->
+        <td><button  th:productCode="${list.productCode}" th:onclick="shoppingBasketAjax(this.getAttribute('productCode'))"  th:text="장바구니">
+                </button></td>
+        <!--
+        th:onclick="whoami(this.getAttribute('myName'))"
 
 
-	</tr>
+                th:onclick = "|location.href='@{memberView(memberId=${session.login.memberId})}'|">
+                아이디 가지고 이동
+        -->
 
-
+    </tr>
 </table>
+<button class="btn-open-popup">장바구니로 가기</button>
 
 
 
 
-	</div>
+
+
+
+
+
 
 
 </body>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-<script th:inline="javascript"> </script>
-<script>
+
+<script integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script th:inline="javascript">
+    var id1 = [[${session.login.memberId}]];
+
+    function shoppingBasketAjax(productCode,loginId) {
+        loginId=id1;
+        $.ajax({
+            type: "POST",
+            url: "basketRegist",
+            data: {"productCode": productCode, "memberId": loginId},
+            dataType: "Json",
+            success: function () {
+                var result =confirm("상품이 담겼습니다. 장바구니로 가시겠습니까?")
+                if (result){
+                    location.href ='basketView?memberId=id1';
+                }else{
+
+                }
+            },
+            error: function (request, status, error) {
+           //  alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+                alert("실패했습니다. 다시 시도해주세요");
+            }
+        });
 
 
-
+    }
 
 </script>
 
