@@ -4,7 +4,7 @@
 <mapper namespace="com.gym.GYM.member.dao.MemberDAO">
 
 <insert id = "memberRegist" parameterType = "member">
-	INSERT INTO MEMBER VALUES(#{memberName}, #{memberId}, #{memberPw}, #{memberAddress}, #{memberPhone}, #{memberGender}, #{memberBirth}, #{memberHeight, jdbcType = VARCHAR}, #{memberWeight, jdbcType = VARCHAR}, #{memberProfileName, jdbcType = VARCHAR}, #{memberCompanyName, jdbcType = VARCHAR}, #{memberRole})
+	INSERT INTO MEMBER VALUES(#{memberName}, #{memberId}, #{memberPw}, #{memberAddress}, #{memberPhone}, #{memberGender}, #{memberBirth}, #{memberHeight, jdbcType = VARCHAR}, #{memberWeight, jdbcType = VARCHAR}, #{memberProfileName, jdbcType = VARCHAR}, #{memberRole})
 </insert>
 
 <select id = "memberCount" resultType = "int">

@@ -22,16 +22,5 @@ public interface BoardService {
 
 	ModelAndView boardModify(BoardDTO board) throws IllegalStateException, IOException;
 
-
-
-	
-
-	
-
-	
-
-
-
-	
-
+    ModelAndView boardDelete(int boardNo);
 }
