@@ -3,11 +3,13 @@
 
 <mapper namespace="com.gym.GYM.shopping.dao.ShoppingDAO">
 
-	<select id="shoppingList" resultType="product">
-		SELECT * FROM PRODUCT
+	<select id="shoppingList" parameterType="String" resultType="product">
+		SELECT * FROM PRODUCT ORDER BY PRODUCTHITS DESC
 	</select>
 
-
+	<update id="count" parameterType="String">
+		UPDATE PRODUCT SET PRODUCTHITS = PRODUCTHITS+1 WHERE PRODUCTCODE=#{productCode}
+	</update>
 
 
 	<select id="wishdtoList" parameterType="String"
@@ -15,13 +17,12 @@
 		SELECT * FROM WISH WHERE WISHID=#{memeberId}
 	</select>
 
-
-
-
-	<select id="shoppingView" parameterType="String"
-		resultType="product">
+	<select id="shoppingView" parameterType="String" resultType="product">
 		SELECT * FROM PRODUCT WHERE PRODUCTCODE =#{productCode}
 	</select>
 
+	<select id="shoppingBascket" parameterType="String" resultType="product">
+		SELECT * FROM PRODUCT
+	</select>
 
 </mapper>

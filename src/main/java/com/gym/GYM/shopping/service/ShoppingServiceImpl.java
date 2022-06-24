@@ -1,7 +1,4 @@
 package com.gym.GYM.shopping.service;
-
-
-
 import java.util.List;
 
 //github.com/mumgod/GYM1.git
@@ -35,18 +32,27 @@ public class ShoppingServiceImpl implements ShoppingService {
 
 	@Override
 	public ModelAndView shoppingList() {
+
 		List<ProductDTO> shoppinglist = shoppingdao.shoppingList();
-		mav.addObject("shoppingList", shoppinglist);
+		mav.addObject("shoppingList",shoppinglist);
 		mav.setViewName("Shopping/shoppingMainForm");
 		return mav;
 	}
 
 	@Override
 	public ModelAndView shoppingView(String productCode) {
+		shoppingdao.count(productCode);
 		ProductDTO shoppingView = shoppingdao.shoppingView(productCode);
 		mav.addObject("view",shoppingView);
 		mav.setViewName("Shopping/ShoppingView");
+		return mav;
+	}
 
+	@Override
+	public ModelAndView shoppingBascket(String productCode) {
+		List<ProductDTO> shoppingBascket = shoppingdao.shoppingBascket();
+		mav.addObject("shoppingBascket",shoppingBascket);
+		mav.setViewName("Shopping/shoppingBascket");
 		return mav;
 	}
 

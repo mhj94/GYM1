@@ -5,24 +5,24 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="author" content="생로병사"/>
-  <meta name="description" content="ShoppingView"/>
-  <title>상품상세보기</title>
+  <meta name="description" content="해당 html에 대한 설명"/>
+  <title>타이틀</title>
+  <meta name="date" content="2022.05.25">
+  <title>상품목록 상세보기</title>
 </head>
 <link rel = "stylesheet" type = "text/css" href = "css/style.css">
 <body>
+
+
   <table>
-    <caption>ShoppingView</caption>
+    <img th:src="@{/ShoppingImg/123.png}" width="100dp" height="100dp"/>
 
     <tr>
-      <th>상품사진명</th>
-      <td th:text="${view.productPhoto}"></td>
-    </tr>
-    <tr>
-      <th>상품이름</th>
+      <th></th>
       <td th:text="${view.productName}"></td>
     </tr>
     <tr>
-      <th>상품중량</th>
+      <th>중량</th>
       <td th:text="${view.productWeight}"></td>
     </tr>
     <tr>
@@ -30,10 +30,229 @@
       <td th:text="${view.productComment}"></td>
     </tr>
     <tr>
-      <th>상품가격</th>
+      <th>가격</th>
       <td th:text="${view.productPrice}"></td>
+    </tr>
+    <tr>
+      <th>조회수</th>
+      <td th:text="${view.productHits}"></td>
+    </tr>
+    <tr>
+
+    </tr>
+    <tr>
+      <th>리뷰 등록</th>
+      <td><textarea rows="1" cols="70" id="productReviewContent" placeholder="리뷰를 작성해주세요."></textarea>
+        <button id="reviewBtn">리뷰 등록</button>
+      </td>
     </tr>
   </table>
 
+  <br/>
+  <div>
+    <span>상품 수량 선택</span><br/>
+  <select name="productName" onchange="productOrder(this)">
+    <option th:value="${view.productName} + '5팩' + ${view.productPrice} * 5 + '원'" th:text="${view.productName} + '5팩'"></option>
+    <option th:value="${view.productName} + '10팩' + ${view.productPrice} * 10 + '원'" th:text="${view.productName} + '10팩'"></option>
+    <option th:value="${view.productName} + '15팩' + ${view.productPrice} * 15 + '원'" th:text="${view.productName} + '15팩'"></option>
+    <option th:value="${view.productName} + '20팩' + ${view.productPrice} * 20 + '원'" th:text="${view.productName} + '20팩'"></option>
+  </select>
+    <div id='result' style="float: right"></div>
+  </div>
+  <br/><br/>
+
+  <button onclick = 'location.href = "ShoppingBascket"'>장바구니</button>
+  <button onclick = 'location.href = "ShoppingPayment"'>바로구매</button>
+  <br/>
+  <br/><span>별점 선택</span>
+  <input type="radio" name="productReviewRate" value="1" id="rate1"><label
+          for="rate1">★</label>
+  <input type="radio" name="productReviewRate" value="2" id="rate2"><label
+          for="rate2">★★</label>
+  <input type="radio" name="productReviewRate" value="3" id="rate3"><label
+          for="rate3">★★★</label>
+  <input type="radio" name="productReviewRate" value="4" id="rate4"><label
+          for="rate4">★★★★</label>
+  <input type="radio" name="productReviewRate" value="5" id="rate5" checked><label
+          for="rate5">★★★★★</label>
+<input type="hidden" th:id="memberId" th:value="${session.login.memberId}">
+<input type="hidden" th:id="productCode" th:value="${view.productCode}">
+<div id="reviewArea"></div>
 </body>
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script>
+  function productOrder(e) {
+    // 선택된 데이터 가져오기
+    const value = e.value;
+
+    // 데이터 출력
+    document.getElementById('result').innerText
+            = value;
+  }
+</script>
+
+
+<script th:inline="javascript">
+  var productCode = [[${view.productCode}]];
+    $(document).ready(function () {
+
+      // 리뷰 목록
+
+      $.ajax({
+        type: "POST",
+        url: "review/reviewList",
+        data: {"productCode": productCode},
+        dataType: "json",
+        success: function (list) {
+          reviewList(list);
+        },
+        error: function (request, status, error) {
+          alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+        }
+      });
+      // 리뷰 작성 버튼 클릭 시
+      $('#reviewBtn').click(function (){
+        var loginId = $("#memberId").val();
+        console.log('아이디 : ' + loginId);
+        if(!loginId){
+          alert('로그인 이후 사용할 수 있습니다.');
+          location.href = "index";
+        } else {
+          var productReviewWriter = loginId;
+          var productCode = document.getElementById("productCode").value;
+          var productReviewContent = $('#productReviewContent').val();
+          var productReviewRate = $('input[name="productReviewRate"]:checked').val();
+
+          console.log(productReviewWriter);
+          console.log(productCode);
+          console.log(productReviewContent);
+          console.log(productReviewRate);
+
+
+          $.ajax({
+            type: "POST",
+            url: "review/reviewRegist",
+            data: {
+              "productReviewWriter": productReviewWriter,
+              "productCode": productCode,
+              "productReviewContent": productReviewContent,
+              "productReviewRate": productReviewRate
+            },
+            dataType: "json",
+            success: function (list){
+              reviewList(list);
+              $('#productReviewContent').val("");
+              reload();
+            },
+            error: function (){
+              alert('리뷰 등록 실패');
+            }
+          });
+        }
+      });
+    });
+
+    // 리뷰 목록 조회 함수
+    function reviewList(list){
+
+       var output = "";
+       var loginId = [[${session.login.memberId}]];
+
+      output += "<table>";
+      output += "<tr>";
+      output += "<th><코드></th>";
+      output += "<th><작성자></th>";
+      output += "<th><내용></th>";
+      output += "<th><별점></th>";
+      output += "<th><작성일></th>";
+      output += "</tr>";
+
+      for(var i in list){
+        output += "<tr>";
+        output += "<td>" + list[i].productCode + "</td>";
+        output += "<td>" + list[i].productReviewWriter + "</td>";
+        output += "<td>" + list[i].productReviewContent + "</td>";
+        output += "<td>" + list[i].productReviewRate + "</td>";
+        output += "<td>" + list[i].productReviewDate + "</td>";
+
+        if(list[i].productReviewWriter == loginId){
+          output += "<td><button onclick=reviewModify(" + list[i].productReviewNo + ",'" + list[i].productCode+ "')>수정</button></td>";
+              } else {
+          output += "<td><button onclick=reviewModify(" + list[i].productReviewNo + ",'" + list[i].productCode+ "')>수정</button></td>";
+        }
+
+        // 작성자와 로그인한 아이디가 같거나 관리자일 경우에만 삭제 가능
+        if(list[i].productReviewWriter == loginId || loginId == 'admin111') {
+          output += "<td><button onclick=reviewDelete(" + list[i].productReviewNo + ",'" + list[i].productCode+ "')>삭제</button></td>";
+        } else {
+          output += "<td><button>삭제</button></td>";
+        }
+
+        output += "</tr>";
+      }
+      output += "</table>";
+
+      // div 영역 reviewArea
+      var reviewArea = document.getElementById("reviewArea");
+
+      // reviewArea에 output 내용 넣기
+      reviewArea.innerHTML = output;
+    }
+
+    // 리뷰 삭제
+    function reviewDelete(productReviewNo, productCode){
+      var check = confirm('리뷰를 삭제하시겠습니까?');
+      var productCode = [[${view.productCode}]];
+
+      if(check){
+        $.ajax({
+          type: "POST",
+          url: "review/reviewDelete",
+          data: {"productReviewNo": productReviewNo, "productCode": productCode},
+          dataType: "json",
+          success: function (list){
+            reviewList(list);
+            reload();
+          },
+          error: function () {
+            alert('리뷰 삭제 실패');
+          }
+        });
+      }
+    }
+
+    //리뷰 수정
+    function reviewModify(productReviewNo, productCode){
+      var check = confirm('리뷰를 수정하시겠습니까?');
+      var productReviewContent = $('#productReviewContent').val();
+      var productCode = [[${view.productCode}]];
+      var productReviewRate = $('input[name="productReviewRate"]:checked').val();
+
+      if(check){
+        $.ajax({
+          type: "POST",
+          url: "review/reviewModify",
+          data: {"productReviewNo": productReviewNo,
+            "productCode": productCode,
+            "productReviewContent": productReviewContent,
+            "productReviewRate": productReviewRate},
+          dataType: "json",
+          success: function (list){
+            reviewList(list);
+            reload();
+          },
+          error: function (){
+            alert('리뷰 수정 실패');
+          }
+        });
+      }
+      function reload(){
+        history.go(0);
+      }
+    }
+</script>
 </html>

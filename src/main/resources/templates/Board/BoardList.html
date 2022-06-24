@@ -31,7 +31,7 @@
 
 <tr th:each="list : ${boardList}">
 <td th:text="${list.boardNo}"></td>
-<td><a th:href="@{BoardView(boardNo=${list.boardNo})}" th:text="${list.boardTitle}"></a></td>
+<td><a th:href="@{boardView(boardNo=${list.boardNo})}" th:text="${list.boardTitle}"></a></td>
 <td th:text="${list.boardWriter}"></td>
 <td th:text="${list.boardType}"></td>
 

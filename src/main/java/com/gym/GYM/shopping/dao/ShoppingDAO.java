@@ -16,10 +16,14 @@ import java.util.List;
 @Mapper
 public interface ShoppingDAO {
 
-
+//
     List<ProductDTO> shoppingList();
 
     ProductDTO shoppingView(String productCode);
 
 	WishDTO wishdtoList(String memberId);
+
+    void count(String productCode);
+
+    List<ProductDTO> shoppingBascket();
 }

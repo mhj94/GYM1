@@ -5,16 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="생로병사"/>
-    <meta name="description" content="shoppingMain index"/>
-    <title>책임GYM 쇼핑몰</title>
+    <meta name="description" content="해당 html에 대한 설명"/>
+    <title>타이틀</title>
+    <meta name="date" content="2022.05.25">
+    <title>장바구니</title>
 </head>
-<link rel = "stylesheet" type = "text/css" href = "css/style.css">
 <body>
-    <h1>쇼핑몰 메인</h1>
-    <img th:src="@{/ShoppingImg/123.png}" width="300dp" height="100dp"/>
+        <h1>Bascket</h1>
     <table>
-    <caption>Product List</caption>
-
+        <caption>장바구니</caption>
         <tr>
             <th>상품사진명</th>
             <th>상품이름</th>
@@ -22,14 +21,12 @@
             <th>상품평점</th>
         </tr>
 
-            <tr th:each="list : ${shoppingList}">
+        <tr th:each="list : ${shoppingList}">
             <td><a th:href="@{shoppingView(productCode=${list.productCode})}" th:text="${list.productPhoto}"></a></td>
             <td th:text="${list.productName}"></td>
             <td th:text="${list.productPrice}"></td>
-                <td th:text="${list.productRate}"></td>
-
+            <td th:text="${list.productRate}"></td>
         </tr>
     </table>
-    <img th:src="@{/ShoppingImg/123.png}" width="300dp" height="100dp"/>
 </body>
 </html>
