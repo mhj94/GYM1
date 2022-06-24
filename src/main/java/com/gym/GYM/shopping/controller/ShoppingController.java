@@ -1,35 +1,43 @@
 package com.gym.GYM.shopping.controller;
 
+import com.gym.GYM.shopping.dto.OrdersDTO;
+import com.gym.GYM.shopping.dto.ProductDTO;
+import com.gym.GYM.shopping.dto.WishDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gym.GYM.shopping.service.ShoppingService;
 
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class ShoppingController {
-	@Autowired
-	private ShoppingService shoppingsvc;
 
-	private ModelAndView mav = new ModelAndView();
+    List<WishDTO> wishDTOList = new ArrayList<WishDTO>();
+    List<ProductDTO> productDTOList = new ArrayList<ProductDTO>();
+    List<OrdersDTO> basketList = new ArrayList<OrdersDTO>();
+    @Autowired
+    private ShoppingService shoppingsvc;
 
-	//shoppingMainForm : 쇼핑메인인덱스이동
-	@GetMapping("/JJ")
-	private String ShoppingMainForm(){
+    private ModelAndView mav = new ModelAndView();
 
-		return "Shopping/ShoppingMainForm";
-	}
 
-	//shoppingList
-	@GetMapping("/shoppingMainForm")
-	private ModelAndView shoppingList(){
-		mav = shoppingsvc.shoppingList();
-		return mav;
-	}
+    // shoppionWishFrom : 찜한상품 보기 페이지
+    @GetMapping("/shoppingWishForm")
+    private ModelAndView shoppingWishForm(@RequestParam String memberId) {
+        mav = shoppingsvc.shoppingWishForm(memberId);
+        return mav;
+    }
+
+    //shoppingList
+    @GetMapping("/shoppingMainForm")
+    private ModelAndView shoppingList() {
+        mav = shoppingsvc.shoppingList();
+        return mav;
+    }
 
 	// shoppingView
 	@GetMapping("/shoppingView")
@@ -39,18 +47,21 @@ public class ShoppingController {
 		return mav;
 	}
 
-	// shoppingBascket : 장바구니 이동
-	@GetMapping("/shoppingBascket")
-	private ModelAndView shoppingBascket(@RequestParam(value = "productCode")String productCode){
-		mav = shoppingsvc.shoppingBascket(productCode);
-		return mav;
-	}
+    //basketRegist: 찜 상품 장바구니에 담고 담겨있는 상품목록 가져오는 메소드
+    @PostMapping("/basketRegist")
+    private @ResponseBody List<OrdersDTO> basketRegist(@RequestParam String productCode, @RequestParam String memberId) {
 
-	// shoppionWishFrom : 찜한상품 보기 페이지
-	@GetMapping("/shoppionWishFrom")
-	private ModelAndView shoppionWishFrom(@RequestParam String memberId) {
-		System.out.println(memberId);
-		mav = shoppingsvc.shoppionWishFrom(memberId);
-		return mav;
-	}
+        basketList = shoppingsvc.basketList(productCode, memberId);
+        return basketList;
+    }
+
+
+    //basketView: 장바구니 상세보기 메소드.
+    @PostMapping("/basketView")
+    private ModelAndView basketView(@RequestParam String memberId) {
+        mav=shoppingsvc.basketView(memberId);
+    return mav;
+    }
+
+
 }

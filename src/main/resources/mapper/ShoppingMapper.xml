@@ -11,14 +11,38 @@
 		UPDATE PRODUCT SET PRODUCTHITS = PRODUCTHITS+1 WHERE PRODUCTCODE=#{productCode}
 	</update>
 
-
-	<select id="wishdtoList" parameterType="String"
-		resultType="wish">
-		SELECT * FROM WISH WHERE WISHID=#{memeberId}
+<!--wish Code 불러오는 메소드-->
+	<select id="wishList" parameterType="String"
+		resultType="String">
+		SELECT WISHPRODUCTCODE FROM WISH WHERE WISHID=#{memberId}
 	</select>
 
 	<select id="shoppingView" parameterType="String" resultType="product">
-		SELECT * FROM PRODUCT WHERE PRODUCTCODE =#{productCode}
+SELECT * FROM PRODUCT WHERE PRODUCTCODE =#{productCode}
+	</select>
+
+
+<select id="wishCount" parameterType="String" resultType="int" >
+SELECT COUNT(WISHID) FROM WISH WHERE WISHID =#{memberId}
+</select>
+
+<select id="myWishList"	 parameterType="String" resultType="product">
+SELECT * FROM PRODUCT WHERE PRODUCTCODE = #{productCode}
+
+
+</select>
+
+	<insert id="basketRegist" parameterType="String">
+	INSERT INTO ORDERS VALUES (#{orderCode},#{productCode},#{memberId},0,0,0,NULL,0,NULL,0,0,0)
+	</insert>
+
+	<select id="basketList" parameterType="String" resultType="orders">
+		SELECT ORDERPRODUCTCODE FROM ORDERS WHERE ORDERID =#{memberId} AND ORDERPRICE=0
+	</select>
+
+
+	<select id="basketCount" parameterType="String" resultType="int" >
+		SELECT COUNT(ORDERPRODUCTCODE) FROM ORDERS WHERE WISHID =#{memberId} AND ORDERPRICE=0
 	</select>
 
 	<select id="shoppingBascket" parameterType="String" resultType="product">

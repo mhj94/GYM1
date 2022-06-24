@@ -1,6 +1,5 @@
 package com.gym.GYM.shopping.dto;
 
-
 import lombok.Data;
 import org.apache.ibatis.type.Alias;
 import org.springframework.security.core.parameters.P;
@@ -24,6 +23,7 @@ public class ProductDTO {
     PRODUCTCOMMENT NVARCHAR2(100),              --상품설명
     PRODUCTPHOTO NVARCHAR2(100),                --상품사진명
     PRODUCTHITS NUMBER                          --조회수
+    PRODUCTLISTCODE NVARCHAR2(6)                --상품 분류 코드
 );*/
     private String productCode;
     private String productName;
@@ -39,5 +39,7 @@ public class ProductDTO {
     private String productPhoto;
     private int productHits;
     private double productRate;
+    private String productListCode;
+
 
 }
