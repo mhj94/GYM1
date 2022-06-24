@@ -20,27 +20,9 @@
     <img src="image/logotext.jpg"/>
 </div>
 
-<div class="nav" style="text-align: center;">
-    <ul class="nav bg-light" style>
-        <li class="nav-item">
-            <button class="nav-link active" href="#">Home</button>
-        </li>
-        <li class="nav-item">
-            <button class="nav-link" href="#">견적서 작성</button>
-        </li>
-        <li class="nav-item">
-            <button class="nav-link" href="#">책임MALL</button>
-        </li>
-        <li class="nav-item">
-            <button class="nav-link" href="#">Link3</button>
-        </li>
-        <li class="nav-item">
-            <button class="nav-link" href="#">Link4</button>
-        </li>
-        <li class="nav-item">
-            <button class="nav-link disabled" href="#">Disabled</button>
-        </li>
-    </ul>
+<header>
+<h1>헤더자리입니다</h1>
+</header>
 
     <button onclick = 'location.href = "selectPlanForm"'>견적서 종류 선택 페이지</button>
     <button th:if = "${session.login != null}" th:onclick = "|location.href='@{trainingPlanList(trainingPlanId=${session.login.memberId})}'|">견적서 페이지 이동</button>
@@ -60,7 +42,7 @@
     <button th:if = "${session.login != null}" th:onclick = "|location.href='@{memberView(memberId=${session.login.memberId})}'|">내정보보기</button>
     <h3 th:if = "${session.login != null}" th:text ="${session.login.memberId}"></h3>
     <h3 th:if = "${session.login != null}" th:text ="${session.login.memberRole}"></h3>
-</div>
+
 
 
 

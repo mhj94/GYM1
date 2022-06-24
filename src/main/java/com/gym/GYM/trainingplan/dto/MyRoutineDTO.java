@@ -8,9 +8,9 @@ import org.apache.ibatis.type.Alias;
 public class MyRoutineDTO {
     private String myRoutineCode;
     private String myRoutineId;
-    private int myRoutineDay;
-    private String myRoutineTrainingCode;
     private String myRoutineTitle;
     private String myRoutinePurpose;
     private String myRoutineGrade;
+    private int myRoutineDay;
+    private String myRoutineTrainingCode;
 }
