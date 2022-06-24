@@ -3,10 +3,12 @@ package com.gym.GYM.shopping.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gym.GYM.shopping.service.ShoppingService;
+
 
 @Controller
 public class ShoppingController {
@@ -34,6 +36,13 @@ public class ShoppingController {
 	private ModelAndView shoppingView(@RequestParam(value = "productCode")String productCode){
 
 		mav = shoppingsvc.shoppingView(productCode);
+		return mav;
+	}
+
+	// shoppingBascket : 장바구니 이동
+	@GetMapping("/shoppingBascket")
+	private ModelAndView shoppingBascket(@RequestParam(value = "productCode")String productCode){
+		mav = shoppingsvc.shoppingBascket(productCode);
 		return mav;
 	}
 

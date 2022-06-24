@@ -24,4 +24,6 @@ public interface ShoppingDAO {
 	WishDTO wishdtoList(String memberId);
 
     void count(String productCode);
+
+    List<ProductDTO> shoppingBascket();
 }

@@ -64,7 +64,6 @@
 
 <button onclick = 'location.href = "shoppingMainForm"'>(일반)쇼핑몰 페이지 이동</button>
 
-<button onclick = 'location.href = "shoppingMainForm"'>쇼핑몰 메인 </button>
 
 <button th:if = "${session.login != null}" onclick = 'location.href = "memberSignOut"'>로그아웃</button>
 <button th:if = "${session.login != null}" th:onclick = "|location.href='@{memberModifyForm(memberId=${session.login.memberId})}'|">회원 수정 페이지 이동</button>

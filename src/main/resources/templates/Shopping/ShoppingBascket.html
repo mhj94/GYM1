@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="생로병사"/>
+    <meta name="description" content="해당 html에 대한 설명"/>
+    <title>타이틀</title>
+    <meta name="date" content="2022.05.25">
+    <title>장바구니</title>
+</head>
+<body>
+        <h1>Bascket</h1>
+    <table>
+        <caption>장바구니</caption>
+        <tr>
+            <th>상품사진명</th>
+            <th>상품이름</th>
+            <th>상품가격</th>
+            <th>상품평점</th>
+        </tr>
+
+        <tr th:each="list : ${shoppingList}">
+            <td><a th:href="@{shoppingView(productCode=${list.productCode})}" th:text="${list.productPhoto}"></a></td>
+            <td th:text="${list.productName}"></td>
+            <td th:text="${list.productPrice}"></td>
+            <td th:text="${list.productRate}"></td>
+        </tr>
+    </table>
+</body>
+</html>

@@ -46,14 +46,22 @@
       </td>
     </tr>
   </table>
-  <br/><select class="filterselect" name="product">
-    <option th:value="개수" selected="selected">========</option>
-    <option th:value="${view.productName}"></option>
-    <option th:value="사과">사과</option>
-    <option th:value="파인애플">파인애플</option>
-  </select><br/><br/>
-  <button onclick = 'location.href = "shoppingBascket"'>장바구니</button>
-  <button onclick = 'location.href = "shoppingPayment"'>바로구매</button>
+
+  <br/>
+  <div>
+    <span>상품 수량 선택</span><br/>
+  <select name="productName" onchange="productOrder(this)">
+    <option th:value="${view.productName} + '5팩' + ${view.productPrice} * 5 + '원'" th:text="${view.productName} + '5팩'"></option>
+    <option th:value="${view.productName} + '10팩' + ${view.productPrice} * 10 + '원'" th:text="${view.productName} + '10팩'"></option>
+    <option th:value="${view.productName} + '15팩' + ${view.productPrice} * 15 + '원'" th:text="${view.productName} + '15팩'"></option>
+    <option th:value="${view.productName} + '20팩' + ${view.productPrice} * 20 + '원'" th:text="${view.productName} + '20팩'"></option>
+  </select>
+    <div id='result' style="float: right"></div>
+  </div>
+  <br/><br/>
+
+  <button onclick = 'location.href = "ShoppingBascket"'>장바구니</button>
+  <button onclick = 'location.href = "ShoppingPayment"'>바로구매</button>
   <br/>
   <br/><span>별점 선택</span>
   <input type="radio" name="productReviewRate" value="1" id="rate1"><label
@@ -70,10 +78,25 @@
 <input type="hidden" th:id="productCode" th:value="${view.productCode}">
 <div id="reviewArea"></div>
 </body>
+
+
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script>
+  function productOrder(e) {
+    // 선택된 데이터 가져오기
+    const value = e.value;
+
+    // 데이터 출력
+    document.getElementById('result').innerText
+            = value;
+  }
+</script>
+
+
 <script th:inline="javascript">
-        var productCode = [[${view.productCode}]];
+  var productCode = [[${view.productCode}]];
     $(document).ready(function () {
 
       // 리뷰 목록

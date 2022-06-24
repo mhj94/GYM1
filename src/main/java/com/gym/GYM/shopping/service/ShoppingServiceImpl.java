@@ -48,4 +48,12 @@ public class ShoppingServiceImpl implements ShoppingService {
 		return mav;
 	}
 
+	@Override
+	public ModelAndView shoppingBascket(String productCode) {
+		List<ProductDTO> shoppingBascket = shoppingdao.shoppingBascket();
+		mav.addObject("shoppingBascket",shoppingBascket);
+		mav.setViewName("Shopping/shoppingBascket");
+		return mav;
+	}
+
 }

@@ -11,4 +11,5 @@ public interface ShoppingService {
 
     ModelAndView shoppingView(String productCode);
 
+    ModelAndView shoppingBascket(String productCode);
 }

@@ -21,4 +21,8 @@
 		SELECT * FROM PRODUCT WHERE PRODUCTCODE =#{productCode}
 	</select>
 
+	<select id="shoppingBascket" parameterType="String" resultType="product">
+		SELECT * FROM PRODUCT
+	</select>
+
 </mapper>
