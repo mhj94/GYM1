@@ -1,11 +1,11 @@
 <!DOCTYPE html>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="생로병사"/>
+<meta name="description" content="해당 html에 대한 설명"/>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="생로병사"/>
-    <meta name="description" content="해당 html에 대한 설명"/>
     <title>타이틀</title>
     <meta name="date" content="2022.05.25">
     <title>책임짐 게시글 작성 페이지</title>
@@ -22,7 +22,6 @@
             <th>글머리</th>
             <td><input type="text" name="boardType"/> <br/></td>
         </tr>
-
         <th:block th:if = "${session.login.memberId eq 'admin'}">
             <tr>
                 <th>공지사항 여부</th>
@@ -34,12 +33,8 @@
             <tr>
                 <th>공지사항 여부</th>
                 <td><input type="hidden"  name="boardNotice" th:value="normal"> 일반 게시글 </td>
-
             </tr>
         </th:block>
-
-        </th:block>
-
         <tr>
             <th>제목</th>
             <td><input type="text" name="boardTitle"/> <br/></td>
@@ -58,6 +53,7 @@
             <th><input type="reset" value="지우기"/> <br/></th>
         </tr>
     </table>
+    <input type="hidden"  name="boardNotice">
 </form>
 <button onclick="history.back(-1);">뒤로가기</button>
 </body>

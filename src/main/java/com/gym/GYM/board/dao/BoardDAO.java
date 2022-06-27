@@ -12,8 +12,6 @@ import com.gym.GYM.board.dto.BoardDTO;
 @Mapper
 public interface BoardDAO {
 
-	
-
 	List<BoardDTO> boardList();
 
 	int boardRegist(BoardDTO board);

@@ -63,13 +63,12 @@
     </tr>
 
 
+
 </table>
 
 
-<button th:onclick="location.href ='@{BoardNodifyForm(boardNo=${view.boardNo})}'">게시글 수정페이지 이동</button>
-<button th:onclick="'location.href=\'' + @{boardDelete(boardNo=${view.boardNo})} + '\''" 게시글 삭제 </button>
+<button th:onclick="|location.href ='@{boardModifyForm(boardNo=${view.boardNo})}'|">게시글 수정페이지 이동</button>
+<button th:onclick="|location.href ='@{boardDelete(boardNo=${view.boardNo})}'|"> 게시글 삭제 </button>
 <button onclick="history.back(-1);">뒤로가기</button>
-
-
 </body>
 </html>
