@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -22,10 +23,14 @@ public class MyRoutineController {
 
     private ModelAndView mav = new ModelAndView();
 
+
     @PostMapping("/myRoutineRegist")
     public ModelAndView myRoutineRegist(@ModelAttribute MyRoutineDTO myroutine){
+
+
         System.out.println(myroutine);
-        // mav = myroutinesvc.myRoutineRegist(myroutine);
+
+        mav = myroutinesvc.myRoutineRegist(myroutine);
         return mav;
     }
 }

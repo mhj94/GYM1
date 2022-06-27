@@ -4,7 +4,7 @@ import lombok.Data;
 import org.apache.ibatis.type.Alias;
 
 @Data
-@Alias("myRoutine")
+@Alias("myroutine")
 public class MyRoutineDTO {
     private String myRoutineCode;
     private String myRoutineId;
