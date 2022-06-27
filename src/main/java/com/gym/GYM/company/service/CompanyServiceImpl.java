@@ -8,6 +8,8 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.UUID;
 
+import com.gym.GYM.company.dao.CommentDAO;
+import com.gym.GYM.company.dto.CommentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,6 +28,8 @@ public class CompanyServiceImpl implements CompanyService{
 
     @Autowired
     private CompanyDAO companydao;
+    @Autowired
+    private CommentDAO commentdao;
 
     @Autowired
     private HttpSession session;
@@ -76,7 +80,7 @@ public class CompanyServiceImpl implements CompanyService{
         if (endPage > maxPage) {
             endPage = maxPage;
         }
-        PageDTO paging = new PageDTO(0, 1000);
+        PageDTO paging = new PageDTO();
 
         paging.setPage(page);
         paging.setStartRow(startRow);
@@ -95,16 +99,43 @@ public class CompanyServiceImpl implements CompanyService{
     }
 
     @Override
-    public ModelAndView companyView(String companyCode) {
-        CompanyDTO company = companydao.companyView(companyCode);
+    public ModelAndView companyView(String companyCode, int page, int limit) {
+        int block = 5;
+        int cCount = companydao.companyCount();
+        int startRow = (page - 1) * limit + 1;
+        int endRow = page * limit;
+        int maxPage = (int) (Math.ceil((double) cCount / limit));
+        int startPage = (((int) (Math.ceil((double) page / block))) - 1) * block + 1;
+        int endPage = startPage + block - 1;
+
+        if (endPage > maxPage) {
+            endPage = maxPage;
+        }
+        PageDTO paging = new PageDTO();
+
+        paging.setPage(page);
+        paging.setStartRow(startRow);
+        paging.setEndRow(endRow);
+        paging.setMaxPage(maxPage);
+        paging.setStartPage(startPage);
+        paging.setEndPage(endPage);
+        paging.setLimit(limit);
+
+        List<CommentDTO> commentList = commentdao.commentList(paging);
+
+        CompanyDTO company = companydao.companyView(companyCode,page,limit);
+
+
         mav.setViewName("Company/CompanyView");
         mav.addObject("view", company);
+        mav.addObject("paging", paging);
+        mav.addObject("commentList",commentList);
         return mav;
     }
 
     @Override
-    public ModelAndView companyModifyForm(String companyCode) {
-        CompanyDTO company = companydao.companyView(companyCode);
+    public ModelAndView companyModifyForm(String companyCode,int page, int limit) {
+        CompanyDTO company = companydao.companyView(companyCode,page,limit);
         mav.setViewName("Company/CompanyModifyForm");
         mav.addObject("modi", company);
         return mav;

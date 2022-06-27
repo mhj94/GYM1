@@ -15,11 +15,10 @@ public interface CompanyDAO {
 
     List<CompanyDTO> companyList(PageDTO paging);
 
-    CompanyDTO companyView(String companyCode);
+    CompanyDTO companyView(String companyCode,int page,int limit);
 
     int companyModify(CompanyDTO company);
 
     int companyDelete(String companyCode);
-
 
 }
