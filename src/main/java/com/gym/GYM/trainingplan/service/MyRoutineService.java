@@ -8,4 +8,6 @@ import org.springframework.web.servlet.ModelAndView;
 public interface MyRoutineService {
 
     ModelAndView myRoutineRegist(MyRoutineDTO myroutine);
+
+    ModelAndView myRoutineList(String myRoutineId);
 }

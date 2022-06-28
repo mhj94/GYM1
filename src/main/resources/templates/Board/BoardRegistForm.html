@@ -23,22 +23,14 @@
             <td><input type="text" name="boardType"/> <br/></td>
         </tr>
 
-        <th:block th:if = "${session.login.memberId eq 'admin'}">
+
             <tr>
                 <th>공지사항 여부</th>
-                <td><input type="radio" id="normal" name="boardNotice" th:value="normal" checked/> 일반 게시글 <br/></td>
-                <td><input type="radio" id="notice" name="boardNotice" th:value="notice"/> 공지사항 <br/></td>
+                <td><input type="radio" name="boardNotice" value="normal"/> 일반 게시글 <br/></td>
+                <td><input type="radio" name="boardNotice" value="notice"/> 공지사항 <br/></td>
             </tr>
-        </th:block>
-        <th:block th:unless = "${session.login.memberId ne 'admin'}">
-            <tr>
-                <th>공지사항 여부</th>
-                <td><input type="hidden"  name="boardNotice" th:value="normal"> 일반 게시글 </td>
 
-            </tr>
-        </th:block>
 
-        </th:block>
 
         <tr>
             <th>제목</th>

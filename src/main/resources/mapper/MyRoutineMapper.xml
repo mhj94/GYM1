@@ -8,6 +8,9 @@
         INSERT INTO MYROUTINE VALUES(#{myRoutineCode},#{myRoutineId},#{myRoutineDay},#{myRoutineTrainingCode},#{myRoutineTitle},#{myRoutinePurpose},#{myRoutineGrade})
     </insert>
 
+    <select id="myRoutineList" parameterType="String" resultType="myroutine">
+        SELECT * FROM MYROUTINE WHERE MYROUTINEID = #{myRoutineId}
+    </select>
 
 
 </mapper>

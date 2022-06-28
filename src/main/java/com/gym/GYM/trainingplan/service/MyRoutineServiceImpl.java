@@ -24,20 +24,22 @@ public class MyRoutineServiceImpl implements MyRoutineService {
     public ModelAndView myRoutineRegist(MyRoutineDTO myroutine) {
 
 
-        String[] myRoutineTrainingCode = myroutine.getMyRoutineTrainingCode().split(",");
-        System.out.println(myRoutineTrainingCode[0].equals(Integer.toString(1)));
+        String[] myRoutineTrainingCode = myroutine.getMyRoutineTrainingCode().split(","); // 콤마 구분해서 배열생성
 
-        for (int i = 0; i < myRoutineTrainingCode.length; i++) {
+
+        for (int i = 0; i < myRoutineTrainingCode.length; i++) { //전체 배열
             for (int j = 1; j < myRoutineTrainingCode.length + 1 / 6; j++) {
 
 
                 if (myRoutineTrainingCode[i].equals(Integer.toString(j))) {
-                    for (int k = 1; k <= 5; k++) {
+
+                    for (int k = 1; k <= 5; k++) { // arr{day,codek,codek,codek,codek,codek}
                         if (i + k < myRoutineTrainingCode.length) {
-                            if (myRoutineTrainingCode[i + k].matches()) { // 정규식 넣기 (코드부분에 문자열이 있나없나로 NULL값 체크)
+                            if (myRoutineTrainingCode[i + k].contains("HTR") || myRoutineTrainingCode[i + k].contains("ETR")) { // 정규식 넣기 (코드부분에 문자열이 있나없나로 NULL값 체크)
+
                                 myroutine.setMyRoutineDay(j);
                                 myroutine.setMyRoutineTrainingCode(myRoutineTrainingCode[i + k]);
-                                System.out.println(myroutine);
+
                                 int result = myroutinedao.myRoutineRegist(myroutine);
 
                             }
@@ -51,6 +53,15 @@ public class MyRoutineServiceImpl implements MyRoutineService {
         mav.setViewName("index");
 
 
+        return mav;
+    }
+
+    @Override
+    public ModelAndView myRoutineList(String myRoutineId) {
+        List<MyRoutineDTO> myroutine = myroutinedao.myRoutineList(myRoutineId);
+
+        mav.addObject("myroutinelist",myroutine);
+        mav.setViewName("MyRoutine/MyRoutineList");
         return mav;
     }
 }
