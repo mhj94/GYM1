@@ -30,8 +30,10 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public ModelAndView boardList() {
-		List<BoardDTO> boardlist = boarddao.boardList();
-		mav.addObject("boardList", boardlist);
+		List<BoardDTO> boardNoticeList = boarddao.boardNoticeList();
+		List<BoardDTO> boardNormalList = boarddao.boardNormalList();
+		mav.addObject("boardNoticeList", boardNoticeList);
+		mav.addObject("boardNormalList", boardNormalList);
 		mav.setViewName("Board/BoardList");
 
 		return mav;

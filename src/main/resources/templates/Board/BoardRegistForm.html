@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="생로병사"/>
-<meta name="description" content="해당 html에 대한 설명"/>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="생로병사"/>
+    <meta name="description" content="해당 html에 대한 설명"/>
     <title>타이틀</title>
     <meta name="date" content="2022.05.25">
     <title>책임짐 게시글 작성 페이지</title>
@@ -20,21 +20,17 @@
         </tr>
         <tr>
             <th>글머리</th>
-            <td><input type="text" name="boardType"/> <br/></td>
+            <td><select name="boardType">
+                <option value="QnA">QnA</option>
+                <option value="잡담">잡담</option>
+                <option value="정보공유">정보공유</option>
+            </select><br/></td>
         </tr>
-        <th:block th:if = "${session.login.memberId eq 'admin'}">
-            <tr>
-                <th>공지사항 여부</th>
-                <td><input type="radio" id="normal" name="boardNotice" th:value="normal" checked/> 일반 게시글 <br/></td>
-                <td><input type="radio" id="notice" name="boardNotice" th:value="notice"/> 공지사항 <br/></td>
-            </tr>
-        </th:block>
-        <th:block th:unless = "${session.login.memberId ne 'admin'}">
-            <tr>
-                <th>공지사항 여부</th>
-                <td><input type="hidden"  name="boardNotice" th:value="normal"> 일반 게시글 </td>
-            </tr>
-        </th:block>
+        <tr>
+            <th>공지사항 여부</th>
+            <td><input type="radio" name="boardNotice" value="normal"/> 일반 게시글 <br/></td>
+            <td><input type="radio" name="boardNotice" value="notice"/> 공지사항 <br/></td>
+        </tr>
         <tr>
             <th>제목</th>
             <td><input type="text" name="boardTitle"/> <br/></td>
@@ -53,7 +49,6 @@
             <th><input type="reset" value="지우기"/> <br/></th>
         </tr>
     </table>
-    <input type="hidden"  name="boardNotice">
 </form>
 <button onclick="history.back(-1);">뒤로가기</button>
 </body>

@@ -3,10 +3,12 @@
 
 <mapper namespace="com.gym.GYM.board.dao.BoardDAO">
 
-    <select id="boardList" resultType="board">
-        SELECT *
-        FROM BOARD
-        ORDER BY BOARDNO DESC
+    <select id="boardNoticeList" resultType="board">
+        SELECT * FROM BOARD WHERE ROWNUM <![CDATA[<]]> 4 AND BOARDNOTICE = 'notice'
+    </select>
+
+    <select id="boardNormalList" resultType="board">
+        SELECT * FROM BOARD WHERE BOARDNOTICE = 'normal' ORDER BY BOARDNO DESC
     </select>
 
     <insert id="boardRegist" parameterType="board">
