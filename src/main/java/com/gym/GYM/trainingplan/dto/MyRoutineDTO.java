@@ -13,4 +13,5 @@ public class MyRoutineDTO {
     private String myRoutineGrade;
     private int myRoutineDay;
     private String myRoutineTrainingCode;
+    private String trainingName;
 }

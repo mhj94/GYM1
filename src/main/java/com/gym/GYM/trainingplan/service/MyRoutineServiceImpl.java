@@ -72,6 +72,7 @@ public class MyRoutineServiceImpl implements MyRoutineService {
     public ModelAndView myRoutineView(String myRoutineCode) {
         List<MyRoutineDTO> myroutine = myroutinedao.myRoutineView(myRoutineCode);
 
+        System.out.println(myroutine);
         mav.addObject("myroutineview",myroutine);
         mav.setViewName("MyRoutine/MyRoutineView");
 
