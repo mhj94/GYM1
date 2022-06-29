@@ -11,7 +11,6 @@
 
 </head>
 <body>
-
     <form action="myRoutineRegist" method="post" enctype="multipart/form-data">
         <div style="width: 40%; height: 20%; background-size: cover; float: left;">
         <table>
@@ -52,12 +51,10 @@
                 <th>운동루틴</th>
                 <td><input type="text" name="trainingPlanMyRoutineCode"></td>
             </tr>
-
 <tr>
     <th>식별코드</th>
     <td><input type="text" size="15" id="uuid" name="myRoutineCode"/></td>
 </tr>
-
             <tr>
                 <td>
                     <input type="submit" value="제출">
@@ -66,9 +63,6 @@
             </tr>
         </table>
 </div>
-
-
-
 <div id="sendGradeView"></div>
 <div id="sendPartView"></div>
 
@@ -80,11 +74,11 @@
 
 
 
-<div id="showTrainingPart" style="float:right;"  class="container">운동리스트
+<div id="showTrainingPart" style="float:left"  class="container">운동리스트
 </div>
 
 
-<div class="container">
+<div class="container" style="margin-right:400px;">
     <div class="container" id="showTrainingDay1" style="float:right; flex-direction: column;"></div>
 
     <div class="container" id="showTrainingDay2" style="float:right;flex-direction: column;"></div>
@@ -101,7 +95,7 @@
 
 
 
-<div id ="showLive"  class="container"></div>
+<div id ="showLive" style="margin-top: 30px;" class="container"></div>
 </form>
 </body>
 
@@ -286,7 +280,7 @@
     function showTraining(day, training) {
 
         var output = "";
-        output += "<div>";
+        output += "<div style='margin-bottom: 10px;'>";
 
         for (var i = 1; i <= 5; i++) {
 
@@ -324,7 +318,7 @@
         if (day == 1) {
             dayTrainingArray1.splice(number, 1, trainingCode);
             var output = "";
-            output += "<div>";
+            output += "<div style='float: right;'>";
             for(var i=1; i<dayTrainingArray1.length; i++){
                 output +=  "<button onclick=sendTraining('"+dayTrainingArray1[i]+"')>상세보기</button>";
             }
