@@ -13,13 +13,13 @@
 </head>
 <body>
 
-    <form action="myRoutineRegist" method="post" enctype="multipart/form-data">
+    <form action="myRoutineRegist" method="post" enctype="multipart/form-data" onsubmit="return false">
         <div style="width: 40%; height: 20%; background-size: cover; float: left;">
         <table>
             <caption>견적서 등록</caption>
             <tr>
-                <th>아이디</th>
-                <td><input type="text" name="myRoutineId" th:value="${session.login.memberId}"></td>
+                <input type="hidden" name="myRoutineId" th:value="${session.login.memberId}">
+                <input type="hidden" size="15" id="uuid" name="myRoutineCode"/>
                 <!-- hidden값으로 바꿀 예정 220620 -->
             </tr>
             <tr>
@@ -40,21 +40,18 @@
                 <th>등급</th>
                 <td>
                     <label class="test_obj">
-                        <input type="radio" name="myRoutineGrade" value="초급" onclick="sendGrade(this.value)">
+                        <input type="radio" class="newArr" name="myRoutineGrade" value="초급" onclick="sendGrade(this.value)">
                         <span>초급</span>
                     </label>
                     <label class="test_obj">
-                        <input type="radio" name="myRoutineGrade" value="중급" onclick="sendGrade(this.value)">
+                        <input type="radio" class="newArr" name="myRoutineGrade" value="중급" onclick="sendGrade(this.value)">
                         <span>중급</span>
                     </label>
                 </td>
             </tr>
 
 
-<tr>
-    <th>식별코드</th>
-    <td><input type="text" size="15" id="uuid" name="myRoutineCode"/></td>
-</tr>
+
 
             <tr>
                 <td>
@@ -67,14 +64,9 @@
 
 
 
-<div id="sendGradeView"></div>
-<div id="sendPartView"></div>
 
-<div id="showTrainingGif">
 
-</div>
-<div style="float: right" id="showTrainingDetail" >
-</div>
+
 
 
 
@@ -82,7 +74,7 @@
 </div>
 
 
-<div class="container">
+
     <div class="container" id="showTrainingDay1" style="float:right; flex-direction: column;"></div>
 
     <div class="container" id="showTrainingDay2" style="float:right;flex-direction: column;"></div>
@@ -95,26 +87,63 @@
 
     <div class="container" id="showTrainingDay6" style="float:right;flex-direction: column;"></div>
     <div class="container" id="showTrainingDay7" style="float:right;flex-direction: column;"></div>
-</div>
 
 
+        <div id ="showLive1"  class="container"></div>
+        <div id ="showLive2"  class="container"></div>
+        <div id ="showLive3"  class="container"></div>
+        <div id ="showLive4"  class="container"></div>
+        <div id ="showLive5"  class="container"></div>
+        <div id ="showLive6"  class="container"></div>
+        <div id ="showLive7"  class="container"></div>
 
-    <div id ="showLive1"  class="container"></div>
-    <div id ="showLive2"  class="container"></div>
-    <div id ="showLive3"  class="container"></div>
-    <div id ="showLive4"  class="container"></div>
-    <div id ="showLive5"  class="container"></div>
-    <div id ="showLive6"  class="container"></div>
-    <div id ="showLive7"  class="container"></div>
+
 
 </form>
-</body>
 
+
+
+    <div id="showTrainingGif"></div>
+    <div style="float: right" id="showTrainingDetail"></div>
+</body>
 <script src="https://code.jquery.com/jquery-latest.js"></script>
 <script th:inline="javascript">
+    var dayTrainingArray1 = new Array(1, '', '', '', '', '');
+    var dayTrainingArray2 = new Array(2, '', '', '', '', '');
+    var dayTrainingArray3 = new Array(3, '', '', '', '', '');
+    var dayTrainingArray4 = new Array(4, '', '', '', '', '');
+    var dayTrainingArray5 = new Array(5, '', '', '', '', '');
+    var dayTrainingArray6 = new Array(6, '', '', '', '', '');
+    var dayTrainingArray7 = new Array(7, '', '', '', '', '');
+
+    $('input[name="myRoutineGrade"]').change(function(){
+        $('input[name="myRoutineGrade"]').each(function(){
+            var checked = $(this).prop('checked');
+
+            if(checked){
+                dayTrainingArray1 = new Array(1, '', '', '', '', '');
+                dayTrainingArray2 = new Array(2, '', '', '', '', '');
+                dayTrainingArray3 = new Array(3, '', '', '', '', '');
+                dayTrainingArray4 = new Array(4, '', '', '', '', '');
+                dayTrainingArray5 = new Array(5, '', '', '', '', '');
+                dayTrainingArray6 = new Array(6, '', '', '', '', '');
+                dayTrainingArray7 = new Array(7, '', '', '', '', '');
+
+
+                for(var i=1 ; i<=7 ; i++){
+                    dayId = '#showTrainingDay'+i;
+                    liveId = '#showLive'+i;
+                    $(dayId).empty();
+                    $(liveId).empty();
+                }
+
+            }
+
+                                                        })
+    })
+
 
     function sendGrade(Grade) {
-        const sendGradeView = document.getElementById('sendGradeView');
 
         var grade = Grade;
 
@@ -139,65 +168,9 @@
     }
 
 
-    function showGrade(result) {
-
-        var output = "";
-        output += "<div style='width: 50%; float: left;'>";
-
-        for (var i in result) {
-
-            output += "<button onclick =sendPart('" + result[i].trainingPart + "') value = '" + result[i].trainingPart + "'>" + result[i].trainingPart + "</button>";
-
-        }
-        output += "</div>";
 
 
-        var sendGradeView = document.getElementById('sendGradeView');
-        sendGradeView.innerHTML = output;
 
-    }
-
-    function sendPart(Part) {
-
-        const sendPartView = document.getElementById('sendPartView');
-        var trainingPart = Part;
-
-        $.ajax({
-            url: "ajax/sendPart",
-            type: "GET",
-            dataType: "json",
-            data: {"trainingPart": trainingPart},
-            success: function (result) {
-                showPart(result);
-                select = Part;
-                console.log(Part);
-                console.log(select);
-            },
-            error: function (request, status, error) {
-
-                alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-
-            }
-        });
-    }
-
-    function showPart(result) {
-
-        var output = "";
-        output += "<div>";
-
-        for (var i in result) {
-
-            output += "<button onclick=sendTraining('" + result[i].trainingCode + "')>" + result[i].trainingName + "</button>";
-
-        }
-        output += "</div>";
-
-
-        var sendPartView = document.getElementById('sendPartView');
-        sendPartView.innerHTML = output;
-
-    }
 
     function sendTraining(trainingCode) {
 
@@ -207,7 +180,7 @@
             type: "GET",
             data: {"trainingCode": trainingCode},
             success: function (result) {
-                alert('sendTraining 성공');
+                alert(result);
 
                 sendTrainingView(result);
 
@@ -315,13 +288,7 @@
 
 
 
-    var dayTrainingArray1 = new Array(1, '', '', '', '', '');
-    var dayTrainingArray2 = new Array(2, '', '', '', '', '');
-    var dayTrainingArray3 = new Array(3, '', '', '', '', '');
-    var dayTrainingArray4 = new Array(4, '', '', '', '', '');
-    var dayTrainingArray5 = new Array(5, '', '', '', '', '');
-    var dayTrainingArray6 = new Array(6, '', '', '', '', '');
-    var dayTrainingArray7 = new Array(7, '', '', '', '', '');
+
 
     function saveTemp(day, trainingCode, number) {
 
@@ -332,7 +299,11 @@
             var output = "";
             output += "<div>";
             for(var i=1; i<dayTrainingArray1.length; i++){
-                output +=  "<button onclick=sendTraining('"+dayTrainingArray1[i]+"')>상세보기</button>";
+                if(dayTrainingArray1[i].includes('HTR')){
+                    output += "<button type='button' onclick=sendTraining('" + dayTrainingArray1[i] + "')>상세보기</button>";
+                }else {
+                    output += "<button type='button' onclick=sendTraining('" + dayTrainingArray1[i] + "') disabled>상세보기</button>";
+                }
             }
             output += "</div>";
             output += "<input type ='hidden' name ='myRoutineTrainingCode[]' value = "+dayTrainingArray1+">";
@@ -345,7 +316,7 @@
             var output = "";
             output += "<div>";
             for(var i=1; i<dayTrainingArray2.length; i++){
-                output +=  "<button onclick=sendTraining('"+dayTrainingArray2[i]+"')>상세보기</button>";
+                output += "<button type='button' onclick=sendTraining('" + dayTrainingArray2[i] + "')>상세보기</button>";
             }
             output += "</div>";
             output += "<input type ='hidden' name ='myRoutineTrainingCode[]' value = "+dayTrainingArray2+">";
@@ -357,7 +328,7 @@
             var output = "";
             output += "<div>";
             for(var i=1; i<dayTrainingArray3.length; i++){
-                output +=  "<button onclick=sendTraining('"+dayTrainingArray3[i]+"')>상세보기</button>";
+                output += "<button type='button' onclick=sendTraining('" + dayTrainingArray3[i] + "')>상세보기</button>";
             }
             output += "</div>";
             output += "<input type ='hidden' name ='myRoutineTrainingCode[]' value = "+dayTrainingArray3+">";
@@ -369,40 +340,51 @@
             var output = "";
             output += "<div>";
             for(var i=1; i<dayTrainingArray4.length; i++){
-                output +=  "<button onclick=sendTraining('"+dayTrainingArray4[i]+"')>상세보기</button>";
+                output += "<button type='button' onclick=sendTraining('" + dayTrainingArray4[i] + "')>상세보기</button>";
             }
             output += "</div>";
             output += "<input type ='hidden' name ='myRoutineTrainingCode[]' value = "+dayTrainingArray4+">";
+
+            var showLive = document.getElementById('showLive4');
+            showLive.innerHTML = output;
 
         } else if (day == 5) {
             dayTrainingArray5.splice(number, 1, trainingCode);
             var output = "";
             output += "<div>";
             for(var i=1; i<dayTrainingArray5.length; i++){
-                output +=  "<button onclick=sendTraining('"+dayTrainingArray5[i]+"')>상세보기</button>";
+                output += "<button type='button' onclick=sendTraining('" + dayTrainingArray5[i] + "')>상세보기</button>";
             }
             output += "</div>";
             output += "<input type ='hidden' name ='myRoutineTrainingCode[]' value = "+dayTrainingArray5+">";
+
+            var showLive = document.getElementById('showLive5');
+            showLive.innerHTML = output;
 
         } else if (day == 6) {
             dayTrainingArray6.splice(number, 1, trainingCode);
             var output = "";
             output += "<div>";
             for(var i=1; i<dayTrainingArray6.length; i++){
-                output +=  "<button onclick=sendTraining('"+dayTrainingArray6[i]+"')>상세보기</button>";
+                output += "<button type='button' onclick=sendTraining('" + dayTrainingArray6[i] + "')>상세보기</button>";
             }
             output += "</div>";
             output += "<input type ='hidden' name ='myRoutineTrainingCode[]' value = "+dayTrainingArray6+">";
+            var showLive = document.getElementById('showLive6');
+            showLive.innerHTML = output;
 
         } else if (day == 7) {
             dayTrainingArray7.splice(number, 1, trainingCode);
             var output = "";
             output += "<div>";
             for(var i=1; i<dayTrainingArray7.length; i++){
-                output +=  "<button onclick=sendTraining('"+dayTrainingArray7[i]+"')>상세보기</button>";
+                output += "<button type='button' onclick=sendTraining('" + dayTrainingArray7[i] + "')>상세보기</button>";
             }
             output += "</div>";
             output += "<input type ='hidden' name ='myRoutineTrainingCode[]' value = "+dayTrainingArray7+">";
+
+            var showLive = document.getElementById('showLive7');
+            showLive.innerHTML = output;
 
         }
 

@@ -19,6 +19,7 @@ public class MyRoutineServiceImpl implements MyRoutineService {
 
     private HttpServletRequest request;
 
+    MyRoutineDTO myroutine = new MyRoutineDTO();
 
     @Override
     public ModelAndView myRoutineRegist(MyRoutineDTO myroutine) {
@@ -58,10 +59,24 @@ public class MyRoutineServiceImpl implements MyRoutineService {
 
     @Override
     public ModelAndView myRoutineList(String myRoutineId) {
+
         List<MyRoutineDTO> myroutine = myroutinedao.myRoutineList(myRoutineId);
+
 
         mav.addObject("myroutinelist",myroutine);
         mav.setViewName("MyRoutine/MyRoutineList");
         return mav;
     }
+
+    @Override
+    public ModelAndView myRoutineView(String myRoutineCode) {
+        List<MyRoutineDTO> myroutine = myroutinedao.myRoutineView(myRoutineCode);
+
+        mav.addObject("myroutineview",myroutine);
+        mav.setViewName("MyRoutine/MyRoutineView");
+
+        return mav;
+    }
+
+
 }

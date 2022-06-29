@@ -10,4 +10,7 @@ public interface MyRoutineService {
     ModelAndView myRoutineRegist(MyRoutineDTO myroutine);
 
     ModelAndView myRoutineList(String myRoutineId);
+
+
+    ModelAndView myRoutineView(String myRoutineCode);
 }

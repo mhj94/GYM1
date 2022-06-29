@@ -9,5 +9,11 @@ import java.util.List;
 public interface MyRoutineDAO {
     int myRoutineRegist(MyRoutineDTO myroutine);
 
+
     List<MyRoutineDTO> myRoutineList(String myRoutineId);
+
+
+
+
+    List<MyRoutineDTO> myRoutineView(String myRoutineCode);
 }

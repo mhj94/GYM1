@@ -9,8 +9,15 @@
     </insert>
 
     <select id="myRoutineList" parameterType="String" resultType="myroutine">
-        SELECT * FROM MYROUTINE WHERE MYROUTINEID = #{myRoutineId}
+        SELECT DISTINCT MYROUTINECODE,MYROUTINETITLE,MYROUTINEGRADE,MYROUTINEPURPOSE FROM MYROUTINE WHERE MYROUTINEID = #{myRoutineId}
     </select>
+
+
+    <select id="myRoutineView" parameterType="String" resultType="myroutine">
+        SELECT * FROM MYROUTINE WHERE MYROUTINECODE = #{myRoutineCode}
+    </select>
+
+
 
 
 </mapper>
