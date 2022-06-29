@@ -11,92 +11,98 @@
 
 </head>
 <body>
-    <form action="myRoutineRegist" method="post" enctype="multipart/form-data">
-        <div style="width: 40%; height: 20%; background-size: cover; float: left;">
-        <table>
-            <caption>견적서 등록</caption>
-            <tr>
-                <th>아이디</th>
-                <td><input type="text" name="myRoutineId" th:value="${session.login.memberId}"></td>
-                <!-- hidden값으로 바꿀 예정 220620 -->
-            </tr>
-            <tr>
-                <th>운동목적</th>
-                <td>
-                    <label class="test_obj">
-                        <input type="radio" name="myRoutinePurpose" value="벌크업">
-                        <span>벌크업</span>
-                    </label>
-                    <label class="test_obj">
-                        <input type="radio" name="myRoutinePurpose" value="다이어트">
-                        <span>다이어트</span>
-                    </label>
 
-                </td>
-            </tr>
-            <tr>
-                <th>등급</th>
-                <td>
-                    <label class="test_obj">
-                        <input type="radio" name="myRoutineGrade" value="초급" onclick="sendGrade(this.value)">
-                        <span>초급</span>
-                    </label>
-                    <label class="test_obj">
-                        <input type="radio" name="myRoutineGrade" value="중급" onclick="sendGrade(this.value)">
-                        <span>중급</span>
-                    </label>
-                </td>
-            </tr>
-            <tr>
-                <th>운동루틴</th>
-                <td><input type="text" name="trainingPlanMyRoutineCode"></td>
-            </tr>
-<tr>
-    <th>식별코드</th>
-    <td><input type="text" size="15" id="uuid" name="myRoutineCode"/></td>
-</tr>
-            <tr>
-                <td>
-                    <input type="submit" value="제출">
-                    <input type="reset" value="다시작성">
-                </td>
-            </tr>
-        </table>
-</div>
-<div id="sendGradeView"></div>
-<div id="sendPartView"></div>
+<form action="myRoutineRegist" method="post" enctype="multipart/form-data">
+    <div class="container">
+        <div class="item" style="width: 40%; height: 20%; background-size: cover; float: left;">
+            <table>
+                <caption>견적서 등록</caption>
+                <tr>
+                    <th>아이디</th>
+                    <td><input type="text" name="myRoutineId" th:value="${session.login.memberId}"></td>
+                    <!-- hidden값으로 바꿀 예정 220620 -->
+                </tr>
+                <tr>
+                    <th>운동목적</th>
+                    <td>
+                        <label class="test_obj">
+                            <input type="radio" name="myRoutinePurpose" value="벌크업">
+                            <span>벌크업</span>
+                        </label>
+                        <label class="test_obj">
+                            <input type="radio" name="myRoutinePurpose" value="다이어트">
+                            <span>다이어트</span>
+                        </label>
 
-<div id="showTrainingGif">
+                    </td>
+                </tr>
+                <tr>
+                    <th>등급</th>
+                    <td>
+                        <label class="test_obj">
+                            <input type="radio" name="myRoutineGrade" value="초급" onclick="sendGrade(this.value)">
+                            <span>초급</span>
+                        </label>
+                        <label class="test_obj">
+                            <input type="radio" name="myRoutineGrade" value="중급" onclick="sendGrade(this.value)">
+                            <span>중급</span>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <th>운동루틴</th>
+                    <td><input type="text" name="trainingPlanMyRoutineCode"></td>
+                </tr>
+                <tr>
+                    <th>식별코드</th>
+                    <td><input type="text" size="15" id="uuid" name="myRoutineCode"/></td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="submit" value="제출">
+                        <input type="reset" value="다시작성">
+                    </td>
+                </tr>
+            </table>
+        </div>
 
-</div>
-<div style="float: right" id="showTrainingDetail" >
-</div>
+        <!--    Day 별 운동 선택 셀렉트 박스        -->
+        <div id="showTrainingPart" class="item">운동리스트
+        </div>
 
+        <div class="item">
+            <div id="showTrainingDay1"></div>
 
+            <div id="showTrainingDay2"></div>
 
-<div id="showTrainingPart" style="float:left"  class="container">운동리스트
-</div>
+            <div id="showTrainingDay3"></div>
 
+            <div id="showTrainingDay4"></div>
 
-<div class="container" style="margin-right:400px;">
-    <div class="container" id="showTrainingDay1" style="float:right; flex-direction: column;"></div>
+            <div id="showTrainingDay5"></div>
 
-    <div class="container" id="showTrainingDay2" style="float:right;flex-direction: column;"></div>
+            <div id="showTrainingDay6"></div>
 
-    <div class="container" id="showTrainingDay3" style="float:right;flex-direction: column;"></div>
+            <div id="showTrainingDay7"></div>
+        </div>
 
-    <div class="container" id="showTrainingDay4" style="float:right;flex-direction: column;"></div>
+        <div class="item" id="showLive"></div>
 
-    <div class="container" id="showTrainingDay5" style="float:right;flex-direction: column;"></div>
+        <div class="item">
+            <div class="item" id="showTrainingGif">
 
-    <div class="container" id="showTrainingDay6" style="float:right;flex-direction: column;"></div>
-    <div class="container" id="showTrainingDay7" style="float:right;flex-direction: column;"></div>
-</div>
+            </div>
+            <div class="item" id="showTrainingDetail">
+            </div>
+        </div>
 
+        <div class="item" id="sendPartView"></div>
 
+        <div class="item" id="sendGradeView"></div>
 
-<div id ="showLive" style="margin-top: 30px;" class="container"></div>
+    </div>
 </form>
+
 </body>
 
 <script src="https://code.jquery.com/jquery-latest.js"></script>
@@ -126,7 +132,6 @@
         });
 
     }
-
 
     function showGrade(result) {
 
@@ -165,7 +170,6 @@
             error: function (request, status, error) {
 
                 alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-
             }
         });
     }
@@ -222,6 +226,7 @@
         output2 += "<div>";
 
         output2 += "<h1>" + result.trainingName + "</h1>";
+
         output2 += "<p>" + result.trainingComment + "</p>";
 
         output2 += "</div>";
@@ -300,10 +305,6 @@
         showTraining.innerHTML = output;
     }
 
-
-
-
-
     var dayTrainingArray1 = new Array(1, '', '', '', '', '');
     var dayTrainingArray2 = new Array(2, '', '', '', '', '');
     var dayTrainingArray3 = new Array(3, '', '', '', '', '');
@@ -314,16 +315,16 @@
 
     function saveTemp(day, trainingCode, number) {
 
-
         if (day == 1) {
             dayTrainingArray1.splice(number, 1, trainingCode);
             var output = "";
-            output += "<div style='float: right;'>";
-            for(var i=1; i<dayTrainingArray1.length; i++){
-                output +=  "<button onclick=sendTraining('"+dayTrainingArray1[i]+"')>상세보기</button>";
+            output += "<div>";
+            for (var i = 1; i < dayTrainingArray1.length; i++) {
+                output += "<button type='button' onclick=sendTraining('" + dayTrainingArray1[i] + "')>상세보기</button>";
+                output += "<br/>";
             }
             output += "</div>";
-            output += "<input type ='hidden' name ='myRoutineCode' value = "+dayTrainingArray1+">";
+            output += "<input type ='hidden' name ='myRoutineCode' value = " + dayTrainingArray1 + ">";
 
             var showLive = document.getElementById('showLive');
             showLive.innerHTML = output;
@@ -331,12 +332,12 @@
         } else if (day == 2) {
             dayTrainingArray2.splice(number, 1, trainingCode);
             var output = "";
-            output += "<div>";
-            for(var i=1; i<dayTrainingArray2.length; i++){
-                output +=  "<button onclick=sendTraining('"+dayTrainingArray2[i]+"')>상세보기</button>";
+            output += "<div style='float: left;'>";
+            for (var i = 1; i < dayTrainingArray2.length; i++) {
+                output += "<button onclick=sendTraining('" + dayTrainingArray2[i] + "')>상세보기</button>";
             }
             output += "</div>";
-            output += "<input type ='hidden' name ='myRoutineTrainingCode[]' value = "+dayTrainingArray2+">";
+            output += "<input type ='hidden' name ='myRoutineTrainingCode[]' value = " + dayTrainingArray2 + ">";
 
             var showLive = document.getElementById('showLive');
             showLive.innerHTML = output;
@@ -352,7 +353,6 @@
             dayTrainingArray7.splice(number, 1, trainingCode);
         }
 
-
         console.log(dayTrainingArray1);
         console.log(dayTrainingArray2);
         console.log(dayTrainingArray3);
@@ -360,17 +360,14 @@
         console.log(dayTrainingArray5);
         console.log(dayTrainingArray6);
         console.log(dayTrainingArray7);
-
-
     }
-
-
 </script>
-
 
 <script>
     function guid() {
+
         function s4() {
+
             return ((1 + Math.random()) * 0x10000 | 0).toString(16).substring(1);
         }
 
@@ -378,13 +375,13 @@
     }
 
     function show_uuid() {
+
         document.getElementById('uuid').value = guid();
     }
 
     $('document').ready(function () {
+
         show_uuid();
     })
 </script>
-
-
 </html>

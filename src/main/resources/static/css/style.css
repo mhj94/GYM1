@@ -190,3 +190,10 @@ select{
     background-color: #01f7ce;
     color: #000000;
 }
+
+.container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 7% 1fr;
+
+
+}
