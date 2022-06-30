@@ -21,32 +21,60 @@
 SELECT * FROM PRODUCT WHERE PRODUCTCODE =#{productCode}
 	</select>
 
-
+	<!--내가 찜한 상품 숫자 -->
 <select id="wishCount" parameterType="String" resultType="int" >
 SELECT COUNT(WISHID) FROM WISH WHERE WISHID =#{memberId}
 </select>
 
+	<!--내 찜 목록 -->
 <select id="myWishList"	 parameterType="String" resultType="product">
 SELECT * FROM PRODUCT WHERE PRODUCTCODE = #{productCode}
 
-
 </select>
-
+<!--장바구니 등록 -->
 	<insert id="basketRegist" parameterType="String">
 	INSERT INTO ORDERS VALUES (#{orderCode},#{productCode},#{memberId},0,0,0,NULL,0,NULL,0,0,0)
 	</insert>
 
-	<select id="basketList" parameterType="String" resultType="orders">
+	<!--내가 장바구니에 등록한 상품 코드 불러오기 -->
+	<select id="basketList" parameterType="String" resultType="String">
 		SELECT ORDERPRODUCTCODE FROM ORDERS WHERE ORDERID =#{memberId} AND ORDERPRICE=0
 	</select>
 
-
+	<!--장바구니 등록한 상품 숫자 -->
 	<select id="basketCount" parameterType="String" resultType="int" >
-		SELECT COUNT(ORDERPRODUCTCODE) FROM ORDERS WHERE WISHID =#{memberId} AND ORDERPRICE=0
+		SELECT COUNT(ORDERPRODUCTCODE) FROM ORDERS WHERE ORDERID =#{memberId} AND ORDERPRICE=0
 	</select>
 
-	<select id="shoppingBascket" parameterType="String" resultType="product">
-		SELECT * FROM PRODUCT
+	<!--장바구니 등록한 상품 불러오기 -->
+	<select id="myBasketList" parameterType="String" resultType="product">
+		SELECT * FROM PRODUCT WHERE PRODUCTCODE = #{basketCode}
 	</select>
+
+
+	<!-- wish에 view에서 본 상품이 들어있는지 확인-->
+
+	<select id="wishInquire" parameterType="String" resultType="String">
+	SELECT ORDERPRODUCTCODE FROM ORDERS WHERE ORDERID=#{memberId} AND ORDERPRODUCTCODE= #{productCode}
+	</select>
+
+	<insert id="wishregist" parameterType="String" >
+	INSERT INTO WISH VALUES(#{memberId},#{productCode})
+	</insert>
+<delete id="wishDelete" parameterType="String">
+ DELETE WISH WHERE WISHID=#{memberId} AND WISHPRODUCTCODE=#{productCode}
+</delete>
+
+	<!-- 장바구니에 view에서 본 상품이 들어있는지 확인-->
+<select id="basketInquire" parameterType="String" resultType="String">
+		SELECT ORDERPRODUCTCODE FROM ORDERS WHERE ORDERID=#{memberId} AND ORDERPRODUCTCODE= #{productCode}
+	</select>
+
+	<delete id="basketDelete" parameterType="String">
+		DELETE ORDERS WHERE ORDERID=#{memberId} AND ORDERPRODUCTCODE=#{productCode}
+	</delete>
+
+
+
 
 </mapper>

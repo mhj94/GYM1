@@ -19,6 +19,7 @@
 <div style="text-align: center; vertical-align: center;">
 <img src="image/logophoto.jpg"/>
     <img src="image/logotext.jpg"/>
+
 </div>
 
 <header>
@@ -32,6 +33,7 @@
     <button onclick = 'location.href = "enterpriseMemberRegistForm"'>(기업)회원가입 페이지 이동</button>
     <button onclick = 'location.href = "normalMemberRegistForm"'>(일반)회원가입 페이지 이동</button>
     <button th:if = "${session.login != null}" th:onclick = "|location.href='@{companyRegistForm(companyId=${session.login.memberId})}'|">기업 등록 페이지 이동</button>
+    <button th:if = "${session.login != null}" th:onclick = "|location.href='@{ShoppingMainFormAdminForm(memberId=${session.login.memberId})}'|">쇼핑몰 관리자 페이지 이동</button>
 
 <button onclick = 'location.href = "shoppingMainForm"'>(일반)쇼핑몰 페이지 이동</button>
 

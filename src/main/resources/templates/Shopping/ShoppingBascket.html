@@ -21,11 +21,12 @@
             <th>상품평점</th>
         </tr>
 
-        <tr th:each="list : ${shoppingList}">
-            <td><a th:href="@{shoppingView(productCode=${list.productCode})}" th:text="${list.productPhoto}"></a></td>
+        <tr th:each="list : ${myBasketList}">
+            <td><a th:href="@{shoppingView(productCode=${list.productCode})}" th:text="${list.productName}"></a></td>
             <td th:text="${list.productName}"></td>
             <td th:text="${list.productPrice}"></td>
             <td th:text="${list.productRate}"></td>
+
         </tr>
     </table>
 </body>
