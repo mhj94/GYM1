@@ -1,0 +1,10 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gym.GYM.shopping.dao.ShoppingAdminDAO">
+
+<select id="shoppingAdminList" resultType="product">
+    SELECT ROUND(PRODUCTRATE, 2) AS PRODUCTRATE,PRODUCTNAME,PRODUCTPRICE,PRODUCTCODE,PRODUCTPHOTO FROM PRODUCT ORDER BY PRODUCTHITS DESC
+</select>
+
+</mapper>
