@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset=" UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="생로병사"/>
+  <meta name="description" content="TrainingPlanList"/>
+  <title>책임GYM</title>
+  <link rel = "stylesheet" type = "text/css" href = "css/style.css">
+</head>
+<body>
+<table>
+  <tr>
+    <th>Routine 제목</th>
+    <th>운동목적</th>
+    <th>등급</th>
+    <th>수정</th>
+    <th>삭제</th>
+
+  </tr>
+  <tr th:each="myRoutineList : ${myroutinelist}">
+    <td><button th:id ="${myRoutineList.myRoutineCode}" th:onclick="|location.href='@{myRoutineView(myRoutineCode=${myRoutineList.myRoutineCode})}'|" th:text="${myRoutineList.myRoutineTitle}"></button></td>
+    <td th:text="${myRoutineList.myRoutinePurpose}">운동목적</td>
+    <td th:text="${myRoutineList.myRoutineGrade}">등급</td>
+    <td><a th:href="@{MyRoutineModifyForm(myRoutineCode=${myRoutineList.myRoutineCode})}" th:text="수정"></a></td>
+    <td><a th:href="@{myRoutineDelete(myRoutineCode=${myRoutineList.myRoutineCode})}" th:text="삭제"></a></td>
+  </tr>
+</table>
+<div id = "showMyRoutineList"></div>
+<button onclick="location.href='myRoutineRegistForm'">견적서 등록</button>
+
+</body>
+
+<script>
+
+</script>
+</html>

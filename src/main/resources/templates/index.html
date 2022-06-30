@@ -12,7 +12,7 @@
 
     </style>
 
-
+    <link rel="icon" href = "image/favicon.png" type="image/x-icon">
     <link rel = "stylesheet" type = "text/css" href = "css/style.css">
 </head>
 <body>
@@ -84,37 +84,15 @@
 </body>
 
 
-
-<script>
-    const body = document.querySelector('body');
-    const modal = document.querySelector('.modal');
-    const btnOpenPopup = document.querySelector('.btn-open-popup');
-
-    btnOpenPopup.addEventListener('click', () => {
-        modal.classList.toggle('show');
-
-        if (modal.classList.contains('show')) {
-            body.style.overflow = 'hidden';
-        }
-    });
-
-    modal.addEventListener('click', (event) => {
-        if (event.target === modal) {
-            modal.classList.toggle('show');
-
-            if (!modal.classList.contains('show')) {
-                body.style.overflow = 'auto';
-            }
-        }
-    });
-</script>
+<script src="https://code.jquery.com/jquery-latest.js"></script>
+<script src="js/modal.js"></script>
 
 
 
 
 
 
-</body>
+
 <script>
     $(function () {
         // actvie 활성화
