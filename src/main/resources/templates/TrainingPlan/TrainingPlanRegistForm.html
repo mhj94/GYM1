@@ -13,7 +13,14 @@
 <body>
 
 <form action="myRoutineRegist" method="post" enctype="multipart/form-data">
+    <-- grid 시작-->
     <div class="container">
+
+        <-- header 시작 -->
+        <div class="header">준태바보
+        </div>
+        <-- header 끝 -->
+
         <div class="item" style="width: 40%; height: 20%; background-size: cover; float: left;">
             <table>
                 <caption>견적서 등록</caption>
@@ -96,11 +103,12 @@
             </div>
         </div>
 
-        <div class="item" id="sendPartView"></div>
-
-        <div class="item" id="sendGradeView"></div>
-
+        <-- footer 시작 -->
+        <div class="footer">준태바보
+        </div>
+        <-- footer 끝 -->
     </div>
+    <-- grid 끝-->
 </form>
 
 </body>
@@ -247,7 +255,7 @@
         for (var i = 1; i <= 7; i++) {
             output += "<h1>Day" + i + "</h1>"
 
-            output += "<select onchange ='sendTrainingPart(" + i + ",this.value)'>";
+            output += "<select class='select' onchange ='sendTrainingPart(" + i + ",this.value)'>";
             output += "<option value =''>선택하세요</option>"
             for (var j in result) {
                 output += "<option value = '" + result[j].trainingPart + "'>" + result[j].trainingPart + "</option>";
