@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -35,7 +36,7 @@ public class ShoppingAdminServiceImpl implements ShoppingAdminService{
     }
 
     @Override
-    public ModelAndView shoppingAdminRegist(ProductDTO product) {
+    public ModelAndView shoppingAdminRegist(ProductDTO product) throws IOException {
         // 1.파일 불러오기
         MultipartFile productPhotoFile = product.getProductPhotoFile();
 

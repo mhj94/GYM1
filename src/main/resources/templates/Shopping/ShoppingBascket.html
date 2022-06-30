@@ -26,6 +26,21 @@
             <td th:text="${list.productName}"></td>
             <td th:text="${list.productPrice}"></td>
             <td th:text="${list.productRate}"></td>
+           <th> <select name="productName" onchange="productOrder(this)">
+
+               <option th:value="${view.productName} + '5팩' + ${view.productPrice} * 5 + '원'"
+                        th:text="${view.productName} + '5팩' + ${view.productPrice} * 5 + '원'"></option>
+
+                <option th:value="${view.productName} + '10팩' + ${view.productPrice} * 10 + '원'"
+                        th:text="${view.productName} + '10팩' + ${view.productPrice} * 5 + '원'"></option>
+
+                <option th:value="${view.productName} + '15팩' + ${view.productPrice} * 15 + '원'"
+                        th:text="${view.productName} + '15팩' + ${view.productPrice} * 5 + '원'"></option>
+
+                <option th:value="${view.productName} + '20팩' + ${view.productPrice} * 20 + '원'"
+                        th:text="${view.productName} + '20팩' + ${view.productPrice} * 5 + '원'"></option>
+           </select>
+           </th>
 
         </tr>
     </table>
