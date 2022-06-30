@@ -22,7 +22,7 @@ public class ShoppingAdminController {
     private ModelAndView mav = new ModelAndView();
 
     // shoppingAdminMainForm : 쇼핑몰(관리자) 메인 페이지 이동
-    @GetMapping("/shoppingAdminMainForm")
+    @GetMapping("/ShoppingMainFormAdminForm")
     private String shoppingAdminMainForm() {
 
         return "Shopping/shoppingAdminMainForm";
@@ -45,7 +45,7 @@ public class ShoppingAdminController {
 
     // shoppingAdminRegist:게시글 작성 메소드
     @PostMapping("/shoppingAdminRegist")
-    private ModelAndView shoppingAdminRegist(@ModelAttribute ProductDTO product) {
+    private ModelAndView shoppingAdminRegist(@ModelAttribute ProductDTO product) throws IOException {
 
         mav = shoppingadminsvc.shoppingAdminRegist(product);
 
