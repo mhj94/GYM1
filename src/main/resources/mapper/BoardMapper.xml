@@ -4,7 +4,7 @@
 <mapper namespace="com.gym.GYM.board.dao.BoardDAO">
 
     <select id="boardNoticeList" resultType="board">
-        SELECT * FROM BOARD WHERE ROWNUM <![CDATA[<]]> 4 AND BOARDNOTICE = 'notice'
+        SELECT * FROM BOARD WHERE ROWNUM <![CDATA[<]]> 4 AND BOARDNOTICE = 'notice' ORDER BY BOARDNO DESC
     </select>
 
     <select id="boardNormalList" resultType="board">

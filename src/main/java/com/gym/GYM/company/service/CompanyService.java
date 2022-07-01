@@ -13,9 +13,9 @@ public interface CompanyService {
 
     ModelAndView companyList(int page, int limit);
 
-    ModelAndView companyView(String companyCode,int page, int limit);
+    ModelAndView companyView(String companyCode);
 
-    ModelAndView companyModifyForm(String companyCode,int page, int limit);
+    ModelAndView companyModifyForm(String companyCode);
 
     ModelAndView companyModify(CompanyDTO company) throws IOException;
 

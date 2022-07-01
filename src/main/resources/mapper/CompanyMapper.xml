@@ -19,9 +19,8 @@
     </select>
     <select id="companyView" parameterType="paging" resultType="company">
         SELECT *
-        FROM COMMENT
-        WHERE COMPANYCODE = #{companyCode} AND REVIEW BETWEEN #{startRow} AND #{endRow}
-        ORDER BY COMPANYCODE ASC
+        FROM COMPANY
+        WHERE COMPANYCODE = #{companyCode}
     </select>
     <update id="companyModify" parameterType="company">
         UPDATE COMPANY

@@ -15,7 +15,7 @@ public interface CompanyDAO {
 
     List<CompanyDTO> companyList(PageDTO paging);
 
-    CompanyDTO companyView(String companyCode,int page,int limit);
+    CompanyDTO companyView(String companyCode);
 
     int companyModify(CompanyDTO company);
 

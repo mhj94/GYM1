@@ -204,51 +204,48 @@ select {
     display: block;
     text-align: center;
 }
-img{
+
+#routineRegistImg {
     position: relative;
     width: 50%;
     height: 100%;
 }
-#header{
+
+#header {
     border-top: none;
     border-bottom: solid 1px #01f7ce;
     border-right: none;
     border-left: none;
 }
-.estimate_div{
+
+.estimate_div {
     text-align: center;
 }
+
 .table_div {
     display: inline-block;
 }
-.table{
+
+.table {
     border-collapse: separate;
     border-spacing: 50px;
 }
-#table{
+
+#table {
     border-top: none;
     border-bottom: none;
     border-right: solid 1px #01f7ce;
     border-left: none;
     margin-top: 15px;
 }
-.caption{
+
+.caption {
     font-size: 2em;
     padding-top: 20px;
     padding-bottom: 20px;
 }
-#caption{
-    border-top: none;
-    border-bottom: solid 1px #01f7ce;
-    border-right: none;
-    border-left: none;
-    margin-top: 15px;
-}
-.th{
-    font-size: 1.5em;
-    padding-bottom: 20px;
-}
-#th1{
+
+#caption {
     border-top: none;
     border-bottom: solid 1px #01f7ce;
     border-right: none;
@@ -256,64 +253,89 @@ img{
     margin-top: 15px;
 }
 
-#th2{
+.th {
+    font-size: 1.5em;
+    padding-bottom: 20px;
+}
+
+#th1 {
     border-top: none;
     border-bottom: solid 1px #01f7ce;
     border-right: none;
     border-left: none;
     margin-top: 15px;
 }
-.input{
-    display: inline-block;
+
+#th2 {
+    border-top: none;
+    border-bottom: solid 1px #01f7ce;
+    border-right: none;
+    border-left: none;
+    margin-top: 15px;
 }
-.showPart{
+
+.input {
+
+}
+
+.showPart {
     margin-top: 20px;
     text-align: center;
     padding-left: 30px;
 }
-.input2{
+
+.input2 {
     display: inline-block;
 
 }
+
 .part {
     overflow: auto;
 }
-.day{
+
+.day {
     text-align: center;
     padding-top: 20px;
     padding-left: 20px;
     padding-right: 20px;
 }
-#Day{
+
+#Day {
     border-top: none;
     border-bottom: none;
     border-right: solid 1px #01f7ce;
     border-left: none;
     margin-top: 15px;
 }
-.showLive{
+
+.showLive {
     padding-left: 15px;
 }
-#showLive{
+
+#showLive {
     border-top: none;
     border-bottom: none;
     border-right: solid 1px #01f7ce;
     border-left: none;
     margin-top: 15px;
 }
-.button_div{
+
+.button_div {
     padding-top: 20px;
 }
-.button{
+
+.button {
     display: block;
     font-size: x-small;
     padding: 2px 40px;
     border: 1px solid #01f7ce;
 }
+
 .footer {
     grid-column: 1/-1;
 }
-#footer{
+
+#footer {
     border-top: solid 1px #01f7ce;
     border-bottom: none;
     border-right: none;
@@ -321,4 +343,57 @@ img{
     margin-top: 15px;
     margin-right: 15px;
     margin-left: 15px;
+}
+
+.gymListContainer {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 20% 120px 610px 20%;
+    text-align: center;
+}
+
+.notice {
+    display: inline-block;
+    margin:0 auto;
+}
+
+.normal {
+    display: inline-block;
+    margin:0 auto;
+}
+
+.boardRegistContainer {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 20% 910px 20%;
+    text-align: center;
+}
+
+.boardRegistMain {
+    display: inline-block;
+    margin:0 auto;
+}
+
+.companyListContainer {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 20% 910px 20%;
+    text-align: center;
+}
+
+.companyListMain {
+    display: inline-block;
+    margin: 0 auto;
+}
+
+.companyViewContainer {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 20% 1200px 20%;
+    text-align: center;
+}
+
+.companyViewMain {
+    display: inline-block;
+    margin: 0 auto;
 }
