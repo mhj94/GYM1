@@ -28,8 +28,6 @@ public class CompanyServiceImpl implements CompanyService{
 
     @Autowired
     private CompanyDAO companydao;
-    @Autowired
-    private CommentDAO commentdao;
 
     @Autowired
     private HttpSession session;
@@ -99,43 +97,16 @@ public class CompanyServiceImpl implements CompanyService{
     }
 
     @Override
-    public ModelAndView companyView(String companyCode, int page, int limit) {
-        int block = 5;
-        int cCount = companydao.companyCount();
-        int startRow = (page - 1) * limit + 1;
-        int endRow = page * limit;
-        int maxPage = (int) (Math.ceil((double) cCount / limit));
-        int startPage = (((int) (Math.ceil((double) page / block))) - 1) * block + 1;
-        int endPage = startPage + block - 1;
-
-        if (endPage > maxPage) {
-            endPage = maxPage;
-        }
-        PageDTO paging = new PageDTO();
-
-        paging.setPage(page);
-        paging.setStartRow(startRow);
-        paging.setEndRow(endRow);
-        paging.setMaxPage(maxPage);
-        paging.setStartPage(startPage);
-        paging.setEndPage(endPage);
-        paging.setLimit(limit);
-
-        List<CommentDTO> commentList = commentdao.commentList(paging);
-
-        CompanyDTO company = companydao.companyView(companyCode,page,limit);
-
-
+    public ModelAndView companyView(String companyCode) {
+        CompanyDTO company = companydao.companyView(companyCode);
         mav.setViewName("Company/CompanyView");
         mav.addObject("view", company);
-        mav.addObject("paging", paging);
-        mav.addObject("commentList",commentList);
         return mav;
     }
 
     @Override
-    public ModelAndView companyModifyForm(String companyCode,int page, int limit) {
-        CompanyDTO company = companydao.companyView(companyCode,page,limit);
+    public ModelAndView companyModifyForm(String companyCode) {
+        CompanyDTO company = companydao.companyView(companyCode);
         mav.setViewName("Company/CompanyModifyForm");
         mav.addObject("modi", company);
         return mav;

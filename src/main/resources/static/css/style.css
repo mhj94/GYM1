@@ -25,7 +25,6 @@ input[type="button"], [type="submit"], [type="reset"] {
     margin: 2px;
     padding: 0.3rem 1rem;
 
-    font-size: 1rem;
     text-align: center;
     text-decoration: none;
 
@@ -198,13 +197,13 @@ select {
     grid-template-columns: 1.3fr 0.8fr 0.7fr 0.5fr 1fr;
     grid-template-rows: 20% 910px 20%;
 }
-
+/*MyRoutineRegistForm css*/
 .header {
     grid-column: 1/ -1;
     display: block;
     text-align: center;
 }
-img{
+.myRoutine_img{
     position: relative;
     width: 50%;
     height: 100%;
@@ -264,7 +263,7 @@ img{
     margin-top: 15px;
 }
 .input{
-    display: inline-block;
+
 }
 .showPart{
     margin-top: 20px;
@@ -292,7 +291,7 @@ img{
     margin-top: 15px;
 }
 .showLive{
-    padding-left: 15px;
+
 }
 #showLive{
     border-top: none;
@@ -303,15 +302,23 @@ img{
 }
 .button_div{
     padding-top: 20px;
+    padding-bottom: 12px;
 }
 .button{
     display: block;
     font-size: x-small;
     padding: 2px 40px;
     border: 1px solid #01f7ce;
+    margin: auto;
 }
 .footer {
     grid-column: 1/-1;
+    text-align: center;
+}
+
+.footer_h_div{
+    display: inline-block;
+    padding-top: 100px;
 }
 #footer{
     border-top: solid 1px #01f7ce;
@@ -321,4 +328,61 @@ img{
     margin-top: 15px;
     margin-right: 15px;
     margin-left: 15px;
+
+}
+/* memberRegistForm css */
+.memberRegistcontainer{
+    display: grid;
+    text-align: center;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 0.5fr 4fr ;
+    grid-template-areas:
+            "header header header"
+            ". main .";
+}
+.header{
+    grid-area: header;
+}
+.logo{
+    filter: invert(100%) sepia(0%) saturate(7489%) hue-rotate(131deg) brightness(105%) contrast(105%);
+    width: 25px;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+.memberRegistcontainer2{
+    display: grid;
+    text-align: center;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-area: main;
+    grid-template-areas:
+            ". main1 .";
+}
+#memberRegistcontainer2{
+    border-top: solid 3px #01f7ce;
+    border-bottom: solid 3px #01f7ce;
+    border-right: solid 3px #01f7ce;
+    border-left: solid 3px #01f7ce;
+    border-radius: 20px / 20px;
+    margin: 15px;
+}
+.loginForm{
+    display: inline-block;
+    grid-area: main1;
+}
+.loginForm_input{
+    text-align: left;
+    padding-top: 10px;
+    padding-bottom: 5px;
+}
+.lg_input{
+    width: 100%;
+}
+.lg_input_btn{
+    font-size: 0.7em;
+}
+.label{
+
+}
+.lg_input_btn2{
+    padding-bottom: 15px;
 }
