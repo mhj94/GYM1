@@ -31,23 +31,23 @@
         <td th:text="${list.productName}"></td>
 
         <td th:text="${list.productRate}"></td>
-        <th><select th:name="${list.productCode}" onchange="opchan()" th:id="${list.productCode}"
+        <th><select th:name="${list.productCode}" onchange="opchan(this)" th:id="${list.productCode}"
                     th:class="productOrder" th:data="${list.productCode}">
-            <option>수량을 선택해주세요</option>
+            <option th:value="${list.productCode}">수량을 선택해주세요</option>
 
             <option
 
-                    th:value1="${list.productPrice} * 5" th:value2="${list.productCode}"
+                    th:value="${list.productPrice} * 5"
                     th:text="${list.productName} + '5팩' + (${list.productPrice} * 5 )+ '원'"></option>
 
-            <option th:value1="${list.productPrice} * 10"   th:value2="${list.productCode}"
+            <option th:value="${list.productPrice} * 10"
                     th:text="${list.productName} + '10팩' +(${list.productPrice} * 10)+ '원'"></option>
 
-            <option th:value1="${list.productPrice} * 15" th:value2="${list.productCode}"
+            <option th:value="${list.productPrice} * 15"
 
                     th:text="${list.productName} + '15팩' +( ${list.productPrice} * 15) + '원'"></option>
 
-            <option th:value1="${list.productPrice} * 20" th:value2="${list.productCode}"
+            <option th:value="${list.productPrice} * 20"
 
                     th:text="${list.productName} + '20팩' +( ${list.productPrice} * 20) + '원'"></option>
         </select>
@@ -71,27 +71,6 @@
 <script th:inline="javascript">
     const loginId = [[${session.login.memberId}]];
 
-    function productOrder(e) {
-        // 선택된 데이터 가져오기
-        const value = e.value;
-        const productCode = $(this).attr('class');
-        console.log(value);
-        console.log(productCode);
-        // 데이터 출력
-        document.getElementsByClassName('total').innerText
-            = value;
-    }
-
-    $('.productOrder').ready(function (e) {
-
-        const value1 = e.value;
-        const data1 = e.data;
-        const productCode = $(this).attr('class');
-        console.log("value1 : " + value1);
-        console.log("data1 : " + data1);
-        console.log(productCode);
-
-    })
 
     function opchan(e) {
 
@@ -100,12 +79,20 @@
         var value5 = e.value;
 
         $.ajax({
+            type: "POST",
+            url: "bascketOrdersPriceUpdate",
+            data: {
+                "memberId": loginId,
+                "productCode": value1,
+                "orderPrice": value5
+            },
+            dataType: "json",
+            success: function (list) {
 
-
+            }, error: function () {
+                alert("가격수정 실패")
+            }
         })
-
-
-
     }
 
 

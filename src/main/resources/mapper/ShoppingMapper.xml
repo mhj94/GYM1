@@ -75,6 +75,10 @@ SELECT * FROM PRODUCT WHERE PRODUCTCODE = #{productCode}
 	</delete>
 
 
+	<update id="bascketOrdersPriceUpdate" parameterType="String" >
+		UPDATE ORDERS SET ORDERPRICE =#{orderPrice} WHERE ORDERID = #{memberId} AND ORDERPRODUCTCODE=#{productCode}
+	</update>
+
 
 
 </mapper>

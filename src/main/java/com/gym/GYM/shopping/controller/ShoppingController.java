@@ -142,5 +142,14 @@ public class ShoppingController {
         return wishInquire;
     }
 
+    //bascketOrdersPriceUpdate: 장바구니에서 수량 선택시 orderPrice 업데이트 하는 문
+
+    @PostMapping("/bascketOrdersPriceUpdate")
+    private @ResponseBody List<OrdersDTO> bascketOrdersPriceUpdate(@RequestParam String memberId, @RequestParam String productCode,@RequestParam String orderPrice){
+        List<OrdersDTO> basketListUpdate = new ArrayList<OrdersDTO>();
+        basketListUpdate = shoppingsvc.bascketOrdersPriceUpdate(memberId, productCode, orderPrice);
+        return basketListUpdate;
+    }
+
 
 }

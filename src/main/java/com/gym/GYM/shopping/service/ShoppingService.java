@@ -34,4 +34,6 @@ public interface ShoppingService {
 
 
     List<String> basketRegistAjax(String memberId, String productCode);
+
+    List<OrdersDTO> bascketOrdersPriceUpdate(String memberId, String productCode, String orderPrice);
 }
