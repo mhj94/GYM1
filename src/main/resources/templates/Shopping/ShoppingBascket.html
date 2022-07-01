@@ -11,38 +11,100 @@
     <title>장바구니</title>
 </head>
 <body>
-        <h1>Bascket</h1>
-    <table>
-        <caption>장바구니</caption>
-        <tr>
-            <th>상품사진명</th>
-            <th>상품이름</th>
-            <th>상품가격</th>
-            <th>상품평점</th>
-        </tr>
+<h1>Bascket</h1>
+<table>
+    <caption>장바구니</caption>
+    <tr>
+        <th>상품사진명</th>
+        <th>상품이름</th>
 
-        <tr th:each="list : ${myBasketList}">
-            <td><a th:href="@{shoppingView(productCode=${list.productCode})}" th:text="${list.productName}"></a></td>
-            <td th:text="${list.productName}"></td>
-            <td th:text="${list.productPrice}"></td>
-            <td th:text="${list.productRate}"></td>
-           <th> <select name="productName" onchange="productOrder(this)">
+        <th>상품평점</th>
+        <th>수량선택</th>
+        <th>가격</th>
 
-               <option th:value="${view.productName} + '5팩' + ${view.productPrice} * 5 + '원'"
-                        th:text="${view.productName} + '5팩' + ${view.productPrice} * 5 + '원'"></option>
+    </tr>
 
-                <option th:value="${view.productName} + '10팩' + ${view.productPrice} * 10 + '원'"
-                        th:text="${view.productName} + '10팩' + ${view.productPrice} * 5 + '원'"></option>
+    <tr th:each="list : ${myBasketList}">
 
-                <option th:value="${view.productName} + '15팩' + ${view.productPrice} * 15 + '원'"
-                        th:text="${view.productName} + '15팩' + ${view.productPrice} * 5 + '원'"></option>
+        <td><a th:href="@{shoppingView(productCode=${list.productCode})}" th:text="${list.productName}"
+               th:class="productName"></a></td>
+        <td th:text="${list.productName}"></td>
 
-                <option th:value="${view.productName} + '20팩' + ${view.productPrice} * 20 + '원'"
-                        th:text="${view.productName} + '20팩' + ${view.productPrice} * 5 + '원'"></option>
-           </select>
-           </th>
+        <td th:text="${list.productRate}"></td>
+        <th><select th:name="${list.productCode}" onchange="opchan()" th:id="${list.productCode}"
+                    th:class="productOrder" th:data="${list.productCode}">
+            <option>수량을 선택해주세요</option>
 
-        </tr>
-    </table>
+            <option
+
+                    th:value1="${list.productPrice} * 5" th:value2="${list.productCode}"
+                    th:text="${list.productName} + '5팩' + (${list.productPrice} * 5 )+ '원'"></option>
+
+            <option th:value1="${list.productPrice} * 10"   th:value2="${list.productCode}"
+                    th:text="${list.productName} + '10팩' +(${list.productPrice} * 10)+ '원'"></option>
+
+            <option th:value1="${list.productPrice} * 15" th:value2="${list.productCode}"
+
+                    th:text="${list.productName} + '15팩' +( ${list.productPrice} * 15) + '원'"></option>
+
+            <option th:value1="${list.productPrice} * 20" th:value2="${list.productCode}"
+
+                    th:text="${list.productName} + '20팩' +( ${list.productPrice} * 20) + '원'"></option>
+        </select>
+            <div th:class="total">
+
+            </div>
+
+        </th>
+
+    </tr>
+    <tr>
+        <th th:class="gggg">총 금액</th>
+
+
+    </tr>
+</table>
 </body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+<script th:inline="javascript">
+    const loginId = [[${session.login.memberId}]];
+
+    function productOrder(e) {
+        // 선택된 데이터 가져오기
+        const value = e.value;
+        const productCode = $(this).attr('class');
+        console.log(value);
+        console.log(productCode);
+        // 데이터 출력
+        document.getElementsByClassName('total').innerText
+            = value;
+    }
+
+    $('.productOrder').ready(function (e) {
+
+        const value1 = e.value;
+        const data1 = e.data;
+        const productCode = $(this).attr('class');
+        console.log("value1 : " + value1);
+        console.log("data1 : " + data1);
+        console.log(productCode);
+
+    })
+
+    function opchan(value1, value2) {
+
+        var value1 = value1;
+        var value2 = value2;
+
+
+        console.log("value1 : " + value1 + ", value2 : " + value2);
+
+    }
+
+
+</script>
+
+
 </html>
