@@ -12,62 +12,57 @@
 </head>
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <body>
+<div class="boardViewContainer">
+    <div class="header"></div>
+    <div class="boardViewMain">
+        <table>
 
-<table>
-    <caption>GYM View</caption>
+            <caption>GYM View</caption>
 
-    <tr>
-        <th>게시글 번호</th>
-        <td th:text="${view.boardNo}"></td>
-    </tr>
-    <tr>
-        <th>글머리</th>
-        <td th:text="${view.boardType}"></td>
-    </tr>
-
-    <tr>
-        <th>공지사항 여부</th>
-        <td th:text="${view.boardNotice}"></td>
-    </tr>
-
-    <tr>
-        <th>작성 날자</th>
-        <td th:text="${view.boardDate}"></td>
-    </tr>
-
-    <tr>
-        <th>글제목</th>
-        <td th:text="${view.boardTitle}"></td>
-    </tr>
-
-    <tr>
-        <th>작성자</th>
-        <td th:text="${view.boardWriter}"></td>
-    </tr>
-
-    <tr>
-        <th>글 내용</th>
-        <td th:text="${view.boardContent}"></td>
-    </tr>
-
-    <tr>
-        <th>프로필 사진</th>
-        <td><img th:src="@{uploadfile/{aa}(aa=${view.boardUploadFileName})}" style="width:200px;"></td>
-    </tr>
-
-
-    <tr>
-        <th>조회수</th>
-        <td th:text="${view.boardHits}"></td>
-    </tr>
-
-
-
-</table>
+            <tr>
+                <th>게시글 번호</th>
+                <td th:text="${view.boardNo}"></td>
+            </tr>
+            <tr>
+                <th>글머리</th>
+                <td th:text="${view.boardType}"></td>
+            </tr>
+            <tr>
+                <th>공지사항 여부</th>
+                <td th:text="${view.boardNotice}"></td>
+            </tr>
+            <tr>
+                <th>작성 날자</th>
+                <td th:text="${view.boardDate}"></td>
+            </tr>
+            <tr>
+                <th>글제목</th>
+                <td th:text="${view.boardTitle}"></td>
+            </tr>
+            <tr>
+                <th>작성자</th>
+                <td th:text="${view.boardWriter}"></td>
+            </tr>
+            <tr>
+                <th>글 내용</th>
+                <td th:text="${view.boardContent}"></td>
+            </tr>
+            <tr>
+                <th>프로필 사진</th>
+                <td><img th:src="@{uploadfile/{aa}(aa=${view.boardUploadFileName})}" style="width:200px;"></td>
+            </tr>
+            <tr>
+                <th>조회수</th>
+                <td th:text="${view.boardHits}"></td>
+            </tr>
+        </table>
+        <button th:onclick="|location.href ='@{boardModifyForm(boardNo=${view.boardNo})}'|">게시글 수정페이지 이동</button>
+        <button th:onclick="|location.href ='@{boardDelete(boardNo=${view.boardNo})}'|"> 게시글 삭제</button>
+        <button onclick="location.href = document.referrer;">뒤로가기</button>
+    </div>
+    <div class="footer"></div>
+</div>
 
 
-<button th:onclick="|location.href ='@{boardModifyForm(boardNo=${view.boardNo})}'|">게시글 수정페이지 이동</button>
-<button th:onclick="|location.href ='@{boardDelete(boardNo=${view.boardNo})}'|"> 게시글 삭제 </button>
-<button onclick="location.href = document.referrer;">뒤로가기</button>
 </body>
 </html>

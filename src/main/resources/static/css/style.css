@@ -354,12 +354,12 @@ select {
 
 .notice {
     display: inline-block;
-    margin:0 auto;
+    margin: 0 auto;
 }
 
 .normal {
     display: inline-block;
-    margin:0 auto;
+    margin: 0 auto;
 }
 
 .boardRegistContainer {
@@ -371,7 +371,7 @@ select {
 
 .boardRegistMain {
     display: inline-block;
-    margin:0 auto;
+    margin: 0 auto;
 }
 
 .companyListContainer {
@@ -394,6 +394,34 @@ select {
 }
 
 .companyViewMain {
+    display: inline-block;
+    margin: 0 auto;
+}
+
+.companyRegistContainer {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 20% 910px 20%;
+    text-align: center;
+}
+
+.companyRegistMain {
+    display: inline-block;
+    margin: 0 auto;
+}
+
+textarea {
+    resize: none;
+}
+
+.boardViewContainer {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 20% 910px 20%;
+    text-align: center;
+}
+
+.boardViewMain {
     display: inline-block;
     margin: 0 auto;
 }

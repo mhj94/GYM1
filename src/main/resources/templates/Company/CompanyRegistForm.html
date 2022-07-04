@@ -8,36 +8,40 @@
     <meta name="description" content="inputBoot index"/>
     <title>Spring Boot Index</title>
 </head>
-<link rel = "stylesheet" type = "text/css" href = "css/style.css">
+<link rel="stylesheet" type="text/css" href="css/style.css">
 <body>
 <form action="companyRegist" method="POST" enctype="multipart/form-data">
-    <table>
-        <tr>
-            <td><input type="hidden" name="companyId" th:value="${session.login.memberId}"/></td>
-        </tr>
-        <tr>
-            <th>기업 이름</th>
-            <td><input type="text" name="companyName"/></td>
-        </tr>
-        <tr>
-            <th>기업 상세설명</th>
-            <td><textarea cols="20" rows="20" name="companyComment"></textarea></td>
-        </tr>
-        <tr>
-            <th>기업 사진</th>
-            <td><input type="file" name="companyPhoto"></td>
-        </tr>
-        <tr>
-            <th>기업 시설</th>
-            <td><input type="text" name="companyEquipment"></td>
-        </tr>
-        <tr>
-            <td colspan="2"><input type="submit" value="가입"></td>
-        </tr>
-        <tr>
-            <td colspan="2"><input type="reset" value="다시 작성"></td>
-        </tr>
-    </table>
+    <div class="companyRegistContainer">
+        <div class="header"></div>
+        <div class="companyRegistMain">
+            <table>
+                <tr>
+                    <td><input type="hidden" name="companyId" th:value="${session.login.memberId}"/></td>
+                </tr>
+                <tr>
+                    <th>기업 이름</th>
+                    <td><input type="text" name="companyName"/></td>
+                </tr>
+                <tr>
+                    <th>기업 상세설명</th>
+                    <td><textarea cols="20" rows="20" name="companyComment"></textarea></td>
+                </tr>
+                <tr>
+                    <th>기업 사진</th>
+                    <td><input type="file" name="companyPhoto"></td>
+                </tr>
+                <tr>
+                    <th>기업 시설</th>
+                    <td><input type="text" name="companyEquipment"></td>
+                </tr>
+                <tr>
+                    <td><input type="submit" value="가입"></td>
+                    <td><input type="reset" value="다시 작성"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="footer"></div>
+    </div>
 </form>
 </body>
 </html>
