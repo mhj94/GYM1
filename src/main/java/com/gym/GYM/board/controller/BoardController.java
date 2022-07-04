@@ -78,4 +78,34 @@ public class BoardController {
 
         return mav;
     }
+
+    //boardCSList
+    @GetMapping("/boardCSList")
+    public ModelAndView boardCSList(@RequestParam(value = "boardWriter",required = false)String boardWriter){
+
+        mav = boardsvc.boardCSList(boardWriter);
+
+        return mav;
+    }
+
+    @GetMapping("/boardCSRegistForm")
+    public String boardCSRegistForm(){
+        return "Board/BoardCSRegistForm";
+    }
+
+    @PostMapping("/boardCSRegist")
+    public ModelAndView boardCSRegist(@ModelAttribute BoardDTO board){
+
+        mav = boardsvc.boardCSRegist(board);
+
+        return mav;
+    }
+
+    @GetMapping("/boardCSDelete")
+    public ModelAndView boardCSDelete(@ModelAttribute BoardDTO board){
+
+        mav = boardsvc.boardCSDelete(board);
+
+        return mav;
+    }
 }

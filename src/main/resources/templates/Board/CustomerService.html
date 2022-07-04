@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="생로병사"/>
+    <meta name="description" content="지우고 해당 html에 대한 설명 작성"/>
+    <title>책임GYM</title>
+    <link rel="icon" href = "image/favicon.png" type="image/x-icon">
+    <link rel = "stylesheet" type = "text/css" href = "css/style.css">
+</head>
+<body>
+
+    <h1>책임GYM 고객센터</h1>
+
+<table>
+    <tr>
+        <th>번호</th>
+        <th>내용</th>
+        <th>날짜</th>
+        <th>삭제</th>
+    </tr>
+
+    <tr th:each="list : ${boardCSList}">
+        <td th:text="${list.rowNum}"></td>
+        <td><a  style="width: 100px; text-overflow: ellipsis; white-space: nowrap;  overflow: hidden;" href="javascript:void(0);" th:onclick="popup(${list.boardNo})" th:text="${list.boardContent}"></a></td>
+        <td th:text="${list.boardDate}"></td>
+        <td><button th:onclick="|location.href='@{boardCSDelete(boardNo=${list.boardNo},boardWriter=${list.boardWriter})}'|">삭제</button></td>
+    </tr>
+</table>
+    <button class="btn-open-popup" th:text="|문의사항 작성하기|"></button>
+
+    <div class="modal">
+        <div class="modal_body">
+            <h1>문의사항</h1>
+            <form action = "boardCSRegist" method="POST">
+                <input type="hidden" name = "boardWriter" th:value = "${session.login.memberId}"></br>
+                문의사항 제목 :  <input type = "text" name ="boardTitle" size="52"></br></br>
+                문의사항 내용 :  <textarea name = "boardContent" cols="50" rows="10"></textarea></br>
+
+                <input type = "submit" value = "작성완료">
+            </form>
+        </div>
+    </div>
+
+
+</body>
+<script src="https://code.jquery.com/jquery-latest.js"></script>
+<script src="js/modal.js"></script>
+<script th:inline="javascript">
+    function popup(boardNo){
+        var url = "boardCSView?boardNo="+boardNo;
+        var option = "toolbar=no, resizable=no, status=no, width = 600, height= 300, top=0, left=0";
+        window.open(url,"_blank",option);
+    }
+
+
+</script>
+</html>

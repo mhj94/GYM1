@@ -25,4 +25,10 @@ public interface BoardDAO {
 	List<BoardDTO> boardNoticeList();
 
 	List<BoardDTO> boardNormalList();
+
+    List<BoardDTO> boardCSList(String boardWriter);
+
+    int boardCSRegist(BoardDTO board);
+
+	int boardCSDelete(BoardDTO board);
 }

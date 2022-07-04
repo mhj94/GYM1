@@ -43,4 +43,18 @@
     <delete id="boardDelete" parameterType="board">
         DELETE FROM BOARD WHERE BOARDNO = #{boardNo}
     </delete>
+
+
+    <select id="boardCSList" parameterType="String" resultType="board">
+        SELECT ROWNUM,BOARD.* FROM BOARD WHERE BOARDTYPE ='QnA' AND BOARDWRITER = #{boardWriter} ORDER BY BOARDNO DESC
+    </select>
+
+    <insert id="boardCSRegist" parameterType = "board" >
+        INSERT INTO BOARD VALUES(BOARD_SEQ.NEXTVAL, 'QnA', '답변대기중', SYSDATE, #{boardTitle}, #{boardWriter},
+                                 #{boardContent}, 'null', 0)
+    </insert>
+
+    <delete id="boardCSDelete" parameterType="board">
+        DELETE FROM BOARD WHERE BOARDNO = #{boardNo}
+    </delete>
 </mapper>
