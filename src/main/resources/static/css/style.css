@@ -198,7 +198,7 @@ select {
     grid-template-rows: 20% 910px 20%;
 }
 /*MyRoutineRegistForm css*/
-.header {
+.header1 {
     grid-column: 1/ -1;
     display: block;
     text-align: center;
@@ -330,7 +330,7 @@ select {
     margin-left: 15px;
 
 }
-/* memberRegistForm css */
+/* memberRegistForm, memberModifyForm css */
 .memberRegistcontainer{
     display: grid;
     text-align: center;
@@ -374,6 +374,7 @@ select {
     padding-top: 10px;
     padding-bottom: 5px;
 }
+
 .lg_input{
     width: 100%;
 }
@@ -386,3 +387,24 @@ select {
 .lg_input_btn2{
     padding-bottom: 15px;
 }
+.view{
+    border-top: none;
+    border-bottom: solid 3px #01f7ce;
+    border-right: none;
+    border-left: none;
+    text-align: left;
+    padding-top: 10px;
+    padding-bottom: 5px;
+ }
+
+/* MemberView css */
+.img{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+textarea{
+    resize: none;
+}
+
+

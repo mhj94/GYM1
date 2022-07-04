@@ -9,35 +9,51 @@
     <title>Spring Boot Index</title>
 </head>
 <link rel = "stylesheet" type = "text/css" href = "css/style.css">
+
 <body>
+
 <form action="companyRegist" method="POST" enctype="multipart/form-data">
-    <table>
-        <tr>
-            <td><input type="hidden" name="companyId" th:value="${session.login.memberId}"/></td>
-        </tr>
-        <tr>
-            <th>기업 이름</th>
-            <td><input type="text" name="companyName"/></td>
-        </tr>
-        <tr>
-            <th>기업 상세설명</th>
-            <td><textarea cols="20" rows="20" name="companyComment"></textarea></td>
-        </tr>
-        <tr>
-            <th>기업 사진</th>
-            <td><input type="file" name="companyPhoto"></td>
-        </tr>
-        <tr>
-            <th>기업 시설</th>
-            <td><input type="text" name="companyEquipment"></td>
-        </tr>
-        <tr>
-            <td colspan="2"><input type="submit" value="가입"></td>
-        </tr>
-        <tr>
-            <td colspan="2"><input type="reset" value="다시 작성"></td>
-        </tr>
-    </table>
+
+    <div class="memberRegistcontainer">
+
+        <div class="header">
+            <h1><img class="logo" src="/image/favicon.png">책임GYM<img class="logo" src="/image/favicon.png"></h1>
+            <h3>기업등록</h3>
+        </div>
+
+        <div class="memberRegistcontainer2" id="memberRegistcontainer2">
+            <div class="loginForm" id="loginForm">
+                <input type="hidden" name="companyId" th:value="${session.login.memberId}"/>
+
+                <div class="loginForm_input">
+                    <label class="label">기업 이름</label>
+                    <div><input class="lg_input" type="text" name="companyName"/></div>
+                </div>
+
+                <div class="loginForm_input">
+                    <label>기업 상세설명</label>
+                    <div><textarea class="lg_input" cols="20" rows="20" name="companyComment"></textarea></div>
+                </div>
+
+                <div class="loginForm_input">
+                    <label>기업 사진</label>
+                    <div><input class="lg_input" type="file" name="companyPhoto"/></div>
+                </div>
+
+                <div class="loginForm_input">
+                    <label>기업 시설</label>
+                    <div><input class="lg_input" type="text" name="companyEquipment"/>
+                    </div>
+                </div>
+
+                <div class="lg_input_btn2">
+                    <input type="submit" value="등록"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- grid 끝-->
 </form>
 </body>
 </html>
