@@ -49,14 +49,14 @@ public class CompanyController {
 
     // 기업 상세보기 메소드
     @GetMapping("/companyView")
-    public ModelAndView companyView(@RequestParam(value = "companyCode") String companyCode) {
+    public ModelAndView companyView(@RequestParam(value = "companyCode") String companyCode ) {
         mav = companysvc.companyView(companyCode);
         return mav;
     }
 
     // 기업 수정 페이지 이동
     @GetMapping("/companyModifyForm")
-    public ModelAndView companyModifyForm(@RequestParam(value = "companyCode") String companyCode, @RequestParam(value = "page", required = false, defaultValue = "1") int page, @RequestParam(value = "limit", required = false, defaultValue = "5") int limit) {
+    public ModelAndView companyModifyForm(@RequestParam(value = "companyCode") String companyCode) {
         mav = companysvc.companyModifyForm(companyCode);
         return mav;
     }

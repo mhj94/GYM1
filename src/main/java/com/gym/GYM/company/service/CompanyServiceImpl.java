@@ -91,6 +91,7 @@ public class CompanyServiceImpl implements CompanyService{
         List<CompanyDTO> companyList = companydao.companyList(paging);
 
         mav.setViewName("Company/CompanyList");
+
         mav.addObject("company", companyList);
         mav.addObject("paging", paging);
         return mav;
