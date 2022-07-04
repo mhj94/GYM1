@@ -165,9 +165,9 @@ public class ShoppingController {
 
 //basketPayment : 모달로 주문시 orders 테이블 업데이트 하는 메소드
 
-    @PostMapping ("/basketPayment")
-    private ModelAndView basketPayment(@RequestParam String addr, @RequestParam String coment){
-
-
-    }
+//    @PostMapping ("/basketPayment")
+//    private ModelAndView basketPayment(@RequestParam String addr, @RequestParam String coment){
+//
+//
+//    };
 }
