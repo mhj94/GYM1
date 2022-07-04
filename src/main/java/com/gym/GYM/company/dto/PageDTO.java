@@ -8,6 +8,7 @@ import org.apache.ibatis.type.Alias;
 @Alias("page")
 @Data
 public class PageDTO {
+	private String companyCode;
 	private int page;
 	private int maxPage;
 	private int StartPage;

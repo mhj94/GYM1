@@ -30,6 +30,9 @@ public class CompanyServiceImpl implements CompanyService{
     private CompanyDAO companydao;
 
     @Autowired
+    private CommentDAO commentdao;
+
+    @Autowired
     private HttpSession session;
 
     @Override
@@ -91,6 +94,7 @@ public class CompanyServiceImpl implements CompanyService{
         List<CompanyDTO> companyList = companydao.companyList(paging);
 
         mav.setViewName("Company/CompanyList");
+
         mav.addObject("company", companyList);
         mav.addObject("paging", paging);
         return mav;
@@ -98,7 +102,9 @@ public class CompanyServiceImpl implements CompanyService{
 
     @Override
     public ModelAndView companyView(String companyCode) {
+
         CompanyDTO company = companydao.companyView(companyCode);
+
         mav.setViewName("Company/CompanyView");
         mav.addObject("view", company);
         return mav;
@@ -106,7 +112,9 @@ public class CompanyServiceImpl implements CompanyService{
 
     @Override
     public ModelAndView companyModifyForm(String companyCode) {
+
         CompanyDTO company = companydao.companyView(companyCode);
+
         mav.setViewName("Company/CompanyModifyForm");
         mav.addObject("modi", company);
         return mav;

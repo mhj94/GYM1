@@ -13,49 +13,52 @@
 </head>
 <body>
 <form action="boardRegist" method="POST" enctype="multipart/form-data">
-    <table>
-        <caption>GYM Insert</caption>
-        <tr>
-            <td><input type="hidden" name="boardWriter" th:value="${session.login.memberId}"/></td>
-        </tr>
-        <tr>
-            <th>글머리</th>
-            <td><select name="boardType">
-                <option value="QnA">QnA</option>
-                <option value="잡담">잡담</option>
-                <option value="정보공유">정보공유</option>
-            </select><br/></td>
-        </tr>
+    <div class="boardRegistContainer">
+        <div class="header"></div>
+        <div class="boardRegistMain">
+            <table>
+                <caption>GYM Insert</caption>
+                <tr>
+                    <td><input type="hidden" name="boardWriter" th:value="${session.login.memberId}"/></td>
+                </tr>
+                <tr>
+                    <th>글머리</th>
+                    <td><select name="boardType">
+                        <option value="QnA">QnA</option>
+                        <option value="잡담">잡담</option>
+                        <option value="정보공유">정보공유</option>
+                    </select><br/></td>
+                </tr>
+                <tr>
+                    <th>공지사항 여부</th>
+                    <td th:if="${session.login.memberId} eq 'admin'"><input type="radio" name="boardNotice" value="notice"/>공지사항</td>
 
-
-            <tr>
-                <th>공지사항 여부</th>
-                <td><input type="radio" name="boardNotice" value="normal"/> 일반 게시글 <br/></td>
-                <td><input type="radio" name="boardNotice" value="notice"/> 공지사항 <br/></td>
-            </tr>
-
-
-
-        <tr>
-            <th>제목</th>
-            <td><input type="text" name="boardTitle"/> <br/></td>
-        </tr>
-        <tr>
-            <th>글내용</th>
-            <td><textarea name="boardContent">
+                    <td th:unless="${session.login.memberId} ne 'admin'"><input type="radio" name="boardNotice"
+                                                                                value="normal" checked/>일반 게시글
+                    </td>
+                </tr>
+                <tr>
+                    <th>제목</th>
+                    <td><input type="text" name="boardTitle"/> <br/></td>
+                </tr>
+                <tr>
+                    <th>글내용</th>
+                    <td><textarea name="boardContent">
 				</textarea> <br/></td>
-        </tr>
-        <tr>
-            <th>첨부파일</th>
-            <td><input type="file" name="boardFile"/> <br/></td>
-        </tr>
-        <tr>
-            <th><input type="submit" value="작성"/> <br/></th>
-            <th><input type="reset" value="지우기"/> <br/></th>
-        </tr>
-    </table>
+                </tr>
+                <tr>
+                    <th>첨부파일</th>
+                    <td><input type="file" name="boardFile"/> <br/></td>
+                </tr>
+            </table>
+            <input type="submit" value="작성"/>
+            <input type="reset" value="지우기"/>
+            <button onclick="history.back(-1);">뒤로가기</button>
+        </div>
+        <div class="footer"></div>
+    </div>
 </form>
-<button onclick="history.back(-1);">뒤로가기</button>
+
 </body>
 <script src="https://code.jquery.com/jquery-latest.js"></script>
 </html>
