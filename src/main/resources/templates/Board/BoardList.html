@@ -21,16 +21,26 @@
         <th>말머리</th>
         <th>조회수</th>
     </tr>
-    <div>
+    <div> <!-- 공지사항 출력 칸 -->
+        <tr th:each="list : ${boardNoticeList}">
+            <td th:text="${list.boardNo}"></td>
+            <td><a th:href="@{boardView(boardNo=${list.boardNo})}" th:text="${list.boardTitle}"></a></td>
+            <td th:text="${list.boardWriter}"></td>
+            <td th:text="${list.boardType}"></td>
+            <td th:text="${list.boardHits}"></td>
+        </tr>
+        <tr>
+            <td>구분선</td>
+        </tr>
     </div>
-    <div>
-    <tr th:each="list : ${boardList}">
-        <td th:text="${list.boardNo}"></td>
-        <td><a th:href="@{boardView(boardNo=${list.boardNo})}" th:text="${list.boardTitle}"></a></td>
-        <td th:text="${list.boardWriter}"></td>
-        <td th:text="${list.boardType}"></td>
-        <td th:text="${list.boardHits}"></td>
-    </tr>
+    <div> <!-- 일반게시글 출력 칸 -->
+        <tr th:each="list : ${boardNormalList}">
+            <td th:text="${list.boardNo}"></td>
+            <td><a th:href="@{boardView(boardNo=${list.boardNo})}" th:text="${list.boardTitle}"></a></td>
+            <td th:text="${list.boardWriter}"></td>
+            <td th:text="${list.boardType}"></td>
+            <td th:text="${list.boardHits}"></td>
+        </tr>
     </div>
 </table>
 

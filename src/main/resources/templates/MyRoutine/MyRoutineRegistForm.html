@@ -13,98 +13,102 @@
 </head>
 <body>
 
-    <form action="myRoutineRegist" method="post" enctype="multipart/form-data">
-        <div style="width: 40%; height: 20%; background-size: cover; float: left;">
-        <table>
-            <caption>견적서 등록</caption>
-            <tr>
-                <input type="hidden" name="myRoutineId" th:value="${session.login.memberId}">
-                <input type="hidden" size="15" id="uuid" name="myRoutineCode"/>
-                <!-- hidden값으로 바꿀 예정 220620 -->
-            </tr>
-            <tr>
-                <th>운동목적</th>
-                <td>
-                    <label class="test_obj">
-                        <input type="radio" name="myRoutinePurpose" value="벌크업">
-                        <span>벌크업</span>
-                    </label>
-                    <label class="test_obj">
-                        <input type="radio" name="myRoutinePurpose" value="다이어트">
-                        <span>다이어트</span>
-                    </label>
+<form action="myRoutineRegist" method="post" enctype="multipart/form-data">
 
-                </td>
-            </tr>
-            <tr>
-                <th>등급</th>
-                <td>
-                    <label class="test_obj">
-                        <input type="radio" class="newArr" name="myRoutineGrade" value="초급" onclick="sendGrade(this.value)">
-                        <span>초급</span>
-                    </label>
-                    <label class="test_obj">
-                        <input type="radio" class="newArr" name="myRoutineGrade" value="중급" onclick="sendGrade(this.value)">
-                        <span>중급</span>
-                    </label>
-                </td>
-            </tr>
+    <!-- grid 시작 -->
+    <div class="container">
 
+        <!-- header 시작 -->
+        <div class="header" id="header">
+            <img class="myRoutine_img" src="/image/logo1.png">
+        </div>
+        <!-- header 끝 -->
 
+        <div class="estimate_div" id="table">
+            <div class="table_div">
+            <table class="table">
+                <caption class="caption" id="caption">견적서 등록</caption>
+                <tr>
+                    <input type="hidden" name="myRoutineId" th:value="${session.login.memberId}">
+                    <input type="hidden" size="15" id="uuid" name="myRoutineCode"/>
+                </tr>
+                <tr>
+                    <th class="th" id="th1">운동목적</th>
+                </tr>
+                <tr>
+                    <td class="td">
+                        <label class="test_obj">
+                            <input type="radio" name="myRoutinePurpose" value="벌크업">
+                            <span>벌크업</span>
+                        </label>
+                        <label class="test_obj">
+                            <input type="radio" name="myRoutinePurpose" value="다이어트">
+                            <span>다이어트</span>
+                        </label>
 
+                    </td>
+                </tr>
+                <tr>
+                    <th class="th" id="th2">등급</th>
+                </tr>
+                <tr>
+                    <td class="td">
+                        <label class="test_obj">
+                            <input type="radio" class="newArr" name="myRoutineGrade" value="초급"
+                                   onclick="sendGrade(this.value)">
+                            <span>초급</span>
+                        </label>
+                        <label class="test_obj">
+                            <input type="radio" class="newArr" name="myRoutineGrade" value="중급"
+                                   onclick="sendGrade(this.value)">
+                            <span>중급</span>
+                        </label>
+                    </td>
+                </tr>
+            </table>
+            </div>
+            <div class="input" id="input">
+                <input width="10px" type="submit" value="제출">
+                <input type="reset" value="다시작성">
+            </div>
+        </div>
+        <!-- Day 별 운동 선택 셀렉트 박스 -->
+        <div class="showPart" id="showTrainingPart"></div>
 
-            <tr>
-                <td>
-                    <input type="submit" value="제출">
-                    <input type="reset" value="다시작성">
-                </td>
-            </tr>
-        </table>
-</div>
+        <div class="showDay" id="Day">
+            <div id="showTrainingDay1"></div>
+            <div id="showTrainingDay2"></div>
+            <div id="showTrainingDay3"></div>
+            <div id="showTrainingDay4"></div>
+            <div id="showTrainingDay5"></div>
+            <div id="showTrainingDay6"></div>
+            <div id="showTrainingDay7"></div>
+        </div>
+        <div class="showLive" id="showLive">
+            <div id="showLive1"></div>
+            <div id="showLive2"></div>
+            <div id="showLive3"></div>
+            <div id="showLive4"></div>
+            <div id="showLive5"></div>
+            <div id="showLive6"></div>
+            <div id="showLive7"></div>
+        </div>
 
-
-
-
-
-
-
-
-
-<div id="showTrainingPart" style="float:right;"  class="container">운동리스트
-</div>
-
-
-
-    <div class="container" id="showTrainingDay1" style="float:right; flex-direction: column;"></div>
-
-    <div class="container" id="showTrainingDay2" style="float:right;flex-direction: column;"></div>
-
-    <div class="container" id="showTrainingDay3" style="float:right;flex-direction: column;"></div>
-
-    <div class="container" id="showTrainingDay4" style="float:right;flex-direction: column;"></div>
-
-    <div class="container" id="showTrainingDay5" style="float:right;flex-direction: column;"></div>
-
-    <div class="container" id="showTrainingDay6" style="float:right;flex-direction: column;"></div>
-    <div class="container" id="showTrainingDay7" style="float:right;flex-direction: column;"></div>
-
-
-        <div id ="showLive1"  class="container"></div>
-        <div id ="showLive2"  class="container"></div>
-        <div id ="showLive3"  class="container"></div>
-        <div id ="showLive4"  class="container"></div>
-        <div id ="showLive5"  class="container"></div>
-        <div id ="showLive6"  class="container"></div>
-        <div id ="showLive7"  class="container"></div>
-
-
-
+        <div class="item" id="showTrainingDetail"></div>
+        <!-- footer 시작 -->
+        <div class="footer" id="footer">
+            <div class="footer_h_div">
+            <h1>"미인은 타고난 것이 아니라, 만들어지는 것이다."</h1>
+            <h3>"당신을, 책임짐"</h3>
+            </div>
+            <div>
+                <h2>-책임GYM-</h2>
+            </div>
+        </div>
+        <!-- footer 끝 -->
+    </div>
+    <!-- grid 끝 -->
 </form>
-
-
-
-    <div id="showTrainingGif"></div>
-    <div style="float: right" id="showTrainingDetail"></div>
 </body>
 <script src="https://code.jquery.com/jquery-latest.js"></script>
 <script th:inline="javascript">
@@ -116,11 +120,11 @@
     var dayTrainingArray6 = new Array(6, '', '', '', '', '');
     var dayTrainingArray7 = new Array(7, '', '', '', '', '');
 
-    $('input[name="myRoutineGrade"]').change(function(){
-        $('input[name="myRoutineGrade"]').each(function(){
+    $('input[name="myRoutineGrade"]').change(function () {
+        $('input[name="myRoutineGrade"]').each(function () {
             var checked = $(this).prop('checked');
 
-            if(checked){
+            if (checked) {
                 dayTrainingArray1 = new Array(1, '', '', '', '', '');
                 dayTrainingArray2 = new Array(2, '', '', '', '', '');
                 dayTrainingArray3 = new Array(3, '', '', '', '', '');
@@ -130,16 +134,16 @@
                 dayTrainingArray7 = new Array(7, '', '', '', '', '');
 
 
-                for(var i=1 ; i<=7 ; i++){
-                    dayId = '#showTrainingDay'+i;
-                    liveId = '#showLive'+i;
+                for (var i = 1; i <= 7; i++) {
+                    dayId = '#showTrainingDay' + i;
+                    liveId = '#showLive' + i;
                     $(dayId).empty();
                     $(liveId).empty();
                 }
 
             }
 
-                                                        })
+        })
     })
 
 
@@ -149,16 +153,16 @@
 
         console.log(grade);
         $.ajax({
-            url: "ajax/sendGrade",
-            type: "GET",
+            url     : "ajax/sendGrade",
+            type    : "GET",
             dataType: "json",
-            data: {"trainingGrade": grade},
-            success: function (result) {
+            data    : {"trainingGrade": grade},
+            success : function (result) {
 
                 showTrainingPart(result);
 
             },
-            error: function (request, status, error) {
+            error   : function (request, status, error) {
 
                 alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
 
@@ -168,18 +172,14 @@
     }
 
 
-
-
-
-
     function sendTraining(trainingCode) {
 
         $.ajax({
-            url: "ajax/sendTraining",
+            url     : "ajax/sendTraining",
             dataType: "json",
-            type: "GET",
-            data: {"trainingCode": trainingCode},
-            success: function (result) {
+            type    : "GET",
+            data    : {"trainingCode": trainingCode},
+            success : function (result) {
                 alert(result);
 
                 sendTrainingView(result);
@@ -220,11 +220,13 @@
     // trainingRegist 시작
     function showTrainingPart(result) {
         var output = "";
+        output +="<div class='input2'>"
         output += "<input type ='text' name = 'myRoutineTitle' placeholder='루틴명을 입력하세요'>";
-        output += "<div>";
+        output +="</div>"
+        output += "<div class='part'>";
 
         for (var i = 1; i <= 7; i++) {
-            output += "<h1>Day" + i + "</h1>"
+            output += "<h1 class='day'>Day" + i + "</h1>"
 
             output += "<select onchange ='sendTrainingPart(" + i + ",this.value)'>";
             output += "<option value =''>선택하세요</option>"
@@ -244,16 +246,16 @@
     function sendTrainingPart(number, trainingPart) {
 
         $.ajax({
-            url: "ajax/sendTrainingPart",
-            type: "GET",
+            url     : "ajax/sendTrainingPart",
+            type    : "GET",
             dataType: "json",
-            data: {"trainingPart": trainingPart},
-            success: function (result) {
+            data    : {"trainingPart": trainingPart},
+            success : function (result) {
 
                 showTraining(number, result);
                 console.log(result);
             },
-            error: function (request, status, error) {
+            error   : function (request, status, error) {
 
                 alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
 
@@ -264,7 +266,7 @@
     function showTraining(day, training) {
 
         var output = "";
-        output += "<div>";
+        output += "<div class='day'>";
 
         for (var i = 1; i <= 5; i++) {
 
@@ -285,28 +287,22 @@
     }
 
 
-
-
-
-
-
     function saveTemp(day, trainingCode, number) {
-
 
 
         if (day == 1) { // 하나만보면됨
             dayTrainingArray1.splice(number, 1, trainingCode);
             var output = "";
-            output += "<div>";
-            for(var i=1; i<dayTrainingArray1.length; i++){
-                if(dayTrainingArray1[i].includes('HTR')){
-                    output += "<button type='button' onclick=sendTraining('" + dayTrainingArray1[i] + "')>상세보기</button>";
-                }else {
-                    output += "<button type='button' onclick=sendTraining('" + dayTrainingArray1[i] + "') disabled>상세보기</button>";
+            output += "<div class='button_div'>";
+            for (var i = 1; i < dayTrainingArray1.length; i++) {
+                if (dayTrainingArray1[i].includes('HTR')) {
+                    output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray1[i] + "')>상세보기</button>";
+                } else {
+                    output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray1[i] + "') disabled>상세보기</button>";
                 }
             }
             output += "</div>";
-            output += "<input type ='hidden' name ='myRoutineTrainingCode[]' value = "+dayTrainingArray1+">";
+            output += "<input type ='hidden' name ='myRoutineTrainingCode[]' value = " + dayTrainingArray1 + ">";
 
             var showLive = document.getElementById('showLive1');
             showLive.innerHTML = output;
@@ -314,36 +310,36 @@
         } else if (day == 2) {
             dayTrainingArray2.splice(number, 1, trainingCode);
             var output = "";
-            output += "<div>";
-            for(var i=1; i<dayTrainingArray2.length; i++){
-                output += "<button type='button' onclick=sendTraining('" + dayTrainingArray2[i] + "')>상세보기</button>";
+            output += "<div  class='button_div'>";
+            for (var i = 1; i < dayTrainingArray2.length; i++) {
+                output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray2[i] + "')>상세보기</button>";
             }
             output += "</div>";
-            output += "<input type ='hidden' name ='myRoutineTrainingCode[]' value = "+dayTrainingArray2+">";
+            output += "<input type ='hidden' name ='myRoutineTrainingCode[]' value = " + dayTrainingArray2 + ">";
 
             var showLive = document.getElementById('showLive2');
             showLive.innerHTML = output;
         } else if (day == 3) {
             dayTrainingArray3.splice(number, 1, trainingCode);
             var output = "";
-            output += "<div>";
-            for(var i=1; i<dayTrainingArray3.length; i++){
-                output += "<button type='button' onclick=sendTraining('" + dayTrainingArray3[i] + "')>상세보기</button>";
+            output += "<div  class='button_div'>";
+            for (var i = 1; i < dayTrainingArray3.length; i++) {
+                output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray3[i] + "')>상세보기</button>";
             }
             output += "</div>";
-            output += "<input type ='hidden' name ='myRoutineTrainingCode[]' value = "+dayTrainingArray3+">";
+            output += "<input type ='hidden' name ='myRoutineTrainingCode[]' value = " + dayTrainingArray3 + ">";
 
             var showLive = document.getElementById('showLive3');
             showLive.innerHTML = output;
         } else if (day == 4) {
             dayTrainingArray4.splice(number, 1, trainingCode);
             var output = "";
-            output += "<div>";
-            for(var i=1; i<dayTrainingArray4.length; i++){
-                output += "<button type='button' onclick=sendTraining('" + dayTrainingArray4[i] + "')>상세보기</button>";
+            output += "<div  class='button_div'>";
+            for (var i = 1; i < dayTrainingArray4.length; i++) {
+                output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray4[i] + "')>상세보기</button>";
             }
             output += "</div>";
-            output += "<input type ='hidden' name ='myRoutineTrainingCode[]' value = "+dayTrainingArray4+">";
+            output += "<input type ='hidden' name ='myRoutineTrainingCode[]' value = " + dayTrainingArray4 + ">";
 
             var showLive = document.getElementById('showLive4');
             showLive.innerHTML = output;
@@ -351,12 +347,12 @@
         } else if (day == 5) {
             dayTrainingArray5.splice(number, 1, trainingCode);
             var output = "";
-            output += "<div>";
-            for(var i=1; i<dayTrainingArray5.length; i++){
-                output += "<button type='button' onclick=sendTraining('" + dayTrainingArray5[i] + "')>상세보기</button>";
+            output += "<div  class='button_div'>";
+            for (var i = 1; i < dayTrainingArray5.length; i++) {
+                output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray5[i] + "')>상세보기</button>";
             }
             output += "</div>";
-            output += "<input type ='hidden' name ='myRoutineTrainingCode[]' value = "+dayTrainingArray5+">";
+            output += "<input type ='hidden' name ='myRoutineTrainingCode[]' value = " + dayTrainingArray5 + ">";
 
             var showLive = document.getElementById('showLive5');
             showLive.innerHTML = output;
@@ -364,24 +360,24 @@
         } else if (day == 6) {
             dayTrainingArray6.splice(number, 1, trainingCode);
             var output = "";
-            output += "<div>";
-            for(var i=1; i<dayTrainingArray6.length; i++){
-                output += "<button type='button' onclick=sendTraining('" + dayTrainingArray6[i] + "')>상세보기</button>";
+            output += "<div  class='button_div'>";
+            for (var i = 1; i < dayTrainingArray6.length; i++) {
+                output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray6[i] + "')>상세보기</button>";
             }
             output += "</div>";
-            output += "<input type ='hidden' name ='myRoutineTrainingCode[]' value = "+dayTrainingArray6+">";
+            output += "<input type ='hidden' name ='myRoutineTrainingCode[]' value = " + dayTrainingArray6 + ">";
             var showLive = document.getElementById('showLive6');
             showLive.innerHTML = output;
 
         } else if (day == 7) {
             dayTrainingArray7.splice(number, 1, trainingCode);
             var output = "";
-            output += "<div>";
-            for(var i=1; i<dayTrainingArray7.length; i++){
-                output += "<button type='button' onclick=sendTraining('" + dayTrainingArray7[i] + "')>상세보기</button>";
+            output += "<div  class='button_div'>";
+            for (var i = 1; i < dayTrainingArray7.length; i++) {
+                output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray7[i] + "')>상세보기</button>";
             }
             output += "</div>";
-            output += "<input type ='hidden' name ='myRoutineTrainingCode[]' value = "+dayTrainingArray7+">";
+            output += "<input type ='hidden' name ='myRoutineTrainingCode[]' value = " + dayTrainingArray7 + ">";
 
             var showLive = document.getElementById('showLive7');
             showLive.innerHTML = output;

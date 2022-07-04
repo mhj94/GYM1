@@ -36,13 +36,13 @@ public class CompanyController {
     // 기업 등록 메소드
     @PostMapping("/companyRegist")
     public ModelAndView companyRegist(@ModelAttribute CompanyDTO company) throws Exception {
-    	 mav = companysvc.companyRegist(company);
+        mav = companysvc.companyRegist(company);
         return mav;
     }
 
     // 기업 리스트 메소드
     @GetMapping("/companyList")
-    public ModelAndView companyList(@RequestParam(value = "page", required = false, defaultValue = "1") int page, @RequestParam(value = "limit", required = false, defaultValue = "5") int limit){
+    public ModelAndView companyList(@RequestParam(value = "page", required = false, defaultValue = "1") int page, @RequestParam(value = "limit", required = false, defaultValue = "5") int limit) {
         mav = companysvc.companyList(page, limit);
         return mav;
     }
@@ -56,7 +56,7 @@ public class CompanyController {
 
     // 기업 수정 페이지 이동
     @GetMapping("/companyModifyForm")
-    public ModelAndView companyModifyForm(@RequestParam(value = "companyCode") String companyCode) {
+    public ModelAndView companyModifyForm(@RequestParam(value = "companyCode") String companyCode, @RequestParam(value = "page", required = false, defaultValue = "1") int page, @RequestParam(value = "limit", required = false, defaultValue = "5") int limit) {
         mav = companysvc.companyModifyForm(companyCode);
         return mav;
     }

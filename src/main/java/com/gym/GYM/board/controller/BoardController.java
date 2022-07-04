@@ -31,7 +31,7 @@ public class BoardController {
     // BoardRegistForm : 게시글 작성페이지 이동
     @GetMapping("/boardRegistForm")
     private String boardRegistForm() {
-        return "Board/boardRegistForm";
+        return "Board/BoardRegistForm";
     }
 
     // BoardRegist:게시글 작성 메소드

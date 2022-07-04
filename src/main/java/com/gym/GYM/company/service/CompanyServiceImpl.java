@@ -8,6 +8,8 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.UUID;
 
+import com.gym.GYM.company.dao.CommentDAO;
+import com.gym.GYM.company.dto.CommentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -76,7 +78,7 @@ public class CompanyServiceImpl implements CompanyService{
         if (endPage > maxPage) {
             endPage = maxPage;
         }
-        PageDTO paging = new PageDTO(0, 1000);
+        PageDTO paging = new PageDTO();
 
         paging.setPage(page);
         paging.setStartRow(startRow);

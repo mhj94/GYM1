@@ -21,5 +21,4 @@ public interface CompanyDAO {
 
     int companyDelete(String companyCode);
 
-
 }

@@ -2,6 +2,7 @@ package com.gym.GYM.company.service;
 
 
 import java.io.IOException;
+import java.util.Map;
 
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,4 +20,5 @@ public interface CompanyService {
     ModelAndView companyModify(CompanyDTO company) throws IOException;
 
     ModelAndView companyDelete(String companyCode);
+
 }

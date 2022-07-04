@@ -12,10 +12,6 @@ import com.gym.GYM.board.dto.BoardDTO;
 @Mapper
 public interface BoardDAO {
 
-	
-
-	List<BoardDTO> boardList();
-
 	int boardRegist(BoardDTO board);
 
 	BoardDTO boardView(int boardNo);
@@ -25,4 +21,8 @@ public interface BoardDAO {
 	void count(int boardNo);
 
 	int boardDelete(int boardNo);
+
+	List<BoardDTO> boardNoticeList();
+
+	List<BoardDTO> boardNormalList();
 }
