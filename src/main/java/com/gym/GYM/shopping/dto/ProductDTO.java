@@ -20,12 +20,13 @@ public class ProductDTO {
     PRODUCTFAT NUMBER,                          --상품지방
     PRODUCTSALT NUMBER,                         --상품나트륨
     PRODUCTPRICE NUMBER,                        --상품가격
-    PRODUCTLINK NVARCHAR2(100),                 --상품사이트링크
     PRODUCTCOMMENT NVARCHAR2(100),              --상품설명
     PRODUCTPHOTO NVARCHAR2(100),                --상품사진명
     PRODUCTHITS NUMBER                          --조회수
     PRODUCTLISTCODE NVARCHAR2(6)                --상품 분류 코드
 );*/
+
+
     private String productCode;
     private String productName;
     private int productWeight;
@@ -35,7 +36,6 @@ public class ProductDTO {
     private int productFat;
     private int productSalt;
     private int productPrice;
-    private String productLink;
     private String productComment;
     private String productPhoto;
     private MultipartFile productPhotoFile;

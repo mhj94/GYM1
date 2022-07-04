@@ -1,45 +1,44 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.gym.GYM.shopping.dao.ShoppingDAO">
 
 	<select id="shoppingList" parameterType="String" resultType="product">
-		SELECT * FROM PRODUCT ORDER BY PRODUCTHITS DESC
+		SELECT ROUND(PRODUCTRATE, 2) AS PRODUCTRATE,PRODUCTNAME,PRODUCTPRICE,PRODUCTCODE,PRODUCTPHOTO FROM PRODUCT ORDER BY PRODUCTHITS DESC
 	</select>
 
 	<update id="count" parameterType="String">
 		UPDATE PRODUCT SET PRODUCTHITS = PRODUCTHITS+1 WHERE PRODUCTCODE=#{productCode}
 	</update>
 
-<!--wish Code 불러오는 메소드-->
+	<!--wish Code 불러오는 메소드-->
 	<select id="wishList" parameterType="String"
-		resultType="String">
+			resultType="String">
 		SELECT WISHPRODUCTCODE FROM WISH WHERE WISHID=#{memberId}
 	</select>
 
 	<select id="shoppingView" parameterType="String" resultType="product">
-SELECT * FROM PRODUCT WHERE PRODUCTCODE =#{productCode}
+		SELECT * FROM PRODUCT WHERE PRODUCTCODE =#{productCode}
 	</select>
 
 
-<select id="wishCount" parameterType="String" resultType="int" >
-SELECT COUNT(WISHID) FROM WISH WHERE WISHID =#{memberId}
-</select>
+	<select id="wishCount" parameterType="String" resultType="int" >
+		SELECT COUNT(WISHID) FROM WISH WHERE WISHID =#{memberId}
+	</select>
 
-<select id="myWishList"	 parameterType="String" resultType="product">
-SELECT * FROM PRODUCT WHERE PRODUCTCODE = #{productCode}
+	<select id="myWishList"	 parameterType="String" resultType="product">
+		SELECT * FROM PRODUCT WHERE PRODUCTCODE = #{productCode}
 
 
-</select>
+	</select>
 
 	<insert id="basketRegist" parameterType="String">
-	INSERT INTO ORDERS VALUES (#{orderCode},#{productCode},#{memberId},0,0,0,NULL,0,NULL,0,0,0)
+		INSERT INTO ORDERS VALUES (#{orderCode},#{productCode},#{memberId},0,0,0,NULL,0,NULL,0,0,0)
 	</insert>
 
 	<select id="basketList" parameterType="String" resultType="orders">
-		SELECT ORDERPRODUCTCODE FROM ORDERS WHERE ORDERID =#{memberId} AND ORDERPRICE=0
+		SELECT ORDERPRODUCTCODE FROM ORDERS WHERE ORDERID =#{memberId} AND ORDERDATE = NULL
 	</select>
-
 
 	<select id="basketCount" parameterType="String" resultType="int" >
 		SELECT COUNT(ORDERPRODUCTCODE) FROM ORDERS WHERE WISHID =#{memberId} AND ORDERPRICE=0
@@ -48,5 +47,9 @@ SELECT * FROM PRODUCT WHERE PRODUCTCODE = #{productCode}
 	<select id="shoppingBascket" parameterType="String" resultType="product">
 		SELECT * FROM PRODUCT
 	</select>
+
+	<insert id="basketRegist1" parameterType="String">
+		INSERT INTO ORDERS VALUES (#{orderCode},#{productCode},#{orderId},0,0,0,NULL,0,NULL,0,#{orderPrice},0)
+	</insert>
 
 </mapper>

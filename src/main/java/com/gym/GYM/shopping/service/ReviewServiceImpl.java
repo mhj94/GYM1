@@ -75,6 +75,7 @@ public class ReviewServiceImpl implements ReviewService{
         Double productReviewRate = reviewdao.productReviewRate(productCode);
         if(productReviewRate == null){
             productReviewRate = 0.0;
+
         }
 
         product.setProductCode(productCode);

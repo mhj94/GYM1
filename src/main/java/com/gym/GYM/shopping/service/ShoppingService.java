@@ -1,8 +1,6 @@
 package com.gym.GYM.shopping.service;
 
 import com.gym.GYM.shopping.dto.OrdersDTO;
-import com.gym.GYM.shopping.dto.ProductDTO;
-import com.gym.GYM.shopping.dto.WishDTO;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -10,7 +8,7 @@ import java.util.List;
 public interface ShoppingService {
 
 
-	ModelAndView shoppingWishForm(String memberId);
+    ModelAndView shoppingWishForm(String memberId);
 
     ModelAndView shoppingList();
 
@@ -20,4 +18,10 @@ public interface ShoppingService {
     ModelAndView basketView(String memberId);
 
     List<OrdersDTO> basketList(String productCode, String memberId);
+
+
+    List<OrdersDTO> basketList1(String productCode, String orderPrice, String orderId);
+
+
+
 }

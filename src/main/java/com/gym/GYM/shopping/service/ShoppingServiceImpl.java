@@ -1,7 +1,6 @@
 package com.gym.GYM.shopping.service;
 
 
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -15,8 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.gym.GYM.shopping.dao.ShoppingDAO;
 import com.gym.GYM.shopping.dto.ProductDTO;
 import com.gym.GYM.shopping.dto.WishDTO;
-
-import javax.script.ScriptContext;
 
 
 @Service
@@ -63,9 +60,9 @@ public class ShoppingServiceImpl implements ShoppingService {
                 //	System.out.println("productCode:"+productCode);
                 productDTOList.add(shoppingdao.myWishList(productCode));
                 //	productDTOList1.addAll(i,productDTOList);
-           //     System.out.println(productDTOList);
+                //     System.out.println(productDTOList);
             }
-             mav.addObject("productDTOList", productDTOList);
+            mav.addObject("productDTOList", productDTOList);
             //	System.out.println(productDTOList1);
             mav.setViewName("Shopping/ShoppingWishForm");
 
@@ -78,20 +75,22 @@ public class ShoppingServiceImpl implements ShoppingService {
     @Override
     public ModelAndView shoppingList() {
         List<ProductDTO> shoppinglist = shoppingdao.shoppingList();
+
+
         mav.addObject("shoppingList", shoppinglist);
         mav.setViewName("Shopping/shoppingMainForm");
         return mav;
     }
 
 
-	@Override
-	public ModelAndView shoppingView(String productCode) {
-		shoppingdao.count(productCode);
-		ProductDTO shoppingView = shoppingdao.shoppingView(productCode);
-		mav.addObject("view",shoppingView);
-		mav.setViewName("Shopping/ShoppingView");
-		return mav;
-	}
+    @Override
+    public ModelAndView shoppingView(String productCode) {
+        shoppingdao.count(productCode);
+        ProductDTO shoppingView = shoppingdao.shoppingView(productCode);
+        mav.addObject("view",shoppingView);
+        mav.setViewName("Shopping/ShoppingView");
+        return mav;
+    }
 
 
 
@@ -111,6 +110,7 @@ public class ShoppingServiceImpl implements ShoppingService {
 
         return basketDTOList;
     }
+
 
     @Override
     public ModelAndView basketView(String memberId) {
@@ -143,6 +143,22 @@ public class ShoppingServiceImpl implements ShoppingService {
 
         return mav;
     }
+
+    @Override
+    public List<OrdersDTO> basketList1(String productCode, String orderPrice, String orderId) {
+        String memberId = orderId;
+        List<OrdersDTO> basketDTOList = new ArrayList<OrdersDTO>();
+        String uuid = UUID.randomUUID().toString().substring(0,6);
+        String orderCode = uuid;
+
+        String basketRegist1 = shoppingdao.basketRegist1(productCode,orderPrice,orderId,orderCode);
+
+        basketDTOList = shoppingdao.basketList(memberId);
+
+        return basketDTOList;
+    }
+
+
 
 
 }

@@ -11,11 +11,12 @@ import org.apache.ibatis.annotations.Mapper;
 
 
 import com.gym.GYM.shopping.dto.WishDTO;
+import org.springframework.web.servlet.ModelAndView;
 
 @Mapper
 public interface ShoppingDAO {
 
-//
+    //
     List<ProductDTO> shoppingList();
 
     ProductDTO shoppingView(String productCode);
@@ -37,4 +38,8 @@ public interface ShoppingDAO {
     int basketCount(String memberId);
 
     ProductDTO myBasketList(String basketCode);
+
+    String basketRegist1(String productCode, String orderPrice, String orderId, String orderCode);
+
+
 }

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="생로병사"/>
+    <meta name="description" content="해당 html에 대한 설명"/>
+    <title>타이틀</title>
+    <title>책임짐 쇼핑몰(관리자) 상품 등록 페이지</title>
+</head>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<body>
+<h1>쇼핑몰(관리자) 상품 수정</h1>
+<form action="shoppingAdminModify" method="POST" enctype="multipart/form-data">
+
+
+    상품코드 : <input type="hidden" name="productCode" th:value="${view.productCode}" th:text="${view.productCode}"/><br/>
+    상품이름 : <input type="text" name="productName"/><br/>
+    상품중량 : <input type="text" name="productWeight"/><br/>
+    상품칼로리 : <input type="text" name="productKcal"/><br/>
+    상품탄수화물 : <input type="text" name="productCarbohydrate"/><br/>
+    상품단백질 : <input type="text" name="productProtein"/><br/>
+    상품지방 : <input type="text" name="productFat"/><br/>
+    상품나트륨 : <input type="text" name="productSalt"/><br/>
+    상품가격 : <input type="text" name="productPrice"/><br/>
+    상품설명 : <textarea name="productComment"></textarea> <br/>
+    프로필사진 첨부 : <input type = "file" name = "productPhotoFile"/><br/>
+
+    <input type = "submit" value = "수정"/>
+</form>
+</body>
+</html>
