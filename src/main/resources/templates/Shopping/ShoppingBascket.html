@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:width="http://www.w3.org/1999/xhtml"
+      xmlns:height="http://www.w3.org/1999/xhtml" xmlns:border="http://www.w3.org/1999/xhtml"
+      xmlns:resize="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,6 +11,8 @@
     <title>타이틀</title>
     <meta name="date" content="2022.05.25">
     <title>장바구니</title>
+    <link rel="icon" href="image/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
 <h1>Bascket</h1>
@@ -20,7 +24,7 @@
 
         <th>상품평점</th>
         <th>수량선택</th>
-        <th>가격</th>
+
 
     </tr>
 
@@ -31,81 +35,161 @@
         <td th:text="${list.productName}"></td>
 
         <td th:text="${list.productRate}"></td>
-        <th><select th:name="${list.productCode}" onchange="opchan()" th:id="${list.productCode}"
+        <th><select th:name="${list.productCode}" onchange="opchan(this)"
                     th:class="productOrder" th:data="${list.productCode}">
-            <option>수량을 선택해주세요</option>
+            <option th:value="${list.productCode}">수량을 선택해주세요</option>
 
             <option
 
-                    th:value1="${list.productPrice} * 5" th:value2="${list.productCode}"
+                    th:value="${list.productPrice} * 5"
                     th:text="${list.productName} + '5팩' + (${list.productPrice} * 5 )+ '원'"></option>
 
-            <option th:value1="${list.productPrice} * 10"   th:value2="${list.productCode}"
+            <option th:value="${list.productPrice} * 10"
                     th:text="${list.productName} + '10팩' +(${list.productPrice} * 10)+ '원'"></option>
 
-            <option th:value1="${list.productPrice} * 15" th:value2="${list.productCode}"
+            <option th:value="${list.productPrice} * 15"
 
                     th:text="${list.productName} + '15팩' +( ${list.productPrice} * 15) + '원'"></option>
 
-            <option th:value1="${list.productPrice} * 20" th:value2="${list.productCode}"
+            <option th:value="${list.productPrice} * 20"
 
                     th:text="${list.productName} + '20팩' +( ${list.productPrice} * 20) + '원'"></option>
         </select>
-            <div th:class="total">
 
-            </div>
 
         </th>
 
     </tr>
     <tr>
-        <th th:class="gggg">총 금액</th>
+        <th>총 금액</th>
+        <th id="totalPayView"></th>
+        <th>
+            <button class="btn-open-popup">주문하기</button>
+        </th>
 
 
     </tr>
 </table>
+<div class="modal">
+    <div class="modal_body">
+        <h1 id="">상품구매 정보입력!</h1>
+        <form action="basketPayment" method="post"></form>
+        <tr>
+            <th>주소지 입력</th>
+            <td><textarea width:120% height:30% id="addressInput" name="addr"></textarea></td>
+            <td>
+                <button th:id="addrBtn">주소지 불러오기</button>
+
+
+
+            </td>
+        </tr>
+
+        <tr>
+            <th>주문 요청사항을 입력해주세요</th>
+        <tr>
+            <td>ex)부재시 경비실에 맡겨주세요</td>
+            <td><textarea width:120% height:30% name="coment"></textarea></td>
+        </tr>
+
+        </tr>
+
+        <p>주문하시겠습니까?</p>
+        <input type="submit" value="예"></button>
+        <input type="button" name="continue" value="아니요" onclick="top.location.reload();">
+    </div>
+</div>
+
+
 </body>
+
+<script src="js/modal.js"></script>
+<script src="https://code.jquery.com/jquery-latest.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
+
 <script th:inline="javascript">
+
     const loginId = [[${session.login.memberId}]];
+    var totalValue;
 
-    function productOrder(e) {
-        // 선택된 데이터 가져오기
-        const value = e.value;
-        const productCode = $(this).attr('class');
-        console.log(value);
-        console.log(productCode);
-        // 데이터 출력
-        document.getElementsByClassName('total').innerText
-            = value;
-    }
-
-    $('.productOrder').ready(function (e) {
-
-        const value1 = e.value;
-        const data1 = e.data;
-        const productCode = $(this).attr('class');
-        console.log("value1 : " + value1);
-        console.log("data1 : " + data1);
-        console.log(productCode);
-
-    })
+    var addrView1;
 
     function opchan(e) {
 
         var value1 = e[0].value;
 
         var value5 = e.value;
+        totalValue = +value5;
+
+        totalPay(totalValue);
+
 
         $.ajax({
+            type: "POST",
+            url: "bascketOrdersPriceUpdate",
+            data: {
+                "memberId": loginId,
+                "productCode": value1,
+                "orderPrice": value5
+            },
+            dataType: "json",
+            success: function (list) {
+
+            }, error: function () {
 
 
+            }
         })
+    }
 
 
+    function totalPay(totalValue) {
+        var totalP = +totalValue;
 
+        var output = "";
+
+        output += "<tr>"
+        output += "<td>" + totalP + "</td>"
+        output += "</tr>"
+
+        // div 영역 reviewArea
+        var reviewArea = document.getElementById("totalPayView");
+
+        // reviewArea에 output 내용 넣기
+        reviewArea.innerHTML = output;
+
+
+    }
+
+
+    $('#addrBtn').click( function() {
+
+        $.ajax({
+            data: "GET",
+            url: "addressInputAjax",
+            data: {"memberId": loginId},
+            dataType: "json",
+            success: function (address) {
+                addressView(address)
+                addrView1=address;
+            }, error: function () {
+            }
+        })
+    })
+
+
+    function addressView(address) {
+
+        output =addrView1;
+
+
+        console.log(addrView1);
+        // div 영역 reviewArea
+        var reviewArea = document.getElementById("addressInput");
+        // reviewArea에 output 내용 넣기
+        reviewArea.innerHTML = output;
     }
 
 

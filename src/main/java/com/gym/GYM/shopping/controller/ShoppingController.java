@@ -142,5 +142,32 @@ public class ShoppingController {
         return wishInquire;
     }
 
+    //bascketOrdersPriceUpdate: 장바구니에서 수량 선택시 orderPrice 업데이트 하는 문
 
+    @PostMapping("/bascketOrdersPriceUpdate")
+    private @ResponseBody List<OrdersDTO> bascketOrdersPriceUpdate(@RequestParam String memberId, @RequestParam String productCode,@RequestParam String orderPrice){
+        List<OrdersDTO> basketListUpdate = new ArrayList<OrdersDTO>();
+        basketListUpdate = shoppingsvc.bascketOrdersPriceUpdate(memberId, productCode, orderPrice);
+        return basketListUpdate;
+    }
+
+
+    //addressInputAjax : 이전주소 불러오는 ajax
+
+    @GetMapping("/addressInputAjax")
+    private @ResponseBody  List<String> addressInputAjax (@RequestParam String memberId){
+        List<String> addressInputAjax = new ArrayList<String>();
+        addressInputAjax = shoppingsvc.addressInputAjax(memberId);
+
+        System.out.println(addressInputAjax);
+        return addressInputAjax;
+    }
+
+//basketPayment : 모달로 주문시 orders 테이블 업데이트 하는 메소드
+
+    @PostMapping ("/basketPayment")
+    private ModelAndView basketPayment(@RequestParam String addr, @RequestParam String coment){
+
+
+    }
 }

@@ -169,6 +169,16 @@ public class ShoppingServiceImpl implements ShoppingService {
         return basketInquire;
     }
 
+    //bascketOrdersPriceUpdate : 장바구니에서 수량 선택시 order테이블 orderPrice update
+    @Override
+    public List<OrdersDTO> bascketOrdersPriceUpdate(String memberId, String productCode, String orderPrice) {
+        List<OrdersDTO> bascketOrdersPriceUpdate = new ArrayList<OrdersDTO>();
+        //String orderCode =shoppingdao.bascketSelectOdredrCode(memberId)
+        bascketOrdersPriceUpdate=shoppingdao.bascketOrdersPriceUpdate(memberId, productCode, orderPrice);
+        return bascketOrdersPriceUpdate;
+    }
+
+
 
     //basketView 장바구니 보는 메소드
     @Override
@@ -191,6 +201,15 @@ public class ShoppingServiceImpl implements ShoppingService {
             mav.setViewName("Shopping/ShoppingWishForm");
         }
         return mav;
+    }
+
+   // addressInputAjax : 가입시 입력한 주소 불러오는 ajax
+    @Override
+    public List<String> addressInputAjax(String memberId) {
+        List<String> addressInputAjax = new ArrayList<String>();
+        addressInputAjax = shoppingdao.addressInputAjax(memberId);
+
+        return addressInputAjax;
     }
 
 

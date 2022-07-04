@@ -79,13 +79,15 @@
         <td th:text="${list.productSalt}"></td>
         <td th:text="${list.productPrice}+원"></td>
 
-        <td><button  th:productCode="${list.productCode}" th:onclick="shoppingBasketAjax(this.getAttribute('productCode'))"  th:text="장바구니">
+        <td><button  th:productCode="${list.productCode}" th:onclick="shoppingBasketAjax(this.getAttribute('productCode'))"  th:text="장바구니에 담기">
                 </button></td>
 
 
     </tr>
 </table>
-<button class="btn-open-popup">장바구니로 가기</button>
+
+<button th:if = "${session.login != null}" th:onclick = "|location.href='@{basketView(companyId=${session.login.memberId})}'|">장바구니로 가기</button>
+
 
 </body>
 

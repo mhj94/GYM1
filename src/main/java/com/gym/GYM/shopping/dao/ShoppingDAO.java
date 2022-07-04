@@ -50,4 +50,7 @@ public interface ShoppingDAO {
     void basketDelete(String memberId, String productCode);
 
 
+    List<OrdersDTO> bascketOrdersPriceUpdate(String memberId, String productCode, String orderPrice);
+
+    List<String> addressInputAjax(String memberId);
 }
