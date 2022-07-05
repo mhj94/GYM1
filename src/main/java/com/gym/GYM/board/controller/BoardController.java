@@ -31,15 +31,14 @@ public class BoardController {
     // BoardRegistForm : 게시글 작성페이지 이동
     @GetMapping("/boardRegistForm")
     private String boardRegistForm() {
+
         return "Board/boardRegistForm";
     }
 
     // BoardRegist:게시글 작성 메소드
     @PostMapping("/boardRegist")
     private ModelAndView boardRegist(@ModelAttribute BoardDTO board) throws IllegalStateException, IOException {
-
         mav = boardsvc.boardRegist(board);
-
         return mav;
     }
 

@@ -11,7 +11,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 
 import com.gym.GYM.shopping.dto.WishDTO;
-import org.springframework.web.servlet.ModelAndView;
 
 @Mapper
 public interface ShoppingDAO {
@@ -21,7 +20,6 @@ public interface ShoppingDAO {
 
     ProductDTO shoppingView(String productCode);
 
-
     int wishCount(String memberId);
 
     void count(String productCode);
@@ -29,7 +27,6 @@ public interface ShoppingDAO {
     List<WishDTO> wishList(String memberId);
 
     ProductDTO myWishList(String productCode);
-
 
     boolean basketRegist(String productCode, String memberId, String orderCode);
 
@@ -42,4 +39,5 @@ public interface ShoppingDAO {
     String basketRegist1(String productCode, String orderPrice, String orderId, String orderCode);
 
 
+    List<OrdersDTO> shoppingOrderList(String orderId);
 }

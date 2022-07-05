@@ -85,6 +85,13 @@ public class ShoppingController {
         return "Shopping/shoppingHistory";
     }
 
+    // shoppingBasket : 장바구니 페이지 이동
+    @GetMapping("/shoppingBasket")
+    private String shoppingBasket() {
+
+        return "Shopping/shoppingBasket";
+    }
+
     // shoppingPayment : 결제 페이지 이동
     @GetMapping("/shoppingPayment")
     private String shoppingPayment() {
@@ -92,11 +99,12 @@ public class ShoppingController {
         return "Shopping/shoppingPayment";
     }
 
-    // shoppingBasket : 장바구니 페이지 이동
-    @GetMapping("/shoppingBasket")
-    private String shoppingBasket() {
+   // shoppingOrderList : 결제 페이지 주문 목록
+    @GetMapping("/shoppingOrderList")
+    private ModelAndView shoppingOrderList(@RequestParam(value = "orderId") String orderId){
+        mav = shoppingsvc.shoppingOrderList(orderId);
 
-        return "Shopping/shoppingBasket";
+        return mav;
     }
 
 

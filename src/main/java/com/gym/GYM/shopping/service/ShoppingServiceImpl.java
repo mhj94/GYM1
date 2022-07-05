@@ -8,6 +8,7 @@ import java.util.UUID;
 //github.com/mumgod/GYM1.git
 import com.gym.GYM.shopping.dto.OrdersDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -158,7 +159,15 @@ public class ShoppingServiceImpl implements ShoppingService {
         return basketDTOList;
     }
 
+    @Override
+    public ModelAndView shoppingOrderList(String orderId) {
+        List<OrdersDTO> shoppingOrderlist = shoppingdao.shoppingOrderList(orderId);
 
+        mav.addObject("shoppingOrderList",shoppingOrderlist);
+        mav.setViewName("Shopping/shoppingPayment");
+
+        return mav;
+    }
 
 
 }

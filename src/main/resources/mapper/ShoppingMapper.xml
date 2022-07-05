@@ -28,8 +28,6 @@
 
 	<select id="myWishList"	 parameterType="String" resultType="product">
 		SELECT * FROM PRODUCT WHERE PRODUCTCODE = #{productCode}
-
-
 	</select>
 
 	<insert id="basketRegist" parameterType="String">
@@ -49,7 +47,11 @@
 	</select>
 
 	<insert id="basketRegist1" parameterType="String">
-		INSERT INTO ORDERS VALUES (#{orderCode},#{productCode},#{orderId},0,0,0,NULL,0,NULL,0,#{orderPrice},0)
+		INSERT INTO ORDERS VALUES (#{orderCode},#{productCode},#{orderId},0,0,0,NULL,0,NULL,0,0,#{orderPrice})
 	</insert>
+
+	<select id="shoppingOrderList" parameterType="String" resultType="orders">
+		SELECT * FROM ORDERS WHERE ORDERID = #{memberId}
+	</select>
 
 </mapper>

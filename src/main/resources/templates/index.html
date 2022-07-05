@@ -7,12 +7,6 @@
     <meta name="author" content="생로병사"/>
     <meta name="description" content="지우고 해당 html에 대한 설명 작성"/>
     <title>책임GYM</title>
-
-    <style>
-
-    </style>
-
-
     <link rel = "stylesheet" type = "text/css" href = "css/style.css">
 </head>
 <body>
@@ -33,7 +27,10 @@
     <button onclick = 'location.href = "normalMemberRegistForm"'>(일반)회원가입 페이지 이동</button>
     <button th:if = "${session.login != null}" th:onclick = "|location.href='@{companyRegistForm(companyId=${session.login.memberId})}'|">기업 등록 페이지 이동</button>
 
-<button onclick = 'location.href = "shoppingMainForm"'>(일반)쇼핑몰 페이지 이동</button>
+    <button onclick = 'location.href = "shoppingMainForm"'>(일반)쇼핑몰 페이지 이동</button>
+    <button th:if = "${session.login != null}" th:onclick = "|location.href='@{shoppingAdminMainForm(memberId=${session.login.memberId})}'|">(관리자)쇼핑몰 페이지 이동</button>
+    <button th:if = "${session.login != null}" th:onclick = "|location.href='@{shoppingHistory(memberId=${session.login.memberId})}'|">주문내역 페이지 이동</button>
+    <button th:if = "${session.login != null}" th:onclick = "|location.href='@{shoppingPayment(memberId=${session.login.memberId})}'|">쇼핑몰 결제 페이지 이동</button>
 
     <button th:if = "${session.login != null}" onclick = 'location.href = "memberSignOut"'>로그아웃</button>
     <button th:if = "${session.login != null}" th:onclick = "|location.href='@{memberModifyForm(memberId=${session.login.memberId})}'|">회원 수정 페이지 이동</button>
