@@ -10,7 +10,7 @@
     <meta name="date" content="2022.05.25">
     <title>상품목록 상세보기</title>
 </head>
-<link rel = "stylesheet" type = "text/css" href = "css/style.css">
+<link rel="stylesheet" type="text/css" href="css/style.css">
 <body>
 
 
@@ -84,12 +84,10 @@
 
 </div>
 
-<div id="basketRegistDiv">
+<div id="basketRegisterDiv">
 
     <button id='basketRegist'>내 장바구니에 넣기</button>
 </div>
-
-
 
 
 <br/>
@@ -109,15 +107,15 @@
 <div id="reviewArea"></div>
 
 
-<div class="modal">
+<div class="modal" th:width="200" th:high="100">
     <div class="modal_body">
         <h1 id="wishRegistModel">추가되었습니다!</h1>
 
 
-       <p>장바구니로 가시겠습니까?</p>
+        <p>장바구니로 가시겠습니까?</p>
 
-        <button th:onclick = "|location.href='@{basketView(memberId=${session.login.memberId})}'|">예</button>
-        <input type = "button" name = "continue" value="쇼핑계속하기" onclick="top.location.reload();">
+        <button th:onclick="|location.href='@{basketView(memberId=${session.login.memberId})}'|">예</button>
+        <input type="button" name="continue" value="쇼핑계속하기" onclick="modal.shutDown()">
     </div>
 </div>
 
@@ -143,7 +141,7 @@
 
     var productCode = document.getElementById("productCodeView").value;
 
-    var wishButtonView =0;
+    var wishButtonView = 0;
 
     $(document).ready(function () {
 
@@ -303,7 +301,7 @@
         function reload() {
             history.go(0);
         }
-    };
+    }
 
     //장바구니에 존재하는지 확인하는 메소드
 
@@ -318,79 +316,81 @@
             },
             dataType: "json",
             success: function (basketInquire) {
-                console.log(basketInquire);
-
-                basketButtonView = basketInquire.length;
-
+                var basketButtonView = basketInquire.length;
                 console.log(basketButtonView);
-                basketCheck(basketButtonView);
+                if (basketButtonView == 0) {
+                    //찜에서 빼기 버튼 활성화
+                    document.getElementById("basketRegisterDiv").style.display = "none";
+                } else {
+                    document.getElementById("basketDeleteDiv").style.display = "none";
+
+                    //찜하기 버튼 활성화
+                }
 
             }, error: function () {
-
             }
 
         })
+    })
 
-        function basketCheck(basketButtonView){
 
-            if (basketButtonView > 0) {
-                //찜에서 빼기 버튼 활성화
-                document.getElementById("basketRegistDiv").style.display="none";
+        //장바구니에서  빼기 ajax
+        $('#basketDelete').click(function () {
+            $.ajax({
+                type: "POST",
+                url: "/basketDelete",
+                data: {
+                    "memberId": login,
+                    "productCode": productCode
+                },
+                dataType: "json",
+                success: function () {
+                    const modalView = 0;
+                    basketButtonViewAjax(modalView);
+                }, error: function () {
+                    alert("장바구니에서 제거 실패")
+
+                }
+            })
+
+        });
+
+        //장바구니에 넣기 ajax
+        $('#basketRegist').click(function () {
+
+            $.ajax({
+                type: "POST",
+                url: "/basketRegist",
+                data: {
+                    "memberId": login,
+                    "productCode": productCode
+                },
+                dataType: "json",
+                success: function () {
+                    const modalView = 1;
+                    basketButtonViewAjax(modalView);
+                    modal(modalView)
+                }, error: function () {
+                    alert("장바구니에 추가 실패")
+
+                }
+            })
+        });
+
+        function basketButtonViewAjax(modalView) {
+
+            if (modalView > 0) {
+                document.getElementById("basketRegisterDiv").style.display = "none";
+                document.getElementById("basketDeleteDiv").style.display = "";
+
             } else {
-                document.getElementById("basketDeleteDiv").style.display="none";
-
-                //찜하기 버튼 활성화
+                document.getElementById("basketDeleteDiv").style.display = "none";
+                document.getElementById("basketRegisterDiv").style.display = "";
             }
+
         }
-    });
 
-    //장바구니에서  빼기 ajax
-    $('#basketDelete').click(function () {
-        $.ajax({
-            type: "POST",
-            url: "/basketDelete",
-            data: {
-                "memberId": login,
-                "productCode": productCode
-            },
-            dataType: "json",
-            success: function () {
-                document.getElementById("basketDeleteDiv").style.display="none";
-                document.getElementById("basketRegistDiv").style.display="";
-                const modalView=0;
-                modal(modalView)
-
-            }, error: function () {
-
-            }
-        })
-
-    });
-
-    //장바구니에 넣기 ajax
-    $('#basketRegist').click(function () {
-
-        $.ajax({
-            type: "POST",
-            url: "/basketRegist",
-            data: {
-                "memberId": login,
-                "productCode": productCode
-            },
-            dataType: "json",
-            success: function () {
-                document.getElementById("basketDeleteDiv").style.display="";
-                document.getElementById("basketRegistDiv").style.display="none";
-                const modalView=1;
-                modal(modalView)
-            }, error: function () {
-
-            }
-        })});
-
-
-
-    //찜하기 function 찜 목록에 존재하는지 확인하는 ajax
+  //  찜하기 function 찜 목록에 존재하는지 확인하는 ajax
     $(document).ready(function () {
 
         $.ajax({
@@ -402,32 +402,25 @@
             },
             dataType: "json",
             success: function (wishInquire) {
-
-
                 wishButtonView = wishInquire.length;
 
+                if (wishButtonView > 0) {
+                    //찜에서 빼기 버튼 활성화
+                    document.getElementById("wishRegistDiv").style.display = "none";
+                } else {
+                    document.getElementById("wishDeleteDiv").style.display = "none";
 
-                wishCheck(wishButtonView);
-
+                    //찜하기 버튼 활성화
+                }
             }, error: function () {
-
+                alert("찜목록 확인후 버튼 체인지 에러");
             }
 
         })
-        function wishCheck(wishButtonView){
+    })
 
-            if (wishButtonView > 0) {
-                //찜에서 빼기 버튼 활성화
-            document.getElementById("wishRegistDiv").style.display="none";
-            } else {
-            document.getElementById("wishDeleteDiv").style.display="none";
 
-                //찜하기 버튼 활성화
-            }
-        }
-    });
-
-    //찜에서 빼기 ajax
+   // 찜에서 빼기 ajax
     $('#wishDelete').click(function () {
         $.ajax({
             type: "POST",
@@ -438,10 +431,9 @@
             },
             dataType: "json",
             success: function () {
-                document.getElementById("wishDeleteDiv").style.display="none";
-                document.getElementById("wishRegistDiv").style.display="";
-                const modalView=0;
-                modal(modalView)
+                document.getElementById("wishDeleteDiv").style.display = "none";
+                document.getElementById("wishRegistDiv").style.display = "";
+
 
             }, error: function () {
 
@@ -450,7 +442,7 @@
 
     });
 
-    //찜에 넣기 ajax
+   // 찜에 넣기 ajax
     $('#wishRegist').click(function () {
 
         $.ajax({
@@ -462,37 +454,35 @@
             },
             dataType: "json",
             success: function () {
-                document.getElementById("wishDeleteDiv").style.display="";
-                document.getElementById("wishRegistDiv").style.display="none";
-                const modalView=1;
-                modal(modalView)
+                document.getElementById("wishDeleteDiv").style.display = "";
+                document.getElementById("wishRegistDiv").style.display = "none";
+
             }, error: function () {
 
             }
-        })});
+        })
+    });
 
 
-
-function modal(modalView){
-    const body = document.querySelector('body');
-    const modal = document.querySelector('.modal');
+    function modal(modalView) {
+        const body = document.querySelector('body');
+        const modal = document.querySelector('.modal');
         modal.classList.toggle('show');
         if (modal.classList.contains('show')) {
             body.style.overflow = 'hidden';
         }
-    ;
 
-    modal.addEventListener('click', (event) => {
-        if (event.target === modal) {
-            modal.classList.toggle('show');
+        modal.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.classList.toggle('show');
 
 
-            if (!modal.classList.contains('show')) {
-                body.style.overflow = 'auto';
+                if (!modal.classList.contains('show')) {
+                    body.style.overflow = 'auto';
+                }
             }
-        }
-    });
-}
+        })
+    }
 
 
 </script>

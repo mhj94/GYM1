@@ -111,7 +111,7 @@ public class ShoppingController {
     private @ResponseBody List<String> wishInquire(@RequestParam String memberId, @RequestParam String productCode){
 
 
-     List<String> wishInquire= new ArrayList<>();
+     List<String> wishInquire= new ArrayList<String>();
      wishInquire= shoppingsvc.wishInquire(memberId, productCode);
 
         return wishInquire;
@@ -159,15 +159,19 @@ public class ShoppingController {
         List<String> addressInputAjax = new ArrayList<String>();
         addressInputAjax = shoppingsvc.addressInputAjax(memberId);
 
-        System.out.println(addressInputAjax);
+
         return addressInputAjax;
     }
 
 //basketPayment : 모달로 주문시 orders 테이블 업데이트 하는 메소드
 
-//    @PostMapping ("/basketPayment")
-//    private ModelAndView basketPayment(@RequestParam String addr, @RequestParam String coment){
-//
-//
-//    };//
+    @PostMapping ("/basketPayment")
+    private ModelAndView basketPayment(@RequestParam String addr, @RequestParam String coment){
+        System.out.println("컨트롤러 요청사항:"+coment);
+        System.out.println("컨트롤러 주소:"+addr);
+       mav = shoppingsvc.basketPayment(addr, coment);
+       return mav;
+
+
+    }
 }

@@ -79,7 +79,7 @@
         <td th:text="${list.productSalt}"></td>
         <td th:text="${list.productPrice}+원"></td>
 
-        <td><button  th:productCode="${list.productCode}" th:onclick="shoppingBasketAjax(this.getAttribute('productCode'))"  th:text="장바구니에 담기">
+       <td><button  th:value="${list.productCode}" th:onclick="shoppingBasketAjax(this.getAttribute('productCode'))"  th:text="장바구니에 담기">
                 </button></td>
 
 

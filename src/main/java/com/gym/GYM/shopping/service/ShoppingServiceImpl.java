@@ -186,19 +186,22 @@ public class ShoppingServiceImpl implements ShoppingService {
         List<ProductDTO> productDTOList = new ArrayList<ProductDTO>();
         basketDTOList = shoppingdao.basketList(memberId);
         int count = shoppingdao.basketCount(memberId);
+        System.out.println(count);
+        System.out.println(basketDTOList);
         String[] basketArr = basketDTOList.toArray(new String[count]);
         String basketCode;
 
         if (count > 0) {
-            for (int i = 0; i < count; i++) {
+            for (int i = 0; i <= count; i++) {
                 basketCode = basketArr[i];
+                System.out.println(basketCode);
                 productDTOList.add(shoppingdao.myBasketList(basketCode));
 
             }
             mav.addObject("myBasketList", productDTOList);
             mav.setViewName("Shopping/ShoppingBascket");
         } else {
-            mav.setViewName("Shopping/ShoppingWishForm");
+            mav.setViewName("Shopping/ShoppingBascket");
         }
         return mav;
     }
@@ -210,6 +213,16 @@ public class ShoppingServiceImpl implements ShoppingService {
         addressInputAjax = shoppingdao.addressInputAjax(memberId);
 
         return addressInputAjax;
+    }
+
+    @Override
+    public ModelAndView basketPayment(String addr, String coment) {
+        System.out.println("서비스 요청사항:"+coment);
+        System.out.println("서비스 주소:"+addr);
+        mav = shoppingdao.basketPayment(addr, coment);
+        mav.setViewName("Shopping/ShoppingPayment");
+
+        return mav;
     }
 
 

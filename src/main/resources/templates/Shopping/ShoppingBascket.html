@@ -72,32 +72,36 @@
 </table>
 <div class="modal">
     <div class="modal_body">
+
         <h1 id="">상품구매 정보입력!</h1>
-        <form action="basketPayment" method="post"></form>
+        <form action="/basketPayment" method="post">
+            <table>
         <tr>
             <th>주소지 입력</th>
-            <td><textarea width:120% height:30% id="addressInput" name="addr"></textarea></td>
+            <td><textarea id="addressInput" name="addr"></textarea></td>
             <td>
-                <button th:id="addrBtn">주소지 불러오기</button>
-
-
 
             </td>
         </tr>
 
-        <tr>
+
             <th>주문 요청사항을 입력해주세요</th>
         <tr>
             <td>ex)부재시 경비실에 맡겨주세요</td>
-            <td><textarea width:120% height:30% name="coment"></textarea></td>
+            <td><textarea name="coment"></textarea></td>
         </tr>
 
-        </tr>
+
 
         <p>주문하시겠습니까?</p>
-        <input type="submit" value="예"></button>
+        <input type="submit" value="예">
         <input type="button" name="continue" value="아니요" onclick="top.location.reload();">
+            </table>
+        </form>
+<!-- 주소지 불러오기 버튼 from안에 있으면 POST화 되어서 빼놈 POST로 주소지 불러오면 오류남       -->
+        <button th:id="addrBtn">주소지 불러오기</button>
     </div>
+
 </div>
 
 
@@ -167,7 +171,7 @@
     $('#addrBtn').click( function() {
 
         $.ajax({
-            data: "GET",
+            type: "GET",
             url: "addressInputAjax",
             data: {"memberId": loginId},
             dataType: "json",
