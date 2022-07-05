@@ -101,6 +101,13 @@ public class BoardController {
         return mav;
     }
 
+    @GetMapping("/boardCSView")
+    public ModelAndView boardCSView(@RequestParam ("boardNo")int boardNo){
+        mav = boardsvc.boardCSView(boardNo);
+
+        return mav;
+    }
+
     @GetMapping("/boardCSDelete")
     public ModelAndView boardCSDelete(@ModelAttribute BoardDTO board){
 

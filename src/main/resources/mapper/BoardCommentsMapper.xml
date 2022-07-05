@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gym.GYM.board.dao.BoardCommentsDAO">
+
+    <select id="boardCommentsList" parameterType="int" resultType="boardcomments">
+        SELECT * FROM BOARDCOMMENTS WHERE BOARDCOMMENTSBOARDNO = #{boardNo} ORDER BY BOARDCOMMENTSNO DESC
+    </select>
+
+    <insert id="boardCommentsRegist" parameterType="boardcomments">
+        INSERT INTO BOARDCOMMENTS VALUES(#{boardNo},BOARDCOMMENTS_SEQ.NEXTVAL,#{boardCommentsWriter},#{boardCommentsContent},SYSDATE)
+    </insert>
+
+    <update id="boardCommentsModify" parameterType = "boardcomments">
+        UPDATE BOARDCOMMENTS SET BOARDCOMMENTSCONTENT = #{boardCommentsContent}, BOARDCOMMENTSDATE = SYSDATE
+    </update>
+
+    <delete id="boardCommentsDelete" parameterType="boardcomments">
+        DELETE FROM BOARDCOMMENTS WHERE BOARDCOMMENTSNO = #{boardCommentsNo}
+    </delete>
+
+    <update id="updateCSStatusWaiting" parameterType="int">
+        UPDATE BOARD SET BOARDNOTICE = '답변대기중' WHERE BOARDNO = #{boardNo}
+    </update>
+
+    <update id="updateCSStatusComplete" parameterType="int">
+        UPDATE BOARD SET BOARDNOTICE = '답변완료' WHERE BOARDNO = #{boardNo}
+    </update>
+
+    <select id="boardView" parameterType="int" resultType="com.gym.GYM.board.dto.BoardDTO">
+        SELECT * FROM BOARD WHERE BOARDNO = #{boardNo}
+    </select>
+</mapper>

@@ -31,4 +31,6 @@ public interface BoardDAO {
     int boardCSRegist(BoardDTO board);
 
 	int boardCSDelete(BoardDTO board);
+
+
 }

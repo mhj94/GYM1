@@ -30,4 +30,6 @@ public interface BoardService {
 
 
 	ModelAndView boardCSDelete(BoardDTO board);
+
+	ModelAndView boardCSView(int boardNo);
 }

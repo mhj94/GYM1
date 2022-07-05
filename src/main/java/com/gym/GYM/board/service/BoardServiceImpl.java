@@ -178,4 +178,14 @@ public class BoardServiceImpl implements BoardService {
 
 		return mav;
 	}
+
+	@Override
+	public ModelAndView boardCSView(int boardNo) {
+		BoardDTO board = boarddao.boardView(boardNo);
+
+		mav.addObject("boardCSView",board);
+		mav.setViewName("Board/BoardCSView");
+
+		return mav;
+	}
 }
