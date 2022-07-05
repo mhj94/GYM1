@@ -22,4 +22,6 @@ public class BoardDTO {
 	private MultipartFile boardFile; // 업로드 파일
 	private int boardHits; 			//조회수
 	private Date reviewDate;
+
+	private int rowNum;		//문의사항 번호체크용
 }

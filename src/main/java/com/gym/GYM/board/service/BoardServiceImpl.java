@@ -141,4 +141,51 @@ public class BoardServiceImpl implements BoardService {
 
 		return mav;
 	}
+
+	//
+	@Override
+	public ModelAndView boardCSList(String boardWriter) {
+		List<BoardDTO> boardCSList = boarddao.boardCSList(boardWriter);
+
+		mav.setViewName("Board/CustomerService");
+		mav.addObject("boardCSList",boardCSList);
+		return mav;
+	}
+
+	@Override
+	public ModelAndView boardCSRegist(BoardDTO board) {
+		int result = boarddao.boardCSRegist(board);
+
+		if(result>0){
+			mav.setViewName("redirect:/boardCSList?boardWriter="+board.getBoardWriter());
+		}else{
+			mav.setViewName("redirect:/boardCSList?boardWriter="+board.getBoardWriter());
+		}
+		return mav;
+	}
+
+	@Override
+	public ModelAndView boardCSDelete(BoardDTO board) {
+		String writer = board.getBoardWriter();
+		System.out.println("전:"+writer);
+		int result = boarddao.boardCSDelete(board);
+		System.out.println("후:"+writer);
+		if(result>0){
+			mav.setViewName("redirect:/boardCSList?boardWriter="+writer);
+		}else {
+			mav.setViewName("redirect:/boardCSList?boardWriter="+writer);
+		}
+
+		return mav;
+	}
+
+	@Override
+	public ModelAndView boardCSView(int boardNo) {
+		BoardDTO board = boarddao.boardView(boardNo);
+
+		mav.addObject("boardCSView",board);
+		mav.setViewName("Board/BoardCSView");
+
+		return mav;
+	}
 }

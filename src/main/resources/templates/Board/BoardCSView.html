@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="생로병사"/>
+    <meta name="description" content="지우고 해당 html에 대한 설명 작성"/>
+    <title>책임GYM</title>
+    <link rel="icon" href="image/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+<table>
+    <tr>
+        <th>제목</th>
+        <td th:text="${boardCSView.boardTitle}"></td>
+    </tr>
+
+    <tr>
+        <th>문의 날짜</th>
+        <td th:text="${boardCSView.boardDate}"></td>
+    </tr>
+
+    <tr>
+        <th>문의 내용</th>
+        <td th:text="${boardCSView.boardContent}"></td>
+    </tr>
+
+    <tr>
+        <th>처리 현황</th>
+        <td th:text="${boardCSView.boardNotice}"></td>
+    </tr>
+
+</table>
+
+<!--<th:block th:if="${session.login.memberId == 'admin'}">-->
+<h3>답변 등록</h3>
+<textarea rows=5 cols=60 id="boardCommentsContent" placeholder="답변 작성해주세요."></textarea>
+</br><button id="boardCommentsBtn">답변 등록</button>
+
+<!--</th:block>-->
+<h3>답변</h3>
+<div id="QnA"></div>
+
+<input type="hidden" th:id="memberId" th:value="${session.login.memberId}">
+<input type="hidden" th:id="boardNo" th:value="${boardCSView.boardNo}">
+</body>
+
+<script src="https://code.jquery.com/jquery-latest.js"></script>
+<script th:inline="javascript">
+
+    var boardNo = [[${boardCSView.boardNo}]];
+
+    function QnaList(list) {
+
+        var output = "";
+        var loginId = [[${session.login.memberId}]];
+
+        output += "<table>";
+        output += "<tr>";
+        output += "<th><댓글번호></th>"
+        output += "<th><작성자></th>";
+        output += "<th><내용></th>";
+        output += "<th><작성일></th>";
+        output += "</tr>";
+
+        for (var i in list) {
+            output += "<tr>";
+            output += "<td>" + list[i].boardCommentsNo + "</td>";
+            output += "<td>" + list[i].boardCommentsWriter + "</td>";
+            output += "<td>" + list[i].boardCommentsContent + "</td>";
+            output += "<td>" + list[i].boardCommentsDate + "</td>";
+
+            if (loginId == 'so01057') {
+
+                output += "<td><button onclick=boardCommentsModify(" + list[i].boardCommentsNo + ",'" + list[i].boardNo + "')>수정</button></td>";
+            }
+
+
+            // 작성자와 로그인한 아이디가 같거나 관리자일 경우에만 삭제 가능
+            if (loginId == 'so01057') {
+                output += "<td><button onclick=boardCommentsDelete(" + list[i].boardCommentsNo + ",'" + list[i].boardNo + "')>삭제</button></td>";
+            }
+
+            output += "</tr>";
+        }
+
+        output += "</table>";
+
+        // div 영역 commentArea
+        var QnA = document.getElementById("QnA");
+
+        // commentArea에 output 내용 넣기
+        QnA.innerHTML = output;
+
+    }
+    $(document).ready(function () {
+
+
+    // 리뷰 목록
+
+
+    $.ajax({
+        type: "POST",
+        url: "boardComments/boardCommentsList",
+        data: {"boardNo": boardNo},
+        dataType: "json",
+        success: function (list) {
+            QnaList(list);
+        },
+        error: function (request, status, error) {
+            alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+        }
+    });
+    });
+
+    // 버튼 클릭 시
+    $('#boardCommentsBtn').click(function () {
+        var loginId = $("#memberId").val();
+        if (!loginId) {
+            alert('로그인 이후 사용할 수 있습니다.');
+            location.href = "index";
+        } else {
+            var boardCommentsWriter = loginId;
+            var boardNo = document.getElementById("boardNo").value;
+            var boardCommentsContent = $('#boardCommentsContent').val();
+
+            $.ajax({
+                type: "POST",
+                url: "boardComments/boardCommentsRegist",
+                data: {
+                    "boardCommentsWriter": boardCommentsWriter,
+                    "boardNo": boardNo,
+                    "boardCommentsContent": boardCommentsContent
+                },
+                dataType: "json",
+                success: function (list) {
+                    QnaList(list);
+                    $('#boardCommentsContent').val("");
+                    reload();
+                },
+                error: function (request, status, error) {
+                    alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+                }
+            });
+        }
+    });
+
+
+    // 리뷰 삭제
+    function boardCommentsDelete(boardCommentsNo, boardNo) {
+        var check = confirm('리뷰를 삭제하시겠습니까?');
+        var boardNo = [[${boardCSView.boardNo}]];
+
+        if (check) {
+            $.ajax({
+                type: "POST",
+                url: "boardComments/boardCommentsDelete",
+                data: {"boardCommentsNo": boardCommentsNo, "boardNo": boardNo},
+                dataType: "json",
+                success: function (list) {
+                    QnaList(list);
+                    reload();
+                },
+                error: function (request, status, error) {
+                    alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+                }
+            });
+        }
+    }
+
+    // 리뷰 수정
+    function boardCommentsModify(boardCommentsNo, boardNo) {
+        var check = confirm('답변 수정하시겠습니까?');
+        var boardCommentsContent = $('#boardCommentsContent').val();
+        var boardNo = [[${boardCSView.boardNo}]];
+
+        if (check) {
+            $.ajax({
+                type: "POST",
+                url: "boardComments/boardCommentsModify",
+                data: {
+                    "boardCommentsNo": boardCommentsNo,
+                    "boardNo": boardNo,
+                    "boardCommentsContent": boardCommentsContent
+
+                },
+                dataType: "json",
+                success: function (list) {
+                    QnaList(list);
+                    reload();
+                },
+                error: function (request, status, error) {
+                    alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+                }
+            });
+        }
+    }
+
+    function reload() {
+        history.go(0);
+    }
+
+
+
+
+</script>
+
+</html>
