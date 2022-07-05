@@ -24,7 +24,7 @@
     </tr>
 
     <tr th:each="list : ${shoppingAdminList}">
-        <td><a th:href="@{shoppingView(productCode=${list.productCode})}" th:text="${list.productPhoto}"></a></td>
+        <td><a th:href="@{shoppingAdminView(productCode=${list.productCode})}" th:text="${list.productPhoto}"></a></td>
         <td th:text="${list.productName}"></td>
         <td th:text="${list.productPrice}"></td>
         <td th:text="${list.productRate}"></td>

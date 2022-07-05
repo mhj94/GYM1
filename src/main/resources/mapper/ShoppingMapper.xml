@@ -4,7 +4,7 @@
 <mapper namespace="com.gym.GYM.shopping.dao.ShoppingDAO">
 
     <select id="shoppingList" parameterType="String" resultType="product">
-        SELECT *
+        SELECT ROUND(PRODUCTRATE, 2) AS PRODUCTRATE, PRODUCTNAME, PRODUCTPRICE, PRODUCTCODE, PRODUCTPHOTO
         FROM PRODUCT
         ORDER BY PRODUCTHITS DESC
     </select>
@@ -23,58 +23,86 @@
         WHERE WISHID = #{memberId}
     </select>
 
-	<select id="shoppingView" parameterType="String" resultType="product">
-SELECT * FROM PRODUCT WHERE PRODUCTCODE =#{productCode}
-	</select>
-
-	<!--내가 찜한 상품 숫자 -->
-<select id="wishCount" parameterType="String" resultType="int" >
-SELECT COUNT(WISHID) FROM WISH WHERE WISHID =#{memberId}
-</select>
-
-	<!--내 찜 목록 불러오기-->
-<select id="myWishList"	 parameterType="String" resultType="product">
-SELECT * FROM PRODUCT WHERE PRODUCTCODE = #{productCode}
-
-</select>
-<!--장바구니 등록 -->
-	<insert id="basketRegist" parameterType="String">
-	INSERT INTO ORDERS VALUES (#{orderCode},#{productCode},#{memberId},'noInput','noInput','noInput',NULL,'noInput',NULL,'noSelect',0,0)
-	</insert>
-
-	<!--내가 장바구니에 등록한 상품 코드 불러오기 -->
-	<select id="basketList" parameterType="String" resultType="String">
-		SELECT ORDERPRODUCTCODE FROM ORDERS WHERE ORDERID =#{memberId} AND ORDERPAYSELECT='noSelect'
-	</select>
-
-	<!--장바구니 등록한 상품 숫자 -->
-	<select id="basketCount" parameterType="String" resultType="int" >
-		SELECT COUNT(ORDERPRODUCTCODE) FROM ORDERS WHERE ORDERID =#{memberId} AND ORDERPAYSELECT='noSelect'
-	</select>
-
-	<!--장바구니 등록한 상품 불러오기 -->
-	<select id="myBasketList" parameterType="String" resultType="product">
-		SELECT * FROM PRODUCT WHERE PRODUCTCODE = #{basketCode}
-	</select>
+    <select id="shoppingView" parameterType="String" resultType="product">
+        SELECT *
+        FROM PRODUCT
+        WHERE PRODUCTCODE = #{productCode}
+    </select>
 
 
-	<!-- wish에 view에서 본 상품이 들어있는지 확인-->
+    <select id="wishCount" parameterType="String" resultType="int">
+        SELECT COUNT(WISHID)
+        FROM WISH
+        WHERE WISHID = #{memberId}
+    </select>
 
-	<select id="wishInquire" parameterType="String" resultType="String">
-	SELECT ORDERPRODUCTCODE FROM ORDERS WHERE ORDERID=#{memberId} AND ORDERPRODUCTCODE= #{productCode}
-	</select>
+    <select id="myWishList" parameterType="String" resultType="product">
+        SELECT *
+        FROM PRODUCT
+        WHERE PRODUCTCODE = #{productCode}
+    </select>
 
-	<insert id="wishregist" parameterType="String" >
-	INSERT INTO WISH VALUES(#{memberId},#{productCode})
-	</insert>
-<delete id="wishDelete" parameterType="String">
- DELETE WISH WHERE WISHID=#{memberId} AND WISHPRODUCTCODE=#{productCode}
-</delete>
+    <insert id="basketRegist" parameterType="String">
+        INSERT INTO ORDERS
+        VALUES (#{orderCode}, #{productCode}, #{memberId}, 'noInput', 'noInput', 'noInput', NULL, 'noInput', NULL,
+                'noSelect', 0, 0)
+    </insert>
 
-	<!-- 장바구니에 view에서 본 상품이 들어있는지 확인-->
-<select id="basketInquire" parameterType="String" resultType="String">
-		SELECT ORDERPRODUCTCODE FROM ORDERS WHERE ORDERID=#{memberId} AND ORDERPRODUCTCODE= #{productCode}
-	</select>
+    <!--내가 장바구니에 등록한 상품 코드 불러오기 -->
+    <select id="basketList" parameterType="String" resultType="String">
+        SELECT ORDERPRODUCTCODE
+        FROM ORDERS
+        WHERE ORDERID = #{memberId}
+          AND ORDERPAYSELECT = 'noSelect'
+    </select>
+
+    <!--장바구니 등록한 상품 숫자 -->
+    <select id="basketCount" parameterType="String" resultType="int">
+        SELECT COUNT(ORDERPRODUCTCODE)
+        FROM ORDERS
+        WHERE ORDERID = #{memberId}
+          AND ORDERPAYSELECT = 'noSelect'
+    </select>
+
+    <!--장바구니 등록한 상품 불러오기 -->
+    <select id="myBasketList" parameterType="String" resultType="product">
+        SELECT *
+        FROM PRODUCT
+        WHERE PRODUCTCODE = #{basketCode}
+    </select>
+
+
+    <!-- wish에 view에서 본 상품이 들어있는지 확인-->
+
+    <select id="wishInquire" parameterType="String" resultType="String">
+        SELECT ORDERPRODUCTCODE
+        FROM ORDERS
+        WHERE ORDERID = #{memberId}
+          AND ORDERPRODUCTCODE = #{productCode}
+    </select>
+
+    <insert id="wishregist" parameterType="String">
+        INSERT INTO WISH
+        VALUES (#{memberId}, #{productCode})
+    </insert>
+
+    <delete id="wishDelete" parameterType="String">
+        DELETE
+        WISH WHERE WISHID=
+        #{memberId}
+        AND
+        WISHPRODUCTCODE
+        =
+        #{productCode}
+    </delete>
+
+    <!-- 장바구니에 view에서 본 상품이 들어있는지 확인-->
+    <select id="basketInquire" parameterType="String" resultType="String">
+        SELECT ORDERPRODUCTCODE
+        FROM ORDERS
+        WHERE ORDERID = #{memberId}
+          AND ORDERPRODUCTCODE = #{productCode}
+    </select>
 
 
 	<delete id="basketDelete" parameterType="String">

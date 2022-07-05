@@ -36,56 +36,54 @@ public class ShoppingAdminController {
         return mav;
     }
 
-    // shoppingAdminRegistForm : 게시글 작성페이지 이동
+    // shoppingAdminRegistForm : 상품 등록 페이지 이동
     @GetMapping("/shoppingAdminRegistForm")
     private String shoppingAdminRegistForm() {
 
         return "Shopping/shoppingAdminRegistForm";
     }
 
-    // shoppingAdminRegist:게시글 작성 메소드
+    // shoppingAdminRegist: 상품등록 메소드
     @PostMapping("/shoppingAdminRegist")
-    private ModelAndView shoppingAdminRegist(@ModelAttribute ProductDTO product) throws IOException {
-
+    private ModelAndView shoppingAdminRegist(@ModelAttribute ProductDTO product) throws IllegalStateException,IOException {
         mav = shoppingadminsvc.shoppingAdminRegist(product);
+        return mav;
+    }
+
+    // shoppingAdminView : 관리자 상품 상세보기
+    @GetMapping("/shoppingAdminView")
+    private ModelAndView shoppingAdminView(@RequestParam("productCode") String productCode) {
+
+        mav = shoppingadminsvc.shoppingAdminView(productCode);
 
         return mav;
     }
 
-    //BoardView게시글 상세보기
-    /*@GetMapping("/boardView")
-    private ModelAndView boardView(@RequestParam("boardNo") int boardNo) {
+    //shoppingAdminModifyForm : 관리자 상품 수정 페이지이동 메소드
+    @GetMapping("/shoppingAdminModifyForm")
+    private ModelAndView shoppingAdminModifyForm(@RequestParam("productCode") String productCode) {
 
-        mav = boardsvc.boardView(boardNo);
-
-        return mav;
-    }*/
-
-    //BoardModifyForm: 게시글 수정 페이지이동 메소드
-    /*@GetMapping("/boardModifyForm")
-    private ModelAndView boardModifyForm(@RequestParam("boardNo") int boardNo) {
-
-        mav = boardsvc.boardModifyForm(boardNo);
+        mav = shoppingadminsvc.shoppingAdminModifyForm(productCode);
 
         return mav;
-    }*/
+    }
 
-    //BoardModify : 게시글 수정 메소드
-    /*@PostMapping("/boardModify")
-    private ModelAndView boardModify(@ModelAttribute BoardDTO board) throws IllegalStateException, IOException {
+    // shoppingAdminModify : 관리자 상품 수정 메소드
+    @PostMapping("/shoppingAdminModify")
+    private ModelAndView shoppingAdminModify(@ModelAttribute ProductDTO product) throws IllegalStateException,IOException {
+        System.out.println("[1]controller : "  + product);
+        mav = shoppingadminsvc.shoppingAdminModify(product);
+        System.out.println("[5]controller : "  + product);
+        return mav;
+    }
 
-        mav = boardsvc.boardModify(board);
+    //shoppingAdminDelete : 관리자 상품 삭제 메소드
+    @GetMapping("/shoppingAdminDelete")
+    private ModelAndView shoppingAdminDelete(@RequestParam ("productCode") String productCode) {
+
+        mav = shoppingadminsvc.shoppingAdminDelete(productCode);
 
         return mav;
-    }*/
-
-    //BoardDelete : 게시글 삭제 메소드
-    /*@GetMapping("/boardDelete")
-    private ModelAndView boardDelete(@RequestParam ("boardNo") int boardNo) {
-
-        mav = boardsvc.boardDelete(boardNo);
-
-        return mav;
-    }*/
+    }
 
 }

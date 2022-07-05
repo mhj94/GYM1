@@ -16,6 +16,8 @@
 
 <table>
     <img th:src="@{/ShoppingImg/123.png}" width="100dp" height="100dp"/>
+<table>
+  <img th:src="@{/ShoppingImg/123.png}" width="100dp" height="100dp"/>
 
     <tr>
         <th></th>
@@ -47,6 +49,36 @@
             <button id="reviewBtn">리뷰 등록</button>
         </td>
     </tr>
+</table>
+  <tr>
+    <th></th>
+    <td th:text="${view.productName}"></td>
+  </tr>
+  <tr>
+    <th>중량</th>
+    <td th:text="${view.productWeight}"></td>
+  </tr>
+  <tr>
+    <th>상품설명</th>
+    <td th:text="${view.productComment}"></td>
+  </tr>
+  <tr>
+    <th>가격</th>
+    <td th:text="${view.productPrice}"></td>
+  </tr>
+  <tr>
+    <th>조회수</th>
+    <td th:text="${view.productHits}"></td>
+  </tr>
+  <tr>
+    <input id="productCode" type="hidden" th:value="${view.productCode}"/>
+  </tr>
+  <tr>
+    <th>리뷰 등록</th>
+    <td><textarea rows="1" cols="70" id="productReviewContent" placeholder="리뷰를 작성해주세요."></textarea>
+      <button id="reviewBtn">리뷰 등록</button>
+    </td>
+  </tr>
 </table>
 
 <br/>
@@ -122,6 +154,7 @@
 </body>
 
 
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script>
@@ -135,6 +168,40 @@
     }
 </script>
 
+    price1 = value;
+    console.log(price1);
+  }
+
+    $('#productBtn').click(function () {
+      price1 = String(price1);
+      var loginId = $("#memberId").val();
+      if (!loginId) {
+        alert('로그인 이후 사용할 수 있습니다.');
+        location.href = "index";
+      } else {
+        var orderId = loginId;
+        var productCode = document.getElementById("productCode").value;
+
+        $.ajax({
+          type: "POST",
+          url: "basketRegist1",
+          data: {
+            "productCode": productCode,
+            "orderPrice": price1,
+            "orderId": orderId
+          },
+          dataType: "json",
+          success: function () {
+            location.href = "ShoppingBasket";
+            reload();
+          },
+          error: function () {
+
+          }
+        });
+
+      }
+    });
 
 <script th:inline="javascript">
     var login = [[${session.login.memberId}]];
@@ -145,7 +212,7 @@
 
     $(document).ready(function () {
 
-        // 리뷰 목록
+      // 리뷰 목록
 
         $.ajax({
             type: "POST",
@@ -207,75 +274,123 @@
         var output = "";
         var loginId = [[${session.login.memberId}]];
 
-        output += "<table>";
-        output += "<tr>";
-        output += "<th><코드></th>";
-        output += "<th><작성자></th>";
-        output += "<th><내용></th>";
-        output += "<th><별점></th>";
-        output += "<th><작성일></th>";
-        output += "</tr>";
+          output += "<table>";
+          output += "<tr>";
+          output += "<th><작성자></th>";
+          output += "<th><내용></th>";
+          output += "<th><별점></th>";
+          output += "<th><작성일></th>";
+          output += "</tr>";
 
-        for (var i in list) {
+          for (var i in list) {
             output += "<tr>";
-            output += "<td>" + list[i].productCode + "</td>";
             output += "<td>" + list[i].productReviewWriter + "</td>";
             output += "<td>" + list[i].productReviewContent + "</td>";
             output += "<td>" + list[i].productReviewRate + "</td>";
             output += "<td>" + list[i].productReviewDate + "</td>";
 
             if (list[i].productReviewWriter == loginId) {
-                output += "<td><button onclick=reviewModify(" + list[i].productReviewNo + ",'" + list[i].productCode + "')>수정</button></td>";
+              output += "<td><button onclick=reviewModify(" + list[i].productReviewNo + ",'" + list[i].productCode + "')>수정</button></td>";
             } else {
-                output += "<td><button onclick=reviewModify(" + list[i].productReviewNo + ",'" + list[i].productCode + "')>수정</button></td>";
+              output += "<td><button onclick=reviewModify(" + list[i].productReviewNo + ",'" + list[i].productCode + "')>수정</button></td>";
             }
 
             // 작성자와 로그인한 아이디가 같거나 관리자일 경우에만 삭제 가능
             if (list[i].productReviewWriter == loginId || loginId == 'admin111') {
-                output += "<td><button onclick=reviewDelete(" + list[i].productReviewNo + ",'" + list[i].productCode + "')>삭제</button></td>";
+              output += "<td><button onclick=reviewDelete(" + list[i].productReviewNo + ",'" + list[i].productCode + "')>삭제</button></td>";
             } else {
-                output += "<td><button>삭제</button></td>";
+              output += "<td><button>삭제</button></td>";
             }
 
             output += "</tr>";
+          }
+          output += "</table>";
+
+          // div 영역 reviewArea
+          var reviewArea = document.getElementById("reviewArea");
+
+          // reviewArea에 output 내용 넣기
+          reviewArea.innerHTML = output;
         }
-        output += "</table>";
 
-        // div 영역 reviewArea
-        var reviewArea = document.getElementById("reviewArea");
+        // 리뷰 삭제
+        function reviewDelete(productReviewNo, productCode) {
+          var check = confirm('리뷰를 삭제하시겠습니까?');
+          var productCode = [[${view.productCode}]];
 
-        // reviewArea에 output 내용 넣기
-        reviewArea.innerHTML = output;
-    }
-
-    // 리뷰 삭제
-    function reviewDelete(productReviewNo, productCode) {
-        var check = confirm('리뷰를 삭제하시겠습니까?');
-        var productCode = [[${view.productCode}]];
-
-        if (check) {
+          if (check) {
             $.ajax({
-                type: "POST",
-                url: "review/reviewDelete",
-                data: {"productReviewNo": productReviewNo, "productCode": productCode},
-                dataType: "json",
-                success: function (list) {
-                    reviewList(list);
-                    reload();
-                },
-                error: function () {
-                    alert('리뷰 삭제 실패');
-                }
+              type: "POST",
+              url: "review/reviewDelete",
+              data: {"productReviewNo": productReviewNo, "productCode": productCode},
+              dataType: "json",
+              success: function (list) {
+                reviewList(list);
+                reload();
+              },
+              error: function () {
+                alert('리뷰 삭제 실패');
+              }
             });
+          }
         }
-    }
 
-    //리뷰 수정
-    function reviewModify(productReviewNo, productCode) {
-        var check = confirm('리뷰를 수정하시겠습니까?');
-        var productReviewContent = $('#productReviewContent').val();
-        var productCode = [[${view.productCode}]];
-        var productReviewRate = $('input[name="productReviewRate"]:checked').val();
+        //리뷰 수정
+        function reviewModify(productReviewNo, productCode) {
+          var check = confirm('리뷰를 수정하시겠습니까?');
+          var productReviewContent = $('#productReviewContent').val();
+          var productCode = [[${view.productCode}]];
+          var productReviewRate = $('input[name="productReviewRate"]:checked').val();
+
+          if (check) {
+            $.ajax({
+              type: "POST",
+              url: "review/reviewModify",
+              data: {
+                "productReviewNo": productReviewNo,
+                "productCode": productCode,
+                "productReviewContent": productReviewContent,
+                "productReviewRate": productReviewRate
+              },
+              dataType: "json",
+              success: function (list) {
+                reviewList(list);
+                reload();
+              },
+              error: function () {
+                alert('리뷰 수정 실패');
+              }
+            });
+          }
+
+          function reload() {
+            history.go(0);
+          }
+  }
+
+    const body = document.querySelector('body');
+    const modal = document.querySelector('.modal');
+    const btnOpenPopup = document.querySelector('.btn-open-popup');
+
+    btnOpenPopup.addEventListener('click', () => {
+    modal.classList.toggle('show');
+
+    if (modal.classList.contains('show')) {
+    body.style.overflow = 'hidden';
+  }
+  });
+
+    modal.addEventListener('click', (event) => {
+    if (event.target === modal) {
+    modal.classList.toggle('show');
+
+    if (!modal.classList.contains('show')) {
+    body.style.overflow = 'auto';
+  }
+  }
+  });
+
+
 
         if (check) {
             $.ajax({

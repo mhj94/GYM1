@@ -1,7 +1,6 @@
 package com.gym.GYM.shopping.service;
 
 
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -9,14 +8,13 @@ import java.util.UUID;
 //github.com/mumgod/GYM1.git
 import com.gym.GYM.shopping.dto.OrdersDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gym.GYM.shopping.dao.ShoppingDAO;
 import com.gym.GYM.shopping.dto.ProductDTO;
 import com.gym.GYM.shopping.dto.WishDTO;
-
-import javax.script.ScriptContext;
 
 
 @Service
@@ -87,7 +85,7 @@ public class ShoppingServiceImpl implements ShoppingService {
     public ModelAndView shoppingView(String productCode) {
         shoppingdao.count(productCode);
         ProductDTO shoppingView = shoppingdao.shoppingView(productCode);
-        mav.addObject("view", shoppingView);
+        mav.addObject("view",shoppingView);
         mav.setViewName("Shopping/ShoppingView");
         return mav;
     }
@@ -218,6 +216,30 @@ public class ShoppingServiceImpl implements ShoppingService {
         System.out.println("서비스 주소:"+addr);
         mav = shoppingdao.basketPayment(addr, coment);
         mav.setViewName("Shopping/ShoppingPayment");
+
+        return mav;
+    }
+
+    @Override
+    public List<OrdersDTO> basketList1(String productCode, String orderPrice, String orderId) {
+        String memberId = orderId;
+        List<OrdersDTO> basketDTOList = new ArrayList<OrdersDTO>();
+        String uuid = UUID.randomUUID().toString().substring(0,6);
+        String orderCode = uuid;
+
+        String basketRegist1 = shoppingdao.basketRegist1(productCode,orderPrice,orderId,orderCode);
+
+        basketDTOList = shoppingdao.basketList(memberId);
+
+        return basketDTOList;
+    }
+
+    @Override
+    public ModelAndView shoppingOrderList(String orderId) {
+        List<OrdersDTO> shoppingOrderlist = shoppingdao.shoppingOrderList(orderId);
+
+        mav.addObject("shoppingOrderList",shoppingOrderlist);
+        mav.setViewName("Shopping/shoppingPayment");
 
         return mav;
     }

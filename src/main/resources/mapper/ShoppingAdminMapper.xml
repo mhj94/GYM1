@@ -3,8 +3,34 @@
 
 <mapper namespace="com.gym.GYM.shopping.dao.ShoppingAdminDAO">
 
-<select id="shoppingAdminList" resultType="product">
-    SELECT ROUND(PRODUCTRATE, 2) AS PRODUCTRATE,PRODUCTNAME,PRODUCTPRICE,PRODUCTCODE,PRODUCTPHOTO FROM PRODUCT ORDER BY PRODUCTHITS DESC
-</select>
+    <select id="shoppingAdminList" resultType="product">
+        SELECT ROUND(PRODUCTRATE, 2) AS PRODUCTRATE,PRODUCTNAME,PRODUCTPRICE,PRODUCTCODE,PRODUCTPHOTO FROM PRODUCT ORDER BY PRODUCTHITS DESC
+    </select>
+
+    <insert id="shoppingAdminRegist" parameterType="product">
+        INSERT INTO PRODUCT
+        VALUES (#{productCode}, #{productName}, #{productWeight}, #{productKcal}, #{productCarbohydrate}, #{productProtein},
+                #{productFat}, #{productSalt}, #{productPrice}, #{productComment}, #{productPhoto}, #{productHits},0 , 0)
+    </insert>
+
+    <select id="shoppingAdminView" parameterType="String" resultType="product">
+            SELECT * FROM PRODUCT WHERE PRODUCTCODE = #{productCode}
+    </select>
+
+    <update id="shoppingAdminModify" parameterType="product">
+        UPDATE PRODUCT
+        SET
+             PRODUCTNAME=#{productName},
+            PRODUCTWEIGHT=#{productWeight},PRODUCTKCAL=#{productKcal},
+            PRODUCTCARBOHYDRATE=#{productCarbohydrate},PRODUCTPROTEIN=#{productProtein},
+            PRODUCTFAT=#{productFat},PRODUCTSALT=#{productSalt},
+            PRODUCTPRICE=#{productPrice},PRODUCTCOMMENT=#{productComment},
+            PRODUCTPHOTO=#{productPhoto}
+        WHERE PRODUCTCODE = #{productCode}
+    </update>
+
+    <delete id="shoppingAdminDelete" parameterType="product">
+        DELETE FROM PRODUCT WHERE PRODUCTCODE = #{productCode}
+    </delete>
 
 </mapper>

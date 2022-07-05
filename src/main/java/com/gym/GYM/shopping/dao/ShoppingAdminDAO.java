@@ -10,4 +10,10 @@ public interface ShoppingAdminDAO {
     List<ProductDTO> shoppingAdminList();
 
     int shoppingAdminRegist(ProductDTO product);
+
+    ProductDTO shoppingAdminView(String productCode);
+
+    int shoppingAdminModify(ProductDTO product);
+
+    int shoppingAdminDelete(String productCode);
 }
