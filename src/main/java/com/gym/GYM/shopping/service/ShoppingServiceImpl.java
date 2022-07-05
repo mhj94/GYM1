@@ -186,15 +186,12 @@ public class ShoppingServiceImpl implements ShoppingService {
         List<ProductDTO> productDTOList = new ArrayList<ProductDTO>();
         basketDTOList = shoppingdao.basketList(memberId);
         int count = shoppingdao.basketCount(memberId);
-        System.out.println(count);
-        System.out.println(basketDTOList);
         String[] basketArr = basketDTOList.toArray(new String[count]);
         String basketCode;
 
         if (count > 0) {
             for (int i = 0; i <= count; i++) {
                 basketCode = basketArr[i];
-                System.out.println(basketCode);
                 productDTOList.add(shoppingdao.myBasketList(basketCode));
 
             }

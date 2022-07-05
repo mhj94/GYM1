@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:width="http://www.w3.org/1999/xhtml"
-      xmlns:height="http://www.w3.org/1999/xhtml" xmlns:border="http://www.w3.org/1999/xhtml"
-      xmlns:resize="http://www.w3.org/1999/xhtml">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,8 +9,6 @@
     <title>타이틀</title>
     <meta name="date" content="2022.05.25">
     <title>장바구니</title>
-    <link rel="icon" href="image/favicon.png" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
 <h1>Bascket</h1>
@@ -24,7 +20,7 @@
 
         <th>상품평점</th>
         <th>수량선택</th>
-
+        <th>가격</th>
 
     </tr>
 
@@ -47,15 +43,17 @@
             <option th:value="${list.productPrice} * 10"
                     th:text="${list.productName} + '10팩' +(${list.productPrice} * 10)+ '원'"></option>
 
-            <option th:value="${list.productPrice} * 15"
+            <option th:value1="${list.productPrice} * 15" th:value2="${list.productCode}"
 
                     th:text="${list.productName} + '15팩' +( ${list.productPrice} * 15) + '원'"></option>
 
-            <option th:value="${list.productPrice} * 20"
+            <option th:value1="${list.productPrice} * 20" th:value2="${list.productCode}"
 
                     th:text="${list.productName} + '20팩' +( ${list.productPrice} * 20) + '원'"></option>
         </select>
+            <div th:class="total">
 
+            </div>
 
         </th>
 
@@ -112,9 +110,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
-
 <script th:inline="javascript">
-
     const loginId = [[${session.login.memberId}]];
     var totalValue;
 
