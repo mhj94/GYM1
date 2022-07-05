@@ -427,6 +427,7 @@ textarea{
     resize: none;
 }
 
+/* boardList */
 .gymListContainer {
     display: grid;
     grid-template-columns: 1fr;
@@ -456,6 +457,7 @@ textarea{
     margin: 0 auto;
 }
 
+/* companyList */
 .companyListContainer {
     display: grid;
     grid-template-columns: 1fr;
@@ -507,3 +509,6 @@ textarea {
     display: inline-block;
     margin: 0 auto;
 }
+
+/* index */
+

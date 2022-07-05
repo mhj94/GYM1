@@ -24,7 +24,7 @@ public class CompanyController {
 
     @GetMapping("/")
     public String index() {
-        return "index";
+        return "index1";
     }
 
     // 기업 등록 페이지로 이동
