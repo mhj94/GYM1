@@ -3,6 +3,7 @@ package com.gym.GYM.shopping.dto;
 import lombok.Data;
 import org.apache.ibatis.type.Alias;
 import org.springframework.security.core.parameters.P;
+import org.springframework.web.multipart.MultipartFile;
 
 @Alias("product")
 @Data
@@ -37,6 +38,7 @@ public class ProductDTO {
     private String productLink;
     private String productComment;
     private String productPhoto;
+    private MultipartFile productPhotoFile;
     private int productHits;
     private double productRate;
     private String productListCode;

@@ -7,12 +7,17 @@
     <meta name="author" content="생로병사"/>
     <meta name="description" content="shoppingMain index"/>
     <title>책임GYM 쇼핑몰</title>
+    <link rel = "stylesheet" type = "text/css" href = "css/style.css">
 </head>
-<link rel = "stylesheet" type = "text/css" href = "css/style.css">
+<!--<link rel = "stylesheet" type = "text/css" href = "css/style.css">-->
 <body>
     <h1>쇼핑몰 메인</h1>
     <img src="GYM1/src/main/resources/static/ShoppingImg/123.png" width="150dp" height="100dp" alt="짱구">
     <table>
+
+            <img th:src="@{/ShoppingImg/}"/>
+
+
     <caption>Product List</caption>
 
         <tr>
@@ -30,8 +35,9 @@
 
         </tr>
     </table>
-    <button th:if ="${session.login != null}" th:onclick ="|location.href='@{shoppingWishForm(memberId=${session.login.memberId})}'|">내 찜한목록 보기</button>
-
+    <img src="GYM1/src/main/resources/static/ShoppingImg/123.png" width="150dp" height="100dp" alt="짱구">
+    <button th:if ="${session.login != null}" th:onclick ="|location.href='@{shoppingWishForm(memberId=${session.login.memberId})}'|">찜한목록 보기</button>
+    <button th:if ="${session.login != null}" th:onclick = "|location.href='@{basketForm}'|">장바구니로 가기</button>
 
     <h3 th:if = "${session.login !=null}" th:text ="${session.login.memberId}"></h3>
     <h3 th:if = "${session.login !=null}" th:text ="${session.login.memberRole}"></h3>
