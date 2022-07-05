@@ -86,7 +86,7 @@
     </tr>
 </table>
 
-<button th:if = "${session.login != null}" th:onclick = "|location.href='@{basketView(companyId=${session.login.memberId})}'|">장바구니로 가기</button>
+<button th:if = "${session.login != null}" th:onclick = "|location.href='@{basketForm}'|">장바구니로 가기</button>
 
 
 </body>
@@ -109,7 +109,7 @@
                 var result =confirm("상품이 담겼습니다. 장바구니로 가시겠습니까?")
                 if (result){
                     loginId=id1;
-                    location.href ='basketView?memberId='+[loginId];
+                    location.href ='/basketForm';
                 }else{
 
                 }

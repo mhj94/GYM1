@@ -114,8 +114,8 @@
 
         <p>장바구니로 가시겠습니까?</p>
 
-        <button th:onclick="|location.href='@{basketView(memberId=${session.login.memberId})}'|">예</button>
-        <input type="button" name="continue" value="쇼핑계속하기" onclick="modal.shutDown()">
+        <button th:onclick="|location.href='@{basketForm}'|">예</button>
+        <input type="button" name="continue" value="쇼핑계속하기" id="modelClose">
     </div>
 </div>
 
@@ -483,6 +483,20 @@
             }
         })
     }
+
+    $('#modelClose').click(function (){
+
+        modal.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.classList.toggle('show');
+
+
+                if (!modal.classList.contains('show')) {
+                    body.style.overflow = 'auto';
+                }
+            }
+        })
+    })
 
 
 </script>

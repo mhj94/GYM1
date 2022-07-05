@@ -169,13 +169,13 @@ public class ShoppingServiceImpl implements ShoppingService {
         return basketInquire;
     }
 
-    //bascketOrdersPriceUpdate : 장바구니에서 수량 선택시 order테이블 orderPrice update
+    //basketOrdersPriceUpdate : 장바구니에서 수량 선택시 order테이블 orderPrice update
     @Override
-    public List<OrdersDTO> bascketOrdersPriceUpdate(String memberId, String productCode, String orderPrice) {
-        List<OrdersDTO> bascketOrdersPriceUpdate = new ArrayList<OrdersDTO>();
+    public List<OrdersDTO> basketOrdersPriceUpdate(String memberId, String productCode, String orderPrice) {
+        List<OrdersDTO> basketOrdersPriceUpdate = new ArrayList<OrdersDTO>();
         //String orderCode =shoppingdao.bascketSelectOdredrCode(memberId)
-        bascketOrdersPriceUpdate=shoppingdao.bascketOrdersPriceUpdate(memberId, productCode, orderPrice);
-        return bascketOrdersPriceUpdate;
+        basketOrdersPriceUpdate=shoppingdao.basketOrdersPriceUpdate(memberId, productCode, orderPrice);
+        return basketOrdersPriceUpdate;
     }
 
 
@@ -221,6 +221,7 @@ public class ShoppingServiceImpl implements ShoppingService {
 
         return mav;
     }
+
 
 
 }

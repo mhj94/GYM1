@@ -55,6 +55,13 @@ public class ShoppingController {
         return basketList;
     }
 
+    //basketForm : 장바구니로 이동하는 메소드
+
+    @GetMapping("/basketForm")
+    private String basketForm(){
+        return "Shopping/ShoppingBascket";
+    }
+
 
     //basketView: 내 장바구니 보기
     @GetMapping("/basketView")
@@ -63,7 +70,9 @@ public class ShoppingController {
         mav=shoppingsvc.basketView(memberId);
     return mav;
     }
-    //basketView : 장바구니에 상품 추가하는 메소드
+    //myBasketListAjax:내 장바구니 보는 ajax
+
+
 
 
 
@@ -90,7 +99,6 @@ public class ShoppingController {
     }
 
 
-
     //baskRegist wish 목록에 추가하기
 
     @PostMapping("/basketRegistAjax")
@@ -102,7 +110,6 @@ public class ShoppingController {
 
         return basketInquire;
     }
-
 
 
     //wishInquire :상품이 wish에 있는지 확인하는 메소드
@@ -142,12 +149,12 @@ public class ShoppingController {
         return wishInquire;
     }
 
-    //bascketOrdersPriceUpdate: 장바구니에서 수량 선택시 orderPrice 업데이트 하는 문
+    //basketOrdersPriceUpdate: 장바구니에서 수량 선택시 orderPrice 업데이트 하는 문
 
-    @PostMapping("/bascketOrdersPriceUpdate")
-    private @ResponseBody List<OrdersDTO> bascketOrdersPriceUpdate(@RequestParam String memberId, @RequestParam String productCode,@RequestParam String orderPrice){
+    @PostMapping("/basketOrdersPriceUpdate")
+    private @ResponseBody List<OrdersDTO> basketOrdersPriceUpdate(@RequestParam String memberId, @RequestParam String productCode,@RequestParam String orderPrice){
         List<OrdersDTO> basketListUpdate = new ArrayList<OrdersDTO>();
-        basketListUpdate = shoppingsvc.bascketOrdersPriceUpdate(memberId, productCode, orderPrice);
+        basketListUpdate = shoppingsvc.basketOrdersPriceUpdate(memberId, productCode, orderPrice);
         return basketListUpdate;
     }
 
@@ -171,7 +178,7 @@ public class ShoppingController {
         System.out.println("컨트롤러 주소:"+addr);
        mav = shoppingsvc.basketPayment(addr, coment);
        return mav;
-
-
     }
+
+
 }
