@@ -14,26 +14,22 @@
     <img th:src="@{/ShoppingImg/123.png}" width="150dp" height="100dp" alt="짱구">
     <table>
     <caption>Product List</caption>
-
         <tr>
             <th>상품사진명</th>
             <th>상품이름</th>
             <th>상품가격</th>
             <th>상품평점</th>
         </tr>
-
             <tr th:each="list : ${shoppingList}">
             <td><a th:href="@{shoppingView(productCode=${list.productCode})}" th:text="${list.productPhoto}"></a></td>
             <td th:text="${list.productName}"></td>
             <td th:text="${list.productPrice}"></td>
                 <td th:text="${list.productRate}"></td>
-
         </tr>
     </table>
     <img src="GYM1/src/main/resources/static/ShoppingImg/123.png" width="150dp" height="100dp" alt="짱구">
     <button th:if ="${session.login != null}" th:onclick ="|location.href='@{shoppingWishForm(memberId=${session.login.memberId})}'|">찜한목록 보기</button>
     <button th:if ="${session.login != null}" th:onclick = "|location.href='@{basketForm}'|">장바구니로 가기</button>
-
     <h3 th:if = "${session.login !=null}" th:text ="${session.login.memberId}"></h3>
     <h3 th:if = "${session.login !=null}" th:text ="${session.login.memberRole}"></h3>
 

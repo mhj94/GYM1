@@ -53,16 +53,18 @@
 <div>
     <span>상품 수량 선택</span><br/>
     <select name="productName" onchange="productOrder(this)">
-        <option th:value="${view.productName} + '5팩' + ${view.productPrice} * 5 + '원'"
-                th:text="${view.productName} + '5팩'"></option>
-        <option th:value="${view.productName} + '10팩' + ${view.productPrice} * 10 + '원'"
-                th:text="${view.productName} + '10팩'"></option>
-        <option th:value="${view.productName} + '15팩' + ${view.productPrice} * 15 + '원'"
-                th:text="${view.productName} + '15팩'"></option>
-        <option th:value="${view.productName} + '20팩' + ${view.productPrice} * 20 + '원'"
-                th:text="${view.productName} + '20팩'"></option>
+        <option th:value="${view.productPrice} * 5 "
+                th:text="${view.productName} + '5팩'" th:class="5"></option>
+        <option th:value="${view.productPrice} * 10"
+                th:text="${view.productName} + '10팩'" th:class="10"></option>
+        <option th:value="${view.productPrice} * 15"
+                th:text="${view.productName} + '15팩'" th:class="15"></option>
+        <option th:value="${view.productPrice} * 20"
+                th:text="${view.productName} + '20팩'" th:class="20"></option>
     </select>
-    <div id='result' style="float: right"></div>
+    <div id='result' style="float: right">
+
+    </div>
 </div>
 <br/><br/>
 
@@ -119,24 +121,36 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-<script>
-    function productOrder(e) {
-        // 선택된 데이터 가져오기
-        const value = e.value;
 
-        // 데이터 출력
-        document.getElementById('result').innerText
-            = value;
-    }
-</script>
 
 <script th:inline="javascript">
+
 
     var login = [[${session.login.memberId}]];
 
     var wishButtonView = 0;
 
     var productCode = [[${view.productCode}]];
+
+    var orderPrice;
+
+    var productCount;
+
+
+    function productOrder(e) {
+        // 선택된 데이터 가져오기
+        const value = e.value;
+        orderPrice = (e.value).toString();
+        productCount = $(this).attr('class')
+
+        console.log("콘솔로그 productCount "+ productCount);
+        const output = e.value + '원';
+
+
+        // 데이터 출력
+        document.getElementById('result').innerText
+            = output;
+    }
 
     $(document).ready(function () {
 
@@ -300,17 +314,18 @@
     $(document).ready(function () {
 
         $.ajax({
-            type    : "POST",
-            url     : "/basketInquire",
-            data    : {
-                "memberId"   : login,
+            type: "POST",
+            url: "/basketInquire",
+            data: {
+                "memberId": login,
                 "productCode": productCode
             },
             dataType: "json",
-            success : function (basketInquire) {
+            success: function (basketInquire) {
                 var basketButtonView = basketInquire.length;
                 console.log(basketButtonView);
-                if (basketButtonView == 0) {
+
+                if (basketButtonView > 0) {
                     //찜에서 빼기 버튼 활성화
                     document.getElementById("basketRegisterDiv").style.display = "none";
                 } else {
@@ -320,6 +335,7 @@
                 }
 
             }, error: function () {
+                alert("장바구니에 있는지 확인 불가");
             }
 
         })
@@ -329,14 +345,14 @@
     //장바구니에서  빼기 ajax
     $('#basketDelete').click(function () {
         $.ajax({
-            type    : "POST",
-            url     : "/basketDelete",
-            data    : {
-                "memberId"   : login,
+            type: "POST",
+            url: "/basketDelete",
+            data: {
+                "memberId": login,
                 "productCode": productCode
             },
             dataType: "json",
-            success : function () {
+            success: function () {
                 const modalView = 0;
                 basketButtonViewAjax(modalView);
             }, error: function () {
@@ -351,14 +367,15 @@
     $('#basketRegist').click(function () {
 
         $.ajax({
-            type    : "POST",
-            url     : "/basketRegist",
-            data    : {
-                "memberId"   : login,
-                "productCode": productCode
+            type: "POST",
+            url: "/basketRegistAjax",
+            data: {
+                "memberId": login,
+                "productCode": productCode,
+                "orderPrice": orderPrice
             },
             dataType: "json",
-            success : function () {
+            success: function () {
                 const modalView = 1;
                 basketButtonViewAjax(modalView);
                 modal(modalView)
@@ -386,14 +403,14 @@
     $(document).ready(function () {
 
         $.ajax({
-            type    : "POST",
-            url     : "/wishInquire",
-            data    : {
-                "memberId"   : login,
+            type: "POST",
+            url: "/wishInquire",
+            data: {
+                "memberId": login,
                 "productCode": productCode
             },
             dataType: "json",
-            success : function (wishInquire) {
+            success: function (wishInquire) {
                 wishButtonView = wishInquire.length;
 
                 if (wishButtonView > 0) {
@@ -415,14 +432,14 @@
     // 찜에서 빼기 ajax
     $('#wishDelete').click(function () {
         $.ajax({
-            type    : "POST",
-            url     : "/wishDelete",
-            data    : {
-                "memberId"   : login,
+            type: "POST",
+            url: "/wishDelete",
+            data: {
+                "memberId": login,
                 "productCode": productCode
             },
             dataType: "json",
-            success : function () {
+            success: function () {
                 document.getElementById("wishDeleteDiv").style.display = "none";
                 document.getElementById("wishRegistDiv").style.display = "";
 
@@ -438,14 +455,14 @@
     $('#wishRegist').click(function () {
 
         $.ajax({
-            type    : "POST",
-            url     : "/wishRegist",
-            data    : {
-                "memberId"   : login,
+            type: "POST",
+            url: "/wishRegist",
+            data: {
+                "memberId": login,
                 "productCode": productCode
             },
             dataType: "json",
-            success : function () {
+            success: function () {
                 document.getElementById("wishDeleteDiv").style.display = "";
                 document.getElementById("wishRegistDiv").style.display = "none";
 

@@ -16,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 @Mapper
 public interface ShoppingDAO {
 
-//
     List<ProductDTO> shoppingList();
 
     ProductDTO shoppingView(String productCode);
@@ -29,7 +28,7 @@ public interface ShoppingDAO {
 
     ProductDTO myWishList(String productCode);
 
-    boolean basketRegist(String productCode, String memberId, String orderCode);
+    boolean basketRegist(String memberId, String productCode, String orderPrice, String orderCode);
 
     List<OrdersDTO> basketList(String memberId);
 
@@ -37,15 +36,11 @@ public interface ShoppingDAO {
 
     ProductDTO myBasketList(String basketCode);
 
-    String basketRegist1(String productCode, String orderPrice, String orderId, String orderCode);
-
-    List<OrdersDTO> shoppingOrderList(String orderId);
-
     List<String> wishInquire(String memberId, String productCode);
 
     void wishDelete(String memberId, String productCode);
 
-    void wishregist(String memberId, String productCode);
+    void wishRegist(String memberId, String productCode);
 
     List<String> basketInquire(String memberId, String productCode);
 
@@ -55,5 +50,5 @@ public interface ShoppingDAO {
 
     List<String> addressInputAjax(String memberId);
 
-    ModelAndView basketPayment(String addr, String coment);
+    ModelAndView basketPayment(String memberId, String addr, String coment);
 }
