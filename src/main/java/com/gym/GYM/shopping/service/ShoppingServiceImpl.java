@@ -220,30 +220,4 @@ public class ShoppingServiceImpl implements ShoppingService {
         return mav;
     }
 
-    @Override
-    public List<OrdersDTO> basketList1(String productCode, String orderPrice, String orderId) {
-        String memberId = orderId;
-        List<OrdersDTO> basketDTOList = new ArrayList<OrdersDTO>();
-        String uuid = UUID.randomUUID().toString().substring(0,6);
-        String orderCode = uuid;
-
-        String basketRegist1 = shoppingdao.basketRegist1(productCode,orderPrice,orderId,orderCode);
-
-        basketDTOList = shoppingdao.basketList(memberId);
-
-        return basketDTOList;
-    }
-
-    @Override
-    public ModelAndView shoppingOrderList(String orderId) {
-        List<OrdersDTO> shoppingOrderlist = shoppingdao.shoppingOrderList(orderId);
-
-        mav.addObject("shoppingOrderList",shoppingOrderlist);
-        mav.setViewName("Shopping/shoppingPayment");
-
-        return mav;
-    }
-
-
-
 }

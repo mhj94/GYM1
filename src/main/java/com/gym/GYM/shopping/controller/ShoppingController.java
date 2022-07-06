@@ -77,15 +77,6 @@ public class ShoppingController {
         return mav;
     }
 
-    // basketRegist1
-    @PostMapping("/basketRegist1")
-    private @ResponseBody List<OrdersDTO> basketRegist1(@RequestParam String productCode,@RequestParam String orderPrice,@RequestParam String orderId){
-
-        basketRegist1 = shoppingsvc.basketList1(productCode,orderPrice,orderId);
-
-        return basketRegist1;
-    }
-
     // shoppingHistory : 주문내역 페이지 이동
     @GetMapping("/shoppingHistory")
     private String shoppingHistory() {
@@ -106,20 +97,6 @@ public class ShoppingController {
 
         return "Shopping/shoppingPayment";
     }
-
-   // shoppingOrderList : 결제 페이지 주문 목록
-    @GetMapping("/shoppingOrderList")
-    private ModelAndView shoppingOrderList(@RequestParam(value = "orderId") String orderId){
-        mav = shoppingsvc.shoppingOrderList(orderId);
-
-        return mav;
-    }
-    //myBasketListAjax:내 장바구니 보는 ajax
-
-
-
-
-
     //basketInquire :상품이 장바구니에 있는지 확인하는 메소드
     @PostMapping("/basketInquire")
     private @ResponseBody List<String> basketInquire(@RequestParam String memberId, @RequestParam String productCode){
@@ -130,7 +107,6 @@ public class ShoppingController {
 
         return basketInquire;
     }
-
 
     //basketDelete orders 목록에서 지우기
 

@@ -22,7 +22,7 @@ public class ShoppingAdminController {
     private ModelAndView mav = new ModelAndView();
 
     // shoppingAdminMainForm : 쇼핑몰(관리자) 메인 페이지 이동
-    @GetMapping("/ShoppingMainFormAdminForm")
+    @GetMapping("/shoppingAdminMainForm")
     private String shoppingAdminMainForm() {
 
         return "Shopping/shoppingAdminMainForm";
