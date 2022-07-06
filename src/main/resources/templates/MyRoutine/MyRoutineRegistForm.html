@@ -94,7 +94,10 @@
             <div id="showLive7"></div>
         </div>
 
-        <div class="item" id="showTrainingDetail"></div>
+        <div class="item">
+            <div id="showTrainingGif"></div>
+            <div id="showTrainingDetail"></div>
+        </div>
         <!-- footer 시작 -->
         <div class="footer" id="footer">
             <div class="footer_h_div">
@@ -180,7 +183,7 @@
             type    : "GET",
             data    : {"trainingCode": trainingCode},
             success : function (result) {
-                alert(result);
+
 
                 sendTrainingView(result);
 
@@ -199,7 +202,7 @@
 
         output1 += "<div>";
 
-        output1 += "<img src='" + result.trainingGifName + "'/>";
+        output1 += "<img src='gif/" + result.trainingGifName + "'/>";
 
         output1 += "</div>";
 
@@ -304,83 +307,107 @@
             output += "</div>";
             output += "<input type ='hidden' name ='myRoutineTrainingCode[]' value = " + dayTrainingArray1 + ">";
 
-            var showLive = document.getElementById('showLive1');
-            showLive.innerHTML = output;
+            var showLive1 = document.getElementById('showLive1');
+            showLive1.innerHTML = output;
 
         } else if (day == 2) {
             dayTrainingArray2.splice(number, 1, trainingCode);
             var output = "";
             output += "<div  class='button_div'>";
             for (var i = 1; i < dayTrainingArray2.length; i++) {
-                output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray2[i] + "')>상세보기</button>";
+                if (dayTrainingArray2[i].includes('HTR')) {
+                    output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray2[i] + "')>상세보기</button>";
+                } else {
+                    output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray2[i] + "') disabled>상세보기</button>";
+                }
             }
             output += "</div>";
             output += "<input type ='hidden' name ='myRoutineTrainingCode[]' value = " + dayTrainingArray2 + ">";
 
-            var showLive = document.getElementById('showLive2');
-            showLive.innerHTML = output;
+            var showLive2 = document.getElementById('showLive2');
+            showLive2.innerHTML = output;
         } else if (day == 3) {
             dayTrainingArray3.splice(number, 1, trainingCode);
             var output = "";
             output += "<div  class='button_div'>";
             for (var i = 1; i < dayTrainingArray3.length; i++) {
-                output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray3[i] + "')>상세보기</button>";
+                if (dayTrainingArray3[i].includes('HTR')) {
+                    output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray3[i] + "')>상세보기</button>";
+                } else {
+                    output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray3[i] + "') disabled>상세보기</button>";
+                }
             }
             output += "</div>";
             output += "<input type ='hidden' name ='myRoutineTrainingCode[]' value = " + dayTrainingArray3 + ">";
 
-            var showLive = document.getElementById('showLive3');
-            showLive.innerHTML = output;
+            var showLive3 = document.getElementById('showLive3');
+            showLive3.innerHTML = output;
         } else if (day == 4) {
             dayTrainingArray4.splice(number, 1, trainingCode);
             var output = "";
             output += "<div  class='button_div'>";
             for (var i = 1; i < dayTrainingArray4.length; i++) {
-                output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray4[i] + "')>상세보기</button>";
+                if (dayTrainingArray4[i].includes('HTR')) {
+                    output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray4[i] + "')>상세보기</button>";
+                } else {
+                    output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray4[i] + "') disabled>상세보기</button>";
+                }
             }
             output += "</div>";
             output += "<input type ='hidden' name ='myRoutineTrainingCode[]' value = " + dayTrainingArray4 + ">";
 
-            var showLive = document.getElementById('showLive4');
-            showLive.innerHTML = output;
+            var showLive4 = document.getElementById('showLive4');
+            showLive4.innerHTML = output;
 
         } else if (day == 5) {
             dayTrainingArray5.splice(number, 1, trainingCode);
             var output = "";
             output += "<div  class='button_div'>";
             for (var i = 1; i < dayTrainingArray5.length; i++) {
-                output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray5[i] + "')>상세보기</button>";
+                if (dayTrainingArray5[i].includes('HTR')) {
+                    output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray5[i] + "')>상세보기</button>";
+                } else {
+                    output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray5[i] + "') disabled>상세보기</button>";
+                }
             }
             output += "</div>";
             output += "<input type ='hidden' name ='myRoutineTrainingCode[]' value = " + dayTrainingArray5 + ">";
 
-            var showLive = document.getElementById('showLive5');
-            showLive.innerHTML = output;
+            var showLive5 = document.getElementById('showLive5');
+            showLive5.innerHTML = output;
 
         } else if (day == 6) {
             dayTrainingArray6.splice(number, 1, trainingCode);
             var output = "";
             output += "<div  class='button_div'>";
             for (var i = 1; i < dayTrainingArray6.length; i++) {
-                output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray6[i] + "')>상세보기</button>";
+                if (dayTrainingArray6[i].includes('HTR')) {
+                    output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray6[i] + "')>상세보기</button>";
+                } else {
+                    output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray6[i] + "') disabled>상세보기</button>";
+                }
             }
             output += "</div>";
             output += "<input type ='hidden' name ='myRoutineTrainingCode[]' value = " + dayTrainingArray6 + ">";
-            var showLive = document.getElementById('showLive6');
-            showLive.innerHTML = output;
+            var showLive6 = document.getElementById('showLive6');
+            showLive6.innerHTML = output;
 
         } else if (day == 7) {
             dayTrainingArray7.splice(number, 1, trainingCode);
             var output = "";
             output += "<div  class='button_div'>";
             for (var i = 1; i < dayTrainingArray7.length; i++) {
-                output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray7[i] + "')>상세보기</button>";
+                if (dayTrainingArray7[i].includes('HTR')) {
+                    output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray7[i] + "')>상세보기</button>";
+                } else {
+                    output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray7[i] + "') disabled>상세보기</button>";
+                }
             }
             output += "</div>";
             output += "<input type ='hidden' name ='myRoutineTrainingCode[]' value = " + dayTrainingArray7 + ">";
 
-            var showLive = document.getElementById('showLive7');
-            showLive.innerHTML = output;
+            var showLive7 = document.getElementById('showLive7');
+            showLive7.innerHTML = output;
 
         }
 
