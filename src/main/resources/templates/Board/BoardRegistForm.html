@@ -30,11 +30,9 @@
                     </select><br/></td>
                 </tr>
                 <tr>
-                    <th>공지사항 여부</th>
+                    <th th:if="${session.login.memberId} eq 'admin'">공지사항 여부</th>
                     <td th:if="${session.login.memberId} eq 'admin'"><input type="radio" name="boardNotice" value="notice"/>공지사항</td>
-
-                    <td th:unless="${session.login.memberId} ne 'admin'"><input type="radio" name="boardNotice"
-                                                                                value="normal" checked/>일반 게시글
+                    <td th:if="${session.login.memberId} ne 'admin'"><input type="hidden" name="boardNotice" value="normal"/>
                     </td>
                 </tr>
                 <tr>
