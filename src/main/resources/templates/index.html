@@ -15,11 +15,7 @@
 </head>
 
 <body>
-<div style="text-align: center; vertical-align: center;">
-    <img src="image/logophoto.jpg"/>
-    <img src="image/logotext.jpg"/>
 
-</div>
 <div class="index_container">
     <div class="header2">
         <img src="image/logophoto.jpg"/>
@@ -27,6 +23,7 @@
     </div>
 
     <div>
+        <button onclick='location.href = "index"'>메인</button>
         <button onclick='location.href = "selectPlanForm"'>견적서 종류 선택 페이지</button>
         <button th:if="${session.login != null}"
                 th:onclick="|location.href='@{trainingPlanList(trainingPlanId=${session.login.memberId})}'|">견적서 페이지 이동
