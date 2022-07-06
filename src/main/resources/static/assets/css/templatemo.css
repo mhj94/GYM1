@@ -55,12 +55,13 @@ body, ul, li, p, a, label, input, div {
 .text-success { color: #01f7ce !important;}
 .text-light { color: #cfd6e1 !important;}
 .bg-dark { background-color: #212934 !important;}
-.bg-light { background-color: #e9eef5 !important;}
+.bg-light { background-color: #2f3437 !important;
+ border: solid 3px #01f7ce;}
 .bg-black { background-color: #1d242d !important;}
 .bg-success { background-color: #59ab6e !important;}
 .btn-success {
-  background-color: #59ab6e !important;
-  border-color: #56ae6c !important;
+  background-color: #2f3437 !important;
+  border: 3px solid #01f7ce;;
 }
 .pagination .page-link:hover {color: #000;}
 .pagination .page-link:hover, .pagination .page-link.active {
@@ -185,6 +186,14 @@ body, ul, li, p, a, label, input, div {
     width: 12px;
     height: 12px;
   }
+}
+
+.label1{
+  color: white;
+}
+
+.h5{
+  color: white;
 }
 
 /* Extra large devices (large desktops, 1200px and up)*/

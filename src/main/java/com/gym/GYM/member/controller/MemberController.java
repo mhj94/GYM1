@@ -39,7 +39,7 @@ public class MemberController {
 	}
 	
 	//일반회원 가입페이지 이동 : normalMemberRegistForm
-	@GetMapping("/normalMemberRegistForm")
+	@PostMapping("/normalMemberRegistForm")
 	public String normalMemberRegistForm() {
 		return "SignUp/NormalMemberRegistForm";
 	}
