@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="생로병사"/>
+    <meta name="description" content="해당 html에 대한 설명"/>
+    <title>타이틀</title>
+    <meta name="date" content="2022.05.25">
+    <title>상품목록 상세보기</title>
+</head>
+<link rel = "stylesheet" type = "text/css" href = "css/style.css">
+<body>
+
+<table>
+    <img th:src="@{/ShoppingImg/123.png}" width="100dp" height="100dp"/>
+
+    <tr>
+        <th></th>
+        <td th:text="${view.productName}"></td>
+    </tr>
+    <tr>
+        <th>중량</th>
+        <td th:text="${view.productWeight}"></td>
+    </tr>
+    <tr>
+        <th>상품설명</th>
+        <td th:text="${view.productComment}"></td>
+    </tr>
+    <tr>
+        <th>가격</th>
+        <td th:text="${view.productPrice}"></td>
+    </tr>
+    <tr>
+        <th>조회수</th>
+        <td th:text="${view.productHits}"></td>
+    </tr>
+    <tr>
+        <input id="productCode" type="hidden" th:value="${view.productCode}"/>
+    </tr>
+
+    <tr>
+        <td><a th:href="@{shoppingAdminModifyForm(productCode=${view.productCode})}" th:text="'수정'"></a></td>
+    </tr>
+
+    <tr>
+        <td><a th:href="@{shoppingAdminDelete(productCode=${view.productCode})}" th:text="'삭제'"></a></td>
+    </tr>
+</table>
+
+
+<button th:onclick="|location.href ='@{ShoppingAdminModifyForm(productCode=${view.productCode)}'|">상품(관리자) 수정페이지 이동</button>
+<button th:onclick="|location.href ='@{shoppingAdminModifyForm(productCode=${view.productCode)}'|">상품(관리자) 수정페이지 이동</button>
+<button onclick="history.back(-1);">뒤로가기</button>
+<br/>
+
+
+</body>
+</html>

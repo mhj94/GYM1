@@ -25,7 +25,6 @@ input[type="button"], [type="submit"], [type="reset"] {
     margin: 2px;
     padding: 0.3rem 1rem;
 
-    font-size: 1rem;
     text-align: center;
     text-decoration: none;
 
@@ -199,13 +198,14 @@ select {
     grid-template-rows: 20% 910px 20%;
 }
 /*MyRoutineRegistForm css*/
-.header {
+.header1 {
     grid-column: 1/ -1;
     display: block;
     text-align: center;
 }
+<<<<<<<<< Temporary merge branch 1
 
-#routineRegistImg {
+.myRoutine_img{
     position: relative;
     width: 50%;
     height: 100%;
@@ -273,8 +273,7 @@ select {
     border-left: none;
     margin-top: 15px;
 }
-
-.input {
+.input{
 
 }
 
@@ -307,9 +306,8 @@ select {
     border-left: none;
     margin-top: 15px;
 }
+.showLive{
 
-.showLive {
-    padding-left: 15px;
 }
 
 #showLive {
@@ -322,6 +320,7 @@ select {
 
 .button_div {
     padding-top: 20px;
+    padding-bottom: 12px;
 }
 
 .button {
@@ -329,10 +328,17 @@ select {
     font-size: x-small;
     padding: 2px 40px;
     border: 1px solid #01f7ce;
+    margin: auto;
 }
 
 .footer {
     grid-column: 1/-1;
+    text-align: center;
+}
+
+.footer_h_div{
+    display: inline-block;
+    padding-top: 100px;
 }
 
 #footer {
@@ -343,8 +349,86 @@ select {
     margin-top: 15px;
     margin-right: 15px;
     margin-left: 15px;
+
+}
+/* memberRegistForm, memberModifyForm css */
+.memberRegistcontainer{
+    display: grid;
+    text-align: center;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 0.5fr 4fr ;
+    grid-template-areas:
+            "header header header"
+            ". main .";
+}
+.header{
+    grid-area: header;
+}
+.logo{
+    filter: invert(100%) sepia(0%) saturate(7489%) hue-rotate(131deg) brightness(105%) contrast(105%);
+    width: 25px;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+.memberRegistcontainer2{
+    display: grid;
+    text-align: center;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-area: main;
+    grid-template-areas:
+            ". main1 .";
+}
+#memberRegistcontainer2{
+    border-top: solid 3px #01f7ce;
+    border-bottom: solid 3px #01f7ce;
+    border-right: solid 3px #01f7ce;
+    border-left: solid 3px #01f7ce;
+    border-radius: 20px / 20px;
+    margin: 15px;
+}
+.loginForm{
+    display: inline-block;
+    grid-area: main1;
+}
+.loginForm_input{
+    text-align: left;
+    padding-top: 10px;
+    padding-bottom: 5px;
 }
 
+.lg_input{
+    width: 100%;
+}
+.lg_input_btn{
+    font-size: 0.7em;
+}
+.label{
+
+}
+.lg_input_btn2{
+    padding-bottom: 15px;
+}
+.view{
+    border-top: none;
+    border-bottom: solid 3px #01f7ce;
+    border-right: none;
+    border-left: none;
+    text-align: left;
+    padding-top: 10px;
+    padding-bottom: 5px;
+ }
+
+/* MemberView css */
+.img{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+textarea{
+    resize: none;
+}
+
+/* boardList */
 .gymListContainer {
     display: grid;
     grid-template-columns: 1fr;
@@ -354,12 +438,12 @@ select {
 
 .notice {
     display: inline-block;
-    margin:0 auto;
+    margin: 0 auto;
 }
 
 .normal {
     display: inline-block;
-    margin:0 auto;
+    margin: 0 auto;
 }
 
 .boardRegistContainer {
@@ -371,9 +455,10 @@ select {
 
 .boardRegistMain {
     display: inline-block;
-    margin:0 auto;
+    margin: 0 auto;
 }
 
+/* companyList */
 .companyListContainer {
     display: grid;
     grid-template-columns: 1fr;
@@ -397,3 +482,34 @@ select {
     display: inline-block;
     margin: 0 auto;
 }
+
+.companyRegistContainer {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 20% 910px 20%;
+    text-align: center;
+}
+
+.companyRegistMain {
+    display: inline-block;
+    margin: 0 auto;
+}
+
+textarea {
+    resize: none;
+}
+
+.boardViewContainer {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 20% 910px 20%;
+    text-align: center;
+}
+
+.boardViewMain {
+    display: inline-block;
+    margin: 0 auto;
+}
+
+/* index */
+

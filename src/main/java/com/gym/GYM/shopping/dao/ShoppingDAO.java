@@ -20,7 +20,6 @@ public interface ShoppingDAO {
 
     ProductDTO shoppingView(String productCode);
 
-
     int wishCount(String memberId);
 
     void count(String productCode);
@@ -29,7 +28,6 @@ public interface ShoppingDAO {
 
     ProductDTO myWishList(String productCode);
 
-
     boolean basketRegist(String productCode, String memberId, String orderCode);
 
     List<OrdersDTO> basketList(String memberId);
@@ -37,4 +35,8 @@ public interface ShoppingDAO {
     int basketCount(String memberId);
 
     ProductDTO myBasketList(String basketCode);
+
+    String basketRegist1(String productCode, String orderPrice, String orderId, String orderCode);
+
+    List<OrdersDTO> shoppingOrderList(String orderId);
 }
