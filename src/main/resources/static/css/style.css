@@ -510,4 +510,9 @@ textarea {
     margin: 0 auto;
 }
 
+.companyContainer {
+    display: inline-block;
+    margin: 0 auto;
+}
+
 /* index */
