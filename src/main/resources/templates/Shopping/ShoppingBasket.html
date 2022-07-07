@@ -82,9 +82,6 @@
     function basketListOutput(basketList){
         var output = "";
 
-
-
-
         output+= "<table>";
         output+="<caption>장바구니</caption>";
         output+="<tr>";
@@ -101,14 +98,13 @@
             output+="<td><img src='ShoppingImg/basketList[i].productPhoto'</img></td>"
             output+="<td>"+basketList[i].productName+"</td>"
             output+="<td>"+basketList[i].productRate+"</td>"
-
             output+="<td><select onchange='opchan(this)' class='productOrder'>" +
                 "" +
                 "<option value='+basketList[i].productCode+' >수량과 가격을 선택해주세요</option>" +
-                "<option value='+basketList[i].productPrice *5' >"+basketList[i].productName+ '5팩'+basketList[i].productPrice *5 +'원'+"</option>" +
-                "<option value='+basketList[i].productPrice *10' >"+basketList[i].productName+ '10팩'+basketList[i].productPrice *10 +'원'+"</option>" +
-                "<option value='+basketList[i].productPrice *15' >"+basketList[i].productName+ '15팩'+basketList[i].productPrice *15 +'원'+"</option>" +
-                "<option value='+basketList[i].productPrice *20' + >"+basketList[i].productName+ '20팩'+basketList[i].productPrice *20 +'원'+"</option>" +
+                "<option id='+basketList[i].productPrice *5' value='+basketList[i].productPrice *5' data-count='+basketList[i].productName+'5개입''>"+basketList[i].productName+ '5팩'+basketList[i].productPrice *5 +'원'+"</option>" +
+                "<option id='+basketList[i].productPrice *10' value='+basketList[i].productPrice *10' data-count='+basketList[i].productName+'10개입'' >"+basketList[i].productName+ '10팩'+basketList[i].productPrice *10 +'원'+"</option>" +
+                "<option id='+basketList[i].productPrice *15' value='+basketList[i].productPrice *15' data-count='+basketList[i].productName+'15개입'' >"+basketList[i].productName+ '15팩'+basketList[i].productPrice *15 +'원'+"</option>" +
+                "<option id='+basketList[i].productPrice *20' value='+basketList[i].productPrice *20' data-count='+basketList[i].productName+'20개입'' >"+basketList[i].productName+ '20팩'+basketList[i].productPrice *20 +'원'+"</option>" +
                 "</select></td>";
             output+="<td><button value='+basketList[i].productCode+' id='basketDelete'>장바구니에서 빼기</button>"
         }
@@ -126,13 +122,15 @@
 
     function opchan(e) {
 
-        var value1 = e[0].value;
 
+        var value1 = e[0].value;
         var value5 = e.value;
         totalValue = +value5;
-
         totalPay(totalValue);
 
+        var orderCount = document.getElementById(value5);
+        var orderCountRegst= orderCount.dataset.count;
+        console.log(orderCountRegst);
 
         $.ajax({
             type: "POST",
@@ -146,7 +144,6 @@
             success: function (list) {
 
             }, error: function () {
-
 
             }
         })

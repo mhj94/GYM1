@@ -44,7 +44,7 @@
     <insert id="basketRegist" parameterType="String">
         INSERT INTO ORDERS
         VALUES (#{orderCode}, #{productCode}, #{memberId}, 'noInput', 'noInput', 'noInput', NULL, 'noInput', NULL,
-                'noSelect', 0, #{orderPrice})
+                'noSelect', #{orderCount}, #{orderPrice})
     </insert>
 
     <!--내가 장바구니에 등록한 상품 코드 불러오기 -->

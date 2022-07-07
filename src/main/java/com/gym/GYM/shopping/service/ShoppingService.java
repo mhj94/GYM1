@@ -29,7 +29,7 @@ public interface ShoppingService {
 
     List<String> basketDelete(String memberId, String productCode);
 
-    List<String> basketRegistAjax(String memberId, String productCode ,String orderPrice);
+    List<String> basketRegistAjax(String memberId, String productCode, String orderPrice, String orderCount);
 
     List<OrdersDTO> basketOrdersPriceUpdate(String memberId, String productCode, String orderPrice);
 

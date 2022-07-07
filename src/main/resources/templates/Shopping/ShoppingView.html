@@ -53,14 +53,18 @@
 <div>
     <span>상품 수량 선택</span><br/>
     <select name="productName" onchange="productOrder(this)">
-        <option th:value="${view.productPrice} * 5 "
-                th:text="${view.productName} + '5팩'" th:class="5"></option>
-        <option th:value="${view.productPrice} * 10"
-                th:text="${view.productName} + '10팩'" th:class="10"></option>
-        <option th:value="${view.productPrice} * 15"
-                th:text="${view.productName} + '15팩'" th:class="15"></option>
-        <option th:value="${view.productPrice} * 20"
-                th:text="${view.productName} + '20팩'" th:class="20"></option>
+        <option>상품 수량을 선택해주세요</option>
+        <option th:id="${view.productPrice} * 5" th:value="${view.productPrice} * 5"
+                th:text="${view.productName} + '5팩'" th:class="5" th:data-count="${view.productName} + '5팩'"></option>
+        <option th:id="${view.productPrice} * 10" th:value="${view.productPrice} * 10"
+                th:text="${view.productName} + '10팩'" th:class="10"
+                th:data-count="${view.productName} + '10팩'"></option>
+        <option th:id="${view.productPrice} * 15" th:value="${view.productPrice} * 15"
+                th:text="${view.productName} + '15팩'" th:class="15"
+                th:data-count="${view.productName} + '15팩'"></option>
+        <option th:id="${view.productPrice} * 20" th:value="${view.productPrice} * 20"
+                th:text="${view.productName} + '20팩'" th:class="20"
+                th:data-count="${view.productName} + '20팩'"></option>
     </select>
     <div id='result' style="float: right">
 
@@ -125,7 +129,6 @@
 
 <script th:inline="javascript">
 
-
     var login = [[${session.login.memberId}]];
 
     var wishButtonView = 0;
@@ -136,16 +139,20 @@
 
     var productCount;
 
+    var orderCountRegist;
 
     function productOrder(e) {
         // 선택된 데이터 가져오기
         const value = e.value;
         orderPrice = (e.value).toString();
-        productCount = $(this).attr('class')
+        console.log("orderPrice"+ orderPrice);
 
-        console.log("콘솔로그 productCount "+ productCount);
+        productCount = $(this).attr('class');
+        var orderCount = document.getElementById(e.value);
+        orderCountRegist = orderCount.dataset.count;
+
+
         const output = e.value + '원';
-
 
         // 데이터 출력
         document.getElementById('result').innerText
@@ -153,9 +160,7 @@
     }
 
     $(document).ready(function () {
-
         // 리뷰 목록
-
         $.ajax({
             type: "POST",
             url: "review/reviewList",
@@ -185,7 +190,6 @@
                 console.log(productCode);
                 console.log(productReviewContent);
                 console.log(productReviewRate);
-
 
                 $.ajax({
                     type: "POST",
@@ -323,7 +327,7 @@
             dataType: "json",
             success: function (basketInquire) {
                 var basketButtonView = basketInquire.length;
-                console.log(basketButtonView);
+
 
                 if (basketButtonView > 0) {
                     //찜에서 빼기 버튼 활성화
@@ -366,22 +370,28 @@
     //장바구니에 넣기 ajax
     $('#basketRegist').click(function () {
 
+        console.log("장바구니 등록");
+        console.log(productCode);
+        console.log(orderPrice);
+        console.log(orderCountRegist);
+
         $.ajax({
             type: "POST",
             url: "/basketRegistAjax",
             data: {
                 "memberId": login,
                 "productCode": productCode,
-                "orderPrice": orderPrice
+                "orderPrice": orderPrice,
+                "orderCount": orderCountRegist
             },
             dataType: "json",
             success: function () {
                 const modalView = 1;
                 basketButtonViewAjax(modalView);
                 modal(modalView)
-            }, error: function () {
-                alert("장바구니에 추가 실패")
-
+            }, error: function (request, status, error) {
+                alert("장바구니에 추가 실패. 수량을 먼저 선택해주세요")
+                alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
             }
         })
     });
@@ -401,6 +411,8 @@
 
     //  찜하기 function 찜 목록에 존재하는지 확인하는 ajax
     $(document).ready(function () {
+
+
 
         $.ajax({
             type: "POST",

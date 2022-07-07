@@ -28,7 +28,7 @@ public interface ShoppingDAO {
 
     ProductDTO myWishList(String productCode);
 
-    boolean basketRegist(String memberId, String productCode, String orderPrice, String orderCode);
+    boolean basketRegist(String memberId, String productCode, String orderPrice, String orderCode, String orderCount);
 
     List<OrdersDTO> basketList(String memberId);
 

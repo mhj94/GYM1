@@ -150,10 +150,11 @@ public class ShoppingServiceImpl implements ShoppingService {
     //상세보기에 장바구니에 해당 상품 추가 ajax 메소드
 
     @Override
-    public List<String> basketRegistAjax(String memberId, String productCode,String orderPrice) {
+    public List<String> basketRegistAjax(String memberId, String productCode,String orderPrice , String orderCount) {
         String uuid = UUID.randomUUID().toString().substring(0, 6);
         String orderCode = uuid;
-        shoppingdao.basketRegist(memberId, productCode,orderPrice, orderCode);
+        System.out.println(orderCount);
+        shoppingdao.basketRegist(memberId, productCode,orderPrice, orderCode, orderCount);
         List<String> basketInquire = new ArrayList<>();
         basketInquire = shoppingdao.basketInquire(memberId, productCode);
         return basketInquire;

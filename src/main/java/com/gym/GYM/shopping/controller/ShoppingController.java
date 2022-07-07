@@ -121,9 +121,15 @@ public class ShoppingController {
 
     //basketRegistAjax w 목록에 추가하기
     @PostMapping("/basketRegistAjax")
-    private @ResponseBody List<String> basketRegist(@RequestParam String memberId, @RequestParam String productCode, @RequestParam String orderPrice) {
+    private @ResponseBody List<String> basketRegist(@RequestParam String memberId, @RequestParam String productCode, @RequestParam String orderPrice, @RequestParam String orderCount) {
         List<String> basketInquire = new ArrayList<>();
-        basketInquire = shoppingsvc.basketRegistAjax(memberId, productCode,orderPrice);
+
+        System.out.println("컨트롤러");
+        System.out.println(memberId);
+        System.out.println(productCode);
+        System.out.println(orderPrice);
+        System.out.println(orderCount);
+        basketInquire = shoppingsvc.basketRegistAjax(memberId, productCode,orderPrice,orderCount);
 
 
         return basketInquire;
