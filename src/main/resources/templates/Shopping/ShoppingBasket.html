@@ -65,7 +65,10 @@
     var totalValue;
     var addrView1;
     var quantityList=[];
-
+    var quantity;
+    var quantityId =[];
+    var quantityView =[];
+    var outputArr =[];
 
     $(document).ready(function () {
 
@@ -101,9 +104,9 @@
             output += "<td><img src='ShoppingImg/basketList[i].productPhoto'</img></td>"
             output += "<td>" + basketList[i].productName + "</td>"
             output += "<td>" + basketList[i].productRate + "</td>"
-            output += "<td><button value='"+[i]+"' onclick='productminus("+basketList[i].productCode+")'>-</button> </td>"
+            output += "<td><button value='"+[i]+"' onclick='quantityMinus()'>-</button> </td>"
             output += "<td id='"+[i]+"'>수량표시</td>"
-            output += "<td><button value='"+[i]+"' onclick='productPlus(this.value,"+basketList[i].productCode+")'>+</button> </td>"
+            output += "<td><button value='"+[i]+"' onclick='quantityPlus(this.value','"+basketList[i].productCode+")'>+</button> </td>"
             output += "<td><button value='"+basketList[i].productCode+"' onclick='basketDelete(this.value)'>장바구니에서 빼기</button>"
         }
 
@@ -111,50 +114,36 @@
         var reviewArea = document.getElementById("basketView");
         // reviewArea에 output 내용 넣기
         reviewArea.innerHTML = output;
-        quantityList = parseInt(i);
-        quantityView(list)
+        quantity = parseInt(i);
+        quantityOutput(quantity)
+
 
     }
-
     //List로 불러온 각각의 상품 수량 표시해주는 ajax
-    function quantityView(list){
-        var quantityId =[];
-        var quantityView =[];
-        quantityId.length=1+list;
-        quantityView.length=1+list;
+    function quantityOutput(quantity){
 
-        for(var i=0; i> list; i++ ){
+        quantityId.length=1+quantity;
+        quantityView.length=1+quantity;
+        outputArr.length=1+quantity;
+
+        for(var i=0; i>= quantity; i++){
             quantityId[i]=i;
-
+            quantityView[i]=i;
+            outputArr[i] =i;
         }
+
+    }
+    //html data 속성 class로 해볼것.
+    //더하기 빼기 버튼 class명 코드로 맞추고 각자 다른  ajax로 보내서 더하고 빼기
+    //한 뒤 db에 넣어야 함.
+    function quantityPlus(plus, productCode){
+
+
     }
 
+    function quantityMinus(minus,productCode){
 
-    function opchan(e) {
-        var value1 = e[0].value;
-        var value5 = e.value;
-        totalValue = +value5;
-        totalPay(totalValue);
 
-        var orderCount = document.getElementById(value5);
-        var orderCountRegst = orderCount.dataset.count;
-        console.log(orderCountRegst);
-
-        $.ajax({
-            type: "POST",
-            url: "basketOrdersPriceUpdate",
-            data: {
-                "memberId": loginId,
-                "productCode": value1,
-                "orderPrice": value5
-            },
-            dataType: "json",
-            success: function (list) {
-
-            }, error: function () {
-
-            }
-        })
     }
 
 
