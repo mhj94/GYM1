@@ -8,12 +8,12 @@
     <meta name="description" content="해당 html에 대한 설명"/>
     <meta name="date" content="2022.05.25">
     <title>장바구니</title>
-    <link rel = "stylesheet" type = "text/css" href = "css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
 <h1>Bascket</h1>
-<h3 th:if = "${session.login !=null}" th:text ="${session.login.memberId}"></h3>
-<h3 th:if = "${session.login !=null}" th:text ="${session.login.memberRole}"></h3>
+<h3 th:if="${session.login !=null}" th:text="${session.login.memberId}"></h3>
+<h3 th:if="${session.login !=null}" th:text="${session.login.memberRole}"></h3>
 <div id="basketView">
 </div>
 
@@ -21,6 +21,8 @@
 <th id="totalPayView"></th>
 <th>
     <button class="btn-open-popup">주문하기</button>
+
+    <button value="porductCodeTest" onclick="quantityView(product=this.value)">test</button>
 </th>
 
 
@@ -30,21 +32,23 @@
         <form action="/basketPayment" method="post">
             <table>
                 <input type="hidden" value="+${session.login.memberId}+" name="memberId">
-            <th>주소지 입력</th>
-            <td><textarea id="addressInput" name="addr"></textarea></td>
-            <th>주문 요청사항을 입력해주세요</th>
-        <tr>
-            <td>ex)부재시 경비실에 맡겨주세요</td>
-            <td><textarea name="coment"></textarea></td>
-        </tr>
-        <p>주문하시겠습니까?</p>
-        <input type="submit" value="예">
-        <input type="button" name="continue" value="아니요" onclick="top.location.reload();">
+                <th>주소지 입력</th>
+                <td><textarea id="addressInput" name="addr"></textarea></td>
+                <th>주문 요청사항을 입력해주세요</th>
+                <tr>
+                    <td>ex)부재시 경비실에 맡겨주세요</td>
+                    <td><textarea name="coment"></textarea></td>
+                </tr>
+                <p>주문하시겠습니까?</p>
+                <input type="submit" value="예">
+                <input type="button" name="continue" value="아니요" onclick="top.location.reload();">
             </table>
         </form>
-<!-- 주소지 불러오기 버튼 from안에 있으면 POST화 되어서 빼놈 POST로 주소지 불러오면 오류남       -->
+        <!-- 주소지 불러오기 버튼 from안에 있으면 POST화 되어서 빼놈 POST로 주소지 불러오면 오류남       -->
         <button th:id="addrBtn">주소지 불러오기</button>
     </div>
+
+
 
 </div>
 
@@ -59,77 +63,81 @@
 <script th:inline="javascript">
     const loginId = [[${session.login.memberId}]];
     var totalValue;
-
     var addrView1;
+    var quantityList=[];
 
 
-    $(document).ready(function (){
+    $(document).ready(function () {
 
         $.ajax({
-            type : "GET",
-            url : "myBasketListAjax",
-            data : {"memberId": loginId},
-            dataType : "json",
-            success: function (basketList){
+            type: "GET",
+            url: "myBasketListAjax",
+            data: {"memberId": loginId},
+            dataType: "json",
+            success: function (basketList) {
                 basketListOutput(basketList);
-                console.log(basketList);
-            },error: function (){
+            }, error: function () {
 
             }
         })
     })
 
-    function basketListOutput(basketList){
+    function basketListOutput(basketList) {
         var output = "";
 
-        output+= "<table>";
-        output+="<caption>장바구니</caption>";
-        output+="<tr>";
-        output+="<th>상품사진명</th>";
-        output+="<th>상품이름</th>";
-        output+="<th>상품평점</th>";
-        output+="<th>수량 및 가격 선택</th>";
+        output += "<table>";
+        output += "<caption>장바구니</caption>";
+        output += "<tr>";
+        output += "<th>상품사진명</th>";
+        output += "<th>상품이름</th>";
+        output += "<th>상품평점</th>";
+        output += "<th>수량 및 가격 선택</th>";
 
-        output+="</tr>";
+        output += "</tr>";
 
 
-        for(var i in basketList ){
-            output+="<tr>";
-            output+="<td><img src='ShoppingImg/basketList[i].productPhoto'</img></td>"
-            output+="<td>"+basketList[i].productName+"</td>"
-            output+="<td>"+basketList[i].productRate+"</td>"
-            output+="<td><select onchange='opchan(this)' class='productOrder'>" +
-                "" +
-                "<option value='+basketList[i].productCode+' >수량과 가격을 선택해주세요</option>" +
-                "<option id='+basketList[i].productPrice *5' value='+basketList[i].productPrice *5' data-count='+basketList[i].productName+'5개입''>"+basketList[i].productName+ '5팩'+basketList[i].productPrice *5 +'원'+"</option>" +
-                "<option id='+basketList[i].productPrice *10' value='+basketList[i].productPrice *10' data-count='+basketList[i].productName+'10개입'' >"+basketList[i].productName+ '10팩'+basketList[i].productPrice *10 +'원'+"</option>" +
-                "<option id='+basketList[i].productPrice *15' value='+basketList[i].productPrice *15' data-count='+basketList[i].productName+'15개입'' >"+basketList[i].productName+ '15팩'+basketList[i].productPrice *15 +'원'+"</option>" +
-                "<option id='+basketList[i].productPrice *20' value='+basketList[i].productPrice *20' data-count='+basketList[i].productName+'20개입'' >"+basketList[i].productName+ '20팩'+basketList[i].productPrice *20 +'원'+"</option>" +
-                "</select></td>";
-            output+="<td><button value='+basketList[i].productCode+' id='basketDelete'>장바구니에서 빼기</button>"
+        for (var i in basketList) {
+            output += "<tr>";
+            output += "<td><img src='ShoppingImg/basketList[i].productPhoto'</img></td>"
+            output += "<td>" + basketList[i].productName + "</td>"
+            output += "<td>" + basketList[i].productRate + "</td>"
+            output += "<td><button value='"+[i]+"' onclick='productminus("+basketList[i].productCode+")'>-</button> </td>"
+            output += "<td id='"+[i]+"'>수량표시</td>"
+            output += "<td><button value='"+[i]+"' onclick='productPlus(this.value,"+basketList[i].productCode+")'>+</button> </td>"
+            output += "<td><button value='"+basketList[i].productCode+"' onclick='basketDelete(this.value)'>장바구니에서 빼기</button>"
         }
 
         // div 영역 reviewArea
         var reviewArea = document.getElementById("basketView");
-
         // reviewArea에 output 내용 넣기
         reviewArea.innerHTML = output;
-
-
-
+        quantityList = parseInt(i);
+        quantityView(list)
 
     }
 
+    //List로 불러온 각각의 상품 수량 표시해주는 ajax
+    function quantityView(list){
+        var quantityId =[];
+        var quantityView =[];
+        quantityId.length=1+list;
+        quantityView.length=1+list;
+
+        for(var i=0; i> list; i++ ){
+            quantityId[i]=i;
+
+        }
+    }
+
+
     function opchan(e) {
-
-
         var value1 = e[0].value;
         var value5 = e.value;
         totalValue = +value5;
         totalPay(totalValue);
 
         var orderCount = document.getElementById(value5);
-        var orderCountRegst= orderCount.dataset.count;
+        var orderCountRegst = orderCount.dataset.count;
         console.log(orderCountRegst);
 
         $.ajax({
@@ -169,7 +177,7 @@
     }
 
 
-    $('#addrBtn').click( function() {
+    $('#addrBtn').click(function () {
 
         $.ajax({
             type: "GET",
@@ -178,7 +186,7 @@
             dataType: "json",
             success: function (address) {
                 addressView(address)
-                addrView1=address;
+                addrView1 = address;
             }, error: function () {
             }
         })
@@ -187,7 +195,7 @@
 
     function addressView(address) {
 
-        output =addrView1;
+        output = addrView1;
 
 
         console.log(addrView1);
@@ -218,24 +226,23 @@
         })
     })
 
-
     //장바구니에서  빼기 ajax
-    $('#basketDelete').click(function () {
+    function basketDelete(productCode) {
         $.ajax({
             type: "POST",
             url: "/basketDelete",
             data: {
-                "memberId": login,
+                "memberId": loginId,
                 "productCode": productCode
             },
             dataType: "json",
             success: function () {
-
+                window.location.reload()
             }, error: function () {
                 alert("장바구니에서 제거 실패")
             }
         })
-    });
+    }
 
 
 </script>

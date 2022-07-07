@@ -69,12 +69,9 @@ public class ShoppingController {
     //myBasketListAjax :내 장바구니 불러오는 ajax ShoppingBasket.html에서 사용
     @GetMapping("/myBasketListAjax")
     private @ResponseBody List<ProductDTO> myBasketListAjax(@RequestParam String memberId) {
-        System.out.println("constroller: "+ memberId);
-    List<ProductDTO> myBasketListAjax = new ArrayList<ProductDTO>();
+            List<ProductDTO> myBasketListAjax = new ArrayList<ProductDTO>();
         myBasketListAjax = shoppingsvc.myBasketListAjax(memberId);
-        System.out.println("constroller: "+ myBasketListAjax);
-
-        return myBasketListAjax;
+                return myBasketListAjax;
     }
 
 
@@ -119,19 +116,11 @@ public class ShoppingController {
         return basketDelete;
     }
 
-    //basketRegistAjax w 목록에 추가하기
+    //basketRegistAjax 장바구니 목록에 추가하기
     @PostMapping("/basketRegistAjax")
     private @ResponseBody List<String> basketRegist(@RequestParam String memberId, @RequestParam String productCode, @RequestParam String orderPrice, @RequestParam String orderCount) {
         List<String> basketInquire = new ArrayList<>();
-
-        System.out.println("컨트롤러");
-        System.out.println(memberId);
-        System.out.println(productCode);
-        System.out.println(orderPrice);
-        System.out.println(orderCount);
         basketInquire = shoppingsvc.basketRegistAjax(memberId, productCode,orderPrice,orderCount);
-
-
         return basketInquire;
     }
 
@@ -139,11 +128,8 @@ public class ShoppingController {
     //wishInquire :상품이 wish에 있는지 확인하는 메소드
     @PostMapping("/wishInquire")
     private @ResponseBody List<String> wishInquire(@RequestParam String memberId, @RequestParam String productCode) {
-
-
         List<String> wishInquire = new ArrayList<String>();
         wishInquire = shoppingsvc.wishInquire(memberId, productCode);
-
         return wishInquire;
     }
 
@@ -188,7 +174,6 @@ public class ShoppingController {
         System.out.println("컨트롤러 요청사항:" + coment);
         System.out.println("컨트롤러 주소:" + addr);
         mav = shoppingsvc.basketPayment(memberId, addr, coment);
-
         return mav;
     }
 
