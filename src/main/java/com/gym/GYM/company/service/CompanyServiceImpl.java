@@ -56,6 +56,17 @@ public class CompanyServiceImpl implements CompanyService{
             company.setCompanyPhotoName("default.png");
         }
 
+        String addr1 = company.getAddr1();
+        String addr2 = company.getAddr2();
+        String addr3 = company.getAddr3();
+
+        String companyAddress = "("+addr1+") "+addr2+" "+addr3;
+
+        if(!addr1.equals(""))
+        {
+            company.setCompanyAddress(companyAddress);
+        }
+
         int result = companydao.companyRegist(company);
 
         if(result>0){
