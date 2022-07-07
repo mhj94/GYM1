@@ -125,4 +125,9 @@
 	<update id="basketPayment" parameterType="String">
 	UPDATE ORDERS SET ORDERADDRESS = #{addr}, ORDERREQUEST =#{coment} WHERE ORDERPAYSELECT='noSelect'
 	</update>
+
+
+    <select id="shoppingPaymentList" parameterType="String" resultType="orders">
+        SELECT * FROM ORDERS WHERE ORDERID = #{memberId} AND ORDERPRICE != 0
+    </select>
 </mapper>
