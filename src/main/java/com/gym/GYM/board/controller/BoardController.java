@@ -115,4 +115,12 @@ public class BoardController {
 
         return mav;
     }
+
+
+    @GetMapping("/boardCSAdminList")
+    public ModelAndView boardCSAdminList(){
+        mav = boardsvc.boardCSAdminList();
+
+        return mav;
+    }
 }

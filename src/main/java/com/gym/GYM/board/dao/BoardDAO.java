@@ -33,4 +33,5 @@ public interface BoardDAO {
 	int boardCSDelete(BoardDTO board);
 
 
+    List<BoardDTO> boardCSAdminList();
 }

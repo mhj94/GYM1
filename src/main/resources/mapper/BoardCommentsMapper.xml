@@ -20,7 +20,7 @@
     </delete>
 
     <update id="updateCSStatusWaiting" parameterType="int">
-        UPDATE BOARD SET BOARDNOTICE = '답변대기중' WHERE BOARDNO = #{boardNo}
+        UPDATE BOARD SET BOARDNOTICE = '문의처리중' WHERE BOARDNO = #{boardNo}
     </update>
 
     <update id="updateCSStatusComplete" parameterType="int">

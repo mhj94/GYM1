@@ -5,7 +5,7 @@
 
 
     <insert id="companyRegist" parameterType="company">
-        INSERT INTO COMPANY VALUES ('COM' || COMPANY_SEQ.NEXTVAL, #{companyId}, #{companyComment}, #{companyPhotoName}, 0, #{companyEquipment}, #{companyName})
+        INSERT INTO COMPANY VALUES (#{companyCode}, #{companyId}, #{companyComment}, #{companyPhotoName}, 0, #{companyEquipment}, #{companyName})
     </insert>
     <select id="companyList" parameterType="paging" resultType="company">
         SELECT *
@@ -35,6 +35,14 @@
         FROM COMPANY
         WHERE COMPANYCODE = #{companyCode}
     </delete>
+
+    <insert id="membershipRegist" parameterType="membership">
+        INSERT INTO MEMBERSHIP VALUES (#{companyCode},#{membership1DayPrice},#{membership1MonthPrice},#{membership3MonthPrice},#{membership6MonthPrice},#{membership1YearPrice})
+    </insert>
+
+    <insert id="personalTrainingRegist" parameterType="personaltraining">
+        INSERT INTO PERSONALTRAINING VALUES (#{companyCode},#{personalTraining1TimePrice},#{personalTraining10TimePrice},#{personalTraining20TimePrice},#{personalTraining30TimePrice})
+    </insert>
 
 
 </mapper>
