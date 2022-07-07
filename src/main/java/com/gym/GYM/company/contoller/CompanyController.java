@@ -3,6 +3,8 @@ package com.gym.GYM.company.contoller;
 
 import java.io.IOException;
 
+import com.gym.GYM.company.dto.MembershipDTO;
+import com.gym.GYM.company.dto.PersonalTrainingDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,8 +42,8 @@ public class CompanyController {
 
     // 기업 등록 메소드
     @PostMapping("/companyRegist")
-    public ModelAndView companyRegist(@ModelAttribute CompanyDTO company) throws Exception {
-        mav = companysvc.companyRegist(company);
+    public ModelAndView companyRegist(@ModelAttribute CompanyDTO company, @ModelAttribute MembershipDTO membership, @ModelAttribute PersonalTrainingDTO personalTraining) throws Exception {
+        mav = companysvc.companyRegist(company,membership,personalTraining);
         return mav;
     }
 

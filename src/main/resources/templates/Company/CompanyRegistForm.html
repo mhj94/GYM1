@@ -45,6 +45,26 @@
                     </div>
                 </div>
 
+                <div class="loginForm_input">
+                    <label>회원권</label>
+                    <div>
+                        <input class="lg_input" type="text" name="membership1DayPrice" placeholder="입력정보없음"/>
+                        <input class="lg_input" type="text" name="membership1MonthPrice" placeholder="입력정보없음"/>
+                        <input class="lg_input" type="text" name="membership3MonthPrice" placeholder="입력정보없음"/>
+                        <input class="lg_input" type="text" name="membership6MonthPrice" placeholder="입력정보없음"/>
+                        <input class="lg_input" type="text" name="membership1YearPrice" placeholder="입력정보없음"/>
+                    </div>
+                </div>
+                <div class="loginForm_input">
+                    <label>1:1 PT</label>
+                    <div>
+                        <input class="lg_input" type="text" name="personalTraining1TimePrice" placeholder="입력정보없음"/>
+                        <input class="lg_input" type="text" name="personalTraining10TimePrice" placeholder="입력정보없음"/>
+                        <input class="lg_input" type="text" name="personalTraining20TimePrice" placeholder="입력정보없음"/>
+                        <input class="lg_input" type="text" name="personalTraining30TimePrice" placeholder="입력정보없음"/>
+                    </div>
+                </div>
+
                 <div class="lg_input_btn2">
                     <input type="submit" value="등록"/>
                 </div>
@@ -52,7 +72,27 @@
         </div>
 
     </div>
+    <input type="hidden"  id="uuid" name="companyCode"/>
     <!-- grid 끝-->
 </form>
 </body>
+<script src="https://code.jquery.com/jquery-latest.js"></script>
+<script>
+    function guid() {
+        function s4() {
+            return ((1 + Math.random()) * 0x10000 | 0).toString(16).substring(1);
+        }
+
+        return s4() + s4();
+    }
+
+    function show_uuid() {
+        document.getElementById('uuid').value = guid();
+    }
+
+    $('document').ready(function () {
+        show_uuid();
+    })
+</script>
+
 </html>

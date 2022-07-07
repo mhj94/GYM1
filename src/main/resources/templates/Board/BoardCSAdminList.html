@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="생로병사"/>
+    <meta name="description" content="지우고 해당 html에 대한 설명 작성"/>
+    <title>책임GYM</title>
+    <link rel="icon" href = "image/favicon.png" type="image/x-icon">
+    <link rel = "stylesheet" type = "text/css" href = "css/style.css">
+</head>
+<body>
+<table>
+    <tr>
+        <th>번호</th>
+        <th>내용</th>
+        <th>날짜</th>
+        <th>처리현황</th>
+        <th>상세보기</th>
+        <th>삭제</th>
+    </tr>
+    <tr><td style="font-size: 20px;">처리가 필요한 문의</td></tr>
+    <tr th:each="list : ${boardCSAdminList}" th:object="${list}" th:if="${list.boardNotice == '문의처리중'}">
+        <td th:text="${list.rowNum}"></td>
+        <td style="width:500px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; display:inline-block;" th:text="${list.boardContent}"></td>
+        <td th:text="${list.boardDate}"></td>
+        <td th:text="${list.boardNotice}"></td>
+        <td><button type="button" th:popup="${list.boardNo}" th:onclick="popup(this.getAttribute('popup'))">상세보기</button></td>
+        <td><button th:onclick="|location.href='@{boardCSDelete(boardNo=${list.boardNo},boardWriter=${list.boardWriter})}'|">삭제</button></td>
+    </tr>
+    <tr><td style="font-size: 20px;">답변완료 문의</td></tr>
+    <tr th:each="list : ${boardCSAdminList}" th:object="${list}" th:if="${list.boardNotice == '답변완료'}">
+        <td th:text="${list.rowNum}"></td>
+        <td style="width:500px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; display:inline-block;" th:text="${list.boardContent}"></td>
+        <td th:text="${list.boardDate}"></td>
+        <td th:text="${list.boardNotice}"></td>
+        <td><button type="button" th:popup="${list.boardNo}" th:onclick="popup(this.getAttribute('popup'))">상세보기</button></td>
+        <td><button th:onclick="|location.href='@{boardCSDelete(boardNo=${list.boardNo},boardWriter=${list.boardWriter})}'|">삭제</button></td>
+    </tr>
+</table>
+</body>
+<script th:inline="javascript">
+    function popup(boardNo){
+        var url = "boardCSView?boardNo="+boardNo;
+        var option = "location=no, menubar=no, toolbar=no, resizable=no, status=no, width = 600, height= 300, top=0, left=0";
+        window.open(url,"_blank",option);
+    }
+
+
+</script>
+</html>

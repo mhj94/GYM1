@@ -58,5 +58,11 @@
         DELETE FROM BOARD WHERE BOARDNO = #{boardNo}
     </delete>
 
+    <select id="boardCSAdminList" resultType="board">
+        SELECT ROWNUM,BOARD.* FROM BOARD WHERE BOARDTYPE = 'QnA' ORDER BY ROWNUM DESC
+    </select>
+
+
+
 
 </mapper>
