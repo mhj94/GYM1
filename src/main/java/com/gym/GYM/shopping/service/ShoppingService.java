@@ -38,5 +38,5 @@ public interface ShoppingService {
     ModelAndView basketPayment(String addr, String coment);
 
 
-
+    ModelAndView shoppingPaymentList(String orderId);
 }

@@ -8,7 +8,6 @@ import java.util.UUID;
 //github.com/mumgod/GYM1.git
 import com.gym.GYM.shopping.dto.OrdersDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -221,26 +220,13 @@ public class ShoppingServiceImpl implements ShoppingService {
     }
 
     @Override
-    public List<OrdersDTO> basketList1(String productCode, String orderPrice, String orderId) {
-        String memberId = orderId;
-        List<OrdersDTO> basketDTOList = new ArrayList<OrdersDTO>();
-        String uuid = UUID.randomUUID().toString().substring(0,6);
-        String orderCode = uuid;
+    public ModelAndView shoppingPaymentList(String orderId) {
+        List<OrdersDTO> shoppingPaymentlist = shoppingdao.shoppingPaymentList(orderId);
+        List<OrdersDTO> productDTOList = new ArrayList<>();
+        productDTOList = shoppingdao.shoppingPaymentList(orderId);
 
-        String basketRegist1 = shoppingdao.basketRegist1(productCode,orderPrice,orderId,orderCode);
-
-        basketDTOList = shoppingdao.basketList(memberId);
-
-        return basketDTOList;
-    }
-
-    @Override
-    public ModelAndView shoppingOrderList(String orderId) {
-        List<OrdersDTO> shoppingOrderlist = shoppingdao.shoppingOrderList(orderId);
-
-        mav.addObject("shoppingOrderList",shoppingOrderlist);
+        mav.addObject("shoppingPaymentList",shoppingPaymentlist);
         mav.setViewName("Shopping/shoppingPayment");
-
         return mav;
     }
 

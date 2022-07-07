@@ -22,17 +22,20 @@
   <caption>주문목록</caption>
   <tr>
     <th>주문자아이디</th>
-
+    <th>주문상품코드</th>
+    <th>주문수량</th>
     <th>주문가격</th>
   </tr>
 
-  <tr th:each="list : ${shoppingOrderList}">
+  <tr th:each="list : ${shoppingPaymentList}">
     <td th:text="${list.orderId}"></td>
-
-    <td th:text="${list.orderPrice}" class="totalPrice"></td>
+    <td th:text="${list.orderProductCode}"></td>
+    <td th:text="${list.orderCount}"></td>
+    <td th:text="${list.orderPrice}" th:class="totalPrice"></td>
 
   </tr>
 </table> <br/>
+<div>총 결제금액 : <span id="totalArea"></span> 원</div><br/>
 <button onclick='location.href = "shoppingMainForm"'>홈으로가기</button>
 
 
@@ -43,22 +46,22 @@
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 <script>
-  var orderPrice = $('.totalPrice').val();
-  console.log(orderPrice);
+
+  var pricelength = $(".totalPrice");
+
+  var aa = 0;
+  for(var i = 0; i< pricelength.length; i++){
+    aa += parseInt(pricelength[i].innerText);
+  }
+
+  console.log(parseInt(aa));
+  var totalArea = document.getElementById('totalArea');
+  totalArea.innerHTML = aa;
+
+
   $("#PaymentBtn").click(function () {
     var IMP = window.IMP; // 생략가능
     IMP.init('imp17906803');
-
-    // 객체들에서 사용할 데이터
-    var productCode = $('input[name="productCdoe"]').val();
-
-    var orderId = $('input[name="orderId"]').val();
-    var memberEmail = $('input[name="memberEmail"]').val();
-    var memberPhone = $('input[name="memberPhone"]').val();
-    var memberAddress = $('input[name="memberAddress"]').val();
-
-
-
     // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
     // i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
     IMP.request_pay({
@@ -92,14 +95,14 @@
       */
       name: '주문명:결제테스트',
       //결제창에서 보여질 이름
-      amount: 1000,
+      amount: aa,
       //가격
-      buyer_email: memberEmail,
-      buyer_name: orderId,
-      buyer_tel: memberPhone,
-      buyer_addr: memberAddress,
-      buyer_productcode: productCode,
-      //m_redirect_url: 'https://www.yourdomain.com/payments/complete'
+      buyer_email: 'iamport@siot.do',
+      buyer_name: '구매자이름',
+      buyer_tel: '010-1234-5678',
+      buyer_addr: '서울특별시 강남구 삼성동',
+      buyer_postcode: '123-456',
+      m_redirect_url: 'https://www.yourdomain.com/payments/complete'
       /*
       모바일 결제시,
       결제가 끝나고 랜딩되는 URL을 지정
