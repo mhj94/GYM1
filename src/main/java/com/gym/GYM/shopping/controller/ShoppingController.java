@@ -2,6 +2,7 @@ package com.gym.GYM.shopping.controller;
 
 import com.gym.GYM.board.dto.BoardDTO;
 import com.gym.GYM.shopping.dto.OrdersDTO;
+import com.gym.GYM.shopping.dto.PayDTO;
 import com.gym.GYM.shopping.dto.ProductDTO;
 import com.gym.GYM.shopping.dto.WishDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,18 +79,11 @@ public class ShoppingController {
         return mav;
     }
 
-    // shoppingHistory : 주문내역 페이지 이동
+    // shoppingHistory : 주문내역
     @GetMapping("/shoppingHistory")
-    private String shoppingHistory() {
-
-        return "Shopping/shoppingHistory";
-    }
-
-    // shoppingBasket : 장바구니 페이지 이동
-    @GetMapping("/shoppingBasket")
-    private String shoppingBasket() {
-
-        return "Shopping/shoppingBasket";
+    private ModelAndView shoppingHistoryList(@RequestParam String payId) {
+        mav = shoppingsvc.shoppingHistoryList(payId);
+        return mav;
     }
 
 
@@ -203,5 +197,10 @@ public class ShoppingController {
         return mav;
     }
 
+    @PostMapping("/payRegist")
+    private @ResponseBody List<PayDTO> payRegist(@ModelAttribute PayDTO pay){
+       List<PayDTO> payList = shoppingsvc.payRegist(pay);
 
+       return payList;
+    }
 }

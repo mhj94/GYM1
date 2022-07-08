@@ -5,6 +5,7 @@ import java.util.List;
 
 
 import com.gym.GYM.shopping.dto.OrdersDTO;
+import com.gym.GYM.shopping.dto.PayDTO;
 import com.gym.GYM.shopping.dto.ProductDTO;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -59,4 +60,8 @@ public interface ShoppingDAO {
 
 
     List<OrdersDTO> shoppingPaymentList(String orderId);
+
+    List<PayDTO> shoppingHistoryList(String payId);
+
+    List<PayDTO> payRegist(PayDTO pay);
 }

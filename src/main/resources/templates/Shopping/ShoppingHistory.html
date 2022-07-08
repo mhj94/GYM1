@@ -11,6 +11,25 @@
 <link rel = "stylesheet" type = "text/css" href = "css/style.css">
 <body>
     <h1>주문내역</h1>
+
+    <table>
+        <caption>주문내역</caption>
+        <tr>
+            <th>결제자아이디</th>
+            <th>결제상품명</th>
+            <th>결제상품개수</th>
+            <th>결제가격</th>
+        </tr>
+
+        <tr th:each="list : ${shoppingHistoryList}">
+            <td th:text="${list.payId}"></td>
+            <td th:text="${list.payProduct}"></td>
+            <td th:text="${list.payCount}"></td>
+            <td th:text="${list.payPrice}"></td>
+
+        </tr>
+    </table> <br/><br/>
+
     <button onclick = 'location.href = "shoppingMainForm"'>쇼핑몰 홈으로 이동</button>
 
 

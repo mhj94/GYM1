@@ -1,6 +1,7 @@
 package com.gym.GYM.shopping.service;
 
 import com.gym.GYM.shopping.dto.OrdersDTO;
+import com.gym.GYM.shopping.dto.PayDTO;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -37,6 +38,9 @@ public interface ShoppingService {
 
     ModelAndView basketPayment(String addr, String coment);
 
-
     ModelAndView shoppingPaymentList(String orderId);
+
+    ModelAndView shoppingHistoryList(String payId);
+
+    List<PayDTO> payRegist(PayDTO pay);
 }
