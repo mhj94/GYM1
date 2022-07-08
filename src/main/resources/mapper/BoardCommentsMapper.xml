@@ -12,7 +12,7 @@
     </insert>
 
     <update id="boardCommentsModify" parameterType = "boardcomments">
-        UPDATE BOARDCOMMENTS SET BOARDCOMMENTSCONTENT = #{boardCommentsContent}, BOARDCOMMENTSDATE = SYSDATE
+        UPDATE BOARDCOMMENTS SET BOARDCOMMENTSCONTENT = #{boardCommentsContent}, BOARDCOMMENTSDATE = SYSDATE WHERE BOARDCOMMENTSNO = #{boardCommentsNo}
     </update>
 
     <delete id="boardCommentsDelete" parameterType="boardcomments">

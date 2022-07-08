@@ -8,32 +8,19 @@
         INSERT INTO COMPANY VALUES (#{companyCode}, #{companyId}, #{companyComment}, #{companyPhotoName}, 0, #{companyEquipment}, #{companyName},#{companyAddress})
     </insert>
     <select id="companyList" parameterType="paging" resultType="company">
-        SELECT *
-        FROM COMPANYLIST
-        WHERE ROWNUMBER BETWEEN #{startRow} AND #{endRow}
-        ORDER BY COMPANYCODE ASC
+        SELECT * FROM COMPANYLIST  WHERE ROWNUMBER BETWEEN #{startRow} AND #{endRow} ORDER BY COMPANYCODE ASC
     </select>
     <select id="companyCount" resultType="int">
-        SELECT COUNT(*)
-        FROM COMPANY
+        SELECT COUNT(*) FROM COMPANY
     </select>
     <select id="companyView" parameterType="String" resultType="company">
-        SELECT *
-        FROM COMPANY
-        WHERE COMPANYCODE = #{companyCode}
+        SELECT * FROM COMPANY WHERE COMPANYCODE = #{companyCode}
     </select>
     <update id="companyModify" parameterType="company">
-        UPDATE COMPANY
-        SET COMPANYID=#{companyId},
-            COMPANYCOMMENT=#{companyComment},
-            COMPANYPHOTONAME=#{companyPhotoName},
-            COMPANYEQUIPMENT=#{companyEquipment}
-        WHERE COMPANYCODE = #{companyCode}
+        UPDATE COMPANY SET COMPANYID=#{companyId}, COMPANYCOMMENT=#{companyComment}, COMPANYPHOTONAME=#{companyPhotoName}, COMPANYEQUIPMENT=#{companyEquipment}  WHERE COMPANYCODE = #{companyCode}
     </update>
     <delete id="companyDelete" parameterType="company">
-        DELETE
-        FROM COMPANY
-        WHERE COMPANYCODE = #{companyCode}
+        DELETE FROM COMPANY WHERE COMPANYCODE = #{companyCode}
     </delete>
 
     <insert id="membershipRegist" parameterType="membership">

@@ -193,7 +193,7 @@ public class MemberServiceImpl implements MemberService{
 		if(pwEnc.matches(member.getMemberPw(), ePw)) {
 			MemberDTO loginMember = memberdao.memberView(member.getMemberId());
 			session.setAttribute("login", loginMember);
-			mav.setViewName("index");
+			mav.setViewName("index1");
 		} else {
 			mav.setViewName("SignIn/MemberSignInForm");
 		}

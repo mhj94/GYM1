@@ -12,7 +12,6 @@ public class BoardCommentsDTO {
 
     private int boardCommentsNo;
     private int boardNo;
-
     private String boardCommentsWriter;
     private String boardCommentsContent;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
