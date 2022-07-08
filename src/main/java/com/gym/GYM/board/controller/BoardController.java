@@ -123,4 +123,11 @@ public class BoardController {
 
         return mav;
     }
+
+
+
+    @GetMapping("/aboutUs")
+    public String aboutUs(){
+        return "AboutUs";
+    }
 }

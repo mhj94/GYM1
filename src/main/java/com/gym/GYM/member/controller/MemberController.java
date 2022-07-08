@@ -113,4 +113,9 @@ public class MemberController {
 		session.invalidate();
 		return "index1";
 	}
+
+	@GetMapping("/goIndex")
+	public String goIndex(){
+		return "index1";
+	}
 }
