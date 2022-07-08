@@ -111,6 +111,6 @@ public class MemberController {
 	@GetMapping("/memberSignOut")
 	public String memberSignOut() {
 		session.invalidate();
-		return "index";
+		return "index1";
 	}
 }
