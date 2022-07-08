@@ -51,4 +51,4 @@ public interface ShoppingService {
 
     List<PayDTO> payRegist(PayDTO pay);
 }
-}
+
