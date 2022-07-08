@@ -4,6 +4,7 @@ package com.gym.GYM.shopping.dao;
 import java.util.List;
 
 
+import com.gym.GYM.shopping.dto.BasketDTO;
 import com.gym.GYM.shopping.dto.OrdersDTO;
 import com.gym.GYM.shopping.dto.ProductDTO;
 
@@ -29,13 +30,13 @@ public interface ShoppingDAO {
 
     ProductDTO myWishList(String productCode);
 
-    boolean basketRegist(String memberId, String productCode, String orderPrice, String orderCode, String orderCount);
+    boolean basketRegist(String memberId, String productCode, String orderPrice, String orderCode, String orderName);
 
     List<OrdersDTO> basketList(String memberId);
 
     int basketCount(String memberId);
 
-    ProductDTO myBasketList(String basketCode);
+    BasketDTO myBasketList(String basketCode);
 
     List<String> wishInquire(String memberId, String productCode);
 
@@ -47,5 +48,15 @@ public interface ShoppingDAO {
 
     void basketDelete(String memberId, String productCode);
 
-    List<OrdersDTO> shoppingOrderList(String orderId);
+    ModelAndView basketPayment(String memberId, String addr, String coment);
+
+    List<OrdersDTO> shoppingPaymentList(String orderId);
+
+    List<String> addressInputAjax(String memberId);
+
+    List<OrdersDTO> basketOrdersPriceUpdate(String memberId, String productCode, String orderPrice);
+
+    List<String> orderCountOutputAjax(String memberId, String productCode);
+
+    List<String> orderCountPlus(String memberId, String productCode, String orderPrice);
 }

@@ -139,7 +139,7 @@
 
     var productCount;
 
-    var orderCountRegist;
+    var orderNameRegist;
 
     function productOrder(e) {
         // 선택된 데이터 가져오기
@@ -148,8 +148,8 @@
         console.log("orderPrice"+ orderPrice);
 
         productCount = $(this).attr('class');
-        var orderCount = document.getElementById(e.value);
-        orderCountRegist = orderCount.dataset.count;
+        var orderName = document.getElementById(e.value);
+        orderNameRegist = orderName.dataset.count;
 
 
         const output = e.value + '원';
@@ -373,7 +373,7 @@
         console.log("장바구니 등록");
         console.log(productCode);
         console.log(orderPrice);
-        console.log(orderCountRegist);
+        console.log(orderNameRegist);
 
         $.ajax({
             type: "POST",
@@ -382,16 +382,16 @@
                 "memberId": login,
                 "productCode": productCode,
                 "orderPrice": orderPrice,
-                "orderCount": orderCountRegist
+                "orderName": orderNameRegist
             },
             dataType: "json",
             success: function () {
                 const modalView = 1;
                 basketButtonViewAjax(modalView);
                 modal(modalView)
-            }, error: function (request, status, error) {
-                alert("장바구니에 추가 실패. 수량을 먼저 선택해주세요")
-                alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+            }, error: function () {
+                alert("수량을 먼저 선택해주세요")
+
             }
         })
     });

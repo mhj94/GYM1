@@ -1,6 +1,8 @@
 package com.gym.GYM.shopping.service;
 
+import com.gym.GYM.shopping.dto.BasketDTO;
 import com.gym.GYM.shopping.dto.OrdersDTO;
+import com.gym.GYM.shopping.dto.ProductDTO;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -28,7 +30,7 @@ public interface ShoppingService {
 
     List<String> basketDelete(String memberId, String productCode);
 
-    List<String> basketRegistAjax(String memberId, String productCode, String orderPrice, String orderCount);
+    List<String> basketRegistAjax(String memberId, String productCode, String orderPrice, String orderName);
 
     List<OrdersDTO> basketOrdersPriceUpdate(String memberId, String productCode, String orderPrice);
 
@@ -36,7 +38,11 @@ public interface ShoppingService {
 
     ModelAndView basketPayment(String memberId, String addr, String coment);
 
-    List<ProductDTO> myBasketListAjax(String memberId);
+    List<BasketDTO> myBasketListAjax(String memberId);
 
     ModelAndView shoppingPaymentList(String orderId);
+
+    List<String> orderCountOutputAjax(String memberId, String productCode);
+
+    List<String> orderCountPlus(String memberId, String productCode, String orderPrice);
 }

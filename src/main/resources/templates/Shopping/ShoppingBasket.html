@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-<h1>Bascket</h1>
+<h1>Basket</h1>
 <h3 th:if="${session.login !=null}" th:text="${session.login.memberId}"></h3>
 <h3 th:if="${session.login !=null}" th:text="${session.login.memberRole}"></h3>
 <div id="basketView">
@@ -49,7 +49,6 @@
     </div>
 
 
-
 </div>
 
 
@@ -64,11 +63,10 @@
     const loginId = [[${session.login.memberId}]];
     var totalValue;
     var addrView1;
-    var quantityList=[];
     var quantity;
-    var quantityId =[];
-    var quantityView =[];
-    var outputArr =[];
+    var quantityId = [];
+    var quantityView = [];
+    var outputArr = [];
 
     $(document).ready(function () {
 
@@ -93,55 +91,102 @@
         output += "<tr>";
         output += "<th>상품사진명</th>";
         output += "<th>상품이름</th>";
-        output += "<th>상품평점</th>";
-        output += "<th>수량 및 가격 선택</th>";
+        output += "<th>수량 더하기</th>";
+        output += "<th>총 수량</th>";
+        output += "<th>수량 빼기</th>";
+        output += "<th>가격</th>";
 
         output += "</tr>";
-
 
         for (var i in basketList) {
             output += "<tr>";
             output += "<td><img src='ShoppingImg/basketList[i].productPhoto'</img></td>"
-            output += "<td>" + basketList[i].productName + "</td>"
-            output += "<td>" + basketList[i].productRate + "</td>"
-            output += "<td><button value='"+[i]+"' onclick='quantityMinus()'>-</button> </td>"
-            output += "<td id='"+[i]+"'>수량표시</td>"
-            output += "<td><button value='"+[i]+"' onclick='quantityPlus(this.value','"+basketList[i].productCode+")'>+</button> </td>"
-            output += "<td><button value='"+basketList[i].productCode+"' onclick='basketDelete(this.value)'>장바구니에서 빼기</button>"
+            output += "<td>" + basketList[i].orderName + "</td>"
+            output += "<td><button id='minus" + i + "'  value='minus" + i + "' data-code='" + basketList[i].productCode + "'  data-price='" + basketList[i].orderPrice + "' onclick='quantityMinus(this.value)'>-</button> </td>"
+            output += "<td id='" + basketList[i].orderName +"'>수량표시</td>"
+            output += "<td><button id='plus" + i + "' value='plus" + i + "'  data-code='" + basketList[i].productCode + "' data-price='" + basketList[i].orderPrice + "'  onclick='quantityPlus(this.value)'>+</button> </td>"
+            output += "<td>" + basketList[i].orderPrice + " </td>"
+            output += "<td><button value='" + basketList[i].productCode + "' onclick='basketDelete(this.value)'>장바구니에서 빼기</button>"
         }
-
         // div 영역 reviewArea
         var reviewArea = document.getElementById("basketView");
-        // reviewArea에 output 내용 넣기
         reviewArea.innerHTML = output;
         quantity = parseInt(i);
-        quantityOutput(quantity)
-
-
-    }
-    //List로 불러온 각각의 상품 수량 표시해주는 ajax
-    function quantityOutput(quantity){
-
-        quantityId.length=1+quantity;
-        quantityView.length=1+quantity;
-        outputArr.length=1+quantity;
-
-        for(var i=0; i>= quantity; i++){
-            quantityId[i]=i;
-            quantityView[i]=i;
-            outputArr[i] =i;
-        }
-
-    }
-    //html data 속성 class로 해볼것.
-    //더하기 빼기 버튼 class명 코드로 맞추고 각자 다른  ajax로 보내서 더하고 빼기
-    //한 뒤 db에 넣어야 함.
-    function quantityPlus(plus, productCode){
+        console.log(basketList);
+        quantityOutput(quantity, basketList)
 
 
     }
 
-    function quantityMinus(minus,productCode){
+    // //List로 불러온 각각의 상품 수량 표시해주는 ajax
+    // function quantityOutput(quantity, basketList) {
+    //
+    //     quantityId.length = 1 + quantity;
+    //     quantityView.length = 1 + quantity;
+    //     outputArr.length = 1 + quantity;
+    //
+    //     for (var i = 0; i >= quantity; i++) {
+    //         quantityId[i] = i;
+    //     }
+    //     for (var i = 0; i <= quantity; i++) {
+    //         console.log(loginId);
+    //         $.ajax({
+    //             type: "GET",
+    //             url: "orderCountOutputAjax",
+    //             data: {
+    //                 "memberId": loginId,
+    //                 "productCode": basketList[i].productCode
+    //             },
+    //             dataType: "json",
+    //             success: function (orderCount) {
+    //                 console.log("orderCount:" + orderCount)
+    //
+    //                 for (var i = 0; i <= orderCount.length + 1; i++) {
+    //                     outputArr[i] = orderCount[i];
+    //                     quantityView[i] = i, toString()
+    //                     console.log(i);
+    //                     var reviewArea = document.getElementById(quantityView[i]);
+    //                     reviewArea.innerHTML = outputArr[i];
+    //                 }
+    //                 console.log(outputArr);
+    //             }, error: function (request, status, error) {
+    //                 alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+    //             }
+    //
+    //
+    //         })
+    //
+    //     }
+    //
+    // }
+
+    function quantityPlus(plus) {
+        var plusButton = document.getElementById(plus);
+
+        console.log(plusButton.dataset.code);
+        $.ajax({
+            type: "POST",
+            url: "orderCountPlus",
+            data: {
+                "memberId": loginId,
+                "productCode": plusButton.dataset.code,
+                "orderPrice" : plusButton.dataset.price
+            },
+            dataType: "jaon",
+            success: function () {
+                window.location.reload()
+
+            }, error: function () {
+                window.location.reload()
+
+            }
+
+        })
+
+
+    }
+
+    function quantityMinus(minus) {
 
 
     }

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 //github.com/mumgod/GYM1.git
+import com.gym.GYM.shopping.dto.BasketDTO;
 import com.gym.GYM.shopping.dto.OrdersDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -149,11 +150,10 @@ public class ShoppingServiceImpl implements ShoppingService {
     //상세보기에 장바구니에 해당 상품 추가 ajax 메소드
 
     @Override
-    public List<String> basketRegistAjax(String memberId, String productCode,String orderPrice , String orderCount) {
+    public List<String> basketRegistAjax(String memberId, String productCode,String orderPrice , String orderName) {
         String uuid = UUID.randomUUID().toString().substring(0, 6);
         String orderCode = uuid;
-        System.out.println(orderCount);
-        shoppingdao.basketRegist(memberId, productCode,orderPrice, orderCode, orderCount);
+        shoppingdao.basketRegist(memberId, productCode,orderPrice, orderCode, orderName);
         List<String> basketInquire = new ArrayList<>();
         basketInquire = shoppingdao.basketInquire(memberId, productCode);
         return basketInquire;
@@ -172,8 +172,8 @@ public class ShoppingServiceImpl implements ShoppingService {
 
     //basketView 장바구니 보는 메소드
     @Override
-    public List<ProductDTO> myBasketListAjax(String memberId) {
-        List<ProductDTO> productDTOList = new ArrayList<ProductDTO>();
+    public List<BasketDTO> myBasketListAjax(String memberId) {
+        List<BasketDTO> productDTOList = new ArrayList<>();
         basketDTOList = shoppingdao.basketList(memberId);
         int count = shoppingdao.basketCount(memberId);
         String[] basketArr = basketDTOList.toArray(new String[count]);
@@ -217,6 +217,23 @@ public class ShoppingServiceImpl implements ShoppingService {
         mav.addObject("shoppingPaymentList",shoppingPaymentlist);
         mav.setViewName("Shopping/shoppingPayment");
         return mav;
+    }
+
+    //orderCountOutputAjax 오더테이블에서 기존 상품수량 불러오는 메소드
+    @Override
+    public List<String> orderCountOutputAjax(String memberId, String productCode) {
+        List<String> orderCountOutputAjax =new ArrayList<String>();
+        orderCountOutputAjax=shoppingdao.orderCountOutputAjax(memberId, productCode);
+
+        return orderCountOutputAjax;
+    }
+
+    @Override
+    public List<String> orderCountPlus(String memberId, String productCode, String orderPrice) {
+        List<String> orderCountPlus= new ArrayList<>();
+        orderCountPlus=shoppingdao.orderCountPlus(memberId,productCode, orderPrice);
+
+        return orderCountPlus;
     }
 
 
