@@ -1,7 +1,6 @@
 package com.gym.GYM.shopping.service;
 
 import com.gym.GYM.shopping.dto.OrdersDTO;
-import com.gym.GYM.shopping.dto.ProductDTO;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -37,6 +36,7 @@ public interface ShoppingService {
 
     ModelAndView basketPayment(String memberId, String addr, String coment);
 
-
     List<ProductDTO> myBasketListAjax(String memberId);
+
+    ModelAndView shoppingPaymentList(String orderId);
 }

@@ -25,7 +25,7 @@ public class ShoppingController {
     private ShoppingService shoppingsvc;
 
     private ModelAndView mav = new ModelAndView();
-
+    private boolean basketRegi1;
 
 
     // shoppionWishFrom : 찜한상품 보기 페이지
@@ -89,12 +89,19 @@ public class ShoppingController {
         return "Shopping/shoppingBasket";
     }
 
-    // shoppingPayment : 결제 페이지 이동
+
+    // shoppingPaymentList : 결제페이지 리스트
     @GetMapping("/shoppingPayment")
     private String shoppingPayment() {
 
         return "Shopping/shoppingPayment";
     }
+
+    private ModelAndView shoppingPaymentList(@RequestParam String orderId) {
+        mav = shoppingsvc.shoppingPaymentList(orderId);
+        return mav;
+    }
+
 
     //basketInquire :상품이 장바구니에 있는지 확인하는 메소드
     @PostMapping("/basketInquire")
@@ -103,8 +110,12 @@ public class ShoppingController {
         List<String> basketInquire = new ArrayList<>();
         basketInquire = shoppingsvc.basketInquire(memberId, productCode);
 
+        List<String> basketInquire = new ArrayList<>();
+        basketInquire = shoppingsvc.basketInquire(memberId, productCode);
+
         return basketInquire;
     }
+
 
     //basketDelete orders 목록에서 지우기
 
@@ -131,7 +142,7 @@ public class ShoppingController {
         List<String> wishInquire = new ArrayList<String>();
         wishInquire = shoppingsvc.wishInquire(memberId, productCode);
         return wishInquire;
-    }
+ }
 
 
     //wishDelete wish 목록에서 지우기
@@ -152,6 +163,7 @@ public class ShoppingController {
     }
 
     //basketOrdersPriceUpdate: 장바구니에서 수량 선택시 orderPrice 업데이트 하는 문
+
     @PostMapping("/basketOrdersPriceUpdate")
     private @ResponseBody List<OrdersDTO> basketOrdersPriceUpdate(@RequestParam String memberId, @RequestParam String productCode, @RequestParam String orderPrice) {
         List<OrdersDTO> basketListUpdate = new ArrayList<OrdersDTO>();
@@ -164,6 +176,7 @@ public class ShoppingController {
     private @ResponseBody List<String> addressInputAjax(@RequestParam String memberId) {
         List<String> addressInputAjax = new ArrayList<String>();
         addressInputAjax = shoppingsvc.addressInputAjax(memberId);
+
 
         return addressInputAjax;
     }

@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Mapper
 public interface ShoppingDAO {
 
+//
     List<ProductDTO> shoppingList();
 
     ProductDTO shoppingView(String productCode);
@@ -46,9 +47,5 @@ public interface ShoppingDAO {
 
     void basketDelete(String memberId, String productCode);
 
-    List<OrdersDTO> basketOrdersPriceUpdate(String memberId, String productCode, String orderPrice);
-
-    List<String> addressInputAjax(String memberId);
-
-    ModelAndView basketPayment(String memberId, String addr, String coment);
+    List<OrdersDTO> shoppingOrderList(String orderId);
 }

@@ -8,7 +8,6 @@ import java.util.UUID;
 //github.com/mumgod/GYM1.git
 import com.gym.GYM.shopping.dto.OrdersDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -170,6 +169,7 @@ public class ShoppingServiceImpl implements ShoppingService {
     }
 
 
+
     //basketView 장바구니 보는 메소드
     @Override
     public List<ProductDTO> myBasketListAjax(String memberId) {
@@ -178,8 +178,6 @@ public class ShoppingServiceImpl implements ShoppingService {
         int count = shoppingdao.basketCount(memberId);
         String[] basketArr = basketDTOList.toArray(new String[count]);
         String basketCode;
-        System.out.println(basketDTOList);
-        System.out.println(count);
 
         if (count > 0) {
             for (int i = 0; i < count; i++) {
@@ -207,6 +205,17 @@ public class ShoppingServiceImpl implements ShoppingService {
         mav = shoppingdao.basketPayment(memberId, addr, coment);
         mav.setViewName("Shopping/ShoppingPayment");
 
+        return mav;
+    }
+
+    @Override
+    public ModelAndView shoppingPaymentList(String orderId) {
+        List<OrdersDTO> shoppingPaymentlist = shoppingdao.shoppingPaymentList(orderId);
+        List<OrdersDTO> productDTOList = new ArrayList<>();
+        productDTOList = shoppingdao.shoppingPaymentList(orderId);
+
+        mav.addObject("shoppingPaymentList",shoppingPaymentlist);
+        mav.setViewName("Shopping/shoppingPayment");
         return mav;
     }
 
