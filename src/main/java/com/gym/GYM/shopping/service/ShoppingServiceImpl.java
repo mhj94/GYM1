@@ -8,6 +8,7 @@ import java.util.UUID;
 //github.com/mumgod/GYM1.git
 import com.gym.GYM.shopping.dto.BasketDTO;
 import com.gym.GYM.shopping.dto.OrdersDTO;
+import com.gym.GYM.shopping.dto.PayDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
@@ -34,6 +35,7 @@ public class ShoppingServiceImpl implements ShoppingService {
     public ModelAndView shoppingWishForm(String memberId) {
 
         List<ProductDTO> productDTOList = new ArrayList<ProductDTO>();
+
 
         //wish에서 product를 조회할 코드를 가지고 오기 위한 wishList
         wishList = shoppingdao.wishList(memberId);
@@ -211,9 +213,6 @@ public class ShoppingServiceImpl implements ShoppingService {
     @Override
     public ModelAndView shoppingPaymentList(String orderId) {
         List<OrdersDTO> shoppingPaymentlist = shoppingdao.shoppingPaymentList(orderId);
-        List<OrdersDTO> productDTOList = new ArrayList<>();
-        productDTOList = shoppingdao.shoppingPaymentList(orderId);
-
         mav.addObject("shoppingPaymentList",shoppingPaymentlist);
         mav.setViewName("Shopping/shoppingPayment");
         return mav;
@@ -234,6 +233,22 @@ public class ShoppingServiceImpl implements ShoppingService {
         orderCountPlus=shoppingdao.orderCountPlus(memberId,productCode, orderPrice);
 
         return orderCountPlus;
+    }
+
+
+    @Override
+    public ModelAndView shoppingHistoryList(String payId) {
+        List<PayDTO> shoppingHistorylist = shoppingdao.shoppingHistoryList(payId);
+        mav.addObject("shoppingHistoryList",shoppingHistorylist);
+        mav.setViewName("Shopping/shoppingHistory");
+        return mav;
+    }
+
+    @Override
+    public List<PayDTO> payRegist(PayDTO pay) {
+        List<PayDTO> payList = shoppingdao.payRegist(pay);
+
+        return payList;
     }
 
 

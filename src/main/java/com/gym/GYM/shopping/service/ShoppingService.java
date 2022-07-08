@@ -3,6 +3,7 @@ package com.gym.GYM.shopping.service;
 import com.gym.GYM.shopping.dto.BasketDTO;
 import com.gym.GYM.shopping.dto.OrdersDTO;
 import com.gym.GYM.shopping.dto.ProductDTO;
+import com.gym.GYM.shopping.dto.PayDTO;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -45,4 +46,9 @@ public interface ShoppingService {
     List<String> orderCountOutputAjax(String memberId, String productCode);
 
     List<String> orderCountPlus(String memberId, String productCode, String orderPrice);
+
+    ModelAndView shoppingHistoryList(String payId);
+
+    List<PayDTO> payRegist(PayDTO pay);
+}
 }

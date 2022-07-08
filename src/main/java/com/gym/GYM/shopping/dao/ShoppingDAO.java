@@ -4,14 +4,12 @@ package com.gym.GYM.shopping.dao;
 import java.util.List;
 
 
-import com.gym.GYM.shopping.dto.BasketDTO;
-import com.gym.GYM.shopping.dto.OrdersDTO;
-import com.gym.GYM.shopping.dto.ProductDTO;
+import com.gym.GYM.shopping.dto.*;
+import com.gym.GYM.shopping.dto.PayDTO;
 
 import org.apache.ibatis.annotations.Mapper;
 
 
-import com.gym.GYM.shopping.dto.WishDTO;
 import org.springframework.web.servlet.ModelAndView;
 
 @Mapper
@@ -59,4 +57,8 @@ public interface ShoppingDAO {
     List<String> orderCountOutputAjax(String memberId, String productCode);
 
     List<String> orderCountPlus(String memberId, String productCode, String orderPrice);
+
+    List<PayDTO> shoppingHistoryList(String payId);
+
+    List<PayDTO> payRegist(PayDTO pay);
 }

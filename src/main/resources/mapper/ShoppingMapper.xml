@@ -165,5 +165,12 @@
           AND ORDERPRODUCTCODE = #{productCode}
     </update>
 
+    <select id="shoppingHistoryList" parameterType="String" resultType="pay">
+        SELECT * FROM PAY WHERE PAYID = #{memberId}
+    </select>
+
+    <insert id="payRegist" parameterType="pay">
+        INSERT INTO PAY VALUES (#{payId},#{payCount},#{payPrice},#{payProduct})
+    </insert>
 
 </mapper>
