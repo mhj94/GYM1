@@ -81,8 +81,8 @@ public class ShoppingController {
 
     // shoppingHistory : 주문내역
     @GetMapping("/shoppingHistory")
-    private ModelAndView shoppingHistoryList(@RequestParam String payId) {
-        mav = shoppingsvc.shoppingHistoryList(payId);
+    private ModelAndView shoppingHistoryList(@RequestParam String orderId) {
+        mav = shoppingsvc.shoppingHistoryList(orderId);
         return mav;
     }
 

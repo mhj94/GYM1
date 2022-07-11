@@ -40,7 +40,7 @@ public interface ShoppingService {
 
     ModelAndView shoppingPaymentList(String orderId);
 
-    ModelAndView shoppingHistoryList(String payId);
+    ModelAndView shoppingHistoryList(String orderId);
 
     List<PayDTO> payRegist(PayDTO pay);
 }

@@ -13,6 +13,7 @@ public class OrdersDTO {
     ORDERCODE				NVARCHAR2(10) PRIMARY KEY,		--주문코드 PK
     ORDERPRODUCTCODE		NVARCHAR2(6) NOT NULL,          --상품코드 FK PRODUCTCODE
     ORDERID					NVARCHAR2(5) NOT NULL,	        --주문자아이디 FK MEMBERID
+    ORDERNAME               NVARCHAR2(30),                  --주문이름
     ORDERADDRESS			NVARCHAR2(30),			        -- 배송지
     ORDERINVOICENUMBER	    NVARCHAR2(10),			        -- 송장번호
     ORDERREQUEST			NVARCHAR2(200),			        -- 주문요청사항
@@ -27,6 +28,7 @@ public class OrdersDTO {
     private String orderCode;
     private String orderProductCode;
     private String orderId;
+    private String orderName;
     private String orderAddress;
     private String orderInvoiceNumber;
     private String orderRequest;

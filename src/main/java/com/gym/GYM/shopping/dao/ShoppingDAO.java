@@ -61,7 +61,7 @@ public interface ShoppingDAO {
 
     List<OrdersDTO> shoppingPaymentList(String orderId);
 
-    List<PayDTO> shoppingHistoryList(String payId);
+    List<OrdersDTO> shoppingHistoryList(String orderId);
 
     List<PayDTO> payRegist(PayDTO pay);
 }

@@ -131,11 +131,11 @@
         SELECT * FROM ORDERS WHERE ORDERID = #{memberId} AND ORDERPRICE != 0
     </select>
 
-    <select id="shoppingHistoryList" parameterType="String" resultType="pay">
-        SELECT * FROM PAY WHERE PAYID = #{memberId}
+    <select id="shoppingHistoryList" parameterType="String" resultType="orders">
+        SELECT * FROM ORDERS WHERE ORDERID = #{memberId} AND ORDERPRICE != 0
     </select>
 
     <insert id="payRegist" parameterType="pay">
-        INSERT INTO PAY VALUES (#{payId},#{payCount},#{payPrice},#{payProduct})
+        INSERT INTO PAY VALUES (#{payId},#{payProduct},#{payPrice})
     </insert>
 </mapper>

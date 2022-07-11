@@ -33,6 +33,7 @@
     <img src="GYM1/src/main/resources/static/ShoppingImg/123.png" width="150dp" height="100dp" alt="짱구">
     <button th:if ="${session.login != null}" th:onclick ="|location.href='@{shoppingWishForm(memberId=${session.login.memberId})}'|">찜한목록 보기</button>
     <button th:if ="${session.login != null}" th:onclick = "|location.href='@{basketForm}'|">장바구니로 가기</button>
+    <button th:if ="${session.login != null}" th:onclick ="|location.href='@{shoppingHistory(orderId=${session.login.memberId})}'|">주문내역 보기</button>
 
     <h3 th:if = "${session.login !=null}" th:text ="${session.login.memberId}"></h3>
     <h3 th:if = "${session.login !=null}" th:text ="${session.login.memberRole}"></h3>

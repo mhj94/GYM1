@@ -229,8 +229,8 @@ public class ShoppingServiceImpl implements ShoppingService {
     }
 
     @Override
-    public ModelAndView shoppingHistoryList(String payId) {
-        List<PayDTO> shoppingHistorylist = shoppingdao.shoppingHistoryList(payId);
+    public ModelAndView shoppingHistoryList(String orderId) {
+        List<OrdersDTO> shoppingHistorylist = shoppingdao.shoppingHistoryList(orderId);
         mav.addObject("shoppingHistoryList",shoppingHistorylist);
         mav.setViewName("Shopping/shoppingHistory");
         return mav;
