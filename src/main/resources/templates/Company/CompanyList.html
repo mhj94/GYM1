@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,47 +9,52 @@
     <title>기업 목록 페이지</title>
 </head>
 <link rel="stylesheet" type="text/css" href="css/style.css">
+
+
 <body>
 <div class="companyListContainer">
     <div class="header1"></div>
     <div class="companyListMain">
-        <table>
-            <caption>기업 목록</caption>
-            <tr>
-                <th>기업코드</th>
-                <th>기업아이디</th>
-                <th>기업 상세설명</th>
-                <th>기업 사진</th>
-                <th>기업 별점</th>
-                <th>기업 시설</th>
-            </tr>
-            <tr th:each="company:${company}">
-                <td><a th:href="@{companyView(companyCode=${company.companyCode})}"
-                       th:text="${company.companyCode}"></a>
-                </td>
-                <td th:text="${company.companyId}"></td>
-                <td th:text="${company.companyComment}"></td>
-                <td th:text="${company.companyPhotoName}"></td>
-                <td th:text="${company.companyRate}"></td>
-                <td th:text="${company.companyEquipment}"></td>
-                <td><a th:href="@{companyModifyForm(companyCode=${company.companyCode})}" th:text="'수정'"></a></td>
-                <td><a th:href="@{companyDelete(companyCode=${company.companyCode})}" th:text="'삭제'"></a></td>
-            </tr>
-            </tr>
-        </table>
-        <code th:if="${paging.page <= 1}" th:text="이전"></code>
-        <code th:if="${paging.page > 1}">
-            <a th:href="@{companyList(page=${paging.page-1},limit=${paging.limit})}" th:text="이전"></a>
-        </code>
-        <th:block th:each="i : ${#numbers.sequence(paging.startPage , paging.endPage)}">
-            <code th:if="${paging.page eq i}" th:text="${i}"></code>
-            <a th:unless="${paging.page eq i}" th:href="@{companyList(page=${i},limit=${paging.limit})}"><code
-                    th:text="${i}"></code></a>
-        </th:block>
-        <code th:if="${paging.page >= paging.maxPage}" th:text="다음"></code>
-        <code th:if="${paging.page < paging.maxPage}">
-            <a th:href="@{companyList(page=${paging.page+1},limit=${paging.limit})}" th:text="다음"></a>
-        </code>
+
+        <ul class="community-post-list" th:each="company:${company}">
+            <li>
+                <div class="community-post">
+                    <div class="author-avator set-bg"><img th:src="'/CompanyPhoto/'+company.companyName"></div>
+                    <div class="post-content">
+                        <table>
+                            <tr>
+                                <td><a th:href="@{companyView(companyCode=${company.companyCode})}"><h5 th:text="${company.companyName}"></h5></a></td>
+                                <td><p th:text="${company.companyComment}"></p></td>
+                            </tr>
+                            <tr>
+                                <td><p th:text="${company.companyEquipment}"></p></td>
+                                <div class="post-date" th:text="${company.companyRate}"></div>
+                                <td><a th:href="@{companyModifyForm(companyCode=${company.companyCode})}"
+                                       th:text="'수정'"></a></td>
+                                <td><a th:href="@{companyDelete(companyCode=${company.companyCode})}"
+                                       th:text="'삭제'"></a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div>
+    <code th:if="${paging.page <= 1}" th:text="이전"></code>
+    <code th:if="${paging.page > 1}">
+        <a th:href="@{companyList(page=${paging.page-1},limit=${paging.limit})}" th:text="이전"></a>
+    </code>
+    <th:block th:each="i : ${#numbers.sequence(paging.startPage , paging.endPage)}">
+        <code th:if="${paging.page eq i}" th:text="${i}"></code>
+        <a th:unless="${paging.page eq i}" th:href="@{companyList(page=${i},limit=${paging.limit})}"><code
+                th:text="${i}"></code></a>
+    </th:block>
+    <code th:if="${paging.page >= paging.maxPage}" th:text="다음"></code>
+    <code th:if="${paging.page < paging.maxPage}">
+        <a th:href="@{companyList(page=${paging.page+1},limit=${paging.limit})}" th:text="다음"></a>
+    </code>
     </div>
     <div class="footer"></div>
 </div>

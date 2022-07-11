@@ -51,13 +51,14 @@ public class CompanyController {
     @GetMapping("/companyList")
     public ModelAndView companyList(@RequestParam(value = "page", required = false, defaultValue = "1") int page, @RequestParam(value = "limit", required = false, defaultValue = "5") int limit) {
         mav = companysvc.companyList(page, limit);
+        System.out.println(mav);
         return mav;
     }
 
     // 기업 상세보기 메소드
     @GetMapping("/companyView")
-    public ModelAndView companyView(@RequestParam(value = "companyCode") String companyCode ) {
-        mav = companysvc.companyView(companyCode);
+    public ModelAndView companyView(@RequestParam(value = "companyCode") String companyCode, @ModelAttribute ("membership") MembershipDTO membership, @ModelAttribute ("personaltraining") PersonalTrainingDTO personaltraining) {
+        mav = companysvc.companyView(companyCode, membership, personaltraining);
         return mav;
     }
 
