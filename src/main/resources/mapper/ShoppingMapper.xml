@@ -44,7 +44,7 @@
     <insert id="basketRegist" parameterType="String">
         INSERT INTO ORDERS
         VALUES (#{orderCode}, #{productCode}, #{memberId}, 'noInput', 'noInput', 'noInput', NULL, 'noInput', NULL,
-                'noSelect', #{orderName}, '1', #{orderPrice})
+                'noSelect', #{orderName}, '1', #{orderPrice},#{orderPrice})
     </insert>
 
     <!--내가 장바구니에 등록한 상품 코드 불러오기 -->
@@ -67,9 +67,10 @@
     <select id="myBasketList" parameterType="String" resultType="basket">
         SELECT ORDERS.ORDERNAME,
                ORDERS.ORDERPRICE,
-               ORDERS.ORDERCOUNT
+               ORDERS.ORDERCOUNT,
                PRODUCT.PRODUCTPHOTO,
-               PRODUCT.PRODUCTCODE
+               PRODUCT.PRODUCTCODE,
+               ORDERS.ORDERTOTALPRICE
         FROM PRODUCT
                  INNER JOIN
              ORDERS
@@ -82,13 +83,13 @@
     <!-- wish에 view에서 본 상품이 들어있는지 확인-->
 
     <select id="wishInquire" parameterType="String" resultType="String">
-        SELECT ORDERPRODUCTCODE
-        FROM ORDERS
-        WHERE ORDERID = #{memberId}
-          AND ORDERPRODUCTCODE = #{productCode}
+        SELECT WISHPRODUCTCODE
+        FROM WISH
+        WHERE WISHID = #{memberId}
+          AND WISHPRODUCTCODE = #{productCode}
     </select>
 
-    <insert id="wishregist" parameterType="String">
+    <insert id="wishRegist" parameterType="String">
         INSERT INTO WISH
         VALUES (#{memberId}, #{productCode})
     </insert>
@@ -121,7 +122,7 @@
         #{productCode}
     </delete>
 
-    <update id="bascketOrdersPriceUpdate" parameterType="String">
+    <update id="basketOrdersPriceUpdate" parameterType="String">
         UPDATE ORDERS
         SET ORDERPRICE =#{orderPrice}
         WHERE ORDERID = #{memberId}
@@ -150,7 +151,7 @@
         WHERE ORDERID = #{memberId}
           AND ORDERPRICE != 0
     </select>
-
+<!-- 상품 수량 출력해주는 ajax   -->
     <select id="orderCountOutputAjax" parameterType="String" resultType="String">
         SELECT ORDERCOUNT
         FROM ORDERS
@@ -158,9 +159,18 @@
           AND ORDERREQUEST = 'noInput'
     </select>
 
+<!-- 장바구니에서 상품수량 더하기   -->
     <update id="orderCountPlus" parameterType="String">
         UPDATE ORDERS
-        SET ORDERCOUNT = ORDERCOUNT+ 1, ORDERPRICE =+ ORDERPRICE
+        SET ORDERCOUNT = ORDERCOUNT+ 1, ORDERTOTALPRICE = + ORDERPRICE
+        WHERE ORDERID = #{memberId}
+          AND ORDERPRODUCTCODE = #{productCode}
+    </update>
+
+    <!-- 장바구니에서 상품수량 빼기  -->
+    <update id="orderCountMinus" parameterType="String" >
+        UPDATE ORDERS
+        SET ORDERCOUNT = ORDERCOUNT- 1, ORDERTOTALPRICE = - ORDERPRICE
         WHERE ORDERID = #{memberId}
           AND ORDERPRODUCTCODE = #{productCode}
     </update>

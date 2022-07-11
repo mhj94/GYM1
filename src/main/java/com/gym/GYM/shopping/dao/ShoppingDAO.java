@@ -54,11 +54,14 @@ public interface ShoppingDAO {
 
     List<OrdersDTO> basketOrdersPriceUpdate(String memberId, String productCode, String orderPrice);
 
+
     List<String> orderCountOutputAjax(String memberId, String productCode);
 
-    List<String> orderCountPlus(String memberId, String productCode, String orderPrice);
+    List<String> orderCountPlus(String memberId, String productCode,String orderPrice);
 
     List<PayDTO> shoppingHistoryList(String payId);
 
     List<PayDTO> payRegist(PayDTO pay);
+
+    List<String> orderCountMinus(String memberId, String productCode,String orderPrice);
 }

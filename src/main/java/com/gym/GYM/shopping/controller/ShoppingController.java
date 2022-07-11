@@ -24,14 +24,14 @@ public class ShoppingController {
     private ShoppingService shoppingsvc;
 
     private ModelAndView mav = new ModelAndView();
-    private boolean basketRegi1;
+
 
 
     // shoppionWishFrom : 찜한상품 보기 페이지
-    @GetMapping("/shoppingWishForm")
-    private ModelAndView shoppingWishForm(@RequestParam String memberId) {
-        mav = shoppingsvc.shoppingWishForm(memberId);
-        return mav;
+    @GetMapping("/ShoppingWishForm")
+    private String shoppingWishForm() {
+
+        return "Shopping/ShoppingWishForm";
     }
 
     //shoppingList
@@ -49,14 +49,6 @@ public class ShoppingController {
         return mav;
     }
 
-    //basketRegist: 찜 상품 장바구니에 담고 담겨있는 상품목록 가져오는 메소드
-    //오탈자 수정중 오류 발생하여 앞에 wish 추가 병합할 때까지 남겨놓기
-    @PostMapping("/basketRegist")
-    private @ResponseBody List<OrdersDTO> wishBasketRegist(@RequestParam String productCode, @RequestParam String memberId) {
-
-        basketList = shoppingsvc.basketList(productCode, memberId);
-        return basketList;
-    }
 
     //basketForm : 장바구니로 이동하는 메소드
     @GetMapping("/basketForm")
@@ -143,7 +135,6 @@ public class ShoppingController {
     @PostMapping("/basketOrdersPriceUpdate")
     private @ResponseBody List<OrdersDTO> basketOrdersPriceUpdate(@RequestParam String memberId, @RequestParam String productCode, @RequestParam String orderPrice) {
         List<OrdersDTO> basketListUpdate = new ArrayList<OrdersDTO>();
-        basketListUpdate = shoppingsvc.basketOrdersPriceUpdate(memberId, productCode, orderPrice);
         return basketListUpdate;
     }
 
@@ -183,14 +174,34 @@ public class ShoppingController {
         return orderCountOutputAjax;
     }
 
-//orderCountPlus: 장바구니에서 상품 수량 변경시 orders 테이블 count + 해주는 메소드
+//orderCountPlus: 장바구니에서 상품 수량 변경시 orders 테이블 count +
     @PostMapping("/orderCountPlus")
     private @ResponseBody List<String> orderCountPlus (@RequestParam String memberId, @RequestParam String productCode, @RequestParam String orderPrice){
-        System.out.println(productCode);
         List<String> orderCountPlus =new ArrayList<>();
-        orderCountPlus=shoppingsvc.orderCountPlus(memberId,productCode,orderPrice);
+        orderCountPlus=shoppingsvc.orderCountPlus(memberId,productCode, orderPrice);
 
         return orderCountPlus;
     }
+
+  //  orderCountMinus : 장바구니에서 상품 수량 변경시 orders 테이블 count -
+    @PostMapping("/orderCountMinus")
+    private @ResponseBody List<String> orderCountMinus (@RequestParam String memberId, @RequestParam String productCode, @RequestParam String orderPrice){
+        System.out.println(productCode);
+        List<String> orderCountMinus =new ArrayList<>();
+        orderCountMinus=shoppingsvc.orderCountMinus(memberId,productCode,orderPrice);
+
+        return orderCountMinus;
+    }
+
+    //wishListAjax : 찜한상품 리스트 불러오기
+
+    @GetMapping("/wishListAjax")
+    private @ResponseBody List<ProductDTO> wishListAjax(@RequestParam String memberId) {
+        List<ProductDTO> myWishList = new ArrayList<ProductDTO>();
+        myWishList=shoppingsvc.shoppingWishForm(memberId);
+
+        return myWishList;
+    }
+
 
 }

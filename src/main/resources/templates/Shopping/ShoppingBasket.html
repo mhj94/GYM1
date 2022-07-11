@@ -18,11 +18,11 @@
 </div>
 
 <th>총 금액</th>
-<th id="totalPayView"></th>
+<div id="totalPay"></div>
 <th>
     <button class="btn-open-popup">주문하기</button>
 
-    <button value="porductCodeTest" onclick="quantityView(product=this.value)">test</button>
+
 </th>
 
 
@@ -85,134 +85,96 @@
 
     function basketListOutput(basketList) {
         var output = "";
+        var total =0;
 
         output += "<table>";
         output += "<caption>장바구니</caption>";
         output += "<tr>";
         output += "<th>상품사진명</th>";
         output += "<th>상품이름</th>";
+        output += "<th>가격</th>";
         output += "<th>수량 더하기</th>";
         output += "<th>총 수량</th>";
         output += "<th>수량 빼기</th>";
-        output += "<th>가격</th>";
+        output += "<th>총가격</th>";
 
         output += "</tr>";
 
         for (var i in basketList) {
             output += "<tr>";
-            output += "<td><img src='ShoppingImg/basketList[i].productPhoto'</img></td>"
+            output += "<td><a href='shoppingView?productCode="+basketList[i].productCode+ "'><img src='ShoppingImg/"+basketList[i].productPhoto+"' style='width:100px'; height: 'auto';></a></td>";
             output += "<td>" + basketList[i].orderName + "</td>"
-            output += "<td><button id='minus" + i + "'  value='minus" + i + "' data-code='" + basketList[i].productCode + "'  data-price='" + basketList[i].orderPrice + "' onclick='quantityMinus(this.value)'>-</button> </td>"
-            output += "<td id='" + basketList[i].orderName +"'>수량표시</td>"
-            output += "<td><button id='plus" + i + "' value='plus" + i + "'  data-code='" + basketList[i].productCode + "' data-price='" + basketList[i].orderPrice + "'  onclick='quantityPlus(this.value)'>+</button> </td>"
-            output += "<td>" + basketList[i].orderPrice + " </td>"
+            output += "<td>" + basketList[i].orderPrice + "</td>"
+            output += "<td><button id='minus" + i + "'  value='minus" + i + "' data-code='" + basketList[i].productCode + "' data-count='" + basketList[i].orderCount + "' data-price='" + basketList[i].orderPrice + "' onclick='quantityMinus(this.value)'>-</button> </td>"
+            output += "<td id='" + basketList[i].orderName + "'>" + basketList[i].orderCount + "</td>"
+            output += "<td><button id='plus" + i + "' value='plus" + i + "'  data-code='" + basketList[i].productCode + "' data-count='" + basketList[i].orderCount + "' data-price='" + basketList[i].orderPrice + "'  onclick='quantityPlus(this.value)'>+</button> </td>"
+            output += "<td>" + basketList[i].orderCount * basketList[i].orderPrice + " </td>"
             output += "<td><button value='" + basketList[i].productCode + "' onclick='basketDelete(this.value)'>장바구니에서 빼기</button>"
+            total += parseInt(basketList[i].orderPrice)  * (basketList[i].orderCount);
         }
+
+        console.log(total+"원");
+
         // div 영역 reviewArea
         var reviewArea = document.getElementById("basketView");
         reviewArea.innerHTML = output;
-        quantity = parseInt(i);
-        console.log(basketList);
-        quantityOutput(quantity, basketList)
 
+        var totalArea = document.getElementById("totalPay");
+        totalArea.innerHTML = total +"원";
 
     }
 
-    // //List로 불러온 각각의 상품 수량 표시해주는 ajax
-    // function quantityOutput(quantity, basketList) {
-    //
-    //     quantityId.length = 1 + quantity;
-    //     quantityView.length = 1 + quantity;
-    //     outputArr.length = 1 + quantity;
-    //
-    //     for (var i = 0; i >= quantity; i++) {
-    //         quantityId[i] = i;
-    //     }
-    //     for (var i = 0; i <= quantity; i++) {
-    //         console.log(loginId);
-    //         $.ajax({
-    //             type: "GET",
-    //             url: "orderCountOutputAjax",
-    //             data: {
-    //                 "memberId": loginId,
-    //                 "productCode": basketList[i].productCode
-    //             },
-    //             dataType: "json",
-    //             success: function (orderCount) {
-    //                 console.log("orderCount:" + orderCount)
-    //
-    //                 for (var i = 0; i <= orderCount.length + 1; i++) {
-    //                     outputArr[i] = orderCount[i];
-    //                     quantityView[i] = i, toString()
-    //                     console.log(i);
-    //                     var reviewArea = document.getElementById(quantityView[i]);
-    //                     reviewArea.innerHTML = outputArr[i];
-    //                 }
-    //                 console.log(outputArr);
-    //             }, error: function (request, status, error) {
-    //                 alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-    //             }
-    //
-    //
-    //         })
-    //
-    //     }
-    //
-    // }
 
+    //수량 더하기 ajax
     function quantityPlus(plus) {
         var plusButton = document.getElementById(plus);
-
-        console.log(plusButton.dataset.code);
-        $.ajax({
-            type: "POST",
-            url: "orderCountPlus",
-            data: {
-                "memberId": loginId,
-                "productCode": plusButton.dataset.code,
-                "orderPrice" : plusButton.dataset.price
-            },
-            dataType: "jaon",
-            success: function () {
-                window.location.reload()
-
-            }, error: function () {
-                window.location.reload()
-
-            }
-
-        })
-
-
+        if (plusButton.dataset.count == 10) {
+            alert("최대 수량은 10개까지 입니다.")
+        } else {
+            $.ajax({
+                type: "POST",
+                url: "orderCountPlus",
+                data: {
+                    "memberId": loginId,
+                    "productCode": plusButton.dataset.code,
+                    "orderPrice": plusButton.dataset.price
+                },
+                dataType: "jaon",
+                success: function () {
+                    window.location.reload()
+                }, error: function () {
+                    window.location.reload()
+                }
+            })
+        }
     }
 
+    //수량 빼기 ajax
     function quantityMinus(minus) {
-
-
+        var minusButton = document.getElementById(minus);
+        if (minusButton.dataset.count == 1) {
+            alert("최수 수량은  1개입니다.")
+        } else {
+            $.ajax({
+                type: "POST",
+                url: "orderCountMinus",
+                data: {
+                    "memberId": loginId,
+                    "productCode": minusButton.dataset.code,
+                    "orderPrice" : minusButton.dataset.price
+                },
+                dataType: "jaon",
+                success: function () {
+                    window.location.reload()
+                }, error: function () {
+                    window.location.reload()
+                }
+            })
+        }
     }
 
-
-    function totalPay(totalValue) {
-        var totalP = +totalValue;
-
-        var output = "";
-
-        output += "<tr>"
-        output += "<td>" + totalP + "</td>"
-        output += "</tr>"
-
-        // div 영역 reviewArea
-        var reviewArea = document.getElementById("totalPayView");
-
-        // reviewArea에 output 내용 넣기
-        reviewArea.innerHTML = output;
-
-
-    }
-
-
+    //기존 주소 불러오는 ajax
     $('#addrBtn').click(function () {
-
         $.ajax({
             type: "GET",
             url: "addressInputAjax",
@@ -226,19 +188,14 @@
         })
     })
 
-
     function addressView(address) {
-
         output = addrView1;
-
-
         console.log(addrView1);
         // div 영역 reviewArea
         var reviewArea = document.getElementById("addressInput");
         // reviewArea에 output 내용 넣기
         reviewArea.innerHTML = output;
     }
-
 
     $("#btn-open-popup").click(function modal() {
         const body = document.querySelector('body');

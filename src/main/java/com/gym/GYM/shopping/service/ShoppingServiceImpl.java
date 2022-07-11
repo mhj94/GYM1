@@ -31,8 +31,9 @@ public class ShoppingServiceImpl implements ShoppingService {
     List<OrdersDTO> basketDTOList = new ArrayList<OrdersDTO>();
 
     //shoppingWishForm으로 이동하는 메소드
+    //ajax로 써야함.
     @Override
-    public ModelAndView shoppingWishForm(String memberId) {
+    public  List<ProductDTO> shoppingWishForm(String memberId) {
 
         List<ProductDTO> productDTOList = new ArrayList<ProductDTO>();
 
@@ -63,14 +64,9 @@ public class ShoppingServiceImpl implements ShoppingService {
                 //	productDTOList1.addAll(i,productDTOList);
                 //     System.out.println(productDTOList);
             }
-            mav.addObject("productDTOList", productDTOList);
-            //	System.out.println(productDTOList1);
-            mav.setViewName("Shopping/ShoppingWishForm");
-
         } else {
-            mav.setViewName("redirect:/Shopping/shoppingMainForm");
         }
-        return mav;
+        return productDTOList;
     }
 
     @Override
@@ -143,7 +139,9 @@ public class ShoppingServiceImpl implements ShoppingService {
     //상세보기에 장바구니에 해당 상품삭제  ajax 메소드
     @Override
     public List<String> basketDelete(String memberId, String productCode) {
+        System.out.println("장바구니 삭제 메소드"+memberId+productCode);
         shoppingdao.basketDelete(memberId, productCode);
+
         List<String> basketInquire = new ArrayList<>();
         basketInquire = shoppingdao.basketInquire(memberId, productCode);
 
@@ -160,17 +158,6 @@ public class ShoppingServiceImpl implements ShoppingService {
         basketInquire = shoppingdao.basketInquire(memberId, productCode);
         return basketInquire;
     }
-
-    //basketOrdersPriceUpdate : 장바구니에서 수량 선택시 order테이블 orderPrice update
-    @Override
-    public List<OrdersDTO> basketOrdersPriceUpdate(String memberId, String productCode, String orderPrice) {
-        List<OrdersDTO> basketOrdersPriceUpdate = new ArrayList<OrdersDTO>();
-        //String orderCode =shoppingdao.bascketSelectOdredrCode(memberId)
-        basketOrdersPriceUpdate = shoppingdao.basketOrdersPriceUpdate(memberId, productCode, orderPrice);
-        return basketOrdersPriceUpdate;
-    }
-
-
 
     //basketView 장바구니 보는 메소드
     @Override
@@ -204,6 +191,7 @@ public class ShoppingServiceImpl implements ShoppingService {
     public ModelAndView basketPayment(String memberId, String addr, String coment) {
         System.out.println("서비스 요청사항:" + coment);
         System.out.println("서비스 주소:" + addr);
+
         mav = shoppingdao.basketPayment(memberId, addr, coment);
         mav.setViewName("Shopping/ShoppingPayment");
 
@@ -230,10 +218,21 @@ public class ShoppingServiceImpl implements ShoppingService {
     @Override
     public List<String> orderCountPlus(String memberId, String productCode, String orderPrice) {
         List<String> orderCountPlus= new ArrayList<>();
-        orderCountPlus=shoppingdao.orderCountPlus(memberId,productCode, orderPrice);
+        orderCountPlus=shoppingdao.orderCountPlus(memberId,productCode,orderPrice);
 
         return orderCountPlus;
     }
+
+    @Override
+    public List<String> orderCountMinus(String memberId, String productCode, String orderPrice) {
+        List<String> orderCountMinus= new ArrayList<>();
+        orderCountMinus=shoppingdao.orderCountMinus(memberId,productCode, orderPrice);
+
+
+        return orderCountMinus;
+    }
+
+
 
 
     @Override
@@ -250,6 +249,8 @@ public class ShoppingServiceImpl implements ShoppingService {
 
         return payList;
     }
+
+
 
 
 }

@@ -11,7 +11,7 @@ import java.util.List;
 public interface ShoppingService {
 
 
-	ModelAndView shoppingWishForm(String memberId);
+    List<ProductDTO> shoppingWishForm(String memberId);
 
     ModelAndView shoppingList();
 
@@ -33,7 +33,6 @@ public interface ShoppingService {
 
     List<String> basketRegistAjax(String memberId, String productCode, String orderPrice, String orderName);
 
-    List<OrdersDTO> basketOrdersPriceUpdate(String memberId, String productCode, String orderPrice);
 
     List<String> addressInputAjax(String memberId);
 
@@ -50,5 +49,7 @@ public interface ShoppingService {
     ModelAndView shoppingHistoryList(String payId);
 
     List<PayDTO> payRegist(PayDTO pay);
+
+    List<String> orderCountMinus(String memberId, String productCode, String orderPrice);
 }
 

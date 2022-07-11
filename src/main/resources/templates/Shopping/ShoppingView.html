@@ -72,8 +72,6 @@
 </div>
 <br/><br/>
 
-<button onclick='location.href = "ShoppingPayment"'>바로구매</button>
-
 <div id="wishDeleteDiv">
     <button id='wishDelete'>찜에서 빼기</button>
 </div>
@@ -91,7 +89,8 @@
     <button id='basketRegist'>내 장바구니에 넣기</button>
 </div>
 
-
+<div>     <button th:if ="${session.login != null}" th:onclick ="|location.href='@{shoppingWishForm}'|">내 찜목록</button>
+    <button th:if ="${session.login != null}" th:onclick = "|location.href='@{basketForm}'|">장바구니로 가기</button>
 <br/>
 <br/><span>별점 선택</span>
 <input type="radio" name="productReviewRate" value="1" id="rate1"><label
@@ -412,8 +411,6 @@
     //  찜하기 function 찜 목록에 존재하는지 확인하는 ajax
     $(document).ready(function () {
 
-
-
         $.ajax({
             type: "POST",
             url: "/wishInquire",
@@ -424,7 +421,7 @@
             dataType: "json",
             success: function (wishInquire) {
                 wishButtonView = wishInquire.length;
-
+console.log(wishButtonView);
                 if (wishButtonView > 0) {
                     //찜에서 빼기 버튼 활성화
                     document.getElementById("wishRegistDiv").style.display = "none";

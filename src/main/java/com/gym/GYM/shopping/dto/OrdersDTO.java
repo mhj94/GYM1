@@ -38,6 +38,7 @@ public class OrdersDTO {
     private String orderCount;
     private String orderName;
     private int orderPrice;
+    private int orderTotalPrice;
 
 
 

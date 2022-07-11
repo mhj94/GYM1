@@ -13,5 +13,6 @@ public class BasketDTO {
     private String orderName;
     private String orderPrice;
     private String orderCount;
+    private String orderTotalPrice;
 
 }
