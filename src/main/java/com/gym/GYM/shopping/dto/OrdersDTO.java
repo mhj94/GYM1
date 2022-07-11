@@ -21,6 +21,7 @@ public class OrdersDTO {
     ORDERDELIVERY			NVARCHAR2(6),			        -- 배송상황
     ORDERDDAY				DATE,					        -- 배송일
     ORDERPAYSELECT			NVARCHAR2(30),                  -- 결제 수단
+    ORDERNAME               NVARCHAR2(30),                  --주문이름
     ORDERCOUNT              NVARCHAR2(5),                   -- 주문 수량
     ORDERPRICE              NVARCHAR2(5)                    -- 주문 가격
     */
@@ -37,7 +38,9 @@ public class OrdersDTO {
     private Date orderDay;
     private String orderPaySelect;
     private String orderCount;
+    private String orderName;
     private int orderPrice;
+    private int orderTotalPrice;
 
 
 

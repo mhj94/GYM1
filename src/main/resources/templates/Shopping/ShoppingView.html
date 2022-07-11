@@ -16,8 +16,6 @@
 
 <table>
     <img th:src="@{/ShoppingImg/123.png}" width="100dp" height="100dp"/>
-<table>
-  <img th:src="@{/ShoppingImg/123.png}" width="100dp" height="100dp"/>
 
     <tr>
         <th></th>
@@ -50,78 +48,49 @@
         </td>
     </tr>
 </table>
-  <tr>
-    <th></th>
-    <td th:text="${view.productName}"></td>
-  </tr>
-  <tr>
-    <th>중량</th>
-    <td th:text="${view.productWeight}"></td>
-  </tr>
-  <tr>
-    <th>상품설명</th>
-    <td th:text="${view.productComment}"></td>
-  </tr>
-  <tr>
-    <th>가격</th>
-    <td th:text="${view.productPrice}"></td>
-  </tr>
-  <tr>
-    <th>조회수</th>
-    <td th:text="${view.productHits}"></td>
-  </tr>
-  <tr>
-    <input id="productCode" type="hidden" th:value="${view.productCode}"/>
-  </tr>
-  <tr>
-    <th>리뷰 등록</th>
-    <td><textarea rows="1" cols="70" id="productReviewContent" placeholder="리뷰를 작성해주세요."></textarea>
-      <button id="reviewBtn">리뷰 등록</button>
-    </td>
-  </tr>
-</table>
 
 <br/>
 <div>
     <span>상품 수량 선택</span><br/>
     <select name="productName" onchange="productOrder(this)">
-        <option th:value="${view.productName} + '5팩' + ${view.productPrice} * 5 + '원'"
-                th:text="${view.productName} + '5팩'"></option>
-        <option th:value="${view.productName} + '10팩' + ${view.productPrice} * 10 + '원'"
-                th:text="${view.productName} + '10팩'"></option>
-        <option th:value="${view.productName} + '15팩' + ${view.productPrice} * 15 + '원'"
-                th:text="${view.productName} + '15팩'"></option>
-        <option th:value="${view.productName} + '20팩' + ${view.productPrice} * 20 + '원'"
-                th:text="${view.productName} + '20팩'"></option>
+        <option>상품 수량을 선택해주세요</option>
+        <option th:id="${view.productPrice} * 5" th:value="${view.productPrice} * 5"
+                th:text="${view.productName} + '5팩'" th:class="5" th:data-count="${view.productName} + '5팩'"></option>
+        <option th:id="${view.productPrice} * 10" th:value="${view.productPrice} * 10"
+                th:text="${view.productName} + '10팩'" th:class="10"
+                th:data-count="${view.productName} + '10팩'"></option>
+        <option th:id="${view.productPrice} * 15" th:value="${view.productPrice} * 15"
+                th:text="${view.productName} + '15팩'" th:class="15"
+                th:data-count="${view.productName} + '15팩'"></option>
+        <option th:id="${view.productPrice} * 20" th:value="${view.productPrice} * 20"
+                th:text="${view.productName} + '20팩'" th:class="20"
+                th:data-count="${view.productName} + '20팩'"></option>
     </select>
-    <div id='result' style="float: right"></div>
+    <div id='result' style="float: right">
+
+    </div>
 </div>
 <br/><br/>
 
-<button onclick='location.href = "ShoppingPayment"'>바로구매</button>
-
 <div id="wishDeleteDiv">
     <button id='wishDelete'>찜에서 빼기</button>
-
 </div>
 
 <div id="wishRegistDiv">
-
     <button id='wishRegist'>내 찜에 넣기</button>
 </div>
 
 
 <div id="basketDeleteDiv">
     <button id='basketDelete'>장바구니에서 빼기</button>
-
 </div>
 
 <div id="basketRegisterDiv">
-
     <button id='basketRegist'>내 장바구니에 넣기</button>
 </div>
 
-
+<div>     <button th:if ="${session.login != null}" th:onclick ="|location.href='@{shoppingWishForm}'|">내 찜목록</button>
+    <button th:if ="${session.login != null}" th:onclick = "|location.href='@{basketForm}'|">장바구니로 가기</button>
 <br/>
 <br/><span>별점 선택</span>
 <input type="radio" name="productReviewRate" value="1" id="rate1"><label
@@ -143,7 +112,6 @@
     <div class="modal_body">
         <h1 id="wishRegistModel">추가되었습니다!</h1>
 
-
         <p>장바구니로 가시겠습니까?</p>
 
         <button th:onclick="|location.href='@{basketForm}'|">예</button>
@@ -154,66 +122,44 @@
 </body>
 
 
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-<script>
-    function productOrder(e) {
-        // 선택된 데이터 가져오기
-        const value = e.value;
 
-        // 데이터 출력
-        document.getElementById('result').innerText
-            = value;
-    }
-</script>
-
-    price1 = value;
-    console.log(price1);
-  }
-
-    $('#productBtn').click(function () {
-      price1 = String(price1);
-      var loginId = $("#memberId").val();
-      if (!loginId) {
-        alert('로그인 이후 사용할 수 있습니다.');
-        location.href = "index";
-      } else {
-        var orderId = loginId;
-        var productCode = document.getElementById("productCode").value;
-
-        $.ajax({
-          type: "POST",
-          url: "basketRegist1",
-          data: {
-            "productCode": productCode,
-            "orderPrice": price1,
-            "orderId": orderId
-          },
-          dataType: "json",
-          success: function () {
-            location.href = "ShoppingBasket";
-            reload();
-          },
-          error: function () {
-
-          }
-        });
-
-      }
-    });
 
 <script th:inline="javascript">
-    var login = [[${session.login.memberId}]];
 
-    var productCode = document.getElementById("productCodeView").value;
+    var login = [[${session.login.memberId}]];
 
     var wishButtonView = 0;
 
+    var productCode = [[${view.productCode}]];
+
+    var orderPrice;
+
+    var productCount;
+
+    var orderNameRegist;
+
+    function productOrder(e) {
+        // 선택된 데이터 가져오기
+        const value = e.value;
+        orderPrice = (e.value).toString();
+        console.log("orderPrice"+ orderPrice);
+
+        productCount = $(this).attr('class');
+        var orderName = document.getElementById(e.value);
+        orderNameRegist = orderName.dataset.count;
+
+
+        const output = e.value + '원';
+
+        // 데이터 출력
+        document.getElementById('result').innerText
+            = output;
+    }
+
     $(document).ready(function () {
-
-      // 리뷰 목록
-
+        // 리뷰 목록
         $.ajax({
             type: "POST",
             url: "review/reviewList",
@@ -237,13 +183,12 @@
                 var productReviewWriter = loginId;
                 var productCode = document.getElementById("productCode").value;
                 var productReviewContent = $('#productReviewContent').val();
-                var productReviewRate = $('input[name="productReviewRate"]:checked').val();
+                var productReviewRate = Math.round($('input[name="productReviewRate"]:checked').val());
 
                 console.log(productReviewWriter);
                 console.log(productCode);
                 console.log(productReviewContent);
                 console.log(productReviewRate);
-
 
                 $.ajax({
                     type: "POST",
@@ -274,15 +219,15 @@
         var output = "";
         var loginId = [[${session.login.memberId}]];
 
-          output += "<table>";
-          output += "<tr>";
-          output += "<th><작성자></th>";
-          output += "<th><내용></th>";
-          output += "<th><별점></th>";
-          output += "<th><작성일></th>";
-          output += "</tr>";
+        output += "<table>";
+        output += "<tr>";
+        output += "<th><작성자></th>";
+        output += "<th><내용></th>";
+        output += "<th><별점></th>";
+        output += "<th><작성일></th>";
+        output += "</tr>";
 
-          for (var i in list) {
+        for (var i in list) {
             output += "<tr>";
             output += "<td>" + list[i].productReviewWriter + "</td>";
             output += "<td>" + list[i].productReviewContent + "</td>";
@@ -290,107 +235,57 @@
             output += "<td>" + list[i].productReviewDate + "</td>";
 
             if (list[i].productReviewWriter == loginId) {
-              output += "<td><button onclick=reviewModify(" + list[i].productReviewNo + ",'" + list[i].productCode + "')>수정</button></td>";
+                output += "<td><button onclick=reviewModify(" + list[i].productReviewNo + ",'" + list[i].productCode + "')>수정</button></td>";
             } else {
-              output += "<td><button onclick=reviewModify(" + list[i].productReviewNo + ",'" + list[i].productCode + "')>수정</button></td>";
+                output += "<td><button onclick=reviewModify(" + list[i].productReviewNo + ",'" + list[i].productCode + "')>수정</button></td>";
             }
 
             // 작성자와 로그인한 아이디가 같거나 관리자일 경우에만 삭제 가능
             if (list[i].productReviewWriter == loginId || loginId == 'admin111') {
-              output += "<td><button onclick=reviewDelete(" + list[i].productReviewNo + ",'" + list[i].productCode + "')>삭제</button></td>";
+                output += "<td><button onclick=reviewDelete(" + list[i].productReviewNo + ",'" + list[i].productCode + "')>삭제</button></td>";
             } else {
-              output += "<td><button>삭제</button></td>";
+                output += "<td><button>삭제</button></td>";
             }
 
             output += "</tr>";
-          }
-          output += "</table>";
-
-          // div 영역 reviewArea
-          var reviewArea = document.getElementById("reviewArea");
-
-          // reviewArea에 output 내용 넣기
-          reviewArea.innerHTML = output;
         }
+        output += "</table>";
 
-        // 리뷰 삭제
-        function reviewDelete(productReviewNo, productCode) {
-          var check = confirm('리뷰를 삭제하시겠습니까?');
-          var productCode = [[${view.productCode}]];
+        // div 영역 reviewArea
+        var reviewArea = document.getElementById("reviewArea");
 
-          if (check) {
+        // reviewArea에 output 내용 넣기
+        reviewArea.innerHTML = output;
+    }
+
+    // 리뷰 삭제
+    function reviewDelete(productReviewNo, productCode) {
+        var check = confirm('리뷰를 삭제하시겠습니까?');
+        var productCode = [[${view.productCode}]];
+
+        if (check) {
             $.ajax({
-              type: "POST",
-              url: "review/reviewDelete",
-              data: {"productReviewNo": productReviewNo, "productCode": productCode},
-              dataType: "json",
-              success: function (list) {
-                reviewList(list);
-                reload();
-              },
-              error: function () {
-                alert('리뷰 삭제 실패');
-              }
+                type: "POST",
+                url: "review/reviewDelete",
+                data: {"productReviewNo": productReviewNo, "productCode": productCode},
+                dataType: "json",
+                success: function (list) {
+                    reviewList(list);
+                    reload();
+                },
+                error: function () {
+                    alert('리뷰 삭제 실패');
+                }
             });
-          }
         }
+    }
 
-        //리뷰 수정
-        function reviewModify(productReviewNo, productCode) {
-          var check = confirm('리뷰를 수정하시겠습니까?');
-          var productReviewContent = $('#productReviewContent').val();
-          var productCode = [[${view.productCode}]];
-          var productReviewRate = $('input[name="productReviewRate"]:checked').val();
-
-          if (check) {
-            $.ajax({
-              type: "POST",
-              url: "review/reviewModify",
-              data: {
-                "productReviewNo": productReviewNo,
-                "productCode": productCode,
-                "productReviewContent": productReviewContent,
-                "productReviewRate": productReviewRate
-              },
-              dataType: "json",
-              success: function (list) {
-                reviewList(list);
-                reload();
-              },
-              error: function () {
-                alert('리뷰 수정 실패');
-              }
-            });
-          }
-
-          function reload() {
-            history.go(0);
-          }
-  }
-
-    const body = document.querySelector('body');
-    const modal = document.querySelector('.modal');
-    const btnOpenPopup = document.querySelector('.btn-open-popup');
-
-    btnOpenPopup.addEventListener('click', () => {
-    modal.classList.toggle('show');
-
-    if (modal.classList.contains('show')) {
-    body.style.overflow = 'hidden';
-  }
-  });
-
-    modal.addEventListener('click', (event) => {
-    if (event.target === modal) {
-    modal.classList.toggle('show');
-
-    if (!modal.classList.contains('show')) {
-    body.style.overflow = 'auto';
-  }
-  }
-  });
-
-
+    //리뷰 수정
+    function reviewModify(productReviewNo, productCode) {
+        var check = confirm('리뷰를 수정하시겠습니까?');
+        var productReviewContent = $('#productReviewContent').val();
+        var productCode = [[${view.productCode}]];
+        var productReviewRate = $('input[name="productReviewRate"]:checked').val();
 
         if (check) {
             $.ajax({
@@ -419,7 +314,6 @@
     }
 
     //장바구니에 존재하는지 확인하는 메소드
-
     $(document).ready(function () {
 
         $.ajax({
@@ -432,8 +326,9 @@
             dataType: "json",
             success: function (basketInquire) {
                 var basketButtonView = basketInquire.length;
-                console.log(basketButtonView);
-                if (basketButtonView == 0) {
+
+
+                if (basketButtonView > 0) {
                     //찜에서 빼기 버튼 활성화
                     document.getElementById("basketRegisterDiv").style.display = "none";
                 } else {
@@ -443,69 +338,77 @@
                 }
 
             }, error: function () {
+                alert("장바구니에 있는지 확인 불가");
             }
 
         })
     })
 
 
-        //장바구니에서  빼기 ajax
-        $('#basketDelete').click(function () {
-            $.ajax({
-                type: "POST",
-                url: "/basketDelete",
-                data: {
-                    "memberId": login,
-                    "productCode": productCode
-                },
-                dataType: "json",
-                success: function () {
-                    const modalView = 0;
-                    basketButtonViewAjax(modalView);
-                }, error: function () {
-                    alert("장바구니에서 제거 실패")
+    //장바구니에서  빼기 ajax
+    $('#basketDelete').click(function () {
+        $.ajax({
+            type: "POST",
+            url: "/basketDelete",
+            data: {
+                "memberId": login,
+                "productCode": productCode
+            },
+            dataType: "json",
+            success: function () {
+                const modalView = 0;
+                basketButtonViewAjax(modalView);
+            }, error: function () {
+                alert("장바구니에서 제거 실패")
 
-                }
-            })
-
-        });
-
-        //장바구니에 넣기 ajax
-        $('#basketRegist').click(function () {
-
-            $.ajax({
-                type: "POST",
-                url: "/basketRegist",
-                data: {
-                    "memberId": login,
-                    "productCode": productCode
-                },
-                dataType: "json",
-                success: function () {
-                    const modalView = 1;
-                    basketButtonViewAjax(modalView);
-                    modal(modalView)
-                }, error: function () {
-                    alert("장바구니에 추가 실패")
-
-                }
-            })
-        });
-
-        function basketButtonViewAjax(modalView) {
-
-            if (modalView > 0) {
-                document.getElementById("basketRegisterDiv").style.display = "none";
-                document.getElementById("basketDeleteDiv").style.display = "";
-
-            } else {
-                document.getElementById("basketDeleteDiv").style.display = "none";
-                document.getElementById("basketRegisterDiv").style.display = "";
             }
+        })
 
+    });
+
+    //장바구니에 넣기 ajax
+    $('#basketRegist').click(function () {
+
+        console.log("장바구니 등록");
+        console.log(productCode);
+        console.log(orderPrice);
+        console.log(orderNameRegist);
+
+        $.ajax({
+            type: "POST",
+            url: "/basketRegistAjax",
+            data: {
+                "memberId": login,
+                "productCode": productCode,
+                "orderPrice": orderPrice,
+                "orderName": orderNameRegist
+            },
+            dataType: "json",
+            success: function () {
+                const modalView = 1;
+                basketButtonViewAjax(modalView);
+                modal(modalView)
+            }, error: function () {
+                alert("수량을 먼저 선택해주세요")
+
+            }
+        })
+    });
+
+    function basketButtonViewAjax(modalView) {
+
+        if (modalView > 0) {
+            document.getElementById("basketRegisterDiv").style.display = "none";
+            document.getElementById("basketDeleteDiv").style.display = "";
+
+        } else {
+            document.getElementById("basketDeleteDiv").style.display = "none";
+            document.getElementById("basketRegisterDiv").style.display = "";
         }
 
-  //  찜하기 function 찜 목록에 존재하는지 확인하는 ajax
+    }
+
+    //  찜하기 function 찜 목록에 존재하는지 확인하는 ajax
     $(document).ready(function () {
 
         $.ajax({
@@ -518,7 +421,7 @@
             dataType: "json",
             success: function (wishInquire) {
                 wishButtonView = wishInquire.length;
-
+console.log(wishButtonView);
                 if (wishButtonView > 0) {
                     //찜에서 빼기 버튼 활성화
                     document.getElementById("wishRegistDiv").style.display = "none";
@@ -535,7 +438,7 @@
     })
 
 
-   // 찜에서 빼기 ajax
+    // 찜에서 빼기 ajax
     $('#wishDelete').click(function () {
         $.ajax({
             type: "POST",
@@ -557,7 +460,7 @@
 
     });
 
-   // 찜에 넣기 ajax
+    // 찜에 넣기 ajax
     $('#wishRegist').click(function () {
 
         $.ajax({
@@ -586,11 +489,9 @@
         if (modal.classList.contains('show')) {
             body.style.overflow = 'hidden';
         }
-
         modal.addEventListener('click', (event) => {
             if (event.target === modal) {
                 modal.classList.toggle('show');
-
 
                 if (!modal.classList.contains('show')) {
                     body.style.overflow = 'auto';
@@ -599,7 +500,7 @@
         })
     }
 
-    $('#modelClose').click(function (){
+    $('#modelClose').click(function () {
 
         modal.addEventListener('click', (event) => {
             if (event.target === modal) {
@@ -612,7 +513,5 @@
             }
         })
     })
-
-
 </script>
 </html>

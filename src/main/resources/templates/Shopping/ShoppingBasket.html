@@ -8,53 +8,46 @@
     <meta name="description" content="해당 html에 대한 설명"/>
     <meta name="date" content="2022.05.25">
     <title>장바구니</title>
-    <link rel = "stylesheet" type = "text/css" href = "css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-<h1>Bascket</h1>
+<h1>Basket</h1>
+<h3 th:if="${session.login !=null}" th:text="${session.login.memberId}"></h3>
+<h3 th:if="${session.login !=null}" th:text="${session.login.memberRole}"></h3>
 <div id="basketView">
-
-
 </div>
 
 <th>총 금액</th>
-<th id="totalPayView"></th>
+<div id="totalPay"></div>
 <th>
     <button class="btn-open-popup">주문하기</button>
+
+
 </th>
 
 
 <div class="modal">
     <div class="modal_body">
-
         <h1 id="">상품구매 정보입력!</h1>
         <form action="/basketPayment" method="post">
             <table>
-        <tr>
-            <th>주소지 입력</th>
-            <td><textarea id="addressInput" name="addr"></textarea></td>
-            <td>
-
-            </td>
-        </tr>
-
-
-            <th>주문 요청사항을 입력해주세요</th>
-        <tr>
-            <td>ex)부재시 경비실에 맡겨주세요</td>
-            <td><textarea name="coment"></textarea></td>
-        </tr>
-
-
-
-        <p>주문하시겠습니까?</p>
-        <input type="submit" value="예">
-        <input type="button" name="continue" value="아니요" onclick="top.location.reload();">
+                <input type="hidden" value="+${session.login.memberId}+" name="memberId">
+                <th>주소지 입력</th>
+                <td><textarea id="addressInput" name="addr"></textarea></td>
+                <th>주문 요청사항을 입력해주세요</th>
+                <tr>
+                    <td>ex)부재시 경비실에 맡겨주세요</td>
+                    <td><textarea name="coment"></textarea></td>
+                </tr>
+                <p>주문하시겠습니까?</p>
+                <input type="submit" value="예">
+                <input type="button" name="continue" value="아니요" onclick="top.location.reload();">
             </table>
         </form>
-<!-- 주소지 불러오기 버튼 from안에 있으면 POST화 되어서 빼놈 POST로 주소지 불러오면 오류남       -->
+        <!-- 주소지 불러오기 버튼 from안에 있으면 POST화 되어서 빼놈 POST로 주소지 불러오면 오류남       -->
         <button th:id="addrBtn">주소지 불러오기</button>
     </div>
+
 
 </div>
 
@@ -69,120 +62,119 @@
 <script th:inline="javascript">
     const loginId = [[${session.login.memberId}]];
     var totalValue;
-
     var addrView1;
+    var quantity;
+    var quantityId = [];
+    var quantityView = [];
+    var outputArr = [];
 
-
-    $(document).ready(function (){
+    $(document).ready(function () {
 
         $.ajax({
-            type : "GET",
-            url : "myBasketListAjax",
-            data : {"memberId": loginId},
-            dataType : "json",
-            success: function (basketList){
+            type: "GET",
+            url: "myBasketListAjax",
+            data: {"memberId": loginId},
+            dataType: "json",
+            success: function (basketList) {
                 basketListOutput(basketList);
-            },error: function (){
+            }, error: function () {
 
             }
         })
     })
 
-    function basketListOutput(basketList){
+    function basketListOutput(basketList) {
         var output = "";
+        var total =0;
 
+        output += "<table>";
+        output += "<caption>장바구니</caption>";
+        output += "<tr>";
+        output += "<th>상품사진명</th>";
+        output += "<th>상품이름</th>";
+        output += "<th>가격</th>";
+        output += "<th>수량 더하기</th>";
+        output += "<th>총 수량</th>";
+        output += "<th>수량 빼기</th>";
+        output += "<th>총가격</th>";
 
+        output += "</tr>";
 
-
-        output+= "<table>";
-        output+="<caption>장바구니</caption>";
-        output+="<tr>";
-        output+="<th>상품사진명</th>";
-        output+="<th>상품이름</th>";
-        output+="<th>상품평점</th>";
-        output+="<th>수량 및 가격 선택</th>";
-
-        output+="</tr>";
-
-
-        for(var i in basketList ){
-            output+="<tr>";
-            output+="<td><img src='ShoppingImg/basketList[i].productPhoto'</img></td>"
-            output+="<td>"+basketList[i].productName+"</td>"
-            output+="<td>"+basketList[i].productRate+"</td>"
-
-            output+="<td><select onchange='opchan(this)' class='productOrder'>" +
-                "" +
-                "<option value='+basketList[i].productCode+' >수량과 가격을 선택해주세요</option>" +
-                "<option value='+basketList[i].productName *5 +' >"+basketList[i].productName+ '5팩'+basketList[i].productName *5 +'원'+"</option>" +
-                "<option value='+basketList[i].productName *5 +' >"+basketList[i].productName+ '10팩'+basketList[i].productName *10 +'원'+"</option>" +
-                "<option value='+basketList[i].productName *5 +' >"+basketList[i].productName+ '15팩'+basketList[i].productName *15 +'원'+"</option>" +
-                "<option value='+basketList[i].productName *5' + >"+basketList[i].productName+ '20팩'+basketList[i].productName *20 +'원'+"</option>" +
-                "</select></td>";
-            output+="<td><button value='+basketList[i].productCode+' onclick='basketDelete(this.value())'>장바구니에서 빼기</button>"
+        for (var i in basketList) {
+            output += "<tr>";
+            output += "<td><a href='shoppingView?productCode="+basketList[i].productCode+ "'><img src='ShoppingImg/"+basketList[i].productPhoto+"' style='width:100px'; height: 'auto';></a></td>";
+            output += "<td>" + basketList[i].orderName + "</td>"
+            output += "<td>" + basketList[i].orderPrice + "</td>"
+            output += "<td><button id='minus" + i + "'  value='minus" + i + "' data-code='" + basketList[i].productCode + "' data-count='" + basketList[i].orderCount + "' data-price='" + basketList[i].orderPrice + "' onclick='quantityMinus(this.value)'>-</button> </td>"
+            output += "<td id='" + basketList[i].orderName + "'>" + basketList[i].orderCount + "</td>"
+            output += "<td><button id='plus" + i + "' value='plus" + i + "'  data-code='" + basketList[i].productCode + "' data-count='" + basketList[i].orderCount + "' data-price='" + basketList[i].orderPrice + "'  onclick='quantityPlus(this.value)'>+</button> </td>"
+            output += "<td>" + basketList[i].orderCount * basketList[i].orderPrice + " </td>"
+            output += "<td><button value='" + basketList[i].productCode + "' onclick='basketDelete(this.value)'>장바구니에서 빼기</button>"
+            total += parseInt(basketList[i].orderPrice)  * (basketList[i].orderCount);
         }
+
+        console.log(total+"원");
 
         // div 영역 reviewArea
         var reviewArea = document.getElementById("basketView");
-
-        // reviewArea에 output 내용 넣기
         reviewArea.innerHTML = output;
 
-
-
-
-    }
-
-    function opchan(e) {
-
-        var value1 = e[0].value;
-
-        var value5 = e.value;
-        totalValue = +value5;
-
-        totalPay(totalValue);
-
-
-        $.ajax({
-            type: "POST",
-            url: "basketOrdersPriceUpdate",
-            data: {
-                "memberId": loginId,
-                "productCode": value1,
-                "orderPrice": value5
-            },
-            dataType: "json",
-            success: function (list) {
-
-            }, error: function () {
-
-
-            }
-        })
-    }
-
-
-    function totalPay(totalValue) {
-        var totalP = +totalValue;
-
-        var output = "";
-
-        output += "<tr>"
-        output += "<td>" + totalP + "</td>"
-        output += "</tr>"
-
-        // div 영역 reviewArea
-        var reviewArea = document.getElementById("totalPayView");
-
-        // reviewArea에 output 내용 넣기
-        reviewArea.innerHTML = output;
-
+        var totalArea = document.getElementById("totalPay");
+        totalArea.innerHTML = total +"원";
 
     }
 
 
-    $('#addrBtn').click( function() {
+    //수량 더하기 ajax
+    function quantityPlus(plus) {
+        var plusButton = document.getElementById(plus);
+        if (plusButton.dataset.count == 10) {
+            alert("최대 수량은 10개까지 입니다.")
+        } else {
+            $.ajax({
+                type: "POST",
+                url: "orderCountPlus",
+                data: {
+                    "memberId": loginId,
+                    "productCode": plusButton.dataset.code,
+                    "orderPrice": plusButton.dataset.price
+                },
+                dataType: "jaon",
+                success: function () {
+                    window.location.reload()
+                }, error: function () {
+                    window.location.reload()
+                }
+            })
+        }
+    }
 
+    //수량 빼기 ajax
+    function quantityMinus(minus) {
+        var minusButton = document.getElementById(minus);
+        if (minusButton.dataset.count == 1) {
+            alert("최수 수량은  1개입니다.")
+        } else {
+            $.ajax({
+                type: "POST",
+                url: "orderCountMinus",
+                data: {
+                    "memberId": loginId,
+                    "productCode": minusButton.dataset.code,
+                    "orderPrice" : minusButton.dataset.price
+                },
+                dataType: "jaon",
+                success: function () {
+                    window.location.reload()
+                }, error: function () {
+                    window.location.reload()
+                }
+            })
+        }
+    }
+
+    //기존 주소 불러오는 ajax
+    $('#addrBtn').click(function () {
         $.ajax({
             type: "GET",
             url: "addressInputAjax",
@@ -190,25 +182,20 @@
             dataType: "json",
             success: function (address) {
                 addressView(address)
-                addrView1=address;
+                addrView1 = address;
             }, error: function () {
             }
         })
     })
 
-
     function addressView(address) {
-
-        output =addrView1;
-
-
+        output = addrView1;
         console.log(addrView1);
         // div 영역 reviewArea
         var reviewArea = document.getElementById("addressInput");
         // reviewArea에 output 내용 넣기
         reviewArea.innerHTML = output;
     }
-
 
     $("#btn-open-popup").click(function modal() {
         const body = document.querySelector('body');
@@ -229,6 +216,24 @@
             }
         })
     })
+
+    //장바구니에서  빼기 ajax
+    function basketDelete(productCode) {
+        $.ajax({
+            type: "POST",
+            url: "/basketDelete",
+            data: {
+                "memberId": loginId,
+                "productCode": productCode
+            },
+            dataType: "json",
+            success: function () {
+                window.location.reload()
+            }, error: function () {
+                alert("장바구니에서 제거 실패")
+            }
+        })
+    }
 
 
 </script>

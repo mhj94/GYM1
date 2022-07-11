@@ -10,40 +10,40 @@
 
     <style>
         .modal {
-    position: absolute;
-    top: 0;
-    left: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
 
-    width: 100%;
-    height: 100%;
+            width: 100%;
+            height: 100%;
 
-    display: none;
+            display: none;
 
-    background-color: rgba(0, 0, 0, 0.4);
-    }
+            background-color: rgba(0, 0, 0, 0.4);
+        }
 
-    .modal.show {
-    display: block;
-    }
+        .modal.show {
+            display: block;
+        }
 
-    .modal_body {
-    position: absolute;
-    top: 50%;
-    left: 50%;
+        .modal_body {
+            position: absolute;
+            top: 50%;
+            left: 50%;
 
-    width: 400px;
-    height: 600px;
+            width: 400px;
+            height: 600px;
 
-    padding: 40px;
+            padding: 40px;
 
-    text-align: center;
+            text-align: center;
 
-    background-color: rgb(255, 255, 255);
-    border-radius: 10px;
-    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+            background-color: rgb(255, 255, 255);
+            border-radius: 10px;
+            box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
 
-    transform: translateX(-50%) translateY(-50%);
-    }
+            transform: translateX(-50%) translateY(-50%);
+        }
     </style>
 
 
@@ -51,44 +51,21 @@
 
 <H1>찜목록 보기 페이지</H1>
 
-<h3 id="loginId" th:if="${session.login !=null}" th:text="${session.login.memberId}" th:value="${session.login.memberId}"></h3>
+
+<div id="wishListViewDiv">
+
+</div>
+
+<h3 id="loginId" th:if="${session.login !=null}" th:text="${session.login.memberId}"
+    th:value="${session.login.memberId}"></h3>
 <h3 th:if="${session.login !=null}" th:text="${session.login.memberRole}"></h3>
 
-<table>
+<div id="wishListView"></div>
 
-    <tr>
-        <td>
-        <th>상품이름</th>
-        <th>칼로리</th>
-        <th>탄수화물</th>
-        <th>단백질</th>
-        <th>지방</th>
-        <th>나트륨</th>
-        <th>가격</th>
-        </td>
-    </tr>
-    <tr th:each="list : ${productDTOList}">
-
-        <td><img th:src="@{/uploadfile/{aa}(aa=${list.productPhoto})}" style="width:200px;"></td>
-
-        <td> <a th:href="@{shoppingView(productCode=${list.productCode})}" th:text="${list.productName}"></a></td>
-        <td th:text="${list.productKcal}"></td>
-        <td th:text="${list.productCarbohydrate}"></td>
-        <td th:text="${list.productProtein}"></td>
-        <td th:text="${list.productFat}"></td>
-        <td th:text="${list.productSalt}"></td>
-        <td th:text="${list.productPrice}+원"></td>
-
-       <td><button  th:value="${list.productCode}" th:onclick="shoppingBasketAjax(this.getAttribute('productCode'))"  th:text="장바구니에 담기">
-                </button></td>
-
-
-    </tr>
-</table>
-
-<button th:if = "${session.login != null}" th:onclick = "|location.href='@{basketForm}'|">장바구니로 가기</button>
-
-
+<div>
+    <button th:if="${session.login != null}" th:onclick="|location.href='@{shoppingWishForm}'|">내 찜목록</button>
+    <button th:if="${session.login != null}" th:onclick="|location.href='@{basketForm}'|">장바구니로 가기</button>
+</div>
 </body>
 
 
@@ -96,34 +73,80 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script th:inline="javascript">
-    var id1 = [[${session.login.memberId}]];
+    var loginId = [[${session.login.memberId}]];
 
-    function shoppingBasketAjax(productCode,loginId) {
-        loginId=id1;
+    //wish 목록 불러오는 ajax
+    $(document).ready(function () {
+
+        $.ajax({
+            type: "GET",
+            url: "wishListAjax",
+            data: {"memberId": loginId},
+            dataType: "json",
+            success: function (wishList) {
+                wishListView(wishList);
+
+            }, error: function () {
+                alert("찜 목록 불러오기 실패")
+            }
+        })
+    })
+
+    function wishListView(wishList) {
+        var output = "";
+
+
+        output += "<table>";
+        output += "<caption>"+loginId+"님  찜 목록 페이지</caption>";
+        output += "<tr>";
+        output += "<th>상품사진</th>";
+        output += "<th>상품이름</th>";
+        output += "<th>상품 설명</th>";
+
+        output += "</tr>";
+
+        for (var i in wishList) {
+            output += "<tr>";
+            output += "<td><a href='shoppingView?productCode="+wishList[i].productCode+ "'><img src='ShoppingImg/"+wishList[i].productPhoto+"' style='width:100px'; height: 'auto';></a></td>";
+            output += "<td>" + wishList[i].productName + "</td>"
+            output += "<td>" + wishList[i].productComment + " </td>"
+            output += "<td><button value='" + wishList[i].productCode + "' onclick='wishDelete(this.value)'>찜에서 삭제</button>"
+            output += "<td><button value='" + wishList[i].productCode + "' onclick='shoppingView(this.value)'>장바구니에 담기</button>"
+        }
+
+        var myWish = document.getElementById("wishListViewDiv");
+        myWish.innerHTML = output;
+    }
+
+    function wishDelete(productCode) {
         $.ajax({
             type: "POST",
-            url: "basketRegist",
-            data: {"productCode": productCode, "memberId": loginId},
-            dataType: "Json",
-            success: function () {
-                var result =confirm("상품이 담겼습니다. 장바구니로 가시겠습니까?")
-                if (result){
-                    loginId=id1;
-                    location.href ='/basketForm';
-                }else{
-
-                }
+            url: "/wishDelete",
+            data: {
+                "memberId": loginId,
+                "productCode": productCode
             },
-            error: function (request, status, error) {
-           //  alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-                alert("실패했습니다. 다시 시도해주세요");
+            dataType: "json",
+            success: function () {
+                window.location.reload()
+            }, error: function () {
+                window.location.reload()
             }
-        });
+        })
+
+    };
 
 
+    function shoppingView(productCode) {
+        var result = confirm("상품 상세보기에서 수량을 결정해주세요. 셍세보기로 이동합니다")
+        if (result) {
+            location.href = 'shoppingView?productCode=' + [productCode];
+        } else {
+        }
     }
 
 </script>
+
 
 </html>
 

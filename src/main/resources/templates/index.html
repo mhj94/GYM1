@@ -81,6 +81,11 @@
         </button>
         <h3 th:if="${session.login != null}" th:text="${session.login.memberId}"></h3>
         <h3 th:if="${session.login != null}" th:text="${session.login.memberRole}"></h3>
+    <button th:if = "${session.login != null}" th:onclick = "|location.href='@{shoppingPayment(orderId=${session.login.memberId})}'|">결제 페이지 이동</button>
+
+    <div>
+        <button th:if = "${session.login != null}" th:onclick = "|location.href='@{shoppingPayment(orderId=${session.login.memberId})}'|">결제 페이지 이동</button>
+    </div>
 
         <button class="btn-open-popup">로그인하기모달</button>
 

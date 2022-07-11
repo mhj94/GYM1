@@ -29,7 +29,6 @@
         WHERE PRODUCTCODE = #{productCode}
     </select>
 
-
     <select id="wishCount" parameterType="String" resultType="int">
         SELECT COUNT(WISHID)
         FROM WISH
@@ -45,7 +44,7 @@
     <insert id="basketRegist" parameterType="String">
         INSERT INTO ORDERS
         VALUES (#{orderCode}, #{productCode}, #{memberId}, 'noInput', 'noInput', 'noInput', NULL, 'noInput', NULL,
-                'noSelect', 0, 0)
+                'noSelect', #{orderName}, '1', #{orderPrice},#{orderPrice})
     </insert>
 
     <!--내가 장바구니에 등록한 상품 코드 불러오기 -->
@@ -53,7 +52,7 @@
         SELECT ORDERPRODUCTCODE
         FROM ORDERS
         WHERE ORDERID = #{memberId}
-          AND ORDERPAYSELECT = 'noSelect'
+          AND ORDERREQUEST = 'noInput'
     </select>
 
     <!--장바구니 등록한 상품 숫자 -->
@@ -61,27 +60,36 @@
         SELECT COUNT(ORDERPRODUCTCODE)
         FROM ORDERS
         WHERE ORDERID = #{memberId}
-          AND ORDERPAYSELECT = 'noSelect'
+          AND ORDERREQUEST = 'noInput'
     </select>
 
     <!--장바구니 등록한 상품 불러오기 -->
-    <select id="myBasketList" parameterType="String" resultType="product">
-        SELECT *
+    <select id="myBasketList" parameterType="String" resultType="basket">
+        SELECT ORDERS.ORDERNAME,
+               ORDERS.ORDERPRICE,
+               ORDERS.ORDERCOUNT,
+               PRODUCT.PRODUCTPHOTO,
+               PRODUCT.PRODUCTCODE,
+               ORDERS.ORDERTOTALPRICE
         FROM PRODUCT
-        WHERE PRODUCTCODE = #{basketCode}
+                 INNER JOIN
+             ORDERS
+             ON ORDERS.ORDERPRODUCTCODE = PRODUCT.PRODUCTCODE
+        WHERE PRODUCT.PRODUCTCODE = #{basketCode}
+          AND ORDERS.ORDERPRODUCTCODE = #{basketCode}
     </select>
 
 
     <!-- wish에 view에서 본 상품이 들어있는지 확인-->
 
     <select id="wishInquire" parameterType="String" resultType="String">
-        SELECT ORDERPRODUCTCODE
-        FROM ORDERS
-        WHERE ORDERID = #{memberId}
-          AND ORDERPRODUCTCODE = #{productCode}
+        SELECT WISHPRODUCTCODE
+        FROM WISH
+        WHERE WISHID = #{memberId}
+          AND WISHPRODUCTCODE = #{productCode}
     </select>
 
-    <insert id="wishregist" parameterType="String">
+    <insert id="wishRegist" parameterType="String">
         INSERT INTO WISH
         VALUES (#{memberId}, #{productCode})
     </insert>
@@ -104,32 +112,68 @@
           AND ORDERPRODUCTCODE = #{productCode}
     </select>
 
+    <delete id="basketDelete" parameterType="String">
+        DELETE
+        ORDERS WHERE ORDERID=
+        #{memberId}
+        AND
+        ORDERPRODUCTCODE
+        =
+        #{productCode}
+    </delete>
 
-	<delete id="basketDelete" parameterType="String">
-		DELETE ORDERS WHERE ORDERID=#{memberId} AND ORDERPRODUCTCODE=#{productCode}
-	</delete>
+    <update id="basketOrdersPriceUpdate" parameterType="String">
+        UPDATE ORDERS
+        SET ORDERPRICE =#{orderPrice}
+        WHERE ORDERID = #{memberId}
+          AND ORDERPRODUCTCODE = #{productCode}
+    </update>
 
+    <!--주문할때 회원가입시 입력한 주소 불러오는 메소드-->
+    <select id="addressInputAjax" parameterType="String" resultType="String">
+        SELECT MEMBERADDRESS
+        FROM MEMBER
+        WHERE MEMBERID = #{memberId}
+    </select>
 
-	<update id="bascketOrdersPriceUpdate" parameterType="String"  >
-		UPDATE ORDERS SET ORDERPRICE =#{orderPrice} WHERE ORDERID = #{memberId} AND ORDERPRODUCTCODE=#{productCode}
-	</update>
-
-
-<!--주문할때 회원가입시 입력한 주소 불러오는 메소드-->
-<select id="addressInputAjax" parameterType="String" resultType="String">
- SELECT MEMBERADDRESS FROM MEMBER WHERE MEMBERID =#{memberId}
- </select>
-
-
-<!--order 테이블 주문 요청사항 및 주소 추가하는 메소드-->
-	<update id="basketPayment" parameterType="String">
-	UPDATE ORDERS SET ORDERADDRESS = #{addr}, ORDERREQUEST =#{coment} WHERE ORDERPAYSELECT='noSelect'
-	</update>
-
+    <!--order 테이블 주문 요청사항 및 주소 추가하는 메소드-->
+    <update id="basketPayment" parameterType="String">
+        UPDATE ORDERS
+        SET ORDERADDRESS = #{addr},
+            ORDERREQUEST =#{coment}
+        WHERE ORDERREQUEST = 'noInput'
+          AND ORDERID = #{memberId}
+    </update>
 
     <select id="shoppingPaymentList" parameterType="String" resultType="orders">
-        SELECT * FROM ORDERS WHERE ORDERID = #{memberId} AND ORDERPRICE != 0
+        SELECT *
+        FROM ORDERS
+        WHERE ORDERID = #{memberId}
+          AND ORDERPRICE != 0
     </select>
+<!-- 상품 수량 출력해주는 ajax   -->
+    <select id="orderCountOutputAjax" parameterType="String" resultType="String">
+        SELECT ORDERCOUNT
+        FROM ORDERS
+        WHERE ORDERID = #{memberId}
+          AND ORDERREQUEST = 'noInput'
+    </select>
+
+<!-- 장바구니에서 상품수량 더하기   -->
+    <update id="orderCountPlus" parameterType="String">
+        UPDATE ORDERS
+        SET ORDERCOUNT = ORDERCOUNT+ 1, ORDERTOTALPRICE = + ORDERPRICE
+        WHERE ORDERID = #{memberId}
+          AND ORDERPRODUCTCODE = #{productCode}
+    </update>
+
+    <!-- 장바구니에서 상품수량 빼기  -->
+    <update id="orderCountMinus" parameterType="String" >
+        UPDATE ORDERS
+        SET ORDERCOUNT = ORDERCOUNT- 1, ORDERTOTALPRICE = - ORDERPRICE
+        WHERE ORDERID = #{memberId}
+          AND ORDERPRODUCTCODE = #{productCode}
+    </update>
 
     <select id="shoppingHistoryList" parameterType="String" resultType="orders">
         SELECT * FROM ORDERS WHERE ORDERID = #{memberId} AND ORDERPRICE != 0
@@ -138,4 +182,5 @@
     <insert id="payRegist" parameterType="pay">
         INSERT INTO PAY VALUES (#{payId},#{payProduct},#{payPrice})
     </insert>
+
 </mapper>

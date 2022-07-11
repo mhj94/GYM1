@@ -4,14 +4,12 @@ package com.gym.GYM.shopping.dao;
 import java.util.List;
 
 
-import com.gym.GYM.shopping.dto.OrdersDTO;
+import com.gym.GYM.shopping.dto.*;
 import com.gym.GYM.shopping.dto.PayDTO;
-import com.gym.GYM.shopping.dto.ProductDTO;
 
 import org.apache.ibatis.annotations.Mapper;
 
 
-import com.gym.GYM.shopping.dto.WishDTO;
 import org.springframework.web.servlet.ModelAndView;
 
 @Mapper
@@ -30,38 +28,40 @@ public interface ShoppingDAO {
 
     ProductDTO myWishList(String productCode);
 
-    boolean basketRegist(String productCode, String memberId, String orderCode);
+    boolean basketRegist(String memberId, String productCode, String orderPrice, String orderCode, String orderName);
 
     List<OrdersDTO> basketList(String memberId);
 
     int basketCount(String memberId);
 
-    ProductDTO myBasketList(String basketCode);
-
-    String basketRegist1(String productCode, String orderPrice, String orderId, String orderCode);
-
-    List<OrdersDTO> shoppingOrderList(String orderId);
+    BasketDTO myBasketList(String basketCode);
 
     List<String> wishInquire(String memberId, String productCode);
 
     void wishDelete(String memberId, String productCode);
 
-    void wishregist(String memberId, String productCode);
+    void wishRegist(String memberId, String productCode);
 
     List<String> basketInquire(String memberId, String productCode);
 
     void basketDelete(String memberId, String productCode);
 
-    List<OrdersDTO> basketOrdersPriceUpdate(String memberId, String productCode, String orderPrice);
+    ModelAndView basketPayment(String memberId, String addr, String coment);
+
+    List<OrdersDTO> shoppingPaymentList(String orderId);
 
     List<String> addressInputAjax(String memberId);
 
-    ModelAndView basketPayment(String addr, String coment);
+    List<OrdersDTO> basketOrdersPriceUpdate(String memberId, String productCode, String orderPrice);
 
 
-    List<OrdersDTO> shoppingPaymentList(String orderId);
+    List<String> orderCountOutputAjax(String memberId, String productCode);
+
+    List<String> orderCountPlus(String memberId, String productCode,String orderPrice);
 
     List<OrdersDTO> shoppingHistoryList(String orderId);
 
     List<PayDTO> payRegist(PayDTO pay);
+
+    List<String> orderCountMinus(String memberId, String productCode,String orderPrice);
 }
