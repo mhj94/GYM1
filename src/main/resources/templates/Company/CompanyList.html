@@ -19,7 +19,7 @@
         <ul class="community-post-list" th:each="company:${company}">
             <li>
                 <div class="community-post">
-                    <div class="author-avator set-bg"><img th:src="'/CompanyPhoto/'+company.companyName"></div>
+                    <div class="author-avator set-bg"><img th:src="@{/CompanyPhoto/{photo}(photo=${company.companyPhotoName})}" style="width: 200px"></div>
                     <div class="post-content">
                         <table>
                             <tr>
@@ -29,9 +29,9 @@
                             <tr>
                                 <td><p th:text="${company.companyEquipment}"></p></td>
                                 <div class="post-date" th:text="${company.companyRate}"></div>
-                                <td><a th:href="@{companyModifyForm(companyCode=${company.companyCode})}"
+                                <td th:if="${session.login.memberId} == 'admin' or ${session.login.memberId}" ><a th:href="@{companyModifyForm(companyCode=${company.companyCode})}"
                                        th:text="'수정'"></a></td>
-                                <td><a th:href="@{companyDelete(companyCode=${company.companyCode})}"
+                                <td th:if="${session.login.memberId} == 'admin' or ${session.login.memberId}"><a th:href="@{companyDelete(companyCode=${company.companyCode})}"
                                        th:text="'삭제'"></a>
                                 </td>
                             </tr>
