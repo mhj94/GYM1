@@ -34,7 +34,7 @@ public interface ShoppingDAO {
 
     int basketCount(String memberId);
 
-    BasketDTO myBasketList(String basketCode);
+    BasketDTO myBasketList(String basketCode, String memberId);
 
     List<String> wishInquire(String memberId, String productCode);
 

@@ -89,7 +89,7 @@ public class ShoppingServiceImpl implements ShoppingService {
     }
 
 
-  //  basketList : ajax 찜한상품 장바구니에 담고 List return
+  //  basketList : ajax 찜한상품 장에 담고 List return
     //가격 넣는 부분 때문에  잠시 주석처리
     @Override
     public List<OrdersDTO> basketList(String productCode, String memberId) {
@@ -149,7 +149,6 @@ public class ShoppingServiceImpl implements ShoppingService {
         return basketInquire;
     }
     //상세보기에 장바구니에 해당 상품 추가 ajax 메소드
-
     @Override
     public List<String> basketRegistAjax(String memberId, String productCode,String orderPrice , String orderName) {
         String uuid = UUID.randomUUID().toString().substring(0, 6);
@@ -163,6 +162,7 @@ public class ShoppingServiceImpl implements ShoppingService {
     //basketView 장바구니 보는 메소드
     @Override
     public List<BasketDTO> myBasketListAjax(String memberId) {
+        System.out.println("장바구니 조회를 위한 코드 :"+memberId);
         List<BasketDTO> productDTOList = new ArrayList<>();
         basketDTOList = shoppingdao.basketList(memberId);
         int count = shoppingdao.basketCount(memberId);
@@ -172,7 +172,8 @@ public class ShoppingServiceImpl implements ShoppingService {
         if (count > 0) {
             for (int i = 0; i < count; i++) {
                 basketCode = basketArr[i];
-                productDTOList.add(shoppingdao.myBasketList(basketCode));
+                System.out.println("장바구니 조회를 위한 코드 arr:"+basketCode);
+                productDTOList.add(shoppingdao.myBasketList(basketCode, memberId));
             }
         } else {
         }

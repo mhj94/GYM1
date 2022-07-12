@@ -80,7 +80,7 @@
              ORDERS
              ON ORDERS.ORDERPRODUCTCODE = PRODUCT.PRODUCTCODE
         WHERE PRODUCT.PRODUCTCODE = #{basketCode}
-          AND ORDERS.ORDERPRODUCTCODE = #{basketCode}
+          AND ORDERS.ORDERID = #{memberId}
     </select>
 
 

@@ -61,6 +61,7 @@ public class ShoppingController {
     @GetMapping("/myBasketListAjax")
     private @ResponseBody List<BasketDTO> myBasketListAjax(@RequestParam String memberId) {
         List<BasketDTO> myBasketListAjax = new ArrayList<BasketDTO>();
+        System.out.println(memberId);
         myBasketListAjax = shoppingsvc.myBasketListAjax(memberId);
         return myBasketListAjax;
     }
