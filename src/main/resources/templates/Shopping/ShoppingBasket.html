@@ -31,13 +31,15 @@
         <h1 id="">상품구매 정보입력!</h1>
         <form action="/basketPayment" method="post">
             <table>
-                <input type="hidden" value="+${session.login.memberId}+" name="memberId">
+<tr>
+                <th id="modalMemberId"></th>
+</tr>
                 <th>주소지 입력</th>
-                <td><textarea id="addressInput" name="addr"></textarea></td>
+                <td><textarea id="addressInput" name="orderAddress"></textarea></td>
                 <th>주문 요청사항을 입력해주세요</th>
                 <tr>
                     <td>ex)부재시 경비실에 맡겨주세요</td>
-                    <td><textarea name="coment"></textarea></td>
+                    <td><textarea name="orderRequest"></textarea></td>
                 </tr>
                 <p>주문하시겠습니까?</p>
                 <input type="submit" value="예">
@@ -198,6 +200,7 @@
     }
 
     $("#btn-open-popup").click(function modal() {
+        modalMemberId(loginId);
         const body = document.querySelector('body');
         const modal = document.querySelector('.modal');
         modal.classList.toggle('show');
@@ -234,6 +237,19 @@
             }
         })
     }
+$(document).ready(function (){
+    var id= loginId;
+    var output;
+
+    output = " <input type='hidden' value="+id+" name='memberId'>";
+
+    var modalId = document.getElementById("modalMemberId");
+    modalId.innerHTML = output;
+
+
+
+});
+
 
 
 </script>

@@ -7,31 +7,551 @@
     <meta name="author" content="생로병사"/>
     <meta name="description" content="shoppingMain index"/>
     <title>책임GYM 쇼핑몰</title>
-</head>
-<link rel = "stylesheet" type = "text/css" href = "css/style.css">
-<body>
-    <h1>쇼핑몰 메인</h1>
-    <img th:src="@{/ShoppingImg/123.png}" width="150dp" height="100dp" alt="짱구">
-    <table>
-    <caption>Product List</caption>
-        <tr>
-            <th>상품사진명</th>
-            <th>상품이름</th>
-            <th>상품가격</th>
-            <th>상품평점</th>
-        </tr>
-            <tr th:each="list : ${shoppingList}">
-            <td><a th:href="@{shoppingView(productCode=${list.productCode})}" ><img th:src="@{/ShoppingImg/{aa}(aa=${list.productPhoto})}" style="width:200px;"></a></td>
-            <td th:text="${list.productName}"></td>
-            <td th:text="${list.productPrice}"></td>
-                <td th:text="${list.productRate}"></td>
-        </tr>
-    </table>
-    <img src="GYM1/src/main/resources/static/ShoppingImg/123.png" width="150dp" height="100dp" alt="짱구">
-    <button th:if ="${session.login != null}" th:onclick ="|location.href='@{ShoppingWishForm}'|">내 찜목록</button>
-    <button th:if ="${session.login != null}" th:onclick = "|location.href='@{basketForm}'|">장바구니로 가기</button>
-    <h3 th:if = "${session.login !=null}" th:text ="${session.login.memberId}"></h3>
-    <h3 th:if = "${session.login !=null}" th:text ="${session.login.memberRole}"></h3>
+    <link rel="apple-touch-icon" href="ShoppingAssets/img/apple-icon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="ShoppingAssets/img/favicon.ico">
 
+    <link rel="stylesheet" href="ShoppingAssets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="ShoppingAssets/css/templatemo.css">
+    <link rel="stylesheet" href="ShoppingAssets/css/custom.css">
+
+    <!-- Load fonts style after rendering the layout styles -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="ShoppingAssets/css/fontawesome.min.css">
+
+
+</head>
+<!--    <link rel="stylesheet" type="text/css" href="css/style.css">-->
+<body>
+<!-- Start Top Nav -->
+<nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top">
+    <div class="container text-light">
+        <div class="w-100 d-flex justify-content-between">
+            <div>
+                <i class="fa fa-envelope mx-2"></i>
+                <a class="navbar-sm-brand text-light text-decoration-none" href="mailto:info@company.com">info@company.com</a>
+                <i class="fa fa-phone mx-2"></i>
+                <a class="navbar-sm-brand text-light text-decoration-none" href="tel:010-020-0340">010-020-0340</a>
+            </div>
+            <div>
+                <a class="text-light" href="https://fb.com/templatemo" target="_blank" rel="sponsored"><i
+                        class="fab fa-facebook-f fa-sm fa-fw me-2"></i></a>
+                <a class="text-light" href="https://www.instagram.com/" target="_blank"><i
+                        class="fab fa-instagram fa-sm fa-fw me-2"></i></a>
+                <a class="text-light" href="https://twitter.com/" target="_blank"><i
+                        class="fab fa-twitter fa-sm fa-fw me-2"></i></a>
+                <a class="text-light" href="https://www.linkedin.com/" target="_blank"><i
+                        class="fab fa-linkedin fa-sm fa-fw"></i></a>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- Close Top Nav -->
+
+
+<!-- Header -->
+<nav class="navbar navbar-expand-lg navbar-light shadow">
+    <div class="container d-flex justify-content-between align-items-center">
+
+        <a class="navbar-brand text-success logo h1 align-self-center" href="shoppingMainForm">
+            GYM SM
+        </a>
+
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between"
+             id="templatemo_main_nav">
+            <div class="flex-fill">
+                <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="ShoppingAbout.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="shoppingMainForm">Shop</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">지도</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar align-self-center d-flex">
+                <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="inputMobileSearch" placeholder="Search ...">
+                        <div class="input-group-text">
+                            <i class="fa fa-fw fa-search"></i>
+                        </div>
+                    </div>
+                </div>
+                <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal"
+                   data-bs-target="#templatemo_search">
+                    <i class="fa fa-fw fa-search text-dark mr-2"></i>
+                </a>
+                <a class="nav-icon position-relative text-decoration-none" href="/basketForm">
+                    <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
+                    <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark"
+                          id="myBasketCount"></span>
+                </a>
+                <a class="nav-icon position-relative text-decoration-none" href="shoppingWishForm">
+                    <i class="fa fa-fw fa-user text-dark mr-3"></i>
+                    <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark"
+                          id="myWishCount"></span>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</nav>
+<!-- Close Header -->
+
+<!-- Modal -->
+<div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="w-100 pt-1 mb-5 text-right">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="" method="get" class="modal-content modal-body border-0 p-0">
+            <div class="input-group mb-2">
+                <input type="text" class="form-control" id="inputModalSearch" name="q" placeholder="Search ...">
+                <button type="submit" class="input-group-text bg-success text-light">
+                    <i class="fa fa-fw fa-search text-white"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!-- Start Content -->
+<div class="container py-5">
+    <div class="row">
+
+        <div class="col-lg-3">
+            <h1 class="h2 pb-4">Product</h1>
+            <ul class="list-unstyled templatemo-accordion">
+                <li class="pb-3">
+                    <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
+                        닭가슴살
+                        <i class="fa fa-fw fa-chevron-circle-down mt-1"></i>
+                    </a>
+                    <ul class="collapse show list-unstyled pl-3">
+                        <li><a class="text-decoration-none" href="#">닭가슴살</a></li>
+                        <li><a class="text-decoration-none" href="#">닭가슴살 볶음밥</a></li>
+                    </ul>
+                </li>
+                <li class="pb-3">
+                    <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
+                        음료/간식
+                        <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
+                    </a>
+                    <ul id="collapseTwo" class="collapse list-unstyled pl-3">
+                        <li><a class="text-decoration-none" href="#">부스터/이온음료</a></li>
+                        <li><a class="text-decoration-none" href="#">간식류</a></li>
+                    </ul>
+                </li>
+                <li class="pb-3">
+                    <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
+                        보충제
+                        <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
+                    </a>
+                    <ul id="collapseThree" class="collapse list-unstyled pl-3">
+                        <li><a class="text-decoration-none" href="#">단백질 보충제</a></li>
+
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-lg-9">
+            <div class="row">
+                <div class="col-md-6">
+                    <ul class="list-inline shop-top-menu pb-3 pt-1">
+                        <li class="list-inline-item">
+                            <a class="h3 text-dark text-decoration-none mr-3" href="#">모든상품 보기</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="h3 text-dark text-decoration-none mr-3" href="#">닭가슴살</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="h3 text-dark text-decoration-none" href="#">음료/간식</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="h3 text-dark text-decoration-none" href="#">보충제</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6 pb-4">
+                    <div class="d-flex">
+                        <select class="form-control">
+                            <option>인기순으로 보기</option>
+                            <option>이름순으로 보기</option>
+                            <option>조회수로 보기</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
+            <div  id="mainProductView">
+            </div>
+        </div>
+    </div>
+    <!-- End Content -->
+
+    <!-- Start Brands -->
+    <section class="bg-light py-5">
+        <div class="container my-4">
+            <div class="row text-center py-3">
+                <div class="col-lg-6 m-auto">
+                    <h1 class="h1">너의 식단을</h1>
+                    <h1 class="h1">책임GYM ShoppingMall</h1>
+                    <p>
+                        저희 책임GYM ShoppingMall은 양질의 재료와, 주문 즉시 제조 및 포장배송을 원칙으로 하고있습니다.
+                        여러분의 식단을 책임질 깨끗한 식단 책임GYM ShoppingMall입니다.
+                    </p>
+                </div>
+                <div class="col-lg-9 m-auto tempaltemo-carousel">
+                    <div class="row d-flex flex-row">
+                        <!--Controls-->
+                        <div class="col-1 align-self-center">
+                            <a class="h1" href="#multi-item-example" role="button" data-bs-slide="prev">
+                                <i class="text-light fas fa-chevron-left"></i>
+                            </a>
+                        </div>
+                        <!--End Controls-->
+
+                        <!--Carousel Wrapper-->
+                        <div class="col">
+                            <div class="carousel slide carousel-multi-item pt-2 pt-md-0" id="multi-item-example"
+                                 data-bs-ride="carousel">
+                                <!--Slides-->
+                                <div class="carousel-inner product-links-wap" role="listbox">
+
+                                    <!--First slide-->
+                                    <div class="carousel-item active">
+                                        <div class="row">
+                                            <div class="col-3 p-md-5">
+                                                <a href="#"><img class="img-fluid brand-img"
+                                                                 src="ShoppingAssets/img/샐러드.jpg" alt="Brand Logo"></a>
+                                            </div>
+                                            <div class="col-3 p-md-5">
+                                                <a href="#"><img class="img-fluid brand-img"
+                                                                 src="ShoppingAssets/img/볶음밥.jpg" alt="Brand Logo"></a>
+                                            </div>
+                                            <div class="col-3 p-md-5">
+                                                <a href="#"><img class="img-fluid brand-img"
+                                                                 src="ShoppingAssets/img/닭가슴살.jpg" alt="Brand Logo"></a>
+                                            </div>
+                                            <div class="col-3 p-md-5">
+                                                <a href="#"><img class="img-fluid brand-img"
+                                                                 src="ShoppingAssets/img/과일.jpg" alt="Brand Logo"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--End First slide-->
+
+                                    <!--Second slide-->
+                                    <div class="carousel-item">
+                                        <div class="row">
+                                            <div class="col-3 p-md-5">
+                                                <a href="#"><img class="img-fluid brand-img"
+                                                                 src="ShoppingAssets/img/샐러드.jpg" alt="Brand Logo"></a>
+                                            </div>
+                                            <div class="col-3 p-md-5">
+                                                <a href="#"><img class="img-fluid brand-img"
+                                                                 src="ShoppingAssets/img/볶음밥.jpg" alt="Brand Logo"></a>
+                                            </div>
+                                            <div class="col-3 p-md-5">
+                                                <a href="#"><img class="img-fluid brand-img"
+                                                                 src="ShoppingAssets/img/닭가슴살.jpg" alt="Brand Logo"></a>
+                                            </div>
+                                            <div class="col-3 p-md-5">
+                                                <a href="#"><img class="img-fluid brand-img"
+                                                                 src="ShoppingAssets/img/과일.jpg" alt="Brand Logo"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--End Second slide-->
+
+                                    <!--Third slide-->
+                                    <div class="carousel-item">
+                                        <div class="row">
+                                            <div class="col-3 p-md-5">
+                                                <a href="#"><img class="img-fluid brand-img"
+                                                                 src="ShoppingAssets/img/샐러드.jpg" alt="Brand Logo"></a>
+                                            </div>
+                                            <div class="col-3 p-md-5">
+                                                <a href="#"><img class="img-fluid brand-img"
+                                                                 src="ShoppingAssets/img/볶음밥.jpg" alt="Brand Logo"></a>
+                                            </div>
+                                            <div class="col-3 p-md-5">
+                                                <a href="#"><img class="img-fluid brand-img"
+                                                                 src="ShoppingAssets/img/닭가슴살.jpg" alt="Brand Logo"></a>
+                                            </div>
+                                            <div class="col-3 p-md-5">
+                                                <a href="#"><img class="img-fluid brand-img"
+                                                                 src="ShoppingAssets/img/과일.jpg" alt="Brand Logo"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--End Third slide-->
+
+                                </div>
+                                <!--End Slides-->
+                            </div>
+                        </div>
+                        <!--End Carousel Wrapper-->
+
+                        <!--Controls-->
+                        <div class="col-1 align-self-center">
+                            <a class="h1" href="#multi-item-example" role="button" data-bs-slide="next">
+                                <i class="text-light fas fa-chevron-right"></i>
+                            </a>
+                        </div>
+                        <!--End Controls-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--End Brands-->
+
+
+    <!-- Start Footer -->
+    <footer class="bg-dark" id="tempaltemo_footer">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-4 pt-5">
+                    <h2 class="h2 text-success border-bottom pb-3 border-light logo">책임GYM ShoppingMall</h2>
+                    <ul class="list-unstyled text-light footer-link-list">
+                        <li>
+                            <i class="fas fa-map-marker-alt fa-fw"></i>
+                            학익동 663-1번지 5층 남구 인천광역시
+                        </li>
+                        <li>
+                            <i class="fa fa-phone fa-fw"></i>
+                            <a class="text-decoration-none" href="tel:010-020-0340">010-020-0340</a>
+                        </li>
+                        <li>
+                            <i class="fa fa-envelope fa-fw"></i>
+                            <a class="text-decoration-none" href="mailto:info@company.com">info@company.com</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-md-4 pt-5">
+                    <h2 class="h2 text-light border-bottom pb-3 border-light">Products</h2>
+                    <ul class="list-unstyled text-light footer-link-list">
+                        <li><a class="text-decoration-none" href="#">닭가슴살</a></li>
+                        <li><a class="text-decoration-none" href="#">볶음밥</a></li>
+                        <li><a class="text-decoration-none" href="#">음료/간식</a></li>
+                        <li><a class="text-decoration-none" href="#">보충제</a></li>
+
+                    </ul>
+                </div>
+
+                <div class="col-md-4 pt-5">
+                    <h2 class="h2 text-light border-bottom pb-3 border-light">Further Info</h2>
+                    <ul class="list-unstyled text-light footer-link-list">
+                        <li><a class="text-decoration-none" href="#">Home</a></li>
+                        <li><a class="text-decoration-none" href="#">About Us</a></li>
+                        <li><a class="text-decoration-none" href="#">Shop Locations</a></li>
+                        <li><a class="text-decoration-none" href="#">FAQs</a></li>
+                        <li><a class="text-decoration-none" href="#">Contact</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="row text-light mb-4">
+                <div class="col-12 mb-3">
+                    <div class="w-100 my-3 border-top border-light"></div>
+                </div>
+                <div class="col-auto me-auto">
+                    <ul class="list-inline text-left footer-icons">
+                        <li class="list-inline-item border border-light rounded-circle text-center">
+                            <a class="text-light text-decoration-none" target="_blank" href="http://facebook.com/"><i
+                                    class="fab fa-facebook-f fa-lg fa-fw"></i></a>
+                        </li>
+                        <li class="list-inline-item border border-light rounded-circle text-center">
+                            <a class="text-light text-decoration-none" target="_blank"
+                               href="https://www.instagram.com/"><i class="fab fa-instagram fa-lg fa-fw"></i></a>
+                        </li>
+                        <li class="list-inline-item border border-light rounded-circle text-center">
+                            <a class="text-light text-decoration-none" target="_blank" href="https://twitter.com/"><i
+                                    class="fab fa-twitter fa-lg fa-fw"></i></a>
+                        </li>
+                        <li class="list-inline-item border border-light rounded-circle text-center">
+                            <a class="text-light text-decoration-none" target="_blank" href="https://www.linkedin.com/"><i
+                                    class="fab fa-linkedin fa-lg fa-fw"></i></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-auto">
+                    <label class="sr-only" for="subscribeEmail">Email address</label>
+                    <div class="input-group mb-2">
+                        <input type="text" class="form-control bg-dark border-light" id="subscribeEmail"
+                               placeholder="책임GYM 소식 받기">
+                        <div class="input-group-text btn-success text-light">Email제출</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-100 bg-black py-3">
+            <div class="container">
+                <div class="row pt-2">
+                    <div class="col-12">
+                        <p class="text-left text-light">
+                            Copyright &copy; 2021 Company Name
+                            | Designed by <a rel="sponsored" href="https://templatemo.com"
+                                             target="_blank">TemplateMo</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+</div>
+<!-- End Footer -->
 </body>
+
+Start Script
+<script src="ShoppingAssets/js/jquery-1.11.0.min.js"></script>
+<script src="ShoppingAssets/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="ShoppingAssets/js/bootstrap.bundle.min.js"></script>
+<script src="ShoppingAssets/js/templatemo.js"></script>
+<script src="ShoppingAssets/js/custom.js"></script>
+
+
+<script integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script th:inline="javascript">
+    var loginId = [[${session.login.memberId}]];
+
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: "sohppingMainListAjax",
+            dataType: "json",
+            success: function (productList) {
+
+                sohppingMainListView(productList);
+                console.log(productList);
+
+            }, error: function () {
+            }
+
+        })
+    })
+
+
+    function sohppingMainListView(productList) {
+        var output = "";
+
+
+        for (let i in productList) {
+            output +="<div className='col-lg-9'>";
+            output += "<div className='row'>";
+            output += "<div className='col-md-4'>";
+            output += "<div className='card mb-4 product-wap rounded-0'>";
+            output += "<div className='card rounded-0'>";
+            output += "<img className='card-img rounded-0 img-fluid' src='ShoppingImg/" + productList[i].productPhoto + "' style='width:100px'; height: 'auto';></a>";
+            output += "<div className='card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center'>";
+            output += "<ul className='list-unstyled'>";
+            output += "<li><a className='btn btn-success text-white' href='#'><i className='far fa-heart'></i></a></li>";
+            output += "<li><a className='btn btn-success text-white mt-2' href='#'><i className='far fa-eye'></i></a></li>";
+            output += "<li><a className='btn btn-success text-white mt-2' href='#'><i className='fas fa-cart-plus'></i></a></li>";
+            output += "</ul>";
+            output += "</div>";
+            output += "</div>";
+            output += "<div className='card-body'>";
+            output += "<a href='shoppingView?productCode=" + productList[i].productCode + "' className='h3 text-decoration-none'>"+ productList[i].productName+"</a>";
+            output += "<ul className='w-100 list-unstyled d-flex justify-content-between mb-0'>";
+            output += "<li>5개/10개/15개/20개</li>";
+            output += "<li className='pt-2'>";
+            output += "<span className='product-color-dot color-dot-red float-left rounded-circle ml-1'></span>";
+            output += "<span className='product-color-dot color-dot-blue float-left rounded-circle ml-1'></span>";
+            output += "<span className='product-color-dot color-dot-black float-left rounded-circle ml-1'></span>";
+            output += "<span className='product-color-dot color-dot-light float-left rounded-circle ml-1'></span>";
+            output += "<span className='product-color-dot color-dot-green float-left rounded-circle ml-1'></span>";
+            output += "</li>";
+            output += "</ul>";
+            output += "<ul className='list-unstyled d-flex justify-content-center mb-1'>";
+            output += "<li><i className='text-warning fa fa-star'></i>";
+            output += "<i className='text-warning fa fa-star'></i>";
+            output += "<i className='text-warning fa fa-star'></i>";
+            output += "<i className='text-muted fa fa-star'></i>";
+            output += "<i className='text-muted fa fa-star'></i>";
+            output += "<i className='text-muted fa fa-star'>" + productList[i].productRate + "</i></li>";
+            output += "</ul>";
+            output += "<p className='text-center mb-0'>" + productList[i].productPrice + "원</p>";
+            output += "</div>";
+            output += "</div>";
+            output += "</div>";
+            output += "</div>";
+
+
+        }
+        var product = document.getElementById("mainProductView");
+        product.innerHTML = output;
+
+    }
+
+
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: "myBasketCount",
+            data: {"memberId": loginId},
+            dataType: "json",
+            success: function (basketCount) {
+                myBasketCount(basketCount);
+            }, error: function () {
+            }
+        })
+
+    })
+
+    function myBasketCount(basketCount) {
+
+        var output = basketCount;
+        var basket = document.getElementById("myBasketCount");
+        basket.innerHTML = output;
+
+    }
+
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: "myWishCount",
+            data: {"memberId": loginId},
+            dataType: "json",
+            success: function (wishCount) {
+                myWishCount(wishCount);
+            }, error: function () {
+            }
+        })
+    })
+
+    function myWishCount(wishCount) {
+        var output = wishCount;
+        var wish = document.getElementById("myWishCount");
+        wish.innerHTML = output;
+
+    }
+
+</script>
+
+
 </html>

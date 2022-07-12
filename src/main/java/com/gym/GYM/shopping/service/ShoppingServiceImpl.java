@@ -70,11 +70,12 @@ public class ShoppingServiceImpl implements ShoppingService {
     }
 
     @Override
-    public ModelAndView shoppingList() {
-        List<ProductDTO> shoppinglist = shoppingdao.shoppingList();
-        mav.addObject("shoppingList", shoppinglist);
-        mav.setViewName("Shopping/shoppingMainForm");
-        return mav;
+    public List<ProductDTO> sohppingMainListAjax() {
+        List<ProductDTO> sohppingMainListAjax =new ArrayList<ProductDTO>();
+
+        sohppingMainListAjax = shoppingdao.sohppingMainListAjax();
+
+        return sohppingMainListAjax;
     }
 
 
@@ -188,11 +189,14 @@ public class ShoppingServiceImpl implements ShoppingService {
     }
 
     @Override
-    public ModelAndView basketPayment(String memberId, String addr, String coment) {
-        System.out.println("서비스 요청사항:" + coment);
-        System.out.println("서비스 주소:" + addr);
+    public ModelAndView basketPayment(String memberId, String orderAddress, String orderRequest) {
+        System.out.println("서비스 요청사항:" + orderAddress);
+        System.out.println("서비스 주소:" + orderRequest);
+        System.out.println("서비스 주소:" + memberId);
 
-        mav = shoppingdao.basketPayment(memberId, addr, coment);
+        shoppingdao.basketPayment(memberId, orderAddress, orderRequest);
+
+
         mav.setViewName("Shopping/ShoppingPayment");
 
         return mav;
@@ -232,7 +236,22 @@ public class ShoppingServiceImpl implements ShoppingService {
         return orderCountMinus;
     }
 
+    //장바구니 갯수 세는 메소드
+    @Override
+    public List<String> myBasketCount(String memberId) {
+        List<String> myBasketCount=new ArrayList<>();
+        myBasketCount=shoppingdao.myBasketCount(memberId);
 
+        return myBasketCount;
+    }
+
+    //찜목록 객수 세는 메소드
+    @Override
+    public List<String> myWishCount(String memberId) {
+        List<String> myWishCount=new ArrayList<>();
+        myWishCount=shoppingdao.myWishCount(memberId);
+        return myWishCount;
+    }
 
 
     @Override

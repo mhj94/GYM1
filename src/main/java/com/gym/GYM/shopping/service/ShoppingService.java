@@ -13,7 +13,7 @@ public interface ShoppingService {
 
     List<ProductDTO> shoppingWishForm(String memberId);
 
-    ModelAndView shoppingList();
+    List<ProductDTO> sohppingMainListAjax();
 
     ModelAndView shoppingView(String productCode);
 
@@ -33,10 +33,9 @@ public interface ShoppingService {
 
     List<String> basketRegistAjax(String memberId, String productCode, String orderPrice, String orderName);
 
-
     List<String> addressInputAjax(String memberId);
 
-    ModelAndView basketPayment(String memberId, String addr, String coment);
+    ModelAndView basketPayment(String memberId, String orderAddress, String orderRequest);
 
     List<BasketDTO> myBasketListAjax(String memberId);
 
@@ -51,5 +50,9 @@ public interface ShoppingService {
     List<PayDTO> payRegist(PayDTO pay);
 
     List<String> orderCountMinus(String memberId, String productCode, String orderPrice);
+
+    List<String> myBasketCount(String memberId);
+
+    List<String> myWishCount(String memberId);
 }
 

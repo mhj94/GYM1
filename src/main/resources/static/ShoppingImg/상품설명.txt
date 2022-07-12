@@ -1,0 +1,39 @@
+이름 중량 칼로리 탄 단 지 나트륨 가격 링크 파일명 조회수
+
+('  '   ,    ,   ,    ,   ,   ,          ,      ,'    ' ,'     ' ,   0 )
+
+
+밥
+('맛있는현미밥  ' ,150 , 200 , 43   , 5   , 1  , 16  , 912  ,' https://metree.co.kr/index/shop.php?r=view&cat=00310001&uid=4831 ' ,'  ', 0 )
+('닭가슴살 갈릭볶음밥 ' ,250 , 400 , 68   , 22   , 10  , 500  , 2590  ,' https://metree.co.kr/index/shop.php?r=view&cat=00250011&uid=5909' , '  ',  0 )
+('닭가슴살 김치볶음밥 ' ,250 , 450 , 65   , 27   , 9  , 730  , 2590  ,' https://metree.co.kr/index/shop.php?r=view&cat=00250011&uid=5909' , '  ',  0 )
+('닭가슴살 야채볶음밥 ' ,250 , 360 , 46   , 31   , 6  , 290  , 2790  ,' https://metree.co.kr/index/shop.php?r=view&cat=00250011&uid=5909' , '  ',  0 )
+('닭가슴살 불닭볶음밥' ,250 , 405 , 54   , 27   , 9  , 970  , 2790  ,' https://metree.co.kr/index/shop.php?r=view&cat=00250011&uid=5909' , '  ',  0 )
+('닭가슴살 소불고기볶음밥 ' ,250 , 385 , 62   , 23   , 5  , 440  , 2790 ,' https://metree.co.kr/index/shop.php?r=view&cat=00250011&uid=5909' , '  ',  0 )
+('닭가슴살 차돌숙주볶음밥  ' ,250 , 475 , 56   , 25   , 17  , 960  , 2990  ,' https://metree.co.kr/index/shop.php?r=view&cat=00250011&uid=5909' ,'  ',   0 )
+('닭가슴살 차돌깍두기볶음밥 ' ,250 , 495 , 77   , 19   , 12  , 610  , 2990  ,' https://metree.co.kr/index/shop.php?r=view&cat=00250011&uid=5909' , '  ',  0 )
+
+닭가슴살
+('오리지널 스팀 ' ,100 , 110 , 1   , 24   , 1.2  , 230  , 1460 ,' https://metree.co.kr/index/shop.php?r=view&cat=00210001&uid=6156' , '  ',  0 )
+('갈릭스파이시 스팀 ' ,100 , 140 , 6   , 22   , 2.8  , 350  , 1460  ,' https://metree.co.kr/index/shop.php?r=view&cat=00210001&uid=6156' , '  ',  0 )
+('칠리페퍼 스팀  ' ,100 , 125 , 6   , 21   , 1.7  , 370  , 1460  ,' https://metree.co.kr/index/shop.php?r=view&cat=00210001&uid=6156' , '  ',  0 )
+('리얼갈릭 스팀  ' ,100 , 110 , 1   , 21   , 1  , 240  , 1460  ,' https://metree.co.kr/index/shop.php?r=view&cat=00210001&uid=6156' , '  ',  0 )
+('데리야끼 스팀 ' ,100 , 120 , 6   , 20   , 1.8  , 300  , 1460  ,' https://metree.co.kr/index/shop.php?r=view&cat=00210001&uid=6156' , '  ',  0 )
+('오리지널 스팀 ' ,100 , 110 , 1   , 24   , 1.2  , 230  , 1460  ,' https://metree.co.kr/index/shop.php?r=view&cat=00210001&uid=6156' , '  ',  0 )
+('오리지널 스팀 ' ,100 , 110 , 1   , 24   , 1.2  , 230  , 1460  ,' https://metree.co.kr/index/shop.php?r=view&cat=00210001&uid=6156' , '  ',  0 )
+('오리지널 스팀 ' ,100 , 110 , 1   , 24   , 1.2  , 230  , 1460  ,' https://metree.co.kr/index/shop.php?r=view&cat=00210001&uid=6156' , '  ',  0 )
+
+닭가슴살(소시지)
+('프랑크소시지 훈제맛' ,100 , 145 , 7  , 19   , 4.8  , 310  ,1233  ,'https://metree.co.kr/index/shop.php?r=view&cat=00390001&uid=5847' , '  ',  0 )
+('프랑크소시지 청양고추맛' ,100 , 160 , 6  , 19   , 7  , 340  ,1233  ,'https://metree.co.kr/index/shop.php?r=view&cat=00390001&uid=5847' , '  ',  0 )
+('프랑크소시지 리얼카레맛' ,100 , 150 , 7  , 19   , 5  , 320  ,1233  ,'https://metree.co.kr/index/shop.php?r=view&cat=00390001&uid=5847' , '  ',  0 )
+('프랑크소시지 콘옥수수맛' ,100 , 160 , 7  , 19   , 6  , 340  ,1233  ,'https://metree.co.kr/index/shop.php?r=view&cat=00390001&uid=5847' , '  ',  0 )
+('프랑크소시지 리얼치즈맛' ,100 , 175 , 6  , 20   , 8  , 450  ,1233  ,'https://metree.co.kr/index/shop.php?r=view&cat=00390001&uid=5847' , '  ',  0 )
+
+닭가슴살(랭킹닭컴)
+
+('닭가슴살 스테이크 오리지널,100 , 140 , 8  , 22   , 2.2  , 294  ,1590  ,'https://www.rankingdak.com/product/view?productCd=11439' , '  ',  0 )
+('닭가슴살 스테이크 호박,100 , 143 , 8  , 21   , 3  , 230  ,1650  ,'https://www.rankingdak.com/product/view?productCd=11439' , '  ',  0 )
+('닭가슴살 스테이크 고추,100 , 152 , 9  , 22   , 3.1  , 259  ,1650  ,'https://www.rankingdak.com/product/view?productCd=11439' , '  ',  0 )
+('닭가슴살 스테이크 야채,100 , 142 , 9  , 17   , 4.2  , 254  ,1650  ,'https://www.rankingdak.com/product/view?productCd=11439' , '  ',  0 )
+('닭가슴살 스테이크 갈릭,100 , 140 , 8  , 23   , 1.8  , 252  ,1650  ,'https://www.rankingdak.com/product/view?productCd=11439' , '  ',  0 )

@@ -63,7 +63,6 @@
 <div id="wishListView"></div>
 
 <div>
-    <button th:if="${session.login != null}" th:onclick="|location.href='@{shoppingWishForm}'|">내 찜목록</button>
     <button th:if="${session.login != null}" th:onclick="|location.href='@{basketForm}'|">장바구니로 가기</button>
 </div>
 </body>
