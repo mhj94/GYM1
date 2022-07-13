@@ -202,14 +202,24 @@ public class ShoppingController {
         return myWishList;
     }
 
-    //sohppingMainListAjax : 쇼핑몰 메인화면 부트 리스트 불러오는 ajax
+    //sohppingMainListAjax : 쇼핑몰 메인화면 상품 리스트 불러오는 ajax
     @GetMapping("/sohppingMainListAjax")
-    private @ResponseBody List<ProductDTO> sohppingMainListAjax(){
-        List<ProductDTO> sohppingMainListAjax =new ArrayList<ProductDTO>();
-        sohppingMainListAjax =shoppingsvc.sohppingMainListAjax();
-
+    private @ResponseBody List<ProductDTO> sohppingMainListAjax(@RequestParam String viewOrderSelect){
+        System.out.println(viewOrderSelect);
+        List<ProductDTO> sohppingMainListAjax =new ArrayList<>();
+        sohppingMainListAjax =shoppingsvc.sohppingMainListAjax(viewOrderSelect);
         return sohppingMainListAjax;
     }
+
+    //sohppingMainListSelectAjax : 쇼핑몰 메인화면 select로  상품리스트 불러오기
+    @GetMapping("/sohppingMainListSelectAjax")
+    private @ResponseBody List<ProductDTO> sohppingMainListSelectAjax(@RequestParam String viewOrderSelect){
+        System.out.println("controller viewOrderSelect: "+viewOrderSelect);
+        List<ProductDTO> sohppingMainListSelectAjax =new ArrayList<>();
+        sohppingMainListSelectAjax =shoppingsvc.sohppingMainListAjax(viewOrderSelect);
+        return sohppingMainListSelectAjax;
+    }
+
 
     //myBasketCount: 내 장바구니 갯수
     @GetMapping("/myBasketCount")

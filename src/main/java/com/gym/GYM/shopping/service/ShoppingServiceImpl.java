@@ -18,6 +18,8 @@ import com.gym.GYM.shopping.dto.ProductDTO;
 import com.gym.GYM.shopping.dto.WishDTO;
 
 
+
+
 @Service
 public class ShoppingServiceImpl implements ShoppingService {
 
@@ -70,11 +72,28 @@ public class ShoppingServiceImpl implements ShoppingService {
     }
 
     @Override
-    public List<ProductDTO> sohppingMainListAjax() {
+    public List<ProductDTO> sohppingMainListAjax(String viewOrderSelect) {
+
         List<ProductDTO> sohppingMainListAjax =new ArrayList<ProductDTO>();
+        System.out.println("service: viewOrderSelect="+viewOrderSelect);
+        if (viewOrderSelect==""){
+            sohppingMainListAjax = shoppingdao.sohppingMainListAjax();
 
-        sohppingMainListAjax = shoppingdao.sohppingMainListAjax();
+        } else if (viewOrderSelect.equals("productRate")){
+            sohppingMainListAjax = shoppingdao.sohppingMainListRateAjax();
+            System.out.println("productRate:"+sohppingMainListAjax);
 
+        } else if (viewOrderSelect.equals("productName")) {
+            sohppingMainListAjax = shoppingdao.sohppingMainListNameAjax();
+
+            System.out.println("productName :"+sohppingMainListAjax);
+        } else if (viewOrderSelect.equals("productHits")) {
+            sohppingMainListAjax= shoppingdao.sohppingMainListHitsAjax();
+            System.out.println("productHits :"+sohppingMainListAjax);
+
+        }else {}
+
+        System.out.println("service리턴값:"+sohppingMainListAjax);
         return sohppingMainListAjax;
     }
 
@@ -89,14 +108,12 @@ public class ShoppingServiceImpl implements ShoppingService {
     }
 
 
-  //  basketList : ajax 찜한상품 장에 담고 List return
-    //가격 넣는 부분 때문에  잠시 주석처리
+  //  basketList : ajax 찜한상품 장바구니에 담고 List return
     @Override
     public List<OrdersDTO> basketList(String productCode, String memberId) {
         List<OrdersDTO> basketDTOList = new ArrayList<OrdersDTO>();
         String uuid = UUID.randomUUID().toString().substring(0, 6);
         String orderCode = uuid;
-      //  boolean basketRegist = shoppingdao.basketRegist(productCode, memberId, orderPrice, orderCode);
         basketDTOList = shoppingdao.basketList(memberId);
         return basketDTOList;
     }
@@ -142,7 +159,6 @@ public class ShoppingServiceImpl implements ShoppingService {
     public List<String> basketDelete(String memberId, String productCode) {
         System.out.println("장바구니 삭제 메소드"+memberId+productCode);
         shoppingdao.basketDelete(memberId, productCode);
-
         List<String> basketInquire = new ArrayList<>();
         basketInquire = shoppingdao.basketInquire(memberId, productCode);
 
@@ -162,7 +178,6 @@ public class ShoppingServiceImpl implements ShoppingService {
     //basketView 장바구니 보는 메소드
     @Override
     public List<BasketDTO> myBasketListAjax(String memberId) {
-        System.out.println("장바구니 조회를 위한 코드 :"+memberId);
         List<BasketDTO> productDTOList = new ArrayList<>();
         basketDTOList = shoppingdao.basketList(memberId);
         int count = shoppingdao.basketCount(memberId);
@@ -172,7 +187,6 @@ public class ShoppingServiceImpl implements ShoppingService {
         if (count > 0) {
             for (int i = 0; i < count; i++) {
                 basketCode = basketArr[i];
-                System.out.println("장바구니 조회를 위한 코드 arr:"+basketCode);
                 productDTOList.add(shoppingdao.myBasketList(basketCode, memberId));
             }
         } else {

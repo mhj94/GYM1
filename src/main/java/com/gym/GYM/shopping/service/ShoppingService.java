@@ -13,7 +13,7 @@ public interface ShoppingService {
 
     List<ProductDTO> shoppingWishForm(String memberId);
 
-    List<ProductDTO> sohppingMainListAjax();
+    List<ProductDTO> sohppingMainListAjax(String viewOrderSelect);
 
     ModelAndView shoppingView(String productCode);
 

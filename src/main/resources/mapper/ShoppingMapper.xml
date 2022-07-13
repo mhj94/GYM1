@@ -10,7 +10,9 @@
     </select>
 
     <select id="sohppingMainListAjax" resultType="product">
-        SELECT * FROM PRODUCT
+        SELECT ROUND(PRODUCTRATE, 2) AS PRODUCTRATE, PRODUCTNAME, PRODUCTPRICE, PRODUCTCODE, PRODUCTPHOTO,PRODUCTHITS
+        FROM PRODUCT
+        ORDER BY PRODUCTHITS DESC
     </select>
 
     <update id="count" parameterType="String">
@@ -80,7 +82,7 @@
              ORDERS
              ON ORDERS.ORDERPRODUCTCODE = PRODUCT.PRODUCTCODE
         WHERE PRODUCT.PRODUCTCODE = #{basketCode}
-          AND ORDERS.ORDERID = #{memberId}
+          AND ORDERS.ORDERID=#{memberId}
     </select>
 
 
@@ -198,4 +200,25 @@
     <select id="myWishCount" parameterType="String" resultType="String">
     SELECT COUNT(WISHID) FROM WISH WHERE WISHID=#{memberId}
     </select>
+
+<!--쇼핑몰 메인화면 리스트 이름으로 보기 -->
+    <select id="sohppingMainListNameAjax" parameterType="String" resultType="product">
+        SELECT ROUND(PRODUCTRATE, 2) AS PRODUCTRATE, PRODUCTNAME, PRODUCTPRICE, PRODUCTCODE, PRODUCTPHOTO,PRODUCTHITS
+        FROM PRODUCT
+        ORDER BY PRODUCTNAME ASC
+    </select>
+
+<!--쇼핑몰 메인화면 리스트 조회수로 보기-->
+    <select id="sohppingMainListHitsAjax" parameterType="String" resultType="product">
+        SELECT ROUND(PRODUCTRATE, 2) AS PRODUCTRATE, PRODUCTNAME, PRODUCTPRICE, PRODUCTCODE, PRODUCTPHOTO,PRODUCTHITS
+        FROM PRODUCT
+        ORDER BY PRODUCTHITS DESC
+    </select>
+<!--쇼핑몰 메인화면 리스트 별점으로 보기-->
+    <select id="sohppingMainListRateAjax" parameterType="String" resultType="product">
+        SELECT ROUND(PRODUCTRATE, 2) AS PRODUCTRATE, PRODUCTNAME, PRODUCTPRICE, PRODUCTCODE, PRODUCTPHOTO,PRODUCTHITS
+        FROM PRODUCT
+        ORDER BY PRODUCTRATE DESC
+    </select>
+
 </mapper>

@@ -69,5 +69,9 @@ public interface ShoppingDAO {
 
     List<String> myWishCount(String memberId);
 
-    ModelAndView basketPayment1(String memberId, String addr, String coment);
+    List<ProductDTO> sohppingMainListRateAjax();
+
+    List<ProductDTO> sohppingMainListNameAjax();
+
+    List<ProductDTO> sohppingMainListHitsAjax();
 }
