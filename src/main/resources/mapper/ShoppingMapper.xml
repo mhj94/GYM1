@@ -9,6 +9,10 @@
         ORDER BY PRODUCTHITS DESC
     </select>
 
+    <select id="sohppingMainListAjax" resultType="product">
+        SELECT * FROM PRODUCT
+    </select>
+
     <update id="count" parameterType="String">
         UPDATE PRODUCT
         SET PRODUCTHITS = PRODUCTHITS + 1
@@ -76,7 +80,7 @@
              ORDERS
              ON ORDERS.ORDERPRODUCTCODE = PRODUCT.PRODUCTCODE
         WHERE PRODUCT.PRODUCTCODE = #{basketCode}
-          AND ORDERS.ORDERPRODUCTCODE = #{basketCode}
+          AND ORDERS.ORDERID = #{memberId}
     </select>
 
 
@@ -139,8 +143,8 @@
     <!--order 테이블 주문 요청사항 및 주소 추가하는 메소드-->
     <update id="basketPayment" parameterType="String">
         UPDATE ORDERS
-        SET ORDERADDRESS = #{addr},
-            ORDERREQUEST =#{coment}
+        SET ORDERADDRESS = #{orderAddress},
+            ORDERREQUEST =#{orderRequest}
         WHERE ORDERREQUEST = 'noInput'
           AND ORDERID = #{memberId}
     </update>
@@ -183,4 +187,15 @@
         INSERT INTO PAY VALUES (#{payId},#{payProduct},#{payPrice})
     </insert>
 
+
+<!-- 쇼핑몰 메인화면 장바구니 갯수   -->
+    <select id="myBasketCount" parameterType="String" resultType="String">
+    SELECT COUNT(ORDERPRODUCTCODE) FROM ORDERS WHERE ORDERID=#{memberId} AND  ORDERREQUEST = 'noInput'
+
+    </select>
+
+<!--쇼핑몰 메인화면 찜 목록 갯수  -->
+    <select id="myWishCount" parameterType="String" resultType="String">
+    SELECT COUNT(WISHID) FROM WISH WHERE WISHID=#{memberId}
+    </select>
 </mapper>

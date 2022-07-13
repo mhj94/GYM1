@@ -7,34 +7,43 @@
     <meta name="author" content="생로병사"/>
     <meta name="description" content="shoppingMain index"/>
     <title>책임GYM 쇼핑몰</title>
+    <link rel="apple-touch-icon" href="ShoppingAssets/img/apple-icon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="ShoppingAssets/img/favicon.ico">
+
+    <link rel="stylesheet" href="ShoppingAssets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="ShoppingAssets/css/templatemo.css">
+    <link rel="stylesheet" href="ShoppingAssets/css/custom.css">
+
+    <!-- Load fonts style after rendering the layout styles -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="ShoppingAssets/css/fontawesome.min.css">
+
+
 </head>
-<link rel = "stylesheet" type = "text/css" href = "css/style.css">
+<!--    <link rel="stylesheet" type="text/css" href="css/style.css">-->
 <body>
     <h1>쇼핑몰 메인</h1>
     <img th:src="@{/ShoppingImg/123.png}" width="150dp" height="100dp" alt="짱구">
     <table>
     <caption>Product List</caption>
-
         <tr>
             <th>상품사진명</th>
             <th>상품이름</th>
             <th>상품가격</th>
             <th>상품평점</th>
         </tr>
-
             <tr th:each="list : ${shoppingList}">
             <td><a th:href="@{shoppingView(productCode=${list.productCode})}" ><img th:src="@{/ShoppingImg/{aa}(aa=${list.productPhoto})}" style="width:200px;"></a></td>
             <td th:text="${list.productName}"></td>
             <td th:text="${list.productPrice}"></td>
                 <td th:text="${list.productRate}"></td>
-
         </tr>
     </table>
     <img src="GYM1/src/main/resources/static/ShoppingImg/123.png" width="150dp" height="100dp" alt="짱구">
     <button th:if ="${session.login != null}" th:onclick ="|location.href='@{ShoppingWishForm}'|">내 찜목록</button>
     <button th:if ="${session.login != null}" th:onclick = "|location.href='@{basketForm}'|">장바구니로 가기</button>
     <button th:if ="${session.login != null}" th:onclick ="|location.href='@{shoppingHistory(orderId=${session.login.memberId})}'|">주문내역 보기</button>
-
     <h3 th:if = "${session.login !=null}" th:text ="${session.login.memberId}"></h3>
     <h3 th:if = "${session.login !=null}" th:text ="${session.login.memberRole}"></h3>
 

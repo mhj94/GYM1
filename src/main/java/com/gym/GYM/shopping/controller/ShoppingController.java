@@ -28,7 +28,7 @@ public class ShoppingController {
 
 
     // shoppionWishFrom : 찜한상품 보기 페이지
-    @GetMapping("/ShoppingWishForm")
+    @GetMapping("/shoppingWishForm")
     private String shoppingWishForm() {
 
         return "Shopping/ShoppingWishForm";
@@ -36,9 +36,9 @@ public class ShoppingController {
 
     //shoppingList
     @GetMapping("/shoppingMainForm")
-    private ModelAndView shoppingList() {
-        mav = shoppingsvc.shoppingList();
-        return mav;
+    private String shoppingList() {
+
+        return "Shopping/ShoppingMainForm";
     }
 
     // shoppingView
@@ -61,6 +61,7 @@ public class ShoppingController {
     @GetMapping("/myBasketListAjax")
     private @ResponseBody List<BasketDTO> myBasketListAjax(@RequestParam String memberId) {
         List<BasketDTO> myBasketListAjax = new ArrayList<BasketDTO>();
+        System.out.println(memberId);
         myBasketListAjax = shoppingsvc.myBasketListAjax(memberId);
         return myBasketListAjax;
     }
@@ -150,10 +151,8 @@ public class ShoppingController {
 
     //basketPayment : 모달로 주문시 orders 테이블 업데이트 하는 메소드
     @PostMapping("/basketPayment")
-    private ModelAndView basketPayment(@RequestParam String memberId, @RequestParam String addr, @RequestParam String coment) {
-        System.out.println("컨트롤러 요청사항:" + coment);
-        System.out.println("컨트롤러 주소:" + addr);
-        mav = shoppingsvc.basketPayment(memberId, addr, coment);
+    private ModelAndView basketPayment(@RequestParam String memberId, @RequestParam String orderAddress, @RequestParam String orderRequest) {
+        mav = shoppingsvc.basketPayment(memberId, orderAddress, orderRequest);
         return mav;
     }
 
@@ -186,7 +185,7 @@ public class ShoppingController {
   //  orderCountMinus : 장바구니에서 상품 수량 변경시 orders 테이블 count -
     @PostMapping("/orderCountMinus")
     private @ResponseBody List<String> orderCountMinus (@RequestParam String memberId, @RequestParam String productCode, @RequestParam String orderPrice){
-        System.out.println(productCode);
+
         List<String> orderCountMinus =new ArrayList<>();
         orderCountMinus=shoppingsvc.orderCountMinus(memberId,productCode,orderPrice);
 
@@ -201,6 +200,33 @@ public class ShoppingController {
         myWishList=shoppingsvc.shoppingWishForm(memberId);
 
         return myWishList;
+    }
+
+    //sohppingMainListAjax : 쇼핑몰 메인화면 부트 리스트 불러오는 ajax
+    @GetMapping("/sohppingMainListAjax")
+    private @ResponseBody List<ProductDTO> sohppingMainListAjax(){
+        List<ProductDTO> sohppingMainListAjax =new ArrayList<ProductDTO>();
+        sohppingMainListAjax =shoppingsvc.sohppingMainListAjax();
+
+        return sohppingMainListAjax;
+    }
+
+    //myBasketCount: 내 장바구니 갯수
+    @GetMapping("/myBasketCount")
+    private @ResponseBody List<String> myBasketCount(@RequestParam String memberId){
+        List<String> myBasketCount =new ArrayList<>();
+        myBasketCount=shoppingsvc.myBasketCount(memberId);
+        return myBasketCount;
+    }
+
+    //myWishCount: 내 찜목록 갯수
+
+    @GetMapping("/myWishCount")
+    private @ResponseBody List<String> myWishCount (@RequestParam String memberId){
+        List<String> myWishCount =new ArrayList<>();
+        myWishCount=shoppingsvc.myWishCount(memberId);
+
+        return myWishCount;
     }
 
 

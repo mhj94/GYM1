@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 public interface ShoppingDAO {
 
 //
-    List<ProductDTO> shoppingList();
+    List<ProductDTO> sohppingMainListAjax();
 
     ProductDTO shoppingView(String productCode);
 
@@ -34,7 +34,7 @@ public interface ShoppingDAO {
 
     int basketCount(String memberId);
 
-    BasketDTO myBasketList(String basketCode);
+    BasketDTO myBasketList(String basketCode, String memberId);
 
     List<String> wishInquire(String memberId, String productCode);
 
@@ -46,7 +46,7 @@ public interface ShoppingDAO {
 
     void basketDelete(String memberId, String productCode);
 
-    ModelAndView basketPayment(String memberId, String addr, String coment);
+    void basketPayment(String memberId, String orderAddress, String orderRequest);
 
     List<OrdersDTO> shoppingPaymentList(String orderId);
 
@@ -64,4 +64,10 @@ public interface ShoppingDAO {
     List<PayDTO> payRegist(PayDTO pay);
 
     List<String> orderCountMinus(String memberId, String productCode,String orderPrice);
+
+    List<String> myBasketCount(String memberId);
+
+    List<String> myWishCount(String memberId);
+
+    ModelAndView basketPayment1(String memberId, String addr, String coment);
 }
