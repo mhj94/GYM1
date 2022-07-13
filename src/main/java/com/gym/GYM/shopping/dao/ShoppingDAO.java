@@ -4,19 +4,21 @@ package com.gym.GYM.shopping.dao;
 import java.util.List;
 
 
-import com.gym.GYM.shopping.dto.*;
+import com.gym.GYM.shopping.dto.OrdersDTO;
 import com.gym.GYM.shopping.dto.PayDTO;
+import com.gym.GYM.shopping.dto.ProductDTO;
 
 import org.apache.ibatis.annotations.Mapper;
 
 
+import com.gym.GYM.shopping.dto.WishDTO;
 import org.springframework.web.servlet.ModelAndView;
 
 @Mapper
 public interface ShoppingDAO {
 
-//
-    List<ProductDTO> sohppingMainListAjax();
+    //
+    List<ProductDTO> shoppingList();
 
     ProductDTO shoppingView(String productCode);
 
@@ -28,46 +30,36 @@ public interface ShoppingDAO {
 
     ProductDTO myWishList(String productCode);
 
-    boolean basketRegist(String memberId, String productCode, String orderPrice, String orderCode, String orderName);
+    boolean basketRegist(String productCode, String memberId, String orderCode);
 
     List<OrdersDTO> basketList(String memberId);
 
     int basketCount(String memberId);
 
-    BasketDTO myBasketList(String basketCode, String memberId);
+    ProductDTO myBasketList(String basketCode);
+
+    String basketRegist1(String productCode, String orderPrice, String orderId, String orderCode);
 
     List<String> wishInquire(String memberId, String productCode);
 
     void wishDelete(String memberId, String productCode);
 
-    void wishRegist(String memberId, String productCode);
+    void wishregist(String memberId, String productCode);
 
     List<String> basketInquire(String memberId, String productCode);
 
     void basketDelete(String memberId, String productCode);
 
-    void basketPayment(String memberId, String orderAddress, String orderRequest);
-
-    List<OrdersDTO> shoppingPaymentList(String orderId);
+    List<OrdersDTO> basketOrdersPriceUpdate(String memberId, String productCode, String orderPrice);
 
     List<String> addressInputAjax(String memberId);
 
-    List<OrdersDTO> basketOrdersPriceUpdate(String memberId, String productCode, String orderPrice);
+    ModelAndView basketPayment(String addr, String coment);
 
 
-    List<String> orderCountOutputAjax(String memberId, String productCode);
+    List<OrdersDTO> shoppingPaymentList(String orderId);
 
-    List<String> orderCountPlus(String memberId, String productCode,String orderPrice);
-
-    List<OrdersDTO> shoppingHistoryList(String orderId);
+    List<PayDTO> shoppingHistoryList(String payId);
 
     List<PayDTO> payRegist(PayDTO pay);
-
-    List<String> orderCountMinus(String memberId, String productCode,String orderPrice);
-
-    List<String> myBasketCount(String memberId);
-
-    List<String> myWishCount(String memberId);
-
-    ModelAndView basketPayment1(String memberId, String addr, String coment);
 }

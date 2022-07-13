@@ -1,130 +1,952 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="생로병사"/>
-    <meta name="description" content="해당 html에 대한 설명"/>
-    <title>타이틀</title>
-    <meta name="date" content="2022.05.25">
-    <title>상품목록 상세보기</title>
+    <title>Zay Shop - Product Detail Page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="assets/img/apple-icon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/templatemo.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+
+    <!-- Load fonts style after rendering the layout styles -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+
+    <!-- Slick -->
+    <link rel="stylesheet" type="text/css" href="assets/css/slick.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/slick-theme.css">
+    <!--
+
+    TemplateMo 559 Zay Shop
+
+    https://templatemo.com/tm-559-zay-shop
+
+    -->
 </head>
-<link rel="stylesheet" type="text/css" href="css/style.css">
+
 <body>
+<!-- Start Top Nav -->
+<nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top">
+    <div class="container text-light">
+        <div class="w-100 d-flex justify-content-between">
+            <div>
+                <i class="fa fa-envelope mx-2"></i>
+                <a class="navbar-sm-brand text-light text-decoration-none" href="mailto:info@company.com">info@company.com</a>
+                <i class="fa fa-phone mx-2"></i>
+                <a class="navbar-sm-brand text-light text-decoration-none" href="tel:010-020-0340">010-020-0340</a>
+            </div>
+            <div>
+                <a class="text-light" href="https://fb.com/templatemo" target="_blank" rel="sponsored"><i class="fab fa-facebook-f fa-sm fa-fw me-2"></i></a>
+                <a class="text-light" href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram fa-sm fa-fw me-2"></i></a>
+                <a class="text-light" href="https://twitter.com/" target="_blank"><i class="fab fa-twitter fa-sm fa-fw me-2"></i></a>
+                <a class="text-light" href="https://www.linkedin.com/" target="_blank"><i class="fab fa-linkedin fa-sm fa-fw"></i></a>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- Close Top Nav -->
 
 
-<table>
-    <img th:src="@{/ShoppingImg/123.png}" width="100dp" height="100dp"/>
+<!-- Header -->
+<header>
+    <link rel="apple-touch-icon" href="assets/img/apple-icon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
 
-    <tr>
-        <th></th>
-        <td th:text="${view.productName}"></td>
-    </tr>
-    <tr>
-        <th>중량</th>
-        <td th:text="${view.productWeight}"></td>
-    </tr>
-    <tr>
-        <th>상품설명</th>
-        <td th:text="${view.productComment}"></td>
-    </tr>
-    <tr>
-        <th>가격</th>
-        <td th:text="${view.productPrice}"></td>
-    </tr>
-    <tr>
-        <th>조회수</th>
-        <td th:text="${view.productHits}"></td>
-        <input id="productCodeView" type="hidden" th:value="${view.productCode}">
-    </tr>
-    <tr>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/templatemo.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
 
-    </tr>
-    <tr>
-        <th>리뷰 등록</th>
-        <td><textarea rows="1" cols="70" id="productReviewContent" placeholder="리뷰를 작성해주세요."></textarea>
-            <button id="reviewBtn">리뷰 등록</button>
-        </td>
-    </tr>
-</table>
+    <!-- Load fonts style after rendering the layout styles -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+    <nav class="navbar navbar-expand-lg navbar-light shadow">
+        <div class="container d-flex justify-content-between align-items-center">
 
-<br/>
-<div>
-    <span>상품 수량 선택</span><br/>
-    <select name="productName" onchange="productOrder(this)">
-        <option>상품 수량을 선택해주세요</option>
-        <option th:id="${view.productPrice} * 5" th:value="${view.productPrice} * 5"
-                th:text="${view.productName} + '5팩'" th:class="5" th:data-count="${view.productName} + '5팩'"></option>
-        <option th:id="${view.productPrice} * 10" th:value="${view.productPrice} * 10"
-                th:text="${view.productName} + '10팩'" th:class="10"
-                th:data-count="${view.productName} + '10팩'"></option>
-        <option th:id="${view.productPrice} * 15" th:value="${view.productPrice} * 15"
-                th:text="${view.productName} + '15팩'" th:class="15"
-                th:data-count="${view.productName} + '15팩'"></option>
-        <option th:id="${view.productPrice} * 20" th:value="${view.productPrice} * 20"
-                th:text="${view.productName} + '20팩'" th:class="20"
-                th:data-count="${view.productName} + '20팩'"></option>
-    </select>
-    <div id='result' style="float: right">
+            <a class="navbar-brand text-success logo h1 align-self-center" href="index1.html">
+                <img width="200" src="/image/logo1.png">
+            </a>
 
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between"
+                 id="templatemo_main_nav">
+                <div class="flex-fill">
+                    <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">게시판</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:if="${session.login ne null}"
+                               th:href="@{myRoutineList(myRoutineId=${session.login.memberId})}">견적서</a>
+                            <a class="nav-link" th:if="${session.login eq null}" id="alert">견적서</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="shop.html">쇼핑몰</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="shop.html">고객센터</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" th:if="${session.login != null}" th:href="memberSignOut">로그아웃</a>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div class="navbar align-self-center d-flex">
+                    <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="inputMobileSearch" placeholder="Search ...">
+                            <div class="input-group-text">
+                                <i class="fa fa-fw fa-search"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal"
+                       data-bs-target="#templatemo_search">
+                        <i class="fa fa-fw fa-search text-dark mr-2"></i>
+                    </a>
+                    <a class="nav-icon position-relative text-decoration-none" href="#">
+                        <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
+                        <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark"></span>
+                    </a>
+                    <a class="nav-icon position-relative text-decoration-none"
+                       th:if="${session.login != null}"
+                       th:onclick="|location.href='@{memberView(memberId=${session.login.memberId})}'|">
+                        <i class="fa fa-fw fa-user text-dark mr-3"></i>
+                        <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+<!-- Close Header -->
+
+<!-- Modal -->
+<div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="w-100 pt-1 mb-5 text-right">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="" method="get" class="modal-content modal-body border-0 p-0">
+            <div class="input-group mb-2">
+                <input type="text" class="form-control" id="inputModalSearch" name="q" placeholder="Search ...">
+                <button type="submit" class="input-group-text bg-success text-light">
+                    <i class="fa fa-fw fa-search text-white"></i>
+                </button>
+            </div>
+        </form>
     </div>
 </div>
-<br/><br/>
-
-<div id="wishDeleteDiv">
-    <button id='wishDelete'>찜에서 빼기</button>
-</div>
-
-<div id="wishRegistDiv">
-    <button id='wishRegist'>내 찜에 넣기</button>
-</div>
 
 
-<div id="basketDeleteDiv">
-    <button id='basketDelete'>장바구니에서 빼기</button>
-</div>
 
-<div id="basketRegisterDiv">
-    <button id='basketRegist'>내 장바구니에 넣기</button>
-</div>
+<!-- Open Content -->
+<section class="bg-light">
+    <div class="container pb-5">
+        <div class="row">
+            <div class="col-lg-5 mt-5">
+                <div class="card mb-3">
+                    <img class="card-img img-fluid" th:src="@{ShoppingImg/{aa}(aa=${view.productPhoto})}" alt="Card image cap" id="product-detail" >
+                </div>
+                <div class="row">
+                    <!--Start Controls-->
+                    <div class="col-1 align-self-center">
+                        <a href="#multi-item-example" role="button" data-bs-slide="prev">
+                            <i class="text-dark fas fa-chevron-left"></i>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </div>
+                    <!--End Controls-->
+                    <!--Start Carousel Wrapper-->
+                    <div id="multi-item-example" class="col-10 carousel slide carousel-multi-item" data-bs-ride="carousel">
+                        <!--Start Slides-->
+                        <div class="carousel-inner product-links-wap" role="listbox">
 
-<div>     <button th:if ="${session.login != null}" th:onclick ="|location.href='@{shoppingWishForm}'|">내 찜목록</button>
-    <button th:if ="${session.login != null}" th:onclick = "|location.href='@{basketForm}'|">장바구니로 가기</button>
-<br/>
-<br/><span>별점 선택</span>
-<input type="radio" name="productReviewRate" value="1" id="rate1"><label
-        for="rate1">★</label>
-<input type="radio" name="productReviewRate" value="2" id="rate2"><label
-        for="rate2">★★</label>
-<input type="radio" name="productReviewRate" value="3" id="rate3"><label
-        for="rate3">★★★</label>
-<input type="radio" name="productReviewRate" value="4" id="rate4"><label
-        for="rate4">★★★★</label>
-<input type="radio" name="productReviewRate" value="5" id="rate5" checked><label
-        for="rate5">★★★★★</label>
-<input type="hidden" th:id="memberId" th:value="${session.login.memberId}">
-<input type="hidden" th:id="productCode" th:value="${view.productCode}">
-<div id="reviewArea"></div>
+                            <!--First slide-->
+                            <div class="carousel-item active">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <a href="#">
+                                            <img class="card-img img-fluid" th:src="@{ShoppingImg/{aa}(aa=${view.productPhoto})}" alt="Product Image 1">
+                                        </a>
+                                    </div>
+                                    <div class="col-4">
+                                        <a href="#">
+                                            <img class="card-img img-fluid" th:src="@{ShoppingImg/{aa}(aa=${view.productPhoto})}" alt="Product Image 2">
+                                        </a>
+                                    </div>
+                                    <div class="col-4">
+                                        <a href="#">
+                                            <img class="card-img img-fluid" th:src="@{ShoppingImg/{aa}(aa=${view.productPhoto})}" alt="Product Image 3">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/.First slide-->
+                        </div>
+                        <!--End Slides-->
+                    </div>
+                    <!--End Carousel Wrapper-->
+                    <!--Start Controls-->
+                    <div class="col-1 align-self-center">
+                        <a href="#multi-item-example" role="button" data-bs-slide="next">
+                            <i class="text-dark fas fa-chevron-right"></i>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                    <!--End Controls-->
+                </div>
+            </div>
+            <!-- col end -->
+            <div class="col-lg-7 mt-5">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="h2" th:text="${view.productName}"></h1>
+                        <p class="h3 py-2" th:text="${view.productPrice}">원</p>
+                        <p class="py-2">
+                            <i class="fa fa-star text-warning"></i>
+                            <i class="fa fa-star text-warning"></i>
+                            <i class="fa fa-star text-warning"></i>
+                            <i class="fa fa-star text-warning"></i>
+                            <i class="fa fa-star text-secondary"></i>
+                            <span class="list-inline-item text-dark" th:text="${view.productRate}"></span>
+                        </p>
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <h6>중량:</h6>
+                            </li>
+                            <li class="list-inline-item">
+                                <p class="text-primary" th:text="${view.productWeight}">g</p>
+                            </li>
+                            <li class="list-inline-item">
+                                <h6>g</h6>
+                            </li>
+                        </ul>
 
+                        <h6>상품 설명:</h6>
+                        <p th:text="${view.productComment}"></p>
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <h6>상품 칼로리 :</h6>
+                            </li>
+                            <li class="list-inline-item">
+                                <p class="text-primary" th:text="${view.productKcal}"></p>
+                            </li>
+                            <li class="list-inline-item">
+                                <h6>Kcal</h6>
+                            </li>
+                        </ul>
 
-<div class="modal" th:width="200" th:high="100">
-    <div class="modal_body">
-        <h1 id="wishRegistModel">추가되었습니다!</h1>
+                        <h6>영양 성분</h6>
+                        <ul class="list-unstyled pb-3">
+                            <li class="list-inline-item">
+                                <h6>탄수화물 :</h6>
+                            </li>
+                            <li class="list-inline-item">
+                                <p class="text-primary" th:text="${view.productCarbohydrate}"></p>
+                            </li>
+                            <li class="list-inline-item">
+                                <h6>g</h6>
+                            </li>
+                            <br/>
+                            <li class="list-inline-item">
+                                <h6>단백질 :</h6>
+                            </li>
+                            <li class="list-inline-item">
+                                <p class="text-primary" th:text="${view.productProtein}"></p>
+                            </li>
+                            <li class="list-inline-item">
+                                <h6>g</h6>
+                            </li>
+                            <br/>
+                            <li class="list-inline-item">
+                                <h6>지방 :</h6>
+                            </li>
+                            <li class="list-inline-item">
+                                <p class="text-primary" th:text="${view.productFat}"></p>
+                            </li>
+                            <li class="list-inline-item">
+                                <h6>g</h6>
+                            </li>
+                            <br/>
+                            <li class="list-inline-item">
+                                <h6>나트륨 :</h6>
+                            </li>
+                            <li class="list-inline-item">
+                                <p class="text-primary" th:text="${view.productSalt}"></p>
+                            </li>
+                            <li class="list-inline-item">
+                                <h6>mg</h6>
+                            </li>
+                        </ul>
 
-        <p>장바구니로 가시겠습니까?</p>
-
-        <button th:onclick="|location.href='@{basketForm}'|">예</button>
-        <input type="button" name="continue" value="쇼핑계속하기" onclick="top.location.reload()";id="modelClose">
+                        <div class="row">
+                            <div class="col-auto" style="padding-top: 0px; padding-right: 12px; padding-bottom: 50px; padding-left: 12px">
+                                <span class="text-black">상품 수량 선택</span><br/>
+                                <select name="productName" onchange="productOrder(this)">
+                                    <option>상품 수량을 선택해주세요</option>
+                                    <option th:id="${view.productPrice} * 5" th:value="${view.productPrice} * 5"
+                                            th:text="${view.productName} + '5팩'" th:class="5" th:data-count="${view.productName} + '5팩'"></option>
+                                    <option th:id="${view.productPrice} * 10" th:value="${view.productPrice} * 10"
+                                            th:text="${view.productName} + '10팩'" th:class="10"
+                                            th:data-count="${view.productName} + '10팩'"></option>
+                                    <option th:id="${view.productPrice} * 15" th:value="${view.productPrice} * 15"
+                                            th:text="${view.productName} + '15팩'" th:class="15"
+                                            th:data-count="${view.productName} + '15팩'"></option>
+                                    <option th:id="${view.productPrice} * 20" th:value="${view.productPrice} * 20"
+                                            th:text="${view.productName} + '20팩'" th:class="20"
+                                            th:data-count="${view.productName} + '20팩'"></option>
+                                </select>
+                                <div id='result' style="float: right; padding-left: 400px;"></div>
+                            </div>
+                            <div class="row pb-3">
+                                <div id="wishDeleteDiv" class="col d-grid">
+                                    <button id='wishDelete' class="btn btn-success btn-lg">찜목록삭제</button>
+                                </div>
+                                <div id="wishRegistDiv" class="col d-grid">
+                                    <button id='wishRegist' class="btn btn-success btn-lg">찜목록추가</button>
+                                </div>
+                                <div id="basketDeleteDiv" class="col d-grid">
+                                    <button id='basketDelete' class="btn btn-success btn-lg">장바구니삭제</button>
+                                </div>
+                                <div id="basketRegisterDiv" class="col d-grid">
+                                    <button id='basketRegist' class="btn btn-success btn-lg">장바구니추가</button>
+                                </div>
+                                <div class="col d-grid">
+                                    <button th:if ="${session.login != null}" th:onclick ="|location.href='@{shoppingWishForm}'|" class="btn btn-success btn-lg">내 찜목록</button>
+                                </div>
+                                <div class="col d-grid">
+                                    <button th:if ="${session.login != null}" th:onclick = "|location.href='@{basketForm}'|" class="btn btn-success btn-lg">장바구니</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+</section>
+<!-- Close Content -->
+
+<!-- Start Article -->
+<section class="py-5">
+    <div class="container">
+        <div class="row text-left p-2 pb-3">
+            <h4>관련 상품</h4>
+        </div>
+
+        <!--Start Carousel Wrapper-->
+        <div id="carousel-related-product">
+
+            <div class="p-2 pb-3">
+                <div class="product-wap card rounded-0">
+                    <div class="card rounded-0">
+                        <img class="card-img rounded-0 img-fluid" th:src="@{ShoppingImg/{aa}(aa=${view.productPhoto})}">
+                        <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                            <ul class="list-unstyled">
+                                <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
+                                <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>
+                                <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <a href="shop-single.html" class="h3 text-decoration-none" th:text="${view.productName}"></a>
+                        <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                            <li>M/L/X/XL</li>
+                            <li class="pt-2">
+                                <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                            </li>
+                        </ul>
+                        <ul class="list-unstyled d-flex justify-content-center mb-1">
+                            <li>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-muted fa fa-star"></i>
+                            </li>
+                        </ul>
+                        <p class="text-center mb-0">$20.00</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-2 pb-3">
+                <div class="product-wap card rounded-0">
+                    <div class="card rounded-0">
+                        <img class="card-img rounded-0 img-fluid" th:src="@{ShoppingImg/{aa}(aa=${view.productPhoto})}">
+                        <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                            <ul class="list-unstyled">
+                                <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
+                                <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>
+                                <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <a href="shop-single.html" class="h3 text-decoration-none" th:text="${view.productName}"></a>
+                        <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                            <li>M/L/X/XL</li>
+                            <li class="pt-2">
+                                <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                            </li>
+                        </ul>
+                        <ul class="list-unstyled d-flex justify-content-center mb-1">
+                            <li>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-muted fa fa-star"></i>
+                                <i class="text-muted fa fa-star"></i>
+                            </li>
+                        </ul>
+                        <p class="text-center mb-0">$25.00</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-2 pb-3">
+                <div class="product-wap card rounded-0">
+                    <div class="card rounded-0">
+                        <img class="card-img rounded-0 img-fluid" th:src="@{ShoppingImg/{aa}(aa=${view.productPhoto})}">
+                        <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                            <ul class="list-unstyled">
+                                <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
+                                <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>
+                                <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <a href="shop-single.html" class="h3 text-decoration-none" th:text="${view.productName}"></a>
+                        <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                            <li>M/L/X/XL</li>
+                            <li class="pt-2">
+                                <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                            </li>
+                        </ul>
+                        <ul class="list-unstyled d-flex justify-content-center mb-1">
+                            <li>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                            </li>
+                        </ul>
+                        <p class="text-center mb-0">$45.00</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-2 pb-3">
+                <div class="product-wap card rounded-0">
+                    <div class="card rounded-0">
+                        <img class="card-img rounded-0 img-fluid" th:src="@{ShoppingImg/{aa}(aa=${view.productPhoto})}">
+                        <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                            <ul class="list-unstyled">
+                                <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
+                                <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>
+                                <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <a href="shop-single.html" class="h3 text-decoration-none" th:text="${view.productName}"></a>
+                        <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                            <li>M/L/X/XL</li>
+                            <li class="pt-2">
+                                <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                            </li>
+                        </ul>
+                        <ul class="list-unstyled d-flex justify-content-center mb-1">
+                            <li>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-muted fa fa-star"></i>
+                                <i class="text-muted fa fa-star"></i>
+                            </li>
+                        </ul>
+                        <p class="text-center mb-0">$60.00</p>
+                    </div>
+                </div>
+            </div>
+
+            <!--<div class="p-2 pb-3">
+                <div class="product-wap card rounded-0">
+                    <div class="card rounded-0">
+                        <img class="card-img rounded-0 img-fluid" src="assets/img/shop_08.jpg">
+                        <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                            <ul class="list-unstyled">
+                                <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
+                                <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>
+                                <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <a href="shop-single.html" class="h3 text-decoration-none">Oupidatat non</a>
+                        <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                            <li class="">M/L/X/XL</li>
+                            <li class="pt-2">
+                                <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                            </li>
+                        </ul>
+                        <ul class="list-unstyled d-flex justify-content-center mb-1">
+                            <li>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-muted fa fa-star"></i>
+                                <i class="text-muted fa fa-star"></i>
+                            </li>
+                        </ul>
+                        <p class="text-center mb-0">$80.00</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-2 pb-3">
+                <div class="product-wap card rounded-0">
+                    <div class="card rounded-0">
+                        <img class="card-img rounded-0 img-fluid" src="assets/img/shop_09.jpg">
+                        <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                            <ul class="list-unstyled">
+                                <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
+                                <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>
+                                <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <a href="shop-single.html" class="h3 text-decoration-none">Oupidatat non</a>
+                        <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                            <li>M/L/X/XL</li>
+                            <li class="pt-2">
+                                <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                            </li>
+                        </ul>
+                        <ul class="list-unstyled d-flex justify-content-center mb-1">
+                            <li>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-muted fa fa-star"></i>
+                                <i class="text-muted fa fa-star"></i>
+                            </li>
+                        </ul>
+                        <p class="text-center mb-0">$110.00</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-2 pb-3">
+                <div class="product-wap card rounded-0">
+                    <div class="card rounded-0">
+                        <img class="card-img rounded-0 img-fluid" src="assets/img/shop_10.jpg">
+                        <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                            <ul class="list-unstyled">
+                                <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
+                                <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>
+                                <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <a href="shop-single.html" class="h3 text-decoration-none">Oupidatat non</a>
+                        <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                            <li>M/L/X/XL</li>
+                            <li class="pt-2">
+                                <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                            </li>
+                        </ul>
+                        <ul class="list-unstyled d-flex justify-content-center mb-1">
+                            <li>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-muted fa fa-star"></i>
+                                <i class="text-muted fa fa-star"></i>
+                            </li>
+                        </ul>
+                        <p class="text-center mb-0">$125.00</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-2 pb-3">
+                <div class="product-wap card rounded-0">
+                    <div class="card rounded-0">
+                        <img class="card-img rounded-0 img-fluid" src="assets/img/shop_11.jpg">
+                        <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                            <ul class="list-unstyled">
+                                <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
+                                <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>
+                                <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <a href="shop-single.html" class="h3 text-decoration-none">Oupidatat non</a>
+                        <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                            <li>M/L/X/XL</li>
+                            <li class="pt-2">
+                                <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                            </li>
+                        </ul>
+                        <ul class="list-unstyled d-flex justify-content-center mb-1">
+                            <li>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-muted fa fa-star"></i>
+                                <i class="text-muted fa fa-star"></i>
+                            </li>
+                        </ul>
+                        <p class="text-center mb-0">$160.00</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-2 pb-3">
+                <div class="product-wap card rounded-0">
+                    <div class="card rounded-0">
+                        <img class="card-img rounded-0 img-fluid" src="assets/img/shop_08.jpg">
+                        <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                            <ul class="list-unstyled">
+                                <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
+                                <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>
+                                <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <a href="shop-single.html" class="h3 text-decoration-none">Oupidatat non</a>
+                        <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                            <li>M/L/X/XL</li>
+                            <li class="pt-2">
+                                <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                            </li>
+                        </ul>
+                        <ul class="list-unstyled d-flex justify-content-center mb-1">
+                            <li>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-muted fa fa-star"></i>
+                                <i class="text-muted fa fa-star"></i>
+                            </li>
+                        </ul>
+                        <p class="text-center mb-0">$180.00</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-2 pb-3">
+                <div class="product-wap card rounded-0">
+                    <div class="card rounded-0">
+                        <img class="card-img rounded-0 img-fluid" src="assets/img/shop_09.jpg">
+                        <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                            <ul class="list-unstyled">
+                                <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
+                                <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>
+                                <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <a href="shop-single.html" class="h3 text-decoration-none">Oupidatat non</a>
+                        <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                            <li>M/L/X/XL</li>
+                            <li class="pt-2">
+                                <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                            </li>
+                        </ul>
+                        <ul class="list-unstyled d-flex justify-content-center mb-1">
+                            <li>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-muted fa fa-star"></i>
+                                <i class="text-muted fa fa-star"></i>
+                            </li>
+                        </ul>
+                        <p class="text-center mb-0">$220.00</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-2 pb-3">
+                <div class="product-wap card rounded-0">
+                    <div class="card rounded-0">
+                        <img class="card-img rounded-0 img-fluid" src="assets/img/shop_10.jpg">
+                        <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                            <ul class="list-unstyled">
+                                <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
+                                <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>
+                                <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <a href="shop-single.html" class="h3 text-decoration-none">Oupidatat non</a>
+                        <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                            <li>M/L/X/XL</li>
+                            <li class="pt-2">
+                                <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                            </li>
+                        </ul>
+                        <ul class="list-unstyled d-flex justify-content-center mb-1">
+                            <li>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-muted fa fa-star"></i>
+                                <i class="text-muted fa fa-star"></i>
+                            </li>
+                        </ul>
+                        <p class="text-center mb-0">$250.00</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-2 pb-3">
+                <div class="product-wap card rounded-0">
+                    <div class="card rounded-0">
+                        <img class="card-img rounded-0 img-fluid" src="assets/img/shop_11.jpg">
+                        <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                            <ul class="list-unstyled">
+                                <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
+                                <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>
+                                <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <a href="shop-single.html" class="h3 text-decoration-none">Oupidatat non</a>
+                        <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                            <li>M/L/X/XL</li>
+                            <li class="pt-2">
+                                <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                            </li>
+                        </ul>
+                        <ul class="list-unstyled d-flex justify-content-center mb-1">
+                            <li>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-muted fa fa-star"></i>
+                                <i class="text-muted fa fa-star"></i>
+                            </li>
+                        </ul>
+                        <p class="text-center mb-0">$300.00</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>-->
+            </div>
+        </div>
+</section>
+<!-- End Article -->
+
+
+<!-- Start Footer -->
+<footer class="bg-dark" id="tempaltemo_footer">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-4 pt-5">
+                <h2 class="h2 text-success border-bottom pb-3 border-light logo">책임GYM</h2>
+                <ul class="list-unstyled text-light footer-link-list">
+                    <li>
+                        <i class="fas fa-map-marker-alt fa-fw"></i>
+                        서울 서초구 강남대로 429 동일빌딩
+                    </li>
+                    <li>
+                        <i class="fa fa-phone fa-fw"></i>
+                        <a class="text-decoration-none" href="tel:010-020-0340">002-6494-1100</a>
+                    </li>
+                    <li>
+                        <i class="fa fa-envelope fa-fw"></i>
+                        <a class="text-decoration-none" href="mailto:info@company.com">responsibilitygym@gmail.com</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-md-4 pt-5">
+                <h2 class="h2 text-light border-bottom pb-3 border-light">Products</h2>
+                <ul class="list-unstyled text-light footer-link-list">
+                    <li><a class="text-decoration-none" href="#">닭가슴살</a></li>
+                    <li><a class="text-decoration-none" href="#">볶음밥/도시락</a></li>
+                    <li><a class="text-decoration-none" href="#">닭가슴살간식</a></li>
+                    <li><a class="text-decoration-none" href="#">보충제</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-4 pt-5">
+                <h2 class="h2 text-light border-bottom pb-3 border-light">More</h2>
+                <ul class="list-unstyled text-light footer-link-list">
+                    <li><a class="text-decoration-none" href="#">Home</a></li>
+                    <li><a class="text-decoration-none" href="#">About Us</a></li>
+                    <li><a class="text-decoration-none" href="#">Shop Locations</a></li>
+                    <li><a class="text-decoration-none" href="#">FAQs</a></li>
+                    <li><a class="text-decoration-none" href="#">Contact</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="row text-light mb-4">
+            <div class="col-12 mb-3">
+                <div class="w-100 my-3 border-top border-light"></div>
+            </div>
+            <div class="col-auto me-auto">
+                <ul class="list-inline text-left footer-icons">
+                    <li class="list-inline-item border border-light rounded-circle text-center">
+                        <a class="text-light text-decoration-none" target="_blank" href="http://facebook.com/"><i
+                                class="fab fa-facebook-f fa-lg fa-fw"></i></a>
+                    </li>
+                    <li class="list-inline-item border border-light rounded-circle text-center">
+                        <a class="text-light text-decoration-none" target="_blank" href="https://www.instagram.com/"><i
+                                class="fab fa-instagram fa-lg fa-fw"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-100 bg-black py-3">
+        <div class="container">
+            <div class="row pt-2">
+                <div class="col-12">
+                    <p class="text-left text-light">
+                        Copyright &copy; 2021 Company Name
+                        | Designed by <a rel="sponsored" href="https://templatemo.com" target="_blank">TemplateMo</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</footer>
+<!-- End Footer -->
+
+<!-- Start Script -->
+<script src="assets/js/jquery-1.11.0.min.js"></script>
+<script src="assets/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/templatemo.js"></script>
+<script src="assets/js/custom.js"></script>
+
+
+<!-- End Script -->
+
+<!-- Start Slider Script -->
+<script src="assets/js/slick.min.js"></script>
+<script>
+    $('#carousel-related-product').slick({
+        infinite: true,
+        arrows: false,
+        slidesToShow: 4,
+        slidesToScroll: 3,
+        dots: true,
+        responsive: [{
+            breakpoint: 1024,
+            settings: {
+                slidesToShow: 3,
+                slidesToScroll: 3
+            }
+        },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 3
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 3
+                }
+            }
+        ]
+    });
+</script>
+<!-- End Slider Script -->
 
 </body>
 
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-
 
 <script th:inline="javascript">
 
@@ -421,7 +1243,7 @@
             dataType: "json",
             success: function (wishInquire) {
                 wishButtonView = wishInquire.length;
-console.log(wishButtonView);
+
                 if (wishButtonView > 0) {
                     //찜에서 빼기 버튼 활성화
                     document.getElementById("wishRegistDiv").style.display = "none";

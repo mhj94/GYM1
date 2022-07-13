@@ -9,10 +9,6 @@
         ORDER BY PRODUCTHITS DESC
     </select>
 
-    <select id="sohppingMainListAjax" resultType="product">
-        SELECT * FROM PRODUCT
-    </select>
-
     <update id="count" parameterType="String">
         UPDATE PRODUCT
         SET PRODUCTHITS = PRODUCTHITS + 1
@@ -33,6 +29,7 @@
         WHERE PRODUCTCODE = #{productCode}
     </select>
 
+
     <select id="wishCount" parameterType="String" resultType="int">
         SELECT COUNT(WISHID)
         FROM WISH
@@ -48,7 +45,7 @@
     <insert id="basketRegist" parameterType="String">
         INSERT INTO ORDERS
         VALUES (#{orderCode}, #{productCode}, #{memberId}, 'noInput', 'noInput', 'noInput', NULL, 'noInput', NULL,
-                'noSelect', #{orderName}, '1', #{orderPrice},#{orderPrice})
+                'noSelect', 0, 0)
     </insert>
 
     <!--내가 장바구니에 등록한 상품 코드 불러오기 -->
@@ -56,7 +53,7 @@
         SELECT ORDERPRODUCTCODE
         FROM ORDERS
         WHERE ORDERID = #{memberId}
-          AND ORDERREQUEST = 'noInput'
+          AND ORDERPAYSELECT = 'noSelect'
     </select>
 
     <!--장바구니 등록한 상품 숫자 -->
@@ -64,36 +61,27 @@
         SELECT COUNT(ORDERPRODUCTCODE)
         FROM ORDERS
         WHERE ORDERID = #{memberId}
-          AND ORDERREQUEST = 'noInput'
+          AND ORDERPAYSELECT = 'noSelect'
     </select>
 
     <!--장바구니 등록한 상품 불러오기 -->
-    <select id="myBasketList" parameterType="String" resultType="basket">
-        SELECT ORDERS.ORDERNAME,
-               ORDERS.ORDERPRICE,
-               ORDERS.ORDERCOUNT,
-               PRODUCT.PRODUCTPHOTO,
-               PRODUCT.PRODUCTCODE,
-               ORDERS.ORDERTOTALPRICE
+    <select id="myBasketList" parameterType="String" resultType="product">
+        SELECT *
         FROM PRODUCT
-                 INNER JOIN
-             ORDERS
-             ON ORDERS.ORDERPRODUCTCODE = PRODUCT.PRODUCTCODE
-        WHERE PRODUCT.PRODUCTCODE = #{basketCode}
-          AND ORDERS.ORDERID = #{memberId}
+        WHERE PRODUCTCODE = #{basketCode}
     </select>
 
 
     <!-- wish에 view에서 본 상품이 들어있는지 확인-->
 
     <select id="wishInquire" parameterType="String" resultType="String">
-        SELECT WISHPRODUCTCODE
-        FROM WISH
-        WHERE WISHID = #{memberId}
-          AND WISHPRODUCTCODE = #{productCode}
+        SELECT ORDERPRODUCTCODE
+        FROM ORDERS
+        WHERE ORDERID = #{memberId}
+          AND ORDERPRODUCTCODE = #{productCode}
     </select>
 
-    <insert id="wishRegist" parameterType="String">
+    <insert id="wishregist" parameterType="String">
         INSERT INTO WISH
         VALUES (#{memberId}, #{productCode})
     </insert>
@@ -116,86 +104,38 @@
           AND ORDERPRODUCTCODE = #{productCode}
     </select>
 
+
     <delete id="basketDelete" parameterType="String">
-        DELETE
-        ORDERS WHERE ORDERID=
-        #{memberId}
-        AND
-        ORDERPRODUCTCODE
-        =
-        #{productCode}
+        DELETE ORDERS WHERE ORDERID=#{memberId} AND ORDERPRODUCTCODE=#{productCode}
     </delete>
 
-    <update id="basketOrdersPriceUpdate" parameterType="String">
-        UPDATE ORDERS
-        SET ORDERPRICE =#{orderPrice}
-        WHERE ORDERID = #{memberId}
-          AND ORDERPRODUCTCODE = #{productCode}
+
+    <update id="bascketOrdersPriceUpdate" parameterType="String"  >
+        UPDATE ORDERS SET ORDERPRICE =#{orderPrice} WHERE ORDERID = #{memberId} AND ORDERPRODUCTCODE=#{productCode}
     </update>
+
 
     <!--주문할때 회원가입시 입력한 주소 불러오는 메소드-->
     <select id="addressInputAjax" parameterType="String" resultType="String">
-        SELECT MEMBERADDRESS
-        FROM MEMBER
-        WHERE MEMBERID = #{memberId}
+        SELECT MEMBERADDRESS FROM MEMBER WHERE MEMBERID =#{memberId}
     </select>
+
 
     <!--order 테이블 주문 요청사항 및 주소 추가하는 메소드-->
     <update id="basketPayment" parameterType="String">
-        UPDATE ORDERS
-        SET ORDERADDRESS = #{orderAddress},
-            ORDERREQUEST =#{orderRequest}
-        WHERE ORDERREQUEST = 'noInput'
-          AND ORDERID = #{memberId}
+        UPDATE ORDERS SET ORDERADDRESS = #{addr}, ORDERREQUEST =#{coment} WHERE ORDERPAYSELECT='noSelect'
     </update>
+
 
     <select id="shoppingPaymentList" parameterType="String" resultType="orders">
-        SELECT *
-        FROM ORDERS
-        WHERE ORDERID = #{memberId}
-          AND ORDERPRICE != 0
-    </select>
-<!-- 상품 수량 출력해주는 ajax   -->
-    <select id="orderCountOutputAjax" parameterType="String" resultType="String">
-        SELECT ORDERCOUNT
-        FROM ORDERS
-        WHERE ORDERID = #{memberId}
-          AND ORDERREQUEST = 'noInput'
-    </select>
-
-<!-- 장바구니에서 상품수량 더하기   -->
-    <update id="orderCountPlus" parameterType="String">
-        UPDATE ORDERS
-        SET ORDERCOUNT = ORDERCOUNT+ 1, ORDERTOTALPRICE = + ORDERPRICE
-        WHERE ORDERID = #{memberId}
-          AND ORDERPRODUCTCODE = #{productCode}
-    </update>
-
-    <!-- 장바구니에서 상품수량 빼기  -->
-    <update id="orderCountMinus" parameterType="String" >
-        UPDATE ORDERS
-        SET ORDERCOUNT = ORDERCOUNT- 1, ORDERTOTALPRICE = - ORDERPRICE
-        WHERE ORDERID = #{memberId}
-          AND ORDERPRODUCTCODE = #{productCode}
-    </update>
-
-    <select id="shoppingHistoryList" parameterType="String" resultType="orders">
         SELECT * FROM ORDERS WHERE ORDERID = #{memberId} AND ORDERPRICE != 0
     </select>
 
+    <select id="shoppingHistoryList" parameterType="String" resultType="pay">
+        SELECT * FROM PAY WHERE PAYID = #{memberId}
+    </select>
+
     <insert id="payRegist" parameterType="pay">
-        INSERT INTO PAY VALUES (#{payId},#{payProduct},#{payPrice})
+        INSERT INTO PAY VALUES (#{payId},#{payCount},#{payPrice},#{payProduct})
     </insert>
-
-
-<!-- 쇼핑몰 메인화면 장바구니 갯수   -->
-    <select id="myBasketCount" parameterType="String" resultType="String">
-    SELECT COUNT(ORDERPRODUCTCODE) FROM ORDERS WHERE ORDERID=#{memberId} AND  ORDERREQUEST = 'noInput'
-
-    </select>
-
-<!--쇼핑몰 메인화면 찜 목록 갯수  -->
-    <select id="myWishCount" parameterType="String" resultType="String">
-    SELECT COUNT(WISHID) FROM WISH WHERE WISHID=#{memberId}
-    </select>
 </mapper>

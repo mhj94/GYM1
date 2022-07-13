@@ -38,7 +38,6 @@ public class OrdersDTO {
     private Date orderDay;
     private String orderPaySelect;
     private String orderCount;
-    private String orderName;
     private int orderPrice;
     private int orderTotalPrice;
 

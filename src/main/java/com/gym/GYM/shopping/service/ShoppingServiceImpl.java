@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.UUID;
 
 //github.com/mumgod/GYM1.git
-import com.gym.GYM.shopping.dto.BasketDTO;
 import com.gym.GYM.shopping.dto.OrdersDTO;
 import com.gym.GYM.shopping.dto.PayDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +30,8 @@ public class ShoppingServiceImpl implements ShoppingService {
     List<OrdersDTO> basketDTOList = new ArrayList<OrdersDTO>();
 
     //shoppingWishForm으로 이동하는 메소드
-    //ajax로 써야함.
     @Override
-    public  List<ProductDTO> shoppingWishForm(String memberId) {
+    public ModelAndView shoppingWishForm(String memberId) {
 
         List<ProductDTO> productDTOList = new ArrayList<ProductDTO>();
 
@@ -64,18 +62,22 @@ public class ShoppingServiceImpl implements ShoppingService {
                 //	productDTOList1.addAll(i,productDTOList);
                 //     System.out.println(productDTOList);
             }
+            mav.addObject("productDTOList", productDTOList);
+            //	System.out.println(productDTOList1);
+            mav.setViewName("Shopping/ShoppingWishForm");
+
         } else {
+            mav.setViewName("redirect:/Shopping/shoppingMainForm");
         }
-        return productDTOList;
+        return mav;
     }
 
     @Override
-    public List<ProductDTO> sohppingMainListAjax() {
-        List<ProductDTO> sohppingMainListAjax =new ArrayList<ProductDTO>();
-
-        sohppingMainListAjax = shoppingdao.sohppingMainListAjax();
-
-        return sohppingMainListAjax;
+    public ModelAndView shoppingList() {
+        List<ProductDTO> shoppinglist = shoppingdao.shoppingList();
+        mav.addObject("shoppingList", shoppinglist);
+        mav.setViewName("Shopping/shoppingMainForm");
+        return mav;
     }
 
 
@@ -83,27 +85,30 @@ public class ShoppingServiceImpl implements ShoppingService {
     public ModelAndView shoppingView(String productCode) {
         shoppingdao.count(productCode);
         ProductDTO shoppingView = shoppingdao.shoppingView(productCode);
-        mav.addObject("view", shoppingView);
+        mav.addObject("view",shoppingView);
         mav.setViewName("Shopping/ShoppingView");
         return mav;
     }
 
 
-  //  basketList : ajax 찜한상품 장에 담고 List return
-    //가격 넣는 부분 때문에  잠시 주석처리
+    //basketList : ajax 찜한상품 장바구니에 담고 List return
     @Override
     public List<OrdersDTO> basketList(String productCode, String memberId) {
         List<OrdersDTO> basketDTOList = new ArrayList<OrdersDTO>();
         String uuid = UUID.randomUUID().toString().substring(0, 6);
         String orderCode = uuid;
-      //  boolean basketRegist = shoppingdao.basketRegist(productCode, memberId, orderPrice, orderCode);
+
+        boolean basketRegist = shoppingdao.basketRegist(productCode, memberId, orderCode);
+
         basketDTOList = shoppingdao.basketList(memberId);
+
         return basketDTOList;
     }
 
     //찜 목록에 상품 존재하는지 확인하는 메소드
     @Override
     public List<String> wishInquire(String memberId, String productCode) {
+
         List<String> wishInquire = new ArrayList<>();
         wishInquire = shoppingdao.wishInquire(memberId, productCode);
 
@@ -114,16 +119,18 @@ public class ShoppingServiceImpl implements ShoppingService {
 
     @Override
     public List<String> wishDelete(String memberId, String productCode) {
+
         shoppingdao.wishDelete(memberId, productCode);
         List<String> wishInquire = new ArrayList<>();
         wishInquire = shoppingdao.wishInquire(memberId, productCode);
+
         return wishInquire;
     }
 
     //찜에 상품넣는 메소드
     @Override
-    public List<String> wishRegist(String memberId, String productCode) {
-        shoppingdao.wishRegist(memberId, productCode);
+    public List<String> wishregist(String memberId, String productCode) {
+        shoppingdao.wishregist(memberId, productCode);
         List<String> wishInquire = new ArrayList<>();
         wishInquire = shoppingdao.wishInquire(memberId, productCode);
         return wishInquire;
@@ -134,50 +141,64 @@ public class ShoppingServiceImpl implements ShoppingService {
     public List<String> basketInquire(String memberId, String productCode) {
         List<String> basketInquire = new ArrayList<>();
         basketInquire = shoppingdao.basketInquire(memberId, productCode);
+
         return basketInquire;
     }
-
     //상세보기에 장바구니에 해당 상품삭제  ajax 메소드
     @Override
     public List<String> basketDelete(String memberId, String productCode) {
-        System.out.println("장바구니 삭제 메소드"+memberId+productCode);
         shoppingdao.basketDelete(memberId, productCode);
-
         List<String> basketInquire = new ArrayList<>();
         basketInquire = shoppingdao.basketInquire(memberId, productCode);
 
         return basketInquire;
     }
     //상세보기에 장바구니에 해당 상품 추가 ajax 메소드
+
     @Override
-    public List<String> basketRegistAjax(String memberId, String productCode,String orderPrice , String orderName) {
+    public List<String> basketRegistAjax(String memberId, String productCode) {
+        System.out.println(memberId);
+        System.out.println(productCode);
         String uuid = UUID.randomUUID().toString().substring(0, 6);
         String orderCode = uuid;
-        shoppingdao.basketRegist(memberId, productCode,orderPrice, orderCode, orderName);
+        shoppingdao.basketRegist(memberId, productCode,orderCode);
         List<String> basketInquire = new ArrayList<>();
         basketInquire = shoppingdao.basketInquire(memberId, productCode);
         return basketInquire;
     }
 
+    //basketOrdersPriceUpdate : 장바구니에서 수량 선택시 order테이블 orderPrice update
+    @Override
+    public List<OrdersDTO> basketOrdersPriceUpdate(String memberId, String productCode, String orderPrice) {
+        List<OrdersDTO> basketOrdersPriceUpdate = new ArrayList<OrdersDTO>();
+        //String orderCode =shoppingdao.bascketSelectOdredrCode(memberId)
+        basketOrdersPriceUpdate=shoppingdao.basketOrdersPriceUpdate(memberId, productCode, orderPrice);
+        return basketOrdersPriceUpdate;
+    }
+
+
+
     //basketView 장바구니 보는 메소드
     @Override
-    public List<BasketDTO> myBasketListAjax(String memberId) {
-        System.out.println("장바구니 조회를 위한 코드 :"+memberId);
-        List<BasketDTO> productDTOList = new ArrayList<>();
+    public ModelAndView basketView(String memberId) {
+        List<ProductDTO> productDTOList = new ArrayList<ProductDTO>();
         basketDTOList = shoppingdao.basketList(memberId);
         int count = shoppingdao.basketCount(memberId);
         String[] basketArr = basketDTOList.toArray(new String[count]);
         String basketCode;
 
         if (count > 0) {
-            for (int i = 0; i < count; i++) {
+            for (int i = 0; i <= count; i++) {
                 basketCode = basketArr[i];
-                System.out.println("장바구니 조회를 위한 코드 arr:"+basketCode);
-                productDTOList.add(shoppingdao.myBasketList(basketCode, memberId));
+                productDTOList.add(shoppingdao.myBasketList(basketCode));
+
             }
+            mav.addObject("myBasketList", productDTOList);
+            mav.setViewName("Shopping/ShoppingBascket");
         } else {
+            mav.setViewName("Shopping/ShoppingBascket");
         }
-        return productDTOList;
+        return mav;
     }
 
     // addressInputAjax : 가입시 입력한 주소 불러오는 ajax
@@ -190,14 +211,10 @@ public class ShoppingServiceImpl implements ShoppingService {
     }
 
     @Override
-    public ModelAndView basketPayment(String memberId, String orderAddress, String orderRequest) {
-        System.out.println("서비스 요청사항:" + orderAddress);
-        System.out.println("서비스 주소:" + orderRequest);
-        System.out.println("서비스 주소:" + memberId);
-
-        shoppingdao.basketPayment(memberId, orderAddress, orderRequest);
-
-
+    public ModelAndView basketPayment(String addr, String coment) {
+        System.out.println("서비스 요청사항:"+coment);
+        System.out.println("서비스 주소:"+addr);
+        mav = shoppingdao.basketPayment(addr, coment);
         mav.setViewName("Shopping/ShoppingPayment");
 
         return mav;
@@ -211,53 +228,9 @@ public class ShoppingServiceImpl implements ShoppingService {
         return mav;
     }
 
-    //orderCountOutputAjax 오더테이블에서 기존 상품수량 불러오는 메소드
     @Override
-    public List<String> orderCountOutputAjax(String memberId, String productCode) {
-        List<String> orderCountOutputAjax =new ArrayList<String>();
-        orderCountOutputAjax=shoppingdao.orderCountOutputAjax(memberId, productCode);
-
-        return orderCountOutputAjax;
-    }
-
-    @Override
-    public List<String> orderCountPlus(String memberId, String productCode, String orderPrice) {
-        List<String> orderCountPlus= new ArrayList<>();
-        orderCountPlus=shoppingdao.orderCountPlus(memberId,productCode,orderPrice);
-
-        return orderCountPlus;
-    }
-
-    @Override
-    public List<String> orderCountMinus(String memberId, String productCode, String orderPrice) {
-        List<String> orderCountMinus= new ArrayList<>();
-        orderCountMinus=shoppingdao.orderCountMinus(memberId,productCode, orderPrice);
-
-
-        return orderCountMinus;
-    }
-
-    //장바구니 갯수 세는 메소드
-    @Override
-    public List<String> myBasketCount(String memberId) {
-        List<String> myBasketCount=new ArrayList<>();
-        myBasketCount=shoppingdao.myBasketCount(memberId);
-
-        return myBasketCount;
-    }
-
-    //찜목록 객수 세는 메소드
-    @Override
-    public List<String> myWishCount(String memberId) {
-        List<String> myWishCount=new ArrayList<>();
-        myWishCount=shoppingdao.myWishCount(memberId);
-        return myWishCount;
-    }
-
-
-    @Override
-    public ModelAndView shoppingHistoryList(String orderId) {
-        List<OrdersDTO> shoppingHistorylist = shoppingdao.shoppingHistoryList(orderId);
+    public ModelAndView shoppingHistoryList(String payId) {
+        List<PayDTO> shoppingHistorylist = shoppingdao.shoppingHistoryList(payId);
         mav.addObject("shoppingHistoryList",shoppingHistorylist);
         mav.setViewName("Shopping/shoppingHistory");
         return mav;
@@ -269,8 +242,6 @@ public class ShoppingServiceImpl implements ShoppingService {
 
         return payList;
     }
-
-
 
 
 }
