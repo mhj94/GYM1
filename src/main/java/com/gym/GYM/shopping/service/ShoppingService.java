@@ -58,5 +58,11 @@ public interface ShoppingService {
     List<ProductDTO> viewProductSelectListAjax(String viewProductSelect);
 
     List<ProductDTO> sohppingMainListChickenBreastSelectAjax(String viewOrderSelect);
+
+    List<ProductDTO> sohppingMainListFriedRiceSelectAjax(String viewOrderSelect);
+
+    List<ProductDTO> sohppingMainListDrinkAndSnackSelectAjax(String viewOrderSelect);
+
+    List<ProductDTO> sohppingMainListProteinSupplementSelectAjax(String viewOrderSelect);
 }
 

@@ -75,16 +75,38 @@ public interface ShoppingDAO {
 
     List<ProductDTO> sohppingMainListHitsAjax();
 
+    //    쇼핑몰 메인화면 각각 상품 (닭가슴살, 볶음밥, 스낵, 간식,프로틴
     List<ProductDTO> viewProductSelectChickenBreastAjax();
-    List<ProductDTO> sohppingMainListChickenBreastSelectRateAjax();
-    List<ProductDTO> sohppingMainListChickenBreastSelectNameAjax();
-    List<ProductDTO> sohppingMainListChickenBreastSelectHitsAjax();
-
     List<ProductDTO> viewProductSelectFriedRiceAjax();
 
     List<ProductDTO> viewProductSelectDrinkAndSnackAjax();
 
     List<ProductDTO> viewProductSelectProteinSupplementAjax();
 
+    //    쇼핑몰 메인화면 닭가슴살 이름,조회수,별점순으로 보기
+    List<ProductDTO> sohppingMainListChickenBreastSelectRateAjax();
+    List<ProductDTO> sohppingMainListChickenBreastSelectNameAjax();
+    List<ProductDTO> sohppingMainListChickenBreastSelectHitsAjax();
 
+    //    쇼핑몰 메인화면 볶음밥 이름,조회수,별점순으로 보기
+    List<ProductDTO> sohppingMainListFriedRiceSelectRateAjax();
+
+    List<ProductDTO> sohppingMainListFriedRiceSelectNameAjax();
+
+    List<ProductDTO> sohppingMainListFriedRiceSelectHitsAjax();
+
+    //쇼핑몰 메인화면 음료/간식 이름,조회수,별점순으로 보기
+    List<ProductDTO> sohppingMainListDrinkAndSnackSelectRateAjax();
+
+    List<ProductDTO> sohppingMainListDrinkAndSnackSelectNameAjax();
+
+    List<ProductDTO> sohppingMainListDrinkAndSnackSelectHitsAjax();
+
+
+//    쇼핑몰 메인화면 프로틴 이름,조회수,별점순으로 보기
+    List<ProductDTO> sohppingMainListProteinSupplementSelectRateAjax();
+
+    List<ProductDTO> sohppingMainListProteinSupplementSelectNameAjax();
+
+    List<ProductDTO> sohppingMainListProteinSupplementSelectHitsAjax();
 }

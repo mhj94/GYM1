@@ -191,17 +191,9 @@
                 <div class="col-md-6">
                     <ul class="list-inline shop-top-menu pb-3 pt-1">
                         <li class="list-inline-item">
-                            <a class="h3 text-dark text-decoration-none mr-3" href="#">모든상품 보기</a>
+                            <p class="h3 text-dark text-decoration-none mr-3" href="#">주문시 조리 /  당일배송</p>
                         </li>
-                        <li class="list-inline-item">
-                            <a class="h3 text-dark text-decoration-none mr-3" href="#">닭가슴살</a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a class="h3 text-dark text-decoration-none" href="#">음료/간식</a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a class="h3 text-dark text-decoration-none" href="#">보충제</a>
-                        </li>
+
                     </ul>
                 </div>
                 <div class="col-md-6 pb-4">
@@ -222,7 +214,9 @@
             </div>
 
 
-            <div id="mainProductChickenBreastView">
+            <div id="mainProductBaseView">
+<!--                -->
+
             </div>
             <div id="mainProductFriedRiceView">
             </div>
@@ -473,6 +467,7 @@ Start Script
     console.log(viewOrderSelect);
 
 
+    //쇼핑몰 메인 기본상품 리스트 불러오는 메소드
     $(document).ready(function () {
         $.ajax({
             type: "GET",
@@ -545,68 +540,6 @@ Start Script
 
     }
 
-    // 상품 보는 순서를 각각의 리스트 output로 쏴주는 ajax
-    function viewOrderSelectAjax(e) {
-        viewOrderSelect = e.value;
-        console.log(viewOrderSelect);
-        if (viewProductSelect == "") {
-            $.ajax({
-                type: "GET",
-                url: "sohppingMainListSelectAjax",
-                data: {"viewOrderSelect": viewOrderSelect},
-                dataType: "json",
-                success: function (productList) {
-                    viewOrderSelectOutput(productList);
-                    document.getElementById("mainProductView").style.display = "none";
-                }, error: function () {
-                }
-            })
-
-        } else if (viewProductSelect == "chickenBreast") {
-            $.ajax({
-                type: "GET",
-                url: "sohppingMainListChickenBreastSelectAjax",
-                data: {"viewOrderSelect": viewOrderSelect},
-                dataType: "json",
-                success: function (productList) {
-                    document.getElementById("mainProductView").style.display = "none";
-                    document.getElementById("mainProductChickenBreastView").style.display = "none";
-                    viewOrderSelectOutput(productList);
-                }, error: function () {
-                }
-            })
-
-        } else if (viewProductSelect == "friedRice") {
-
-
-        } else if (viewProductSelect == "drinkAndSnack") {
-
-        } else if (viewProductSelect == "proteinSupplement") {
-
-        }
-    }
-
-    //상품 보는 순서 선택시 output해주는 function
-    function viewOrderSelectOutput(productList) {
-
-        var output = "";
-        for (let i in productList) {
-            output += "<div className='products'>";
-            output += "<td>";
-            output += " <a href='shoppingView?productCode=" + productList[i].productCode + "'  className='h3 text-decoration-none'><img alt='상품이미지' src='ShoppingImg/" + productList[i].productPhoto + "' style='width:250px' height: 'auto';></a>";
-            output += " <p><a href='shoppingView?productCode=" + productList[i].productCode + "'  >" + productList[i].productName + "</a></p>";
-            output += " <p>별점" + productList[i].productRate + "</p>";
-            output += " <p>조회수" + productList[i].productHits + "</p>";
-            output += " <p className='price'>" + productList[i].productPrice + "원</p>";
-            output += " </a>";
-            output += "</td>";
-            output += "</div>"
-        }
-        var product = document.getElementById("mainProductSelectView");
-        product.innerHTML = output;
-
-    }
-
 //보고싶은 상품의 종류를 선택하는 FUNCTION
     function viewProductSelectAjax(e) {
 
@@ -623,17 +556,17 @@ Start Script
             dataType: "json",
             success: function (productList) {
                viewProductSelectOutput(productList)
-                console.log(productList);
-
             }, error: function () {
             }
         })
     }
 
     //보고싶은 상품의 기본리스트를 output하는 function
-
     function viewProductSelectOutput(productList){
         document.getElementById("mainProductView").style.display = "none";
+        document.getElementById("mainProductSelectView").style.display = "none";
+        document.getElementById("mainProductBaseView").style.display = "";
+
         var output = "";
         for (let i in productList) {
             output += "<div className='products'>";
@@ -647,9 +580,104 @@ Start Script
             output += "</td>";
             output += "</div>"
         }
-        var product = document.getElementById("mainProductChickenBreastView");
+        var product = document.getElementById("mainProductBaseView");
         product.innerHTML = output;
     }
+
+    // 상품 보는 순서(인기순, 조회수, 이름순)를 각각의 리스트 불러와서  output로 쏴주는 ajax
+    function viewOrderSelectAjax(e) {
+        viewOrderSelect = e.value;
+        console.log(viewOrderSelect);
+        if (viewProductSelect == "") {
+            $.ajax({
+                type: "GET",
+                url: "sohppingMainListSelectAjax",
+                data: {"viewOrderSelect": viewOrderSelect},
+                dataType: "json",
+                success: function (productList) {
+                    viewOrderSelectOutput(productList);
+                }, error: function () {
+                }
+            })
+
+        } else if (viewProductSelect == "chickenBreast") {
+            $.ajax({
+                type: "GET",
+                url: "sohppingMainListChickenBreastSelectAjax",
+                data: {"viewOrderSelect": viewOrderSelect},
+                dataType: "json",
+                success: function (productList) {
+                    viewOrderSelectOutput(productList);
+                }, error: function () {
+                }
+            })
+
+        } else if (viewProductSelect == "friedRice") {
+            $.ajax({
+                type: "GET",
+                url: "sohppingMainListFriedRiceSelectAjax",
+                data: {"viewOrderSelect": viewOrderSelect},
+                dataType: "json",
+                success: function (productList) {
+
+                    viewOrderSelectOutput(productList);
+                }, error: function () {
+                }
+            })
+
+        } else if (viewProductSelect == "drinkAndSnack") {
+
+            $.ajax({
+                type: "GET",
+                url: "sohppingMainListDrinkAndSnackSelectAjax",
+                data: {"viewOrderSelect": viewOrderSelect},
+                dataType: "json",
+                success: function (productList) {
+
+                    viewOrderSelectOutput(productList);
+                }, error: function () {
+                }
+            })
+
+        } else if (viewProductSelect == "proteinSupplement") {
+            $.ajax({
+                type: "GET",
+                url: "sohppingMainListProteinSupplementSelectAjax",
+                data: {"viewOrderSelect": viewOrderSelect},
+                dataType: "json",
+                success: function (productList) {
+
+                    viewOrderSelectOutput(productList);
+                }, error: function () {
+                }
+            })
+
+        }
+    }
+
+    //상품 보는 순서 선택시 output해주는 function
+    function viewOrderSelectOutput(productList) {
+        document.getElementById("mainProductBaseView").style.display = "none";
+        document.getElementById("mainProductView").style.display = "none";
+        document.getElementById("mainProductSelectView").style.display = "";
+
+        var output = "";
+        for (let i in productList) {
+            output += "<div className='products'>";
+            output += "<td>";
+            output += " <a href='shoppingView?productCode=" + productList[i].productCode + "'  className='h3 text-decoration-none'><img alt='상품이미지' src='ShoppingImg/" + productList[i].productPhoto + "' style='width:250px' height: 'auto';></a>";
+            output += " <p><a href='shoppingView?productCode=" + productList[i].productCode + "'  >" + productList[i].productName + "</a></p>";
+            output += " <p>별점" + productList[i].productRate + "</p>";
+            output += " <p>조회수" + productList[i].productHits + "</p>";
+            output += " <p className='price'>" + productList[i].productPrice + "원</p>";
+            output += " </a>";
+            output += "</td>";
+            output += "</div>"
+        }
+        var product = document.getElementById("mainProductSelectView");
+        product.innerHTML = output;
+    }
+
 
 
 </script>

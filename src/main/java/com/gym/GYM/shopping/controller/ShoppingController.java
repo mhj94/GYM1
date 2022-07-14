@@ -26,7 +26,6 @@ public class ShoppingController {
     private ModelAndView mav = new ModelAndView();
 
 
-
     // shoppionWishFrom : 찜한상품 보기 페이지
     @GetMapping("/shoppingWishForm")
     private String shoppingWishForm() {
@@ -156,7 +155,7 @@ public class ShoppingController {
     }
 
     @PostMapping("/payRegist")
-    private @ResponseBody List<PayDTO> payRegist(@ModelAttribute PayDTO pay){
+    private @ResponseBody List<PayDTO> payRegist(@ModelAttribute PayDTO pay) {
         List<PayDTO> payList = shoppingsvc.payRegist(pay);
 
         return payList;
@@ -172,21 +171,21 @@ public class ShoppingController {
         return orderCountOutputAjax;
     }
 
-//orderCountPlus: 장바구니에서 상품 수량 변경시 orders 테이블 count +
+    //orderCountPlus: 장바구니에서 상품 수량 변경시 orders 테이블 count +
     @PostMapping("/orderCountPlus")
-    private @ResponseBody List<String> orderCountPlus (@RequestParam String memberId, @RequestParam String productCode, @RequestParam String orderPrice){
-        List<String> orderCountPlus =new ArrayList<>();
-        orderCountPlus=shoppingsvc.orderCountPlus(memberId,productCode, orderPrice);
+    private @ResponseBody List<String> orderCountPlus(@RequestParam String memberId, @RequestParam String productCode, @RequestParam String orderPrice) {
+        List<String> orderCountPlus = new ArrayList<>();
+        orderCountPlus = shoppingsvc.orderCountPlus(memberId, productCode, orderPrice);
 
         return orderCountPlus;
     }
 
-  //  orderCountMinus : 장바구니에서 상품 수량 변경시 orders 테이블 count -
+    //  orderCountMinus : 장바구니에서 상품 수량 변경시 orders 테이블 count -
     @PostMapping("/orderCountMinus")
-    private @ResponseBody List<String> orderCountMinus (@RequestParam String memberId, @RequestParam String productCode, @RequestParam String orderPrice){
+    private @ResponseBody List<String> orderCountMinus(@RequestParam String memberId, @RequestParam String productCode, @RequestParam String orderPrice) {
 
-        List<String> orderCountMinus =new ArrayList<>();
-        orderCountMinus=shoppingsvc.orderCountMinus(memberId,productCode,orderPrice);
+        List<String> orderCountMinus = new ArrayList<>();
+        orderCountMinus = shoppingsvc.orderCountMinus(memberId, productCode, orderPrice);
 
         return orderCountMinus;
     }
@@ -196,64 +195,88 @@ public class ShoppingController {
     @GetMapping("/wishListAjax")
     private @ResponseBody List<ProductDTO> wishListAjax(@RequestParam String memberId) {
         List<ProductDTO> myWishList = new ArrayList<ProductDTO>();
-        myWishList=shoppingsvc.shoppingWishForm(memberId);
+        myWishList = shoppingsvc.shoppingWishForm(memberId);
 
         return myWishList;
     }
 
     //sohppingMainListAjax : 쇼핑몰 메인화면 상품 리스트 불러오는 ajax
     @GetMapping("/sohppingMainListAjax")
-    private @ResponseBody List<ProductDTO> sohppingMainListAjax(@RequestParam String viewOrderSelect){
-          List<ProductDTO> sohppingMainListAjax =new ArrayList<>();
-        sohppingMainListAjax =shoppingsvc.sohppingMainListAjax(viewOrderSelect);
+    private @ResponseBody List<ProductDTO> sohppingMainListAjax(@RequestParam String viewOrderSelect) {
+        List<ProductDTO> sohppingMainListAjax = new ArrayList<>();
+        sohppingMainListAjax = shoppingsvc.sohppingMainListAjax(viewOrderSelect);
         return sohppingMainListAjax;
     }
 
     //sohppingMainListSelectAjax : 쇼핑몰 메인화면 select(인기순,조회순,별점순)로  상품리스트 불러오기
     @GetMapping("/sohppingMainListSelectAjax")
-    private @ResponseBody List<ProductDTO> sohppingMainListSelectAjax(@RequestParam String viewOrderSelect){
-        List<ProductDTO> sohppingMainListSelectAjax =new ArrayList<>();
-        sohppingMainListSelectAjax =shoppingsvc.sohppingMainListAjax(viewOrderSelect);
+    private @ResponseBody List<ProductDTO> sohppingMainListSelectAjax(@RequestParam String viewOrderSelect) {
+        List<ProductDTO> sohppingMainListSelectAjax = new ArrayList<>();
+        sohppingMainListSelectAjax = shoppingsvc.sohppingMainListAjax(viewOrderSelect);
         return sohppingMainListSelectAjax;
     }
 
     //sohppingMainListChickenBreastSelectAjax 쇼핑몰 메인화면 List 닭가슴살만 select(인기순,조회순,별점순)로  상품리스트 불러오기
     @GetMapping("/sohppingMainListChickenBreastSelectAjax")
-    private  @ResponseBody List<ProductDTO> sohppingMainListChickenBreastSelectAjax(@RequestParam String viewOrderSelect){
+    private @ResponseBody List<ProductDTO> sohppingMainListChickenBreastSelectAjax(@RequestParam String viewOrderSelect) {
         List<ProductDTO> sohppingMainListChickenBreastSelectAjax = new ArrayList<>();
         sohppingMainListChickenBreastSelectAjax = shoppingsvc.sohppingMainListChickenBreastSelectAjax(viewOrderSelect);
         return sohppingMainListChickenBreastSelectAjax;
     }
 
 
+    //sohppingMainListFriedRiceSelectAjax : 쇼핑몰 메인화면 List 볶음밥만 select(인기순,조회순,별점순)로  상품리스트 불러오기
+    @GetMapping("/sohppingMainListFriedRiceSelectAjax")
+    private @ResponseBody List<ProductDTO> sohppingMainListFriedRiceSelectAjax(@RequestParam String viewOrderSelect) {
+        List<ProductDTO> sohppingMainListFriedRiceSelectAjax = new ArrayList<>();
+        sohppingMainListFriedRiceSelectAjax = shoppingsvc.sohppingMainListFriedRiceSelectAjax(viewOrderSelect);
+        return sohppingMainListFriedRiceSelectAjax;
+
+    }
+
     //myBasketCount: 쇼핑몰 메인화면 오른쪽 상단 내 장바구니 갯수 표시
     @GetMapping("/myBasketCount")
-    private @ResponseBody List<String> myBasketCount(@RequestParam String memberId){
-        List<String> myBasketCount =new ArrayList<>();
-        myBasketCount=shoppingsvc.myBasketCount(memberId);
+    private @ResponseBody List<String> myBasketCount(@RequestParam String memberId) {
+        List<String> myBasketCount = new ArrayList<>();
+        myBasketCount = shoppingsvc.myBasketCount(memberId);
         return myBasketCount;
     }
 
     //myWishCount: 쇼핑몰 메인화면 오른쪽 상단 내 찜목록 갯수 표
 
     @GetMapping("/myWishCount")
-    private @ResponseBody List<String> myWishCount (@RequestParam String memberId){
-        List<String> myWishCount =new ArrayList<>();
-        myWishCount=shoppingsvc.myWishCount(memberId);
+    private @ResponseBody List<String> myWishCount(@RequestParam String memberId) {
+        List<String> myWishCount = new ArrayList<>();
+        myWishCount = shoppingsvc.myWishCount(memberId);
 
         return myWishCount;
     }
 
-   //viewProductSelectListAjax : 쇼핑몰 메인화면 상품종류(닭가슴살, 볶음밥,음료/스낵, 프로틴) 선택해서 보는 리스트 가져오기
+    //viewProductSelectListAjax : 쇼핑몰 메인화면 상품종류(닭가슴살, 볶음밥,음료/스낵, 프로틴) 선택해서 보는 리스트 가져오기
     @GetMapping("/viewProductSelectListAjax")
-    private @ResponseBody List<ProductDTO> viewProductSelectListAjax(@RequestParam String viewProductSelect){
-        System.out.println("controllerViewProductSelect :" +viewProductSelect);
-        List<ProductDTO> viewProductSelectListAjax =new ArrayList<>();
-        viewProductSelectListAjax=shoppingsvc.viewProductSelectListAjax(viewProductSelect);
-        System.out.println("controller 특정상품 리스트 선택 :"+viewProductSelectListAjax);
+    private @ResponseBody List<ProductDTO> viewProductSelectListAjax(@RequestParam String viewProductSelect) {
+        List<ProductDTO> viewProductSelectListAjax = new ArrayList<>();
+        viewProductSelectListAjax = shoppingsvc.viewProductSelectListAjax(viewProductSelect);
         return viewProductSelectListAjax;
     }
 
+    //sohppingMainListDrinkAndSnackSelectAjax : 쇼핑몰 메인화면 리스트 음료/간식 select(인기순,조회순,별점순)로 상품리스트 불러오기
+    @GetMapping("/sohppingMainListDrinkAndSnackSelectAjax")
+    private @ResponseBody List<ProductDTO> sohppingMainListDrinkAndSnackSelectAjax(@RequestParam String viewOrderSelect) {
+        List<ProductDTO> sohppingMainListDrinkAndSnackSelectAjax = new ArrayList<>();
+        sohppingMainListDrinkAndSnackSelectAjax = shoppingsvc.sohppingMainListDrinkAndSnackSelectAjax(viewOrderSelect);
+        return sohppingMainListDrinkAndSnackSelectAjax;
+    }
+
+    //sohppingMainListProteinSupplementSelectAjax : 쇼핑몰 메인화면 리스트 프로틴 select(인기순,조회순,별점순)로 상품리스트 불러오기
+    @GetMapping("/sohppingMainListProteinSupplementSelectAjax")
+    private @ResponseBody List<ProductDTO> sohppingMainListProteinSupplementSelectAjax(@RequestParam String viewOrderSelect) {
+        System.out.println("controllerViewProductSelect :" + viewOrderSelect);
+        List<ProductDTO> sohppingMainListProteinSupplementSelectAjax = new ArrayList<>();
+        sohppingMainListProteinSupplementSelectAjax = shoppingsvc.sohppingMainListProteinSupplementSelectAjax(viewOrderSelect);
+        System.out.println("controller 특정상품 리스트 선택 :" + sohppingMainListProteinSupplementSelectAjax);
+        return sohppingMainListProteinSupplementSelectAjax;
+    }
 
 
 }
