@@ -143,8 +143,16 @@
                         <i class="fa fa-fw fa-chevron-circle-down mt-1"></i>
                     </a>
                     <ul class="collapse show list-unstyled pl-3">
-                        <li><button class="text-decoration-none" value="ChickenBreast" onclick="viewProductSelectAjax(this.value)">닭가슴살</button></li>
-                        <li><button type="text" class="text-decoration-none" value="FriedRice" onclick="viewProductSelectAjax(this.value)">닭가슴살 볶음밥</button></li>
+                        <li>
+                            <button class="text-decoration-none" value="chickenBreast"
+                                    onclick="viewProductSelectAjax(this.value)">닭가슴살
+                            </button>
+                        </li>
+                        <li>
+                            <button type="text" class="text-decoration-none" value="friedRice"
+                                    onclick="viewProductSelectAjax(this.value)">닭가슴살 볶음밥
+                            </button>
+                        </li>
                     </ul>
                 </li>
                 <li class="pb-3">
@@ -153,7 +161,11 @@
                         <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
                     </a>
                     <ul id="collapseTwo" class="collapse list-unstyled pl-3">
-                        <li><button class="text-decoration-none" value="DrinkSnack" onclick="viewProductSelectAjax(this.value)">음료/간식류</button></li>
+                        <li>
+                            <button class="text-decoration-none" value="drinkAndSnack"
+                                    onclick="viewProductSelectAjax(this.value)">음료/간식류
+                            </button>
+                        </li>
 
                     </ul>
                 </li>
@@ -163,7 +175,11 @@
                         <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
                     </a>
                     <ul id="collapseThree" class="collapse list-unstyled pl-3">
-                        <li><button class="text-decoration-none" value="ProteinSupplement" onclick="viewProductSelectAjax(this.value)">단백질 보충제</button></li>
+                        <li>
+                            <button class="text-decoration-none" value="proteinSupplement"
+                                    onclick="viewProductSelectAjax(this.value)">단백질 보충제
+                            </button>
+                        </li>
 
                     </ul>
                 </li>
@@ -199,20 +215,20 @@
                 </div>
             </div>
 
-<!--상품 리스트 나오는 div모음-->
-            <div  id="mainProductView">
+            <!--상품 리스트 나오는 div모음-->
+            <div id="mainProductView">
             </div>
-            <div  id="mainProductSelectView">
+            <div id="mainProductSelectView">
             </div>
 
 
-            <div  id="mainProductChickenBreastView">
+            <div id="mainProductChickenBreastView">
             </div>
-            <div  id="mainProductFriedRiceView">
+            <div id="mainProductFriedRiceView">
             </div>
-            <div  id="mainProductDrinkSnackView">
+            <div id="mainProductDrinkSnackView">
             </div>
-            <div  id="mainProductProteinSupplementView">
+            <div id="mainProductProteinSupplementView">
             </div>
         </div>
     </div>
@@ -451,8 +467,8 @@ Start Script
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script th:inline="javascript">
     var loginId = [[${session.login.memberId}]];
-    var viewOrderSelect="";
-    var viewProductSelect="";
+    var viewOrderSelect = "";
+    var viewProductSelect = "";
 
     console.log(viewOrderSelect);
 
@@ -461,10 +477,9 @@ Start Script
         $.ajax({
             type: "GET",
             url: "sohppingMainListAjax",
-            data : {"viewOrderSelect" : viewOrderSelect},
+            data: {"viewOrderSelect": viewOrderSelect},
             dataType: "json",
             success: function (productList) {
-                console.log(productList);
                 sohppingMainListView(productList);
             }, error: function () {
             }
@@ -475,20 +490,21 @@ Start Script
     function sohppingMainListView(productList) {
         var output = "";
         for (let i in productList) {
-            output+="<div className='products' style='width:200px'>";
-            output+="<td>";
-            output+=" <a href='shoppingView?productCode=" + productList[i].productCode + "'  className='h3 text-decoration-none'><img alt='상품이미지' src='ShoppingImg/" + productList[i].productPhoto + "' style='width:200px' height: 'auto';></a>";
-            output+=" <p><a href='shoppingView?productCode=" + productList[i].productCode + "'  >"+ productList[i].productName+"</a></p>";
-            output+=" <p className='price'>" + productList[i].productPrice + "원</p>";
-            output+=" </a>";
-            output+="</td>";
-            output+="</div>"
+            output += "<div className='products' style='width:200px'>";
+            output += "<td>";
+            output += " <a href='shoppingView?productCode=" + productList[i].productCode + "'  className='h3 text-decoration-none'><img alt='상품이미지' src='ShoppingImg/" + productList[i].productPhoto + "' style='width:200px' height: 'auto';></a>";
+            output += " <p><a href='shoppingView?productCode=" + productList[i].productCode + "'  >" + productList[i].productName + "</a></p>";
+            output += " <p className='price'>" + productList[i].productPrice + "원</p>";
+            output += " </a>";
+            output += "</td>";
+            output += "</div>"
 
         }
         var product = document.getElementById("mainProductView");
         product.innerHTML = output;
 
     }
+
     $(document).ready(function () {
         $.ajax({
             type: "GET",
@@ -507,7 +523,6 @@ Start Script
         var output = basketCount;
         var basket = document.getElementById("myBasketCount");
         basket.innerHTML = output;
-
     }
 
     $(document).ready(function () {
@@ -530,49 +545,111 @@ Start Script
 
     }
 
-   // 각각의 리스트 output로 쏴주는 ajax
-    function viewOrderSelectAjax(e){
-        viewOrderSelect =e.value;
+    // 상품 보는 순서를 각각의 리스트 output로 쏴주는 ajax
+    function viewOrderSelectAjax(e) {
+        viewOrderSelect = e.value;
         console.log(viewOrderSelect);
-        $.ajax({
-            type : "GET",
-            url : "sohppingMainListSelectAjax",
-            data : {"viewOrderSelect" :viewOrderSelect},
-            dataType:"json",
-            success : function (productList){
+        if (viewProductSelect == "") {
+            $.ajax({
+                type: "GET",
+                url: "sohppingMainListSelectAjax",
+                data: {"viewOrderSelect": viewOrderSelect},
+                dataType: "json",
+                success: function (productList) {
+                    viewOrderSelectOutput(productList);
+                    document.getElementById("mainProductView").style.display = "none";
+                }, error: function () {
+                }
+            })
 
-                viewOrderSelectOutput(productList);
-            },error : function (){
+        } else if (viewProductSelect == "chickenBreast") {
+            $.ajax({
+                type: "GET",
+                url: "sohppingMainListChickenBreastSelectAjax",
+                data: {"viewOrderSelect": viewOrderSelect},
+                dataType: "json",
+                success: function (productList) {
+                    document.getElementById("mainProductView").style.display = "none";
+                    document.getElementById("mainProductChickenBreastView").style.display = "none";
+                    viewOrderSelectOutput(productList);
+                }, error: function () {
+                }
+            })
+
+        } else if (viewProductSelect == "friedRice") {
+
+
+        } else if (viewProductSelect == "drinkAndSnack") {
+
+        } else if (viewProductSelect == "proteinSupplement") {
+
+        }
+    }
+
+    //상품 보는 순서 선택시 output해주는 function
+    function viewOrderSelectOutput(productList) {
+
+        var output = "";
+        for (let i in productList) {
+            output += "<div className='products'>";
+            output += "<td>";
+            output += " <a href='shoppingView?productCode=" + productList[i].productCode + "'  className='h3 text-decoration-none'><img alt='상품이미지' src='ShoppingImg/" + productList[i].productPhoto + "' style='width:250px' height: 'auto';></a>";
+            output += " <p><a href='shoppingView?productCode=" + productList[i].productCode + "'  >" + productList[i].productName + "</a></p>";
+            output += " <p>별점" + productList[i].productRate + "</p>";
+            output += " <p>조회수" + productList[i].productHits + "</p>";
+            output += " <p className='price'>" + productList[i].productPrice + "원</p>";
+            output += " </a>";
+            output += "</td>";
+            output += "</div>"
+        }
+        var product = document.getElementById("mainProductSelectView");
+        product.innerHTML = output;
+
+    }
+
+//보고싶은 상품의 종류를 선택하는 FUNCTION
+    function viewProductSelectAjax(e) {
+
+        viewProductSelect = e;
+        viewProductSelectListAjax(viewProductSelect);
+    }
+    // 보고싶은 상품의 종류를 선택하면 그 리스트를 가져오는 ajax
+    function viewProductSelectListAjax(viewProductSelect) {
+        console.log(viewProductSelect);
+        $.ajax({
+            type: "GET",
+            url: "viewProductSelectListAjax",
+            data: {"viewProductSelect": viewProductSelect},
+            dataType: "json",
+            success: function (productList) {
+               viewProductSelectOutput(productList)
+                console.log(productList);
+
+            }, error: function () {
             }
         })
     }
 
-    function viewOrderSelectOutput(productList){
+    //보고싶은 상품의 기본리스트를 output하는 function
+
+    function viewProductSelectOutput(productList){
         document.getElementById("mainProductView").style.display = "none";
         var output = "";
         for (let i in productList) {
-            output+="<div className='products'>";
-            output+="<td>";
-            output+=" <a href='shoppingView?productCode=" + productList[i].productCode + "'  className='h3 text-decoration-none'><img alt='상품이미지' src='ShoppingImg/" + productList[i].productPhoto + "' style='width:250px' height: 'auto';></a>";
-            output+=" <p><a href='shoppingView?productCode=" + productList[i].productCode + "'  >"+ productList[i].productName+"</a></p>";
-            output+=" <p>별점"+ productList[i].productRate+"</p>";
-            output+=" <p>조회수"+ productList[i].productHits+"</p>";
-            output+=" <p className='price'>" + productList[i].productPrice + "원</p>";
-            output+=" </a>";
-            output+="</td>";
-            output+="</div>"
+            output += "<div className='products'>";
+            output += "<td>";
+            output += " <a href='shoppingView?productCode=" + productList[i].productCode + "'  className='h3 text-decoration-none'><img alt='상품이미지' src='ShoppingImg/" + productList[i].productPhoto + "' style='width:250px' height: 'auto';></a>";
+            output += " <p><a href='shoppingView?productCode=" + productList[i].productCode + "'  >" + productList[i].productName + "</a></p>";
+            output += " <p>별점" + productList[i].productRate + "</p>";
+            output += " <p>조회수" + productList[i].productHits + "</p>";
+            output += " <p className='price'>" + productList[i].productPrice + "원</p>";
+            output += " </a>";
+            output += "</td>";
+            output += "</div>"
         }
-        var product = document.getElementById("mainProductSelectView");
+        var product = document.getElementById("mainProductChickenBreastView");
         product.innerHTML = output;
     }
-
-
-function viewProductSelectAjax(e){
-
-    viewProductSelect=e.value();
-
-}
-
 
 
 </script>

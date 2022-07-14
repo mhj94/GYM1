@@ -74,4 +74,17 @@ public interface ShoppingDAO {
     List<ProductDTO> sohppingMainListNameAjax();
 
     List<ProductDTO> sohppingMainListHitsAjax();
+
+    List<ProductDTO> viewProductSelectChickenBreastAjax();
+    List<ProductDTO> sohppingMainListChickenBreastSelectRateAjax();
+    List<ProductDTO> sohppingMainListChickenBreastSelectNameAjax();
+    List<ProductDTO> sohppingMainListChickenBreastSelectHitsAjax();
+
+    List<ProductDTO> viewProductSelectFriedRiceAjax();
+
+    List<ProductDTO> viewProductSelectDrinkAndSnackAjax();
+
+    List<ProductDTO> viewProductSelectProteinSupplementAjax();
+
+
 }

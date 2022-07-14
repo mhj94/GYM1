@@ -54,5 +54,9 @@ public interface ShoppingService {
     List<String> myBasketCount(String memberId);
 
     List<String> myWishCount(String memberId);
+
+    List<ProductDTO> viewProductSelectListAjax(String viewProductSelect);
+
+    List<ProductDTO> sohppingMainListChickenBreastSelectAjax(String viewOrderSelect);
 }
 

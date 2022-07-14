@@ -71,6 +71,7 @@ public class ShoppingServiceImpl implements ShoppingService {
         return productDTOList;
     }
 
+    //쇼핑몰 상품 전체 List 인기,조회,추천 순으로 보기
     @Override
     public List<ProductDTO> sohppingMainListAjax(String viewOrderSelect) {
 
@@ -266,6 +267,53 @@ public class ShoppingServiceImpl implements ShoppingService {
         List<String> myWishCount=new ArrayList<>();
         myWishCount=shoppingdao.myWishCount(memberId);
         return myWishCount;
+    }
+    // viewProductSelectListAjax: 쇼핑몰 메인화면 상품종류(닭가슴살, 볶음밥,음료/스낵, 프로틴) 선택해서 보는 리스트 가져오기
+    @Override
+    public List<ProductDTO> viewProductSelectListAjax(String viewProductSelect) {
+
+        System.out.println("service viewProductSelect : "+viewProductSelect);
+        List<ProductDTO> viewProductSelectListAjax = new ArrayList<>();
+        if (viewProductSelect.equals("ChickenBreast")){
+            viewProductSelectListAjax=shoppingdao.viewProductSelectChickenBreastAjax();
+
+        } else if (viewProductSelect.equals("friedRice")) {
+            viewProductSelectListAjax=shoppingdao.viewProductSelectFriedRiceAjax();
+
+        } else if (viewProductSelect.equals("drinkAndSnack")) {
+            viewProductSelectListAjax=shoppingdao.viewProductSelectDrinkAndSnackAjax();
+
+        } else if (viewProductSelect.equals("proteinSupplement")) {
+            viewProductSelectListAjax=shoppingdao.viewProductSelectProteinSupplementAjax();
+        }
+
+        return viewProductSelectListAjax;
+    }
+
+    //쇼핑몰 메인 상품 리스트 닭가슴살 선택시 이름,조회,별점 순으로 불러오기
+    @Override
+    public List<ProductDTO> sohppingMainListChickenBreastSelectAjax(String viewOrderSelect) {
+
+        List<ProductDTO> sohppingMainListChickenBreastSelectAjax =new ArrayList<ProductDTO>();
+
+        if (viewOrderSelect==""){
+            sohppingMainListChickenBreastSelectAjax = shoppingdao.viewProductSelectChickenBreastAjax();
+
+        } else if (viewOrderSelect.equals("productRate")){
+            sohppingMainListChickenBreastSelectAjax = shoppingdao.sohppingMainListChickenBreastSelectRateAjax();
+            System.out.println("productRate:"+sohppingMainListChickenBreastSelectAjax);
+
+        } else if (viewOrderSelect.equals("productName")) {
+            sohppingMainListChickenBreastSelectAjax = shoppingdao.sohppingMainListChickenBreastSelectNameAjax();
+
+            System.out.println("productName :"+sohppingMainListChickenBreastSelectAjax);
+        } else if (viewOrderSelect.equals("productHits")) {
+            sohppingMainListChickenBreastSelectAjax= shoppingdao.sohppingMainListChickenBreastSelectHitsAjax();
+            System.out.println("productHits :"+sohppingMainListChickenBreastSelectAjax);
+
+        }else {}
+
+        return sohppingMainListChickenBreastSelectAjax;
     }
 
 

@@ -61,7 +61,6 @@ public class ShoppingController {
     @GetMapping("/myBasketListAjax")
     private @ResponseBody List<BasketDTO> myBasketListAjax(@RequestParam String memberId) {
         List<BasketDTO> myBasketListAjax = new ArrayList<BasketDTO>();
-        System.out.println(memberId);
         myBasketListAjax = shoppingsvc.myBasketListAjax(memberId);
         return myBasketListAjax;
     }
@@ -205,23 +204,29 @@ public class ShoppingController {
     //sohppingMainListAjax : 쇼핑몰 메인화면 상품 리스트 불러오는 ajax
     @GetMapping("/sohppingMainListAjax")
     private @ResponseBody List<ProductDTO> sohppingMainListAjax(@RequestParam String viewOrderSelect){
-        System.out.println(viewOrderSelect);
-        List<ProductDTO> sohppingMainListAjax =new ArrayList<>();
+          List<ProductDTO> sohppingMainListAjax =new ArrayList<>();
         sohppingMainListAjax =shoppingsvc.sohppingMainListAjax(viewOrderSelect);
         return sohppingMainListAjax;
     }
 
-    //sohppingMainListSelectAjax : 쇼핑몰 메인화면 select로  상품리스트 불러오기
+    //sohppingMainListSelectAjax : 쇼핑몰 메인화면 select(인기순,조회순,별점순)로  상품리스트 불러오기
     @GetMapping("/sohppingMainListSelectAjax")
     private @ResponseBody List<ProductDTO> sohppingMainListSelectAjax(@RequestParam String viewOrderSelect){
-        System.out.println("controller viewOrderSelect: "+viewOrderSelect);
         List<ProductDTO> sohppingMainListSelectAjax =new ArrayList<>();
         sohppingMainListSelectAjax =shoppingsvc.sohppingMainListAjax(viewOrderSelect);
         return sohppingMainListSelectAjax;
     }
 
+    //sohppingMainListChickenBreastSelectAjax 쇼핑몰 메인화면 List 닭가슴살만 select(인기순,조회순,별점순)로  상품리스트 불러오기
+    @GetMapping("/sohppingMainListChickenBreastSelectAjax")
+    private  @ResponseBody List<ProductDTO> sohppingMainListChickenBreastSelectAjax(@RequestParam String viewOrderSelect){
+        List<ProductDTO> sohppingMainListChickenBreastSelectAjax = new ArrayList<>();
+        sohppingMainListChickenBreastSelectAjax = shoppingsvc.sohppingMainListChickenBreastSelectAjax(viewOrderSelect);
+        return sohppingMainListChickenBreastSelectAjax;
+    }
 
-    //myBasketCount: 내 장바구니 갯수
+
+    //myBasketCount: 쇼핑몰 메인화면 오른쪽 상단 내 장바구니 갯수 표시
     @GetMapping("/myBasketCount")
     private @ResponseBody List<String> myBasketCount(@RequestParam String memberId){
         List<String> myBasketCount =new ArrayList<>();
@@ -229,7 +234,7 @@ public class ShoppingController {
         return myBasketCount;
     }
 
-    //myWishCount: 내 찜목록 갯수
+    //myWishCount: 쇼핑몰 메인화면 오른쪽 상단 내 찜목록 갯수 표
 
     @GetMapping("/myWishCount")
     private @ResponseBody List<String> myWishCount (@RequestParam String memberId){
@@ -238,6 +243,17 @@ public class ShoppingController {
 
         return myWishCount;
     }
+
+   //viewProductSelectListAjax : 쇼핑몰 메인화면 상품종류(닭가슴살, 볶음밥,음료/스낵, 프로틴) 선택해서 보는 리스트 가져오기
+    @GetMapping("/viewProductSelectListAjax")
+    private @ResponseBody List<ProductDTO> viewProductSelectListAjax(@RequestParam String viewProductSelect){
+        System.out.println("controllerViewProductSelect :" +viewProductSelect);
+        List<ProductDTO> viewProductSelectListAjax =new ArrayList<>();
+        viewProductSelectListAjax=shoppingsvc.viewProductSelectListAjax(viewProductSelect);
+        System.out.println("controller 특정상품 리스트 선택 :"+viewProductSelectListAjax);
+        return viewProductSelectListAjax;
+    }
+
 
 
 }
