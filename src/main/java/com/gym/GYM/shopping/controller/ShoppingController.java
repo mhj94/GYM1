@@ -131,14 +131,6 @@ public class ShoppingController {
         return wishInquire;
     }
 
-    //basketOrdersPriceUpdate: 장바구니에서 수량 선택시 orderPrice 업데이트 하는 문
-    @PostMapping("/basketOrdersPriceUpdate")
-    private @ResponseBody List<OrdersDTO> basketOrdersPriceUpdate(@RequestParam String memberId, @RequestParam String productCode, @RequestParam String orderPrice) {
-        List<OrdersDTO> basketListUpdate = new ArrayList<OrdersDTO>();
-        basketListUpdate = shoppingsvc.basketOrdersPriceUpdate(memberId, productCode, orderPrice);
-        return basketListUpdate;
-    }
-
     //addressInputAjax : 이전주소 불러오는 ajax
     @GetMapping("/addressInputAjax")
     private @ResponseBody List<String> addressInputAjax(@RequestParam String memberId) {
