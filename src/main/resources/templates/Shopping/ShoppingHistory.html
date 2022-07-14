@@ -13,25 +13,44 @@
     <h1>주문내역</h1>
 
     <table>
-        <caption>주문내역</caption>
+        <caption>주문목록</caption>
         <tr>
-            <th>결제자아이디</th>
-            <th>결제상품명</th>
-            <th>결제상품개수</th>
-            <th>결제가격</th>
+            <th>주문자아이디</th>
+            <th>주문상품명</th>
+            <th>주문상품개수</th>
+            <th>결제금액</th>
         </tr>
 
-        <tr th:each="list : ${shoppingHistoryList}">
-            <td th:text="${list.payId}"></td>
-            <td th:text="${list.payProduct}"></td>
-            <td th:text="${list.payCount}"></td>
-            <td th:text="${list.payPrice}"></td>
+        <tr th:each="list : ${shoppingPaymentList}">
+            <td th:text="${list.orderId}"></td>
+            <td th:text="${list.orderName}"></td>
+            <td th:text="${list.orderCount}"></td>
+            <td th:text="${list.orderPrice}" th:class="totalPrice"></td>
 
         </tr>
     </table> <br/><br/>
+    <div>총 결제금액 : <span id="totalArea"></span> 원</div>
+    <br/>
 
     <button onclick = 'location.href = "shoppingMainForm"'>쇼핑몰 홈으로 이동</button>
 
 
 </body>
 </html>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+
+<script th:inline="javascript">
+
+    var pricelength = $(".totalPrice");
+
+    var aa = 0;
+    for (var i = 0; i < pricelength.length; i++) {
+        aa += parseInt(pricelength[i].innerText);
+    }
+
+    console.log(parseInt(aa));
+    var totalArea = document.getElementById('totalArea');
+    totalArea.innerHTML = aa;
+</script>

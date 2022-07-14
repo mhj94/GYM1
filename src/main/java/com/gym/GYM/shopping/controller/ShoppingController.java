@@ -1,17 +1,19 @@
 package com.gym.GYM.shopping.controller;
-
+import com.gym.GYM.board.dto.BoardDTO;
 import com.gym.GYM.shopping.dto.BasketDTO;
 import com.gym.GYM.shopping.dto.OrdersDTO;
 import com.gym.GYM.shopping.dto.PayDTO;
 import com.gym.GYM.shopping.dto.ProductDTO;
 import com.gym.GYM.shopping.dto.WishDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gym.GYM.shopping.service.ShoppingService;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -104,9 +106,7 @@ public class ShoppingController {
         return basketInquire;
     }
 
-
     //wishInquire :상품이 wish에 있는지 확인하는 메소드
-
     @PostMapping("/wishInquire")
     private @ResponseBody List<String> wishInquire(@RequestParam String memberId, @RequestParam String productCode) {
 
@@ -123,6 +123,7 @@ public class ShoppingController {
         return wishDelete;
     }
 
+    //wishregist wish 목록에 추가하기
     @PostMapping("/wishRegist")
     private @ResponseBody List<String> wishRegist(@RequestParam String memberId, @RequestParam String productCode) {
         List<String> wishInquire = new ArrayList<>();
@@ -134,6 +135,7 @@ public class ShoppingController {
     @PostMapping("/basketOrdersPriceUpdate")
     private @ResponseBody List<OrdersDTO> basketOrdersPriceUpdate(@RequestParam String memberId, @RequestParam String productCode, @RequestParam String orderPrice) {
         List<OrdersDTO> basketListUpdate = new ArrayList<OrdersDTO>();
+        basketListUpdate = shoppingsvc.basketOrdersPriceUpdate(memberId, productCode, orderPrice);
         return basketListUpdate;
     }
 

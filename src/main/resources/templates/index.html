@@ -63,6 +63,12 @@
         <button onclick='location.href = "shoppingMainForm"'>(일반)쇼핑몰 페이지 이동</button>
     </div>
     <div>
+        <button th:if = "${session.login != null}" th:onclick = "|location.href='@{shoppingPayment(orderId=${session.login.memberId})}'|">결제 페이지 이동</button>
+    </div>
+    <div>
+        <button th:if = "${session.login != null}" th:onclick = "|location.href='@{shoppingHistory(orderId=${session.login.memberId})}'|">주문 내역 페이지 이동</button>
+    </div>
+    <div>
         <button th:if = "${session.login != null}" th:onclick = "|location.href='@{shoppingAdminMainForm(memberId=${session.login.memberId})}'|">(관리자)쇼핑몰 페이지 이동</button>
     </div>
 

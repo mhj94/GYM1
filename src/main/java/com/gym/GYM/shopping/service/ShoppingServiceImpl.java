@@ -176,6 +176,17 @@ public class ShoppingServiceImpl implements ShoppingService {
         return basketInquire;
     }
 
+    //basketOrdersPriceUpdate : 장바구니에서 수량 선택시 order테이블 orderPrice update
+    @Override
+    public List<OrdersDTO> basketOrdersPriceUpdate(String memberId, String productCode, String orderPrice) {
+        List<OrdersDTO> basketOrdersPriceUpdate = new ArrayList<OrdersDTO>();
+        //String orderCode =shoppingdao.bascketSelectOdredrCode(memberId)
+        basketOrdersPriceUpdate=shoppingdao.basketOrdersPriceUpdate(memberId, productCode, orderPrice);
+        return basketOrdersPriceUpdate;
+    }
+
+
+
     //basketView 장바구니 보는 메소드
     @Override
     public List<BasketDTO> myBasketListAjax(String memberId) {
@@ -200,7 +211,6 @@ public class ShoppingServiceImpl implements ShoppingService {
     public List<String> addressInputAjax(String memberId) {
         List<String> addressInputAjax = new ArrayList<String>();
         addressInputAjax = shoppingdao.addressInputAjax(memberId);
-
         return addressInputAjax;
     }
 
@@ -209,10 +219,7 @@ public class ShoppingServiceImpl implements ShoppingService {
         System.out.println("서비스 요청사항:" + orderAddress);
         System.out.println("서비스 주소:" + orderRequest);
         System.out.println("서비스 주소:" + memberId);
-
         shoppingdao.basketPayment(memberId, orderAddress, orderRequest);
-
-
         mav.setViewName("Shopping/ShoppingPayment");
 
         return mav;
@@ -400,6 +407,5 @@ public class ShoppingServiceImpl implements ShoppingService {
 
         return payList;
     }
-
 
 }
