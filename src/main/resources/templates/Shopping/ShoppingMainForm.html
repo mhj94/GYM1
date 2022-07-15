@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:border="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -68,17 +68,19 @@
             <div class="flex-fill">
                 <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home</a>
+                        <button th:class="nav-link" th:if="${session.login != null}"  border:none;
+                                th:onclick="|location.href='#">Shopping Home</button>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="ShoppingAbout.html">About</a>
+                        <button th:class="nav-link" th:if="${session.login != null}" border:none;
+                                th:onclick="|location.href='@{boardCSList(boardWriter=${session.login.memberId})}'|">책임GYM으로 가기</button>
+                    </li>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="shoppingMainForm">Shop</a>
+                        <button th:class="nav-link" th:if="${session.login != null}" border:none;
+                                th:onclick="|location.href='@{boardCSList(boardWriter=${session.login.memberId})}'|">고객센터 이동</button>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contact.html">지도</a>
-                    </li>
+
                 </ul>
             </div>
             <div class="navbar align-self-center d-flex">
