@@ -95,50 +95,53 @@
     <div class="container1">
 
         <!-- header 시작 -->
-      <!--  <div class="header1" id="header"></div> -->
+        <!--  <div class="header1" id="header"></div> -->
         <!-- header 끝 -->
 
         <div class="estimate_div" id="table">
             <div class="table_div">
-            <table class="table1">
-                <caption class="caption1" id="caption">견적서 등록</caption>
-                <tr>
-                    <input type="hidden" name="myRoutineId" th:value="${session.login.memberId}">
-                    <input type="hidden"  id="uuid" name="myRoutineCode"/>
-                </tr>
-                <tr>
-                    <th class="th1" id="th1">운동목적</th>
-                </tr>
-                <tr>
-                    <td class="td1">
-                        <label class="test_obj">
-                            <input type="radio" name="myRoutinePurpose" value="벌크업">
-                            <span>벌크업</span>
-                        </label>
-                        <label class="test_obj">
-                            <input type="radio" name="myRoutinePurpose" value="다이어트">
-                            <span>다이어트</span>
-                        </label>
-                    </td>
-                </tr>
-                <tr>
-                    <th class="th1" id="th2">등급</th>
-                </tr>
-                <tr>
-                    <td class="td1">
-                        <label class="test_obj">
-                            <input type="radio" class="newArr" name="myRoutineGrade" value="초급"
-                                   onclick="sendGrade(this.value)">
-                            <span>초급</span>
-                        </label>
-                        <label class="test_obj">
-                            <input type="radio" class="newArr" name="myRoutineGrade" value="중급"
-                                   onclick="sendGrade(this.value)">
-                            <span>중급</span>
-                        </label>
-                    </td>
-                </tr>
-            </table>
+                <table class="table1">
+                    <caption class="caption1" id="caption">견적서 등록</caption>
+                    <tr>
+                        <input type="hidden" name="myRoutineId" th:value="${session.login.memberId}">
+                        <input type="hidden" id="uuid" name="myRoutineCode"/>
+                    </tr>
+                    <tr>
+                        <input type ="text" name ="myRoutineTitle" placeholder="루틴명을 입력하세요">
+                    </tr>
+                    <tr>
+                        <th class="th1" id="th1">운동목적</th>
+                    </tr>
+                    <tr>
+                        <td class="td1">
+                            <label class="test_obj">
+                                <input type="radio" name="myRoutinePurpose" value="벌크업">
+                                <span>벌크업</span>
+                            </label>
+                            <label class="test_obj">
+                                <input type="radio" name="myRoutinePurpose" value="다이어트">
+                                <span>다이어트</span>
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="th1" id="th2">등급</th>
+                    </tr>
+                    <tr>
+                        <td class="td1">
+                            <label class="test_obj">
+                                <input type="radio" class="newArr" name="myRoutineGrade" value="초급"
+                                       onclick="sendGrade(this.value)">
+                                <span>초급</span>
+                            </label>
+                            <label class="test_obj">
+                                <input type="radio" class="newArr" name="myRoutineGrade" value="중급"
+                                       onclick="sendGrade(this.value)">
+                                <span>중급</span>
+                            </label>
+                        </td>
+                    </tr>
+                </table>
             </div>
             <div class="input" id="input">
                 <input width="10px" type="submit" value="제출">
@@ -146,25 +149,27 @@
             </div>
         </div>
         <!-- Day 별 운동 선택 셀렉트 박스 -->
-        <div class="showPart" id="showTrainingPart"></div>
+        <div class="container3">
+            <div class="showPart" id="showTrainingPart"></div>
 
-        <div class="showDay" id="Day">
-            <div id="showTrainingDay1"></div>
-            <div id="showTrainingDay2"></div>
-            <div id="showTrainingDay3"></div>
-            <div id="showTrainingDay4"></div>
-            <div id="showTrainingDay5"></div>
-            <div id="showTrainingDay6"></div>
-            <div id="showTrainingDay7"></div>
-        </div>
-        <div class="showLive" id="showLive">
-            <div id="showLive1"></div>
-            <div id="showLive2"></div>
-            <div id="showLive3"></div>
-            <div id="showLive4"></div>
-            <div id="showLive5"></div>
-            <div id="showLive6"></div>
-            <div id="showLive7"></div>
+            <div class="showDay" id="Day">
+                <div id="showTrainingDay1"></div>
+                <div id="showTrainingDay2"></div>
+                <div id="showTrainingDay3"></div>
+                <div id="showTrainingDay4"></div>
+                <div id="showTrainingDay5"></div>
+                <div id="showTrainingDay6"></div>
+                <div id="showTrainingDay7"></div>
+            </div>
+            <div class="showLive" id="showLive">
+                <div id="showLive1"></div>
+                <div id="showLive2"></div>
+                <div id="showLive3"></div>
+                <div id="showLive4"></div>
+                <div id="showLive5"></div>
+                <div id="showLive6"></div>
+                <div id="showLive7"></div>
+            </div>
         </div>
 
         <div class="item">
@@ -174,8 +179,8 @@
         <!-- footer 시작 -->
         <div class="footer" id="footer">
             <div class="footer_h_div">
-            <h1>"미인은 타고난 것이 아니라, 만들어지는 것이다."</h1>
-            <h3>"당신을, 책임짐"</h3>
+                <h1>"미인은 타고난 것이 아니라, 만들어지는 것이다."</h1>
+                <h3>"당신을, 책임짐"</h3>
             </div>
             <div class="footer_h_div2">
                 <h2>-책임GYM-</h2>
@@ -293,9 +298,7 @@
     // trainingRegist 시작
     function showTrainingPart(result) {
         var output = "";
-        output +="<div class='input2'>"
-        output += "<input type ='text' name = 'myRoutineTitle' placeholder='루틴명을 입력하세요'>";
-        output +="</div>"
+
         output += "<div class='part'>";
 
         for (var i = 1; i <= 7; i++) {

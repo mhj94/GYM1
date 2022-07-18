@@ -12,50 +12,65 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-<form action="boardRegist" method="POST" enctype="multipart/form-data">
-    <div class="boardRegistContainer">
-        <div class="header1"></div>
-        <div class="boardRegistMain">
-            <table>
-                <caption>GYM Insert</caption>
+
+<!-- Header -->
+<header th:replace="header.html :: header"></header>
+<!-- Close Header -->
+
+<div class="boardRegistContainer">
+    <div class="boardRegistMain">
+        <form action="boardRegist" method="POST" enctype="multipart/form-data">
+
+            <table class="registTable">
+                <caption class="registTable_caption">게시글 작성하기</caption>
                 <tr>
                     <td><input type="hidden" name="boardWriter" th:value="${session.login.memberId}"/></td>
                 </tr>
                 <tr>
                     <th>글머리</th>
-                    <td><select name="boardType">
+                    <td class="registTable_td"><select class="registTable_td_select" name="boardType">
                         <option value="QnA">QnA</option>
                         <option value="잡담">잡담</option>
                         <option value="정보공유">정보공유</option>
-                    </select><br/></td>
+                    </select>
+                    </td>
                 </tr>
                 <tr>
                     <th th:if="${session.login.memberId} eq 'admin'">공지사항 여부</th>
-                    <td th:if="${session.login.memberId} eq 'admin'"><input type="radio" name="boardNotice" value="notice"/>공지사항</td>
-                    <td th:if="${session.login.memberId} ne 'admin'"><input type="hidden" name="boardNotice" value="normal"/>
+                    <td th:if="${session.login.memberId} eq 'admin'"><input type="radio" name="boardNotice"
+                                                                            value="notice"/>공지사항
+                    </td>
+                    <td th:if="${session.login.memberId} ne 'admin'"><input type="hidden" name="boardNotice"
+                                                                            value="normal"/>
                     </td>
                 </tr>
                 <tr>
                     <th>제목</th>
-                    <td><input type="text" name="boardTitle"/> <br/></td>
+                    <td class="registTable_td"><input class="registTable_td_input" type="text" name="boardTitle"/> <br/>
+                    </td>
                 </tr>
                 <tr>
                     <th>글내용</th>
-                    <td><textarea name="boardContent">
-				</textarea> <br/></td>
+                    <td class="registTable_td"><textarea class="registTable_td_textarea" name="boardContent"></textarea>
+                    </td>
                 </tr>
                 <tr>
                     <th>첨부파일</th>
                     <td><input type="file" name="boardFile"/> <br/></td>
                 </tr>
             </table>
-            <input type="submit" value="작성"/>
-            <input type="reset" value="지우기"/>
-            <button onclick="history.back(-1);">뒤로가기</button>
-        </div>
-        <div class="footer"></div>
+            <div class="registButtonInput_div">
+                <input class="btn btn-success btn-lg px-3" type="submit" value="작성"/>
+                <input class="btn btn-success btn-lg px-3" type="reset" value="지우기"/>
+                <button class="btn btn-success btn-lg px-3" onclick="history.back(-1);" style="padding-bottom: 7px; padding-top: 6px;">뒤로가기</button>
+            </div>
+        </form>
     </div>
-</form>
+</div>
+
+<!-- Start Footer -->
+<footer th:replace="footer.html :: footer"></footer>
+<!-- End Footer -->
 
 </body>
 <script src="https://code.jquery.com/jquery-latest.js"></script>

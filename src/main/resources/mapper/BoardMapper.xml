@@ -29,7 +29,7 @@
         WHERE BOARDNO = #{boardNo}
     </select>
 
-    <update id="BoardModify" parameterType="board">
+    <update id="boardModify" parameterType="board">
         UPDATE BOARD
         SET BOARDTYPE=#{boardType},
             BOARDNOTICE=#{boardNotice},

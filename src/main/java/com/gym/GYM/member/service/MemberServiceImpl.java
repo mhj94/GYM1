@@ -186,8 +186,6 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public ModelAndView memberSignIn(MemberDTO member) {
 		
-		
-		
 		String ePw = memberdao.mEpw(member.getMemberId());
 		
 		if(pwEnc.matches(member.getMemberPw(), ePw)) {
@@ -195,14 +193,10 @@ public class MemberServiceImpl implements MemberService{
 			session.setAttribute("login", loginMember);
 			mav.setViewName("index1");
 		} else {
-			mav.setViewName("SignIn/MemberSignInForm");
+			mav.setViewName("index1");
 		}
-		
-		
 		
 		return mav;
 	}
-	
-	
-	
+
 }

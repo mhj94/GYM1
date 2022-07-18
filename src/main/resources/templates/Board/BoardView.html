@@ -12,65 +12,91 @@
 </head>
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <body>
+
+<!-- Header -->
+<header th:replace="header.html :: header"></header>
+<!-- Close Header -->
 <div class="boardViewContainer">
-    <div class="header"></div>
     <div class="boardViewMain">
-        <table>
+        <div class="boardViewTableButton">
+            <div class="boardView">
+                <div class="viewTable_div">
+                    <table class="viewTable">
+                        <tr>
+                            <th>게시글 번호</th>
+                            <td th:text="${view.boardNo}"></td>
+                        </tr>
+                        <tr>
+                            <th>글머리</th>
+                            <td th:text="${view.boardType}"></td>
+                        </tr>
+                        <tr>
+                            <th>작성 날자</th>
+                            <td th:text="${view.boardDate}"></td>
+                        </tr>
+                        <tr>
+                            <th>글제목</th>
+                            <td th:text="${view.boardTitle}"></td>
+                        </tr>
+                        <tr>
+                            <th>작성자</th>
+                            <td th:text="${view.boardWriter}"></td>
+                        </tr>
+                        <tr>
+                            <th>글내용</th>
+                            <td th:text="${view.boardContent}"></td>
+                        </tr>
+                        <tr>
+                            <th>조회수</th>
+                            <td th:text="${view.boardHits}"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="viewTable_div2">
+                    <table class="viewTable2">
+                        <tr>
+                            <th>첨부이미지</th>
+                        </tr>
+                        <tr>
+                            <td><img th:src="@{uploadfile/{aa}(aa=${view.boardUploadFileName})}"
+                                     style="width:200px; height:175px;"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="boardViewButton">
+                <button class="btn btn-success btn-lg px-3"
+                        th:onclick="|location.href ='@{boardModifyForm(boardNo=${view.boardNo})}'|">수정
+                </button>
+                <button class="btn btn-success btn-lg px-3"
+                        th:onclick="|location.href ='@{boardDelete(boardNo=${view.boardNo})}'|">삭제
+                </button>
+                <button class="btn btn-success btn-lg px-3" onclick="location.href = document.referrer;">뒤로가기</button>
+            </div>
+        </div>
+        <div class="comment_div">
+            <div class="comment" id="commentArea"></div>
+            <div class="comment_div2">
+                <table class="viewTable4">
+                    <tr>
+                        <td><textarea rows=1 cols=30 id="boardCommentsContent"
+                                      placeholder="댓글을 작성해주세요."></textarea>
+                        </td>
+                        <td>
+                            <button class="btn2" id="boardCommentsBtn">등록</button>
+                        </td>
+                    </tr>
+                </table>
 
-            <caption>GYM View</caption>
-
-            <tr>
-                <th>게시글 번호</th>
-                <td th:text="${view.boardNo}"></td>
-            </tr>
-            <tr>
-                <th>글머리</th>
-                <td th:text="${view.boardType}"></td>
-            </tr>
-            <tr>
-                <th>공지사항 여부</th>
-                <td th:text="${view.boardNotice}"></td>
-            </tr>
-            <tr>
-                <th>작성 날자</th>
-                <td th:text="${view.boardDate}"></td>
-            </tr>
-            <tr>
-                <th>글제목</th>
-                <td th:text="${view.boardTitle}"></td>
-            </tr>
-            <tr>
-                <th>작성자</th>
-                <td th:text="${view.boardWriter}"></td>
-            </tr>
-            <tr>
-                <th>글 내용</th>
-                <td th:text="${view.boardContent}"></td>
-            </tr>
-            <tr>
-                <th>프로필 사진</th>
-                <td><img th:src="@{uploadfile/{aa}(aa=${view.boardUploadFileName})}" style="width:200px;"></td>
-            </tr>
-            <tr>
-                <th>조회수</th>
-                <td th:text="${view.boardHits}"></td>
-            </tr>
-            <tr>
-                <th>리뷰 등록</th>
-                <td><textarea rows=1 cols=70 id="boardCommentsContent" placeholder="댓글을 작성해주세요."></textarea>
-                    <button id="boardCommentsBtn">댓글 등록</button>
-                </td>
-            </tr>
-        </table>
-        <div id="commentArea"></div>
-        <button th:onclick="|location.href ='@{boardModifyForm(boardNo=${view.boardNo})}'|">게시글 수정페이지 이동</button>
-        <button th:onclick="|location.href ='@{boardDelete(boardNo=${view.boardNo})}'|"> 게시글 삭제</button>
-        <button onclick="location.href = document.referrer;">뒤로가기</button>
+            </div>
+        </div>
         <input type="hidden" th:id="memberId" th:value="${session.login.memberId}">
         <input type="hidden" th:id="boardNo" th:value="${view.boardNo}">
     </div>
-    <div class="footer"></div>
 </div>
+<!-- Start Footer -->
+<footer th:replace="footer.html :: footer"></footer>
+<!-- End Footer -->
 </body>
 <script src="https://code.jquery.com/jquery-latest.js"></script>
 <script th:inline="javascript">
@@ -82,12 +108,12 @@
         var output = "";
         var loginId = [[${session.login.memberId}]];
 
-        output += "<table>";
+        output += "<table class='viewTable3'>";
         output += "<tr>";
-        output += "<th><댓글번호></th>"
-        output += "<th><작성자></th>";
-        output += "<th><내용></th>";
-        output += "<th><작성일></th>";
+        output += "<th class='comment_th'>번호</th>"
+        output += "<th class='comment_th'>작성자</th>";
+        output += "<th class='comment_th'>내용</th>";
+        output += "<th class='comment_th'>작성일</th>";
         output += "</tr>";
 
         for (var i in list) {
@@ -99,13 +125,13 @@
 
             if (list[i].boardCommentsWriter == loginId) {
 
-                output += "<td><button onclick=boardCommentsModify(" + list[i].boardCommentsNo + ",'" + list[i].boardNo + "')>수정</button></td>";
+                output += "<td><button class=\"btn1\" onclick=boardCommentsModify(" + list[i].boardCommentsNo + ",'" + list[i].boardNo + "')>수정</button></td>";
             }
 
             // 작성자와 로그인한 아이디가 같거나 관리자일 경우에만 삭제 가능
             if (list[i].boardCommentsWriter == loginId || loginId == 'admin') {
 
-                output += "<td><button onclick=boardCommentsDelete(" + list[i].boardCommentsNo + ",'" + list[i].boardNo + "')>삭제</button></td>";
+                output += "<td><button class=\"btn1\" onclick=boardCommentsDelete(" + list[i].boardCommentsNo + ",'" + list[i].boardNo + "')>삭제</button></td>";
             }
 
             output += "</tr>";
@@ -120,18 +146,19 @@
         commentArea.innerHTML = output;
 
     }
+
     $(document).ready(function () {
 
         // 리뷰 목록
         $.ajax({
-            type: "POST",
-            url: "boardComments/boardCommentsList",
-            data: {"boardNo": boardNo},
+            type    : "POST",
+            url     : "boardComments/boardCommentsList",
+            data    : {"boardNo": boardNo},
             dataType: "json",
-            success: function (list) {
+            success : function (list) {
                 boardCommentList(list);
             },
-            error: function (request, status, error) {
+            error   : function (request, status, error) {
                 alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
             }
         });
@@ -150,20 +177,20 @@
             var boardCommentsContent = $('#boardCommentsContent').val();
 
             $.ajax({
-                type: "POST",
-                url: "boardComments/boardCommentsRegist",
-                data: {
-                    "boardCommentsWriter": boardCommentsWriter,
-                    "boardNo": boardNo,
+                type    : "POST",
+                url     : "boardComments/boardCommentsRegist",
+                data    : {
+                    "boardCommentsWriter" : boardCommentsWriter,
+                    "boardNo"             : boardNo,
                     "boardCommentsContent": boardCommentsContent
                 },
                 dataType: "json",
-                success: function (list) {
+                success : function (list) {
                     boardCommentList(list);
                     $('#boardCommentsContent').val("");
                     reload();
                 },
-                error: function (request, status, error) {
+                error   : function (request, status, error) {
                     alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
                 }
             });
@@ -178,15 +205,15 @@
 
         if (check) {
             $.ajax({
-                type: "POST",
-                url: "boardComments/boardCommentsDelete",
-                data: {"boardCommentsNo": boardCommentsNo, "boardNo": boardNo},
+                type    : "POST",
+                url     : "boardComments/boardCommentsDelete",
+                data    : {"boardCommentsNo": boardCommentsNo, "boardNo": boardNo},
                 dataType: "json",
-                success: function (list) {
+                success : function (list) {
                     boardCommentList(list);
                     reload();
                 },
-                error: function (request, status, error) {
+                error   : function (request, status, error) {
                     alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
                 }
             });
@@ -201,20 +228,20 @@
 
         if (check) {
             $.ajax({
-                type: "POST",
-                url: "boardComments/boardCommentsModify",
-                data: {
-                    "boardCommentsNo": boardCommentsNo,
-                    "boardNo": boardNo,
+                type    : "POST",
+                url     : "boardComments/boardCommentsModify",
+                data    : {
+                    "boardCommentsNo"     : boardCommentsNo,
+                    "boardNo"             : boardNo,
                     "boardCommentsContent": boardCommentsContent
 
                 },
                 dataType: "json",
-                success: function (list) {
+                success : function (list) {
                     boardCommentList(list);
                     reload();
                 },
-                error: function (request, status, error) {
+                error   : function (request, status, error) {
                     alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
                 }
             });

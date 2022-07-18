@@ -12,50 +12,63 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
+
+<!-- Header -->
+<header th:replace="header.html :: header"></header>
+<!-- Close Header -->
 <div class="gymListContainer">
-    <div class="header1"></div>
-        <div class="notice">
-            <table>
-                <caption>GYM List 공지사항</caption>
-                <tr>
-                    <th>글번호</th>
-                    <th>제목</th>
-                    <th>작성자</th>
-                    <th>말머리</th>
-                    <th>조회수</th>
-                </tr>
-                <!-- 공지사항 출력 칸 -->
-                <tr th:each="list : ${boardNoticeList}">
-                    <td th:text="${list.boardNo}"></td>
-                    <td><a th:href="@{boardView(boardNo=${list.boardNo})}" th:text="${list.boardTitle}"></a></td>
-                    <td th:text="${list.boardWriter}"></td>
-                    <td th:text="${list.boardType}"></td>
-                    <td th:text="${list.boardHits}"></td>
-                </tr>
-            </table>
+
+    <div class="boardContainer">
+        <div class="board">
+            <div class="notice">
+                <table class="boardtable">
+                    <caption class="caption2">책임GYM 공지사항</caption>
+                    <tr>
+                        <th>글번호</th>
+                        <th>제목</th>
+                        <th>작성자</th>
+                        <th>말머리</th>
+                        <th>조회수</th>
+                    </tr>
+                    <!-- 공지사항 출력 칸 -->
+                    <tr th:each="list : ${boardNoticeList}">
+                        <td th:text="${list.boardNo}"></td>
+                        <td><a th:href="@{boardView(boardNo=${list.boardNo})}" th:text="${list.boardTitle}"></a></td>
+                        <td th:text="${list.boardWriter}"></td>
+                        <td th:text="${list.boardType}"></td>
+                        <td th:text="${list.boardHits}"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="normal">
+                <table class="boardtable">
+                    <caption class="caption2">책임GYM 소통공간</caption>
+                    <tr>
+                        <th>글번호</th>
+                        <th>제목</th>
+                        <th>작성자</th>
+                        <th>말머리</th>
+                        <th>조회수</th>
+                    </tr>
+                    <!-- 일반게시글 출력 칸 -->
+                    <tr th:each="list : ${boardNormalList}">
+                        <td th:text="${list.boardNo}"></td>
+                        <td><a th:href="@{boardView(boardNo=${list.boardNo})}" th:text="${list.boardTitle}"></a></td>
+                        <td th:text="${list.boardWriter}"></td>
+                        <td th:text="${list.boardType}"></td>
+                        <td th:text="${list.boardHits}"></td>
+                    </tr>
+                </table>
+            </div>
         </div>
-        <div class="normal">
-            <table>
-                <caption>GYM List 게시글</caption>
-                <tr>
-                    <th>글번호</th>
-                    <th>제목</th>
-                    <th>작성자</th>
-                    <th>말머리</th>
-                    <th>조회수</th>
-                </tr>
-                <!-- 일반게시글 출력 칸 -->
-                <tr th:each="list : ${boardNormalList}">
-                    <td th:text="${list.boardNo}"></td>
-                    <td><a th:href="@{boardView(boardNo=${list.boardNo})}" th:text="${list.boardTitle}"></a></td>
-                    <td th:text="${list.boardWriter}"></td>
-                    <td th:text="${list.boardType}"></td>
-                    <td th:text="${list.boardHits}"></td>
-                </tr>
-            </table>
-            <button onclick='location.href = "boardRegistForm"'>게시글 작성</button>
-            <button onclick="history.back(-1);">뒤로가기</button>
-        </div>
-        <div class="footer"></div>
+    </div>
+    <div class="boardButton">
+        <button style="width: 130px" class="btn btn-success btn-lg px-3" onclick='location.href = "boardRegistForm"'>게시글 작성</button>
+        <button style="width: 130px" class="btn btn-success btn-lg px-3" onclick="history.back(-1);">뒤로가기</button>
+    </div>
+</div>
+<!-- Start Footer -->
+<footer th:replace="footer.html :: footer"></footer>
+<!-- End Footer -->
 </body>
 </html>
