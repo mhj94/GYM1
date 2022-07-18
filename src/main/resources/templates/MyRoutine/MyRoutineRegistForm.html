@@ -7,36 +7,110 @@
     <meta name="author" content="생로병사"/>
     <meta name="description" content="TrainingPlanWriteForm"/>
     <title>책임GYM</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
 
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="apple-touch-icon" href="assets/img/apple-icon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/templatemo.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+
+    <!-- Load fonts style after rendering the layout styles -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="assets/css/fontawesome.min.css">
 
 </head>
 <body>
+<nav class="navbar navbar-expand-lg navbar-light shadow">
+    <div class="container d-flex justify-content-between align-items-center">
 
+        <a class="navbar-brand text-success logo h1 align-self-center" href="index1.html">
+            <img width="200" src="/image/logo1.png">
+        </a>
+
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between"
+             id="templatemo_main_nav">
+            <div class="flex-fill">
+                <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">게시판</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{myRoutineList(myRoutineId=${session.login.memberId})}">견적서</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="shop.html">쇼핑몰</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="shop.html">고객센터</a>
+                    </li>
+                    <div>
+                        <li class="nav-item">
+                            <a th:if="${session.login ne null}" class="nav-link" href="memberSignOut">로그아웃</a>
+                        </li>
+                    </div>
+                </ul>
+            </div>
+
+            <div class="navbar align-self-center d-flex">
+                <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="inputMobileSearch" placeholder="Search ...">
+                        <div class="input-group-text">
+                            <i class="fa fa-fw fa-search"></i>
+                        </div>
+                    </div>
+                </div>
+                <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal"
+                   data-bs-target="#templatemo_search">
+                    <i class="fa fa-fw fa-search text-dark mr-2"></i>
+                </a>
+                <a class="nav-icon position-relative text-decoration-none" href="#">
+                    <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
+                    <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark"></span>
+                </a>
+                <a class="nav-icon position-relative text-decoration-none"
+                   th:if="${session.login != null}"
+                   th:onclick="|location.href='@{memberView(memberId=${session.login.memberId})}'|">
+                    <i class="fa fa-fw fa-user text-dark mr-3"></i>
+                    <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark"></span>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</nav>
 <form action="myRoutineRegist" method="post" enctype="multipart/form-data">
 
     <!-- grid 시작 -->
-    <div class="container">
+
+    <div class="container1">
 
         <!-- header 시작 -->
-        <div class="header1" id="header">
-            <img class="myRoutine_img" src="/image/logo1.png">
-        </div>
+      <!--  <div class="header1" id="header"></div> -->
         <!-- header 끝 -->
 
         <div class="estimate_div" id="table">
             <div class="table_div">
-            <table class="table">
-                <caption class="caption" id="caption">견적서 등록</caption>
+            <table class="table1">
+                <caption class="caption1" id="caption">견적서 등록</caption>
                 <tr>
                     <input type="hidden" name="myRoutineId" th:value="${session.login.memberId}">
-                    <input type="hidden" size="15" id="uuid" name="myRoutineCode"/>
+                    <input type="hidden"  id="uuid" name="myRoutineCode"/>
                 </tr>
                 <tr>
-                    <th class="th" id="th1">운동목적</th>
+                    <th class="th1" id="th1">운동목적</th>
                 </tr>
                 <tr>
-                    <td class="td">
+                    <td class="td1">
                         <label class="test_obj">
                             <input type="radio" name="myRoutinePurpose" value="벌크업">
                             <span>벌크업</span>
@@ -45,14 +119,13 @@
                             <input type="radio" name="myRoutinePurpose" value="다이어트">
                             <span>다이어트</span>
                         </label>
-
                     </td>
                 </tr>
                 <tr>
-                    <th class="th" id="th2">등급</th>
+                    <th class="th1" id="th2">등급</th>
                 </tr>
                 <tr>
-                    <td class="td">
+                    <td class="td1">
                         <label class="test_obj">
                             <input type="radio" class="newArr" name="myRoutineGrade" value="초급"
                                    onclick="sendGrade(this.value)">
@@ -94,14 +167,17 @@
             <div id="showLive7"></div>
         </div>
 
-        <div class="item" id="showTrainingDetail"></div>
+        <div class="item">
+            <div id="showTrainingGif"></div>
+            <div id="showTrainingDetail"></div>
+        </div>
         <!-- footer 시작 -->
         <div class="footer" id="footer">
             <div class="footer_h_div">
             <h1>"미인은 타고난 것이 아니라, 만들어지는 것이다."</h1>
             <h3>"당신을, 책임짐"</h3>
             </div>
-            <div>
+            <div class="footer_h_div2">
                 <h2>-책임GYM-</h2>
             </div>
         </div>
@@ -133,16 +209,13 @@
                 dayTrainingArray6 = new Array(6, '', '', '', '', '');
                 dayTrainingArray7 = new Array(7, '', '', '', '', '');
 
-
                 for (var i = 1; i <= 7; i++) {
                     dayId = '#showTrainingDay' + i;
                     liveId = '#showLive' + i;
                     $(dayId).empty();
                     $(liveId).empty();
                 }
-
             }
-
         })
     })
 
@@ -180,7 +253,7 @@
             type    : "GET",
             data    : {"trainingCode": trainingCode},
             success : function (result) {
-                alert(result);
+
 
                 sendTrainingView(result);
 
@@ -199,7 +272,7 @@
 
         output1 += "<div>";
 
-        output1 += "<img src='" + result.trainingGifName + "'/>";
+        output1 += "<img src='gif/" + result.trainingGifName + "'/>";
 
         output1 += "</div>";
 
@@ -226,7 +299,7 @@
         output += "<div class='part'>";
 
         for (var i = 1; i <= 7; i++) {
-            output += "<h1 class='day'>Day" + i + "</h1>"
+            output += "<h1 class='day1'>Day" + i + "</h1>"
 
             output += "<select onchange ='sendTrainingPart(" + i + ",this.value)'>";
             output += "<option value =''>선택하세요</option>"
@@ -304,83 +377,107 @@
             output += "</div>";
             output += "<input type ='hidden' name ='myRoutineTrainingCode[]' value = " + dayTrainingArray1 + ">";
 
-            var showLive = document.getElementById('showLive1');
-            showLive.innerHTML = output;
+            var showLive1 = document.getElementById('showLive1');
+            showLive1.innerHTML = output;
 
         } else if (day == 2) {
             dayTrainingArray2.splice(number, 1, trainingCode);
             var output = "";
             output += "<div  class='button_div'>";
             for (var i = 1; i < dayTrainingArray2.length; i++) {
-                output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray2[i] + "')>상세보기</button>";
+                if (dayTrainingArray2[i].includes('HTR')) {
+                    output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray2[i] + "')>상세보기</button>";
+                } else {
+                    output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray2[i] + "') disabled>상세보기</button>";
+                }
             }
             output += "</div>";
             output += "<input type ='hidden' name ='myRoutineTrainingCode[]' value = " + dayTrainingArray2 + ">";
 
-            var showLive = document.getElementById('showLive2');
-            showLive.innerHTML = output;
+            var showLive2 = document.getElementById('showLive2');
+            showLive2.innerHTML = output;
         } else if (day == 3) {
             dayTrainingArray3.splice(number, 1, trainingCode);
             var output = "";
             output += "<div  class='button_div'>";
             for (var i = 1; i < dayTrainingArray3.length; i++) {
-                output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray3[i] + "')>상세보기</button>";
+                if (dayTrainingArray3[i].includes('HTR')) {
+                    output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray3[i] + "')>상세보기</button>";
+                } else {
+                    output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray3[i] + "') disabled>상세보기</button>";
+                }
             }
             output += "</div>";
             output += "<input type ='hidden' name ='myRoutineTrainingCode[]' value = " + dayTrainingArray3 + ">";
 
-            var showLive = document.getElementById('showLive3');
-            showLive.innerHTML = output;
+            var showLive3 = document.getElementById('showLive3');
+            showLive3.innerHTML = output;
         } else if (day == 4) {
             dayTrainingArray4.splice(number, 1, trainingCode);
             var output = "";
             output += "<div  class='button_div'>";
             for (var i = 1; i < dayTrainingArray4.length; i++) {
-                output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray4[i] + "')>상세보기</button>";
+                if (dayTrainingArray4[i].includes('HTR')) {
+                    output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray4[i] + "')>상세보기</button>";
+                } else {
+                    output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray4[i] + "') disabled>상세보기</button>";
+                }
             }
             output += "</div>";
             output += "<input type ='hidden' name ='myRoutineTrainingCode[]' value = " + dayTrainingArray4 + ">";
 
-            var showLive = document.getElementById('showLive4');
-            showLive.innerHTML = output;
+            var showLive4 = document.getElementById('showLive4');
+            showLive4.innerHTML = output;
 
         } else if (day == 5) {
             dayTrainingArray5.splice(number, 1, trainingCode);
             var output = "";
             output += "<div  class='button_div'>";
             for (var i = 1; i < dayTrainingArray5.length; i++) {
-                output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray5[i] + "')>상세보기</button>";
+                if (dayTrainingArray5[i].includes('HTR')) {
+                    output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray5[i] + "')>상세보기</button>";
+                } else {
+                    output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray5[i] + "') disabled>상세보기</button>";
+                }
             }
             output += "</div>";
             output += "<input type ='hidden' name ='myRoutineTrainingCode[]' value = " + dayTrainingArray5 + ">";
 
-            var showLive = document.getElementById('showLive5');
-            showLive.innerHTML = output;
+            var showLive5 = document.getElementById('showLive5');
+            showLive5.innerHTML = output;
 
         } else if (day == 6) {
             dayTrainingArray6.splice(number, 1, trainingCode);
             var output = "";
             output += "<div  class='button_div'>";
             for (var i = 1; i < dayTrainingArray6.length; i++) {
-                output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray6[i] + "')>상세보기</button>";
+                if (dayTrainingArray6[i].includes('HTR')) {
+                    output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray6[i] + "')>상세보기</button>";
+                } else {
+                    output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray6[i] + "') disabled>상세보기</button>";
+                }
             }
             output += "</div>";
             output += "<input type ='hidden' name ='myRoutineTrainingCode[]' value = " + dayTrainingArray6 + ">";
-            var showLive = document.getElementById('showLive6');
-            showLive.innerHTML = output;
+            var showLive6 = document.getElementById('showLive6');
+            showLive6.innerHTML = output;
 
         } else if (day == 7) {
             dayTrainingArray7.splice(number, 1, trainingCode);
             var output = "";
             output += "<div  class='button_div'>";
             for (var i = 1; i < dayTrainingArray7.length; i++) {
-                output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray7[i] + "')>상세보기</button>";
+                if (dayTrainingArray7[i].includes('HTR')) {
+                    output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray7[i] + "')>상세보기</button>";
+                } else {
+                    output += "<button class='button' type='button' onclick=sendTraining('" + dayTrainingArray7[i] + "') disabled>상세보기</button>";
+                }
             }
             output += "</div>";
             output += "<input type ='hidden' name ='myRoutineTrainingCode[]' value = " + dayTrainingArray7 + ">";
 
-            var showLive = document.getElementById('showLive7');
-            showLive.innerHTML = output;
+            var showLive7 = document.getElementById('showLive7');
+            showLive7.innerHTML = output;
 
         }
 

@@ -14,9 +14,14 @@ public class CompanyDTO {
     private String companyId;
     private String companyName;
     private String companyComment;
-    private String companyPhotoName;
     private double companyRate;
     private String companyEquipment;
+
     private MultipartFile companyPhoto;
-    
+    private String companyPhotoName;
+
+    private String companyAddress;
+    private String addr1;
+    private String addr2;
+    private String addr3;
 }

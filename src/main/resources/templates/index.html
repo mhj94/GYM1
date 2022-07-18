@@ -7,6 +7,7 @@
     <meta name="author" content="생로병사"/>
     <meta name="description" content="지우고 해당 html에 대한 설명 작성"/>
     <title>책임GYM</title>
+
     <link rel="icon" href="image/favicon.png" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="css/style.css">
 
@@ -15,11 +16,7 @@
 </head>
 
 <body>
-<div style="text-align: center; vertical-align: center;">
-    <img src="image/logophoto.jpg"/>
-    <img src="image/logotext.jpg"/>
 
-</div>
 <div class="index_container">
     <div class="header2">
         <img src="image/logophoto.jpg"/>
@@ -27,6 +24,7 @@
     </div>
 
     <div>
+        <button onclick='location.href = "index"'>메인</button>
         <button onclick='location.href = "selectPlanForm"'>견적서 종류 선택 페이지</button>
         <button th:if="${session.login != null}"
                 th:onclick="|location.href='@{trainingPlanList(trainingPlanId=${session.login.memberId})}'|">견적서 페이지 이동
@@ -110,22 +108,6 @@
 <script src="https://code.jquery.com/jquery-latest.js"></script>
 <script src="js/modal.js"></script>
 
-<script>
-    $(function () {
-        // actvie 활성화
-        $(".nav-item > .active").css("color", "red");
-
-        $('.nav-link').click(function () {
-            // .nav-link 클릭시 이전의 active 값 해제 후,
-            $(".nav-item > .active").css("color", "#007bff");
-            $('.nav-link').removeClass('active');
-
-            // 클릭한 위치 active 적용
-            $(this).addClass('active');
-            $(".nav-item > .active").css("color", "red");
-        });
-    });
-</script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
     function sample6_execDaumPostcode() {

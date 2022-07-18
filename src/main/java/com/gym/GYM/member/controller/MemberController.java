@@ -39,7 +39,7 @@ public class MemberController {
 	}
 	
 	//일반회원 가입페이지 이동 : normalMemberRegistForm
-	@GetMapping("/normalMemberRegistForm")
+	@PostMapping("/normalMemberRegistForm")
 	public String normalMemberRegistForm() {
 		return "SignUp/NormalMemberRegistForm";
 	}
@@ -111,6 +111,11 @@ public class MemberController {
 	@GetMapping("/memberSignOut")
 	public String memberSignOut() {
 		session.invalidate();
-		return "index";
+		return "index1";
+	}
+
+	@GetMapping("/goIndex")
+	public String goIndex(){
+		return "index1";
 	}
 }

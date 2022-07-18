@@ -5,36 +5,31 @@
 
 
     <insert id="companyRegist" parameterType="company">
-        INSERT INTO COMPANY VALUES ('COM' || COMPANY_SEQ.NEXTVAL, #{companyId}, #{companyComment}, #{companyPhotoName}, 0, #{companyEquipment}, #{companyName})
+        INSERT INTO COMPANY VALUES (#{companyCode}, #{companyId}, #{companyComment}, #{companyPhotoName}, 0, #{companyEquipment}, #{companyName},#{companyAddress})
     </insert>
     <select id="companyList" parameterType="paging" resultType="company">
-        SELECT *
-        FROM COMPANYLIST
-        WHERE ROWNUMBER BETWEEN #{startRow} AND #{endRow}
-        ORDER BY COMPANYCODE ASC
+        SELECT * FROM COMPANYLIST  WHERE ROWNUMBER BETWEEN #{startRow} AND #{endRow} ORDER BY COMPANYCODE ASC
     </select>
     <select id="companyCount" resultType="int">
-        SELECT COUNT(*)
-        FROM COMPANY
+        SELECT COUNT(*) FROM COMPANY
     </select>
     <select id="companyView" parameterType="String" resultType="company">
-        SELECT *
-        FROM COMPANY
-        WHERE COMPANYCODE = #{companyCode}
+        SELECT * FROM COMPANY WHERE COMPANYCODE = #{companyCode}
     </select>
     <update id="companyModify" parameterType="company">
-        UPDATE COMPANY
-        SET COMPANYID=#{companyId},
-            COMPANYCOMMENT=#{companyComment},
-            COMPANYPHOTONAME=#{companyPhotoName},
-            COMPANYEQUIPMENT=#{companyEquipment}
-        WHERE COMPANYCODE = #{companyCode}
+        UPDATE COMPANY SET COMPANYID=#{companyId}, COMPANYCOMMENT=#{companyComment}, COMPANYPHOTONAME=#{companyPhotoName}, COMPANYEQUIPMENT=#{companyEquipment}  WHERE COMPANYCODE = #{companyCode}
     </update>
     <delete id="companyDelete" parameterType="company">
-        DELETE
-        FROM COMPANY
-        WHERE COMPANYCODE = #{companyCode}
+        DELETE FROM COMPANY WHERE COMPANYCODE = #{companyCode}
     </delete>
+
+    <insert id="membershipRegist" parameterType="membership">
+        INSERT INTO MEMBERSHIP VALUES (#{companyCode},#{membership1DayPrice},#{membership1MonthPrice},#{membership3MonthPrice},#{membership6MonthPrice},#{membership1YearPrice})
+    </insert>
+
+    <insert id="personalTrainingRegist" parameterType="personaltraining">
+        INSERT INTO PERSONALTRAINING VALUES (#{companyCode},#{personalTraining1TimePrice},#{personalTraining10TimePrice},#{personalTraining20TimePrice},#{personalTraining30TimePrice})
+    </insert>
 
 
 </mapper>

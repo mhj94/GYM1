@@ -23,7 +23,6 @@
                 <th>기업 별점</th>
                 <th>기업 시설</th>
             </tr>
-            <tr>
             <tr th:each="company:${company}">
                 <td><a th:href="@{companyView(companyCode=${company.companyCode})}"
                        th:text="${company.companyCode}"></a>

@@ -1,22 +1,96 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset=" UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="생로병사"/>
+    <meta name="description" content="TrainingPlanWriteForm"/>
+    <title>책임GYM</title>
+
+
 </head>
 <body>
-    <div>
-        <nav>
-            <a href="index.html">메인으로</a>
-            <a href="BoardList.html">게시판</a>
-            <a href="CompanyList.html">헬스장</a>
-            <a href="CompanyList.html">About us</a>
-            <a href="CompanyList.html">고객센터</a>
-            <a href="memberSignOut">로그아웃</a>
+<footer class="bg-dark" id="tempaltemo_footer">
+    <div class="container">
+        <div class="row">
 
-        </nav>
+            <div class="col-md-4 pt-5">
+                <h2 class="h2 text-success border-bottom pb-3 border-light logo">책임GYM</h2>
+                <ul class="list-unstyled text-light footer-link-list">
+                    <li>
+                        <i class="fas fa-map-marker-alt fa-fw"></i>
+                        인천광역시 미추홀구 매소홀로488번길 6-32 태승빌딩 5층(1층 홈플러스)
+                    </li>
+                    <li>
+                        <i class="fa fa-phone fa-fw"></i>
+                        <a class="text-decoration-none" href="tel:010-4005-3521">010-4005-3521</a>
+                    </li>
+                    <li>
+                        <i class="fa fa-envelope fa-fw"></i>
+                        <a class="text-decoration-none" href="mailto:responsibilitygym@gmail.com">responsibilitygym@gmail.com</a>
+                    </li>
+                </ul>
+            </div>
 
+            <div class="col-md-4 pt-5">
+                <h2 class="h2 text-light border-bottom pb-3 border-light">Products</h2>
+                <ul class="list-unstyled text-light footer-link-list">
+                    <li><a class="text-decoration-none" href="#">닭가슴살</a></li>
+                    <li><a class="text-decoration-none" href="#">볶음밥/도시락</a></li>
+                    <li><a class="text-decoration-none" href="#">닭가슴살간식</a></li>
+                    <li><a class="text-decoration-none" href="#">보충제</a></li>
+                </ul>
+            </div>
 
+            <div class="col-md-4 pt-5">
+                <h2 class="h2 text-light border-bottom pb-3 border-light">More</h2>
+                <ul class="list-unstyled text-light footer-link-list">
+                    <li><a class="text-decoration-none" href="goIndex">Home</a></li>
+                    <li><a class="text-decoration-none" href="AboutUs.html" onclick="window.open(this.href,'_blank','width=800,height=600'); return false;">About Us</a></li>
+                    <li th:if="${session.login != null}"><a class="text-decoration-none" href="@{boardCSList(boardWriter=${session.login.memberId})}">고객센터</a></li>
+                    <li th:if="${session.login == null}"><a class="text-decoration-none" href="고객센터 alert">고객센터</a></li>
+                    <li><a class="text-decoration-none" href="memberSignOut">Sign Out</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="row text-light mb-4">
+            <div class="col-12 mb-3">
+                <div class="w-100 my-3 border-top border-light"></div>
+            </div>
+            <div class="col-auto me-auto">
+                <ul class="list-inline text-left footer-icons">
+                    <li class="list-inline-item border border-light rounded-circle text-center">
+                        <a class="text-light text-decoration-none" target="_blank" href="http://facebook.com/"><i
+                                class="fab fa-facebook-f fa-lg fa-fw"></i></a>
+                    </li>
+                    <li class="list-inline-item border border-light rounded-circle text-center">
+                        <a class="text-light text-decoration-none" target="_blank" href="https://instagram.com/moon_h_joon?igshid=YmMyMTA2M2Y="><i
+                                class="fab fa-instagram fa-lg fa-fw"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
+
+    <div class="w-100 bg-black py-3">
+        <div class="container">
+            <div class="row pt-2">
+                <div class="col-12">
+                    <p class="text-left text-light">
+                        Copyright &copy; 2021 Company Name
+                        | Designed by <a rel="sponsored" href="https://templatemo.com" target="_blank">TemplateMo</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+    </script>
+</footer>
 </body>
 </html>

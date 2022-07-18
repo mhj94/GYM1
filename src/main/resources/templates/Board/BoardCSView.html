@@ -72,14 +72,14 @@
             output += "<td>" + list[i].boardCommentsContent + "</td>";
             output += "<td>" + list[i].boardCommentsDate + "</td>";
 
-            if (loginId == 'so01057') {
+            if (loginId == 'admin') {
 
                 output += "<td><button onclick=boardCommentsModify(" + list[i].boardCommentsNo + ",'" + list[i].boardNo + "')>수정</button></td>";
             }
 
 
             // 작성자와 로그인한 아이디가 같거나 관리자일 경우에만 삭제 가능
-            if (loginId == 'so01057') {
+            if (loginId == 'admin') {
                 output += "<td><button onclick=boardCommentsDelete(" + list[i].boardCommentsNo + ",'" + list[i].boardNo + "')>삭제</button></td>";
             }
 
@@ -138,6 +138,7 @@
                 success: function (list) {
                     QnaList(list);
                     $('#boardCommentsContent').val("");
+                    opener.parent.location.reload();
                     reload();
                 },
                 error: function (request, status, error) {
@@ -161,6 +162,7 @@
                 dataType: "json",
                 success: function (list) {
                     QnaList(list);
+                    opener.parent.location.reload();
                     reload();
                 },
                 error: function (request, status, error) {
@@ -189,6 +191,7 @@
                 dataType: "json",
                 success: function (list) {
                     QnaList(list);
+                    opener.parent.location.reload();
                     reload();
                 },
                 error: function (request, status, error) {

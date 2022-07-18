@@ -9,15 +9,13 @@ import java.util.List;
 import java.util.UUID;
 
 import com.gym.GYM.company.dao.CommentDAO;
-import com.gym.GYM.company.dto.CommentDTO;
+import com.gym.GYM.company.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gym.GYM.company.dao.CompanyDAO;
-import com.gym.GYM.company.dto.CompanyDTO;
-import com.gym.GYM.company.dto.PageDTO;
 
 import javax.servlet.http.HttpSession;
 
@@ -36,7 +34,7 @@ public class CompanyServiceImpl implements CompanyService{
     private HttpSession session;
 
     @Override
-    public ModelAndView companyRegist(CompanyDTO company) throws IOException {
+    public ModelAndView companyRegist(CompanyDTO company, MembershipDTO membership, PersonalTrainingDTO personalTraining) throws IOException {
         MultipartFile companyPhoto = company.getCompanyPhoto();
 
         String originalFileName = companyPhoto.getOriginalFilename();
@@ -58,9 +56,24 @@ public class CompanyServiceImpl implements CompanyService{
             company.setCompanyPhotoName("default.png");
         }
 
+        String addr1 = company.getAddr1();
+        String addr2 = company.getAddr2();
+        String addr3 = company.getAddr3();
+
+        String companyAddress = "("+addr1+") "+addr2+" "+addr3;
+
+        if(!addr1.equals(""))
+        {
+            company.setCompanyAddress(companyAddress);
+        }
+
         int result = companydao.companyRegist(company);
 
         if(result>0){
+            membership.setCompanyCode(company.getCompanyCode());
+            personalTraining.setCompanyCode(company.getCompanyCode());
+            companydao.membershipRegist(membership);
+            companydao.personalTrainingRegist(personalTraining);
             mav.setViewName("index");
         } else {
             mav.setViewName("index");
