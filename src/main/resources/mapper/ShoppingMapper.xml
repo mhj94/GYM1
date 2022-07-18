@@ -9,6 +9,12 @@
         ORDER BY PRODUCTHITS DESC
     </select>
 
+    <select id="sohppingMainListAjax" resultType="product">
+        SELECT ROUND(PRODUCTRATE, 2) AS PRODUCTRATE, PRODUCTNAME, PRODUCTPRICE, PRODUCTCODE, PRODUCTPHOTO,PRODUCTHITS
+        FROM PRODUCT
+        ORDER BY PRODUCTHITS DESC
+    </select>
+
     <update id="count" parameterType="String">
         UPDATE PRODUCT
         SET PRODUCTHITS = PRODUCTHITS + 1
@@ -29,7 +35,6 @@
         WHERE PRODUCTCODE = #{productCode}
     </select>
 
-
     <select id="wishCount" parameterType="String" resultType="int">
         SELECT COUNT(WISHID)
         FROM WISH
@@ -45,7 +50,7 @@
     <insert id="basketRegist" parameterType="String">
         INSERT INTO ORDERS
         VALUES (#{orderCode}, #{productCode}, #{memberId}, 'noInput', 'noInput', 'noInput', NULL, 'noInput', NULL,
-                'noSelect', 0, 0)
+                'noSelect', #{orderName}, '1', #{orderPrice},#{orderPrice})
     </insert>
 
     <!--내가 장바구니에 등록한 상품 코드 불러오기 -->
@@ -53,7 +58,7 @@
         SELECT ORDERPRODUCTCODE
         FROM ORDERS
         WHERE ORDERID = #{memberId}
-          AND ORDERPAYSELECT = 'noSelect'
+          AND ORDERREQUEST = 'noInput'
     </select>
 
     <!--장바구니 등록한 상품 숫자 -->
@@ -61,27 +66,36 @@
         SELECT COUNT(ORDERPRODUCTCODE)
         FROM ORDERS
         WHERE ORDERID = #{memberId}
-          AND ORDERPAYSELECT = 'noSelect'
+          AND ORDERREQUEST = 'noInput'
     </select>
 
     <!--장바구니 등록한 상품 불러오기 -->
-    <select id="myBasketList" parameterType="String" resultType="product">
-        SELECT *
+    <select id="myBasketList" parameterType="String" resultType="basket">
+        SELECT ORDERS.ORDERNAME,
+               ORDERS.ORDERPRICE,
+               ORDERS.ORDERCOUNT,
+               PRODUCT.PRODUCTPHOTO,
+               PRODUCT.PRODUCTCODE,
+               ORDERS.ORDERTOTALPRICE
         FROM PRODUCT
-        WHERE PRODUCTCODE = #{basketCode}
+                 INNER JOIN
+             ORDERS
+             ON ORDERS.ORDERPRODUCTCODE = PRODUCT.PRODUCTCODE
+        WHERE PRODUCT.PRODUCTCODE = #{basketCode}
+          AND ORDERS.ORDERID=#{memberId}
     </select>
 
 
     <!-- wish에 view에서 본 상품이 들어있는지 확인-->
 
     <select id="wishInquire" parameterType="String" resultType="String">
-        SELECT ORDERPRODUCTCODE
-        FROM ORDERS
-        WHERE ORDERID = #{memberId}
-          AND ORDERPRODUCTCODE = #{productCode}
+        SELECT WISHPRODUCTCODE
+        FROM WISH
+        WHERE WISHID = #{memberId}
+          AND WISHPRODUCTCODE = #{productCode}
     </select>
 
-    <insert id="wishregist" parameterType="String">
+    <insert id="wishRegist" parameterType="String">
         INSERT INTO WISH
         VALUES (#{memberId}, #{productCode})
     </insert>
@@ -104,32 +118,68 @@
           AND ORDERPRODUCTCODE = #{productCode}
     </select>
 
-
     <delete id="basketDelete" parameterType="String">
-        DELETE ORDERS WHERE ORDERID=#{memberId} AND ORDERPRODUCTCODE=#{productCode}
+        DELETE
+        ORDERS WHERE ORDERID=
+        #{memberId}
+        AND
+        ORDERPRODUCTCODE
+        =
+        #{productCode}
     </delete>
 
-
-    <update id="bascketOrdersPriceUpdate" parameterType="String"  >
-        UPDATE ORDERS SET ORDERPRICE =#{orderPrice} WHERE ORDERID = #{memberId} AND ORDERPRODUCTCODE=#{productCode}
+    <update id="basketOrdersPriceUpdate" parameterType="String">
+        UPDATE ORDERS
+        SET ORDERPRICE =#{orderPrice}
+        WHERE ORDERID = #{memberId}
+          AND ORDERPRODUCTCODE = #{productCode}
     </update>
-
 
     <!--주문할때 회원가입시 입력한 주소 불러오는 메소드-->
     <select id="addressInputAjax" parameterType="String" resultType="String">
-        SELECT MEMBERADDRESS FROM MEMBER WHERE MEMBERID =#{memberId}
+        SELECT MEMBERADDRESS
+        FROM MEMBER
+        WHERE MEMBERID = #{memberId}
     </select>
-
 
     <!--order 테이블 주문 요청사항 및 주소 추가하는 메소드-->
     <update id="basketPayment" parameterType="String">
-        UPDATE ORDERS SET ORDERADDRESS = #{addr}, ORDERREQUEST =#{coment} WHERE ORDERPAYSELECT='noSelect'
+        UPDATE ORDERS
+        SET ORDERADDRESS = #{orderAddress},
+            ORDERREQUEST =#{orderRequest}
+        WHERE ORDERREQUEST = 'noInput'
+          AND ORDERID = #{memberId}
     </update>
 
-
     <select id="shoppingPaymentList" parameterType="String" resultType="orders">
-        SELECT * FROM ORDERS WHERE ORDERID = #{memberId} AND ORDERPRICE != 0
+        SELECT *
+        FROM ORDERS
+        WHERE ORDERID = #{memberId}
+          AND ORDERPRICE != 0
     </select>
+<!-- 상품 수량 출력해주는 ajax   -->
+    <select id="orderCountOutputAjax" parameterType="String" resultType="String">
+        SELECT ORDERCOUNT
+        FROM ORDERS
+        WHERE ORDERID = #{memberId}
+          AND ORDERREQUEST = 'noInput'
+    </select>
+
+<!-- 장바구니에서 상품수량 더하기   -->
+    <update id="orderCountPlus" parameterType="String">
+        UPDATE ORDERS
+        SET ORDERCOUNT = ORDERCOUNT+ 1, ORDERTOTALPRICE = + ORDERPRICE
+        WHERE ORDERID = #{memberId}
+          AND ORDERPRODUCTCODE = #{productCode}
+    </update>
+
+    <!-- 장바구니에서 상품수량 빼기  -->
+    <update id="orderCountMinus" parameterType="String" >
+        UPDATE ORDERS
+        SET ORDERCOUNT = ORDERCOUNT- 1, ORDERTOTALPRICE = - ORDERPRICE
+        WHERE ORDERID = #{memberId}
+          AND ORDERPRODUCTCODE = #{productCode}
+    </update>
 
     <select id="shoppingHistoryList" parameterType="String" resultType="pay">
         SELECT * FROM PAY WHERE PAYID = #{memberId}
@@ -138,4 +188,149 @@
     <insert id="payRegist" parameterType="pay">
         INSERT INTO PAY VALUES (#{payId},#{payCount},#{payPrice},#{payProduct})
     </insert>
+
+
+<!-- 쇼핑몰 메인화면 장바구니 갯수   -->
+    <select id="myBasketCount" parameterType="String" resultType="String">
+    SELECT COUNT(ORDERPRODUCTCODE) FROM ORDERS WHERE ORDERID=#{memberId} AND  ORDERREQUEST = 'noInput'
+
+    </select>
+
+<!--쇼핑몰 메인화면 찜 목록 갯수  -->
+    <select id="myWishCount" parameterType="String" resultType="String">
+    SELECT COUNT(WISHID) FROM WISH WHERE WISHID=#{memberId}
+    </select>
+
+<!--쇼핑몰 메인화면 리스트 이름으로 보기 -->
+    <select id="sohppingMainListNameAjax" parameterType="String" resultType="product">
+        SELECT ROUND(PRODUCTRATE, 2) AS PRODUCTRATE, PRODUCTNAME, PRODUCTPRICE, PRODUCTCODE, PRODUCTPHOTO,PRODUCTHITS
+        FROM PRODUCT
+        ORDER BY PRODUCTNAME ASC
+    </select>
+
+<!--쇼핑몰 메인화면 리스트 조회수로 보기-->
+    <select id="sohppingMainListHitsAjax" parameterType="String" resultType="product">
+        SELECT ROUND(PRODUCTRATE, 2) AS PRODUCTRATE, PRODUCTNAME, PRODUCTPRICE, PRODUCTCODE, PRODUCTPHOTO,PRODUCTHITS
+        FROM PRODUCT
+        ORDER BY PRODUCTHITS DESC
+    </select>
+<!--쇼핑몰 메인화면 리스트 별점으로 보기-->
+    <select id="sohppingMainListRateAjax" parameterType="String" resultType="product">
+        SELECT ROUND(PRODUCTRATE, 2) AS PRODUCTRATE, PRODUCTNAME, PRODUCTPRICE, PRODUCTCODE, PRODUCTPHOTO,PRODUCTHITS
+        FROM PRODUCT
+        ORDER BY PRODUCTRATE DESC
+    </select>
+
+
+<!-- 쇼핑몰 메인화면 리스트 닭가슴살만 불러오기   -->
+    <select id="viewProductSelectChickenBreastAjax" resultType="product">
+        SELECT ROUND(PRODUCTRATE, 2) AS PRODUCTRATE, PRODUCTNAME, PRODUCTPRICE, PRODUCTCODE, PRODUCTPHOTO,PRODUCTHITS
+        FROM PRODUCT WHERE PRODUCTLISTCODE='001'
+        ORDER BY PRODUCTRATE ASC
+    </select>
+
+<!--   쇼핑몰 메인화면 닭가슴살 리스트 이름으로 보기-->
+    <select id="sohppingMainListChickenBreastSelectNameAjax" parameterType="String" resultType="product">
+        SELECT ROUND(PRODUCTRATE, 2) AS PRODUCTRATE, PRODUCTNAME, PRODUCTPRICE, PRODUCTCODE, PRODUCTPHOTO,PRODUCTHITS
+        FROM PRODUCT WHERE PRODUCTLISTCODE='001'
+        ORDER BY PRODUCTNAME ASC
+    </select>
+
+    <!--쇼핑몰 메인화면 닭가슴살 리스트 조회수로 보기-->
+    <select id="sohppingMainListChickenBreastSelectHitsAjax" parameterType="String" resultType="product">
+        SELECT ROUND(PRODUCTRATE, 2) AS PRODUCTRATE, PRODUCTNAME, PRODUCTPRICE, PRODUCTCODE, PRODUCTPHOTO,PRODUCTHITS
+        FROM PRODUCT WHERE PRODUCTLISTCODE='001'
+        ORDER BY PRODUCTHITS DESC
+    </select>
+    <!--쇼핑몰 메인화면 닭가슴살 리스트 별점으로 보기-->
+    <select id="sohppingMainListChickenBreastSelectRateAjax" parameterType="String" resultType="product">
+        SELECT ROUND(PRODUCTRATE, 2) AS PRODUCTRATE, PRODUCTNAME, PRODUCTPRICE, PRODUCTCODE, PRODUCTPHOTO,PRODUCTHITS
+        FROM PRODUCT WHERE PRODUCTLISTCODE='001'
+        ORDER BY PRODUCTRATE DESC
+    </select>
+
+    <!-- 쇼핑몰 메인화면 리스트 볶음밥만 불러오기   -->
+    <select id="viewProductSelectFriedRiceAjax" parameterType="String" resultType="product">
+        SELECT ROUND(PRODUCTRATE, 2) AS PRODUCTRATE, PRODUCTNAME, PRODUCTPRICE, PRODUCTCODE, PRODUCTPHOTO,PRODUCTHITS
+        FROM PRODUCT WHERE PRODUCTLISTCODE='002'
+        ORDER BY PRODUCTRATE DESC
+    </select>
+
+    <!--   쇼핑몰 메인화면 볶음밥 리스트 이름으로 보기-->
+    <select id="sohppingMainListFriedRiceSelectNameAjax" parameterType="String" resultType="product">
+        SELECT ROUND(PRODUCTRATE, 2) AS PRODUCTRATE, PRODUCTNAME, PRODUCTPRICE, PRODUCTCODE, PRODUCTPHOTO,PRODUCTHITS
+        FROM PRODUCT WHERE PRODUCTLISTCODE='002'
+        ORDER BY PRODUCTNAME ASC
+    </select>
+
+    <!--쇼핑몰 메인화면 볶음밥 리스트 조회수로 보기-->
+    <select id="sohppingMainListFriedRiceSelectHitsAjax" parameterType="String" resultType="product">
+        SELECT ROUND(PRODUCTRATE, 2) AS PRODUCTRATE, PRODUCTNAME, PRODUCTPRICE, PRODUCTCODE, PRODUCTPHOTO,PRODUCTHITS
+        FROM PRODUCT WHERE PRODUCTLISTCODE='002'
+        ORDER BY PRODUCTHITS DESC
+    </select>
+    <!--쇼핑몰 메인화면 볶음밥 리스트 별점으로 보기-->
+    <select id="sohppingMainListFriedRiceSelectRateAjax" parameterType="String" resultType="product">
+        SELECT ROUND(PRODUCTRATE, 2) AS PRODUCTRATE, PRODUCTNAME, PRODUCTPRICE, PRODUCTCODE, PRODUCTPHOTO,PRODUCTHITS
+        FROM PRODUCT WHERE PRODUCTLISTCODE='002'
+        ORDER BY PRODUCTRATE DESC
+    </select>
+
+    <!-- 쇼핑몰 메인화면 리스트 음료/간식만 불러오기   -->
+    <select id="viewProductSelectDrinkAndSnackAjax" parameterType="String" resultType="product">
+        SELECT ROUND(PRODUCTRATE, 2) AS PRODUCTRATE, PRODUCTNAME, PRODUCTPRICE, PRODUCTCODE, PRODUCTPHOTO,PRODUCTHITS
+        FROM PRODUCT WHERE PRODUCTLISTCODE='003'
+        ORDER BY PRODUCTRATE DESC
+    </select>
+
+    <!--   쇼핑몰 메인화면 음료/간식 리스트 이름으로 보기-->
+    <select id="sohppingMainListDrinkAndSnackSelectNameAjax" parameterType="String" resultType="product">
+        SELECT ROUND(PRODUCTRATE, 2) AS PRODUCTRATE, PRODUCTNAME, PRODUCTPRICE, PRODUCTCODE, PRODUCTPHOTO,PRODUCTHITS
+        FROM PRODUCT WHERE PRODUCTLISTCODE='003'
+        ORDER BY PRODUCTNAME ASC
+    </select>
+
+    <!--쇼핑몰 메인화면 음료/간식 리스트 조회수로 보기-->
+    <select id="sohppingMainListDrinkAndSnackSelectHitsAjax" parameterType="String" resultType="product">
+        SELECT ROUND(PRODUCTRATE, 2) AS PRODUCTRATE, PRODUCTNAME, PRODUCTPRICE, PRODUCTCODE, PRODUCTPHOTO,PRODUCTHITS
+        FROM PRODUCT WHERE PRODUCTLISTCODE='003'
+        ORDER BY PRODUCTHITS DESC
+    </select>
+    <!--쇼핑몰 메인화면 음료/간식 리스트 별점으로 보기-->
+    <select id="sohppingMainListDrinkAndSnackSelectRateAjax" parameterType="String" resultType="product">
+        SELECT ROUND(PRODUCTRATE, 2) AS PRODUCTRATE, PRODUCTNAME, PRODUCTPRICE, PRODUCTCODE, PRODUCTPHOTO,PRODUCTHITS
+        FROM PRODUCT WHERE PRODUCTLISTCODE='003'
+        ORDER BY PRODUCTRATE DESC
+    </select>
+
+
+
+    <!-- 쇼핑몰 메인화면 리스트 프로틴만 불러오기   -->
+    <select id="viewProductSelectProteinSupplementAjax" parameterType="String" resultType="product">
+        SELECT ROUND(PRODUCTRATE, 2) AS PRODUCTRATE, PRODUCTNAME, PRODUCTPRICE, PRODUCTCODE, PRODUCTPHOTO,PRODUCTHITS
+        FROM PRODUCT WHERE PRODUCTLISTCODE='004'
+        ORDER BY PRODUCTRATE DESC
+    </select>
+
+    <!--   쇼핑몰 메인화면 프로틴 리스트 이름으로 보기-->
+    <select id="sohppingMainListProteinSupplementSelectNameAjax" parameterType="String" resultType="product">
+        SELECT ROUND(PRODUCTRATE, 2) AS PRODUCTRATE, PRODUCTNAME, PRODUCTPRICE, PRODUCTCODE, PRODUCTPHOTO,PRODUCTHITS
+        FROM PRODUCT WHERE PRODUCTLISTCODE='004'
+        ORDER BY PRODUCTNAME ASC
+    </select>
+
+    <!--쇼핑몰 메인화면 프로틴 리스트 조회수로 보기-->
+    <select id="sohppingMainListProteinSupplementSelectHitsAjax" parameterType="String" resultType="product">
+        SELECT ROUND(PRODUCTRATE, 2) AS PRODUCTRATE, PRODUCTNAME, PRODUCTPRICE, PRODUCTCODE, PRODUCTPHOTO,PRODUCTHITS
+        FROM PRODUCT WHERE PRODUCTLISTCODE='004'
+        ORDER BY PRODUCTHITS DESC
+    </select>
+    <!--쇼핑몰 메인화면 프로틴 리스트 별점으로 보기-->
+    <select id="sohppingMainListProteinSupplementSelectRateAjax" parameterType="String" resultType="product">
+        SELECT ROUND(PRODUCTRATE, 2) AS PRODUCTRATE, PRODUCTNAME, PRODUCTPRICE, PRODUCTCODE, PRODUCTPHOTO,PRODUCTHITS
+        FROM PRODUCT WHERE PRODUCTLISTCODE='004'
+        ORDER BY PRODUCTRATE DESC
+    </select>
+
+
 </mapper>
