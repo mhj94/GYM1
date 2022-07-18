@@ -63,8 +63,10 @@
             </tr>
         </table>
         <div id="commentArea"></div>
+        <th:block th:if="${session.login.memberId} == 'admin'">
         <button th:onclick="|location.href ='@{boardModifyForm(boardNo=${view.boardNo})}'|">게시글 수정페이지 이동</button>
         <button th:onclick="|location.href ='@{boardDelete(boardNo=${view.boardNo})}'|"> 게시글 삭제</button>
+        </th:block>
         <button onclick="location.href = document.referrer;">뒤로가기</button>
         <input type="hidden" th:id="memberId" th:value="${session.login.memberId}">
         <input type="hidden" th:id="boardNo" th:value="${view.boardNo}">
@@ -170,7 +172,6 @@
         }
     });
 
-
     // 리뷰 삭제
     function boardCommentsDelete(boardCommentsNo, boardNo) {
         var check = confirm('댓글을 삭제하시겠습니까?');
@@ -207,7 +208,6 @@
                     "boardCommentsNo": boardCommentsNo,
                     "boardNo": boardNo,
                     "boardCommentsContent": boardCommentsContent
-
                 },
                 dataType: "json",
                 success: function (list) {

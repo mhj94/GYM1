@@ -31,7 +31,7 @@
         <td th:text="${list.boardDate}"></td>
         <td th:text="${list.boardNotice}"></td>
         <td><button type="button" th:popup="${list.boardNo}" th:onclick="popup(this.getAttribute('popup'))">상세보기</button></td>
-        <td><button th:onclick="|location.href='@{boardCSDelete(boardNo=${list.boardNo},boardWriter=${list.boardWriter})}'|">삭제</button></td>
+        <td th:if="${session.login.memberId} eq 'admin' or ${session.login.memberId}"><button th:onclick="|location.href='@{boardCSDelete(boardNo=${list.boardNo},boardWriter=${list.boardWriter})}'|">삭제</button></td>
     </tr>
 </table>
     <button class="btn-open-popup" th:text="|문의사항 작성하기|"></button>

@@ -15,7 +15,7 @@ public interface CompanyService {
 
     ModelAndView companyList(int page, int limit);
 
-    ModelAndView companyView(String companyCode);
+    ModelAndView companyView(String companyCode, MembershipDTO membership, PersonalTrainingDTO personaltraining);
 
     ModelAndView companyModifyForm(String companyCode);
 

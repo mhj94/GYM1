@@ -13,7 +13,7 @@
 <div class="companyViewContainer">
     <div class="header1"></div>
     <div class="companyViewMain">
-        <table>
+        <table align="center">
             <caption>기업 상세보기</caption>
             <tr>
                 <th>기업 코드</th>
@@ -39,13 +39,47 @@
                 <th>기업 시설</th>
                 <td th:text="${view.companyEquipment}"></td>
             </tr>
+        </table>
+        <table class="PTmembership" border ="2" width="90%" height=200  bordercolor="#01f7ce" cellspacing="5" style="border-collapse: collapse">
+            <tr>
+                <th rowspan="2">회원권</th>
+                <td>일일 이용권</td>
+                <td>1개월 이용권</td>
+                <td>3개월 이용권</td>
+                <td>6개월 이용권</td>
+                <td>1년 이용권</td>
+            </tr>
+            <tr>
+                <td th:text="${membership.membership1DayPrice}"></td>
+                <td th:text="${membership.membership1MonthPrice}"></td>
+                <td th:text="${membership.membership3MonthPrice}"></td>
+                <td th:text="${membership.membership6MonthPrice}"></td>
+                <td th:text="${membership.membership1YearPrice}"></td>
+
+            </tr>
+            <tr align="center" >
+                <th rowspan="2">PT</th>
+                <td>일일 체험권</td>
+                <td>10회 이용권</td>
+                <td>20회 이용권</td>
+                <td>30회 이용권</td>
+                <td rowspan="2">자세한 사항은 <br/> 전화로 문의주세요.</td>
+
+            </tr>
+            <tr>
+                <td th:text="${personaltraining.personalTraining1TimePrice}"></td>
+                <td th:text="${personaltraining.personalTraining10TimePrice}"></td>
+                <td th:text="${personaltraining.personalTraining20TimePrice}"></td>
+                <td th:text="${personaltraining.personalTraining30TimePrice}"></td>
+            </tr>
+        </table>
+        <table>
             <tr>
                 <th>리뷰 등록</th>
                 <td><textarea rows=1 cols=70 id="reviewContent" placeholder="리뷰를 작성해주세요."></textarea>
                     <button id="commentBtn">리뷰 등록</button>
                 </td>
             </tr>
-
         </table>
         <input type = "hidden" th:value = "${view.companyAddress}" id = "companyAddress">
         <input type = "hidden" th:value = "${view.companyName}" id = "companyName">
@@ -64,6 +98,7 @@
             for="rate5">★★★★★</label>
         <input type="hidden" th:id="memberId" th:value="${session.login.memberId}">
         <input type="hidden" th:id="companyCode" th:value="${view.companyCode}">
+        <input type="hidden" th:id="membership" th:value="${membership}">
         <div id="commentArea"></div>
     </div>
     <div class="footer"></div>
@@ -76,7 +111,6 @@
     var companyCode = [[${view.companyCode}]];
     $(document).ready(function () {
 
-
     });
 
     // 리뷰 목록 조회 함수
@@ -87,7 +121,7 @@
 
         output += "<table>";
         output += "<tr>";
-        output += "<th><코드></th>>"
+        output += "<th><코드></th>"
         output += "<th><작성자></th>";
         output += "<th><내용></th>";
         output += "<th><별점></th>";

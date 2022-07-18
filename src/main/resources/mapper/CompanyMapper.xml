@@ -3,22 +3,26 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gym.GYM.company.dao.CompanyDAO">
 
-
     <insert id="companyRegist" parameterType="company">
-        INSERT INTO COMPANY VALUES (#{companyCode}, #{companyId}, #{companyComment}, #{companyPhotoName}, 0, #{companyEquipment}, #{companyName},#{companyAddress})
+        INSERT INTO COMPANY VALUES (#{companyCode}, #{companyId}, #{companyComment}, #{companyPhotoName}, 0, #{companyEquipment}, #{companyName})
     </insert>
+
     <select id="companyList" parameterType="paging" resultType="company">
-        SELECT * FROM COMPANYLIST  WHERE ROWNUMBER BETWEEN #{startRow} AND #{endRow} ORDER BY COMPANYCODE ASC
+        SELECT * FROM COMPANYLIST WHERE ROWNUMBER BETWEEN #{startRow} AND #{endRow} ORDER BY COMPANYCODE ASC
     </select>
+
     <select id="companyCount" resultType="int">
         SELECT COUNT(*) FROM COMPANY
     </select>
+
     <select id="companyView" parameterType="String" resultType="company">
         SELECT * FROM COMPANY WHERE COMPANYCODE = #{companyCode}
     </select>
+
     <update id="companyModify" parameterType="company">
         UPDATE COMPANY SET COMPANYID=#{companyId}, COMPANYCOMMENT=#{companyComment}, COMPANYPHOTONAME=#{companyPhotoName}, COMPANYEQUIPMENT=#{companyEquipment}  WHERE COMPANYCODE = #{companyCode}
     </update>
+
     <delete id="companyDelete" parameterType="company">
         DELETE FROM COMPANY WHERE COMPANYCODE = #{companyCode}
     </delete>
@@ -31,5 +35,11 @@
         INSERT INTO PERSONALTRAINING VALUES (#{companyCode},#{personalTraining1TimePrice},#{personalTraining10TimePrice},#{personalTraining20TimePrice},#{personalTraining30TimePrice})
     </insert>
 
+    <select id="membershipView" parameterType="String" resultType="membership">
+        SELECT * FROM MEMBERSHIP WHERE MEMBERSHIPCOMPANYCODE =#{companyCode}
+    </select>
 
+    <select id="personaltrainingView" parameterType="String" resultType="personaltraining">
+        SELECT * FROM PERSONALTRAINING WHERE PERSONALTRAININGCOMPANYCODE =#{companyCode}
+    </select>
 </mapper>

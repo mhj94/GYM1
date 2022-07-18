@@ -11,6 +11,7 @@ import com.gym.GYM.company.dto.PageDTO;
 
 @Mapper
 public interface CompanyDAO {
+
     int companyRegist(CompanyDTO company);
 
     int companyCount();
@@ -26,4 +27,8 @@ public interface CompanyDAO {
     void membershipRegist(MembershipDTO membership);
 
     void personalTrainingRegist(PersonalTrainingDTO personalTraining);
+
+    MembershipDTO membershipView(String companyCode);
+
+    PersonalTrainingDTO personaltrainingView(String companyCode);
 }

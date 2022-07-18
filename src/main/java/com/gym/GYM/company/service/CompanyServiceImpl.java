@@ -74,6 +74,7 @@ public class CompanyServiceImpl implements CompanyService{
             personalTraining.setCompanyCode(company.getCompanyCode());
             companydao.membershipRegist(membership);
             companydao.personalTrainingRegist(personalTraining);
+            System.out.println(membership);
             mav.setViewName("index");
         } else {
             mav.setViewName("index");
@@ -83,7 +84,7 @@ public class CompanyServiceImpl implements CompanyService{
 
     @Override
     public ModelAndView companyList(int page, int limit) {
-        int block = 5;
+        int block = 3;
         int cCount = companydao.companyCount();
         int startRow = (page - 1) * limit + 1;
         int endRow = page * limit;
@@ -114,11 +115,17 @@ public class CompanyServiceImpl implements CompanyService{
     }
 
     @Override
-    public ModelAndView companyView(String companyCode) {
+    public ModelAndView companyView(String companyCode, MembershipDTO membership, PersonalTrainingDTO personaltraining) {
 
         CompanyDTO company = companydao.companyView(companyCode);
+        MembershipDTO membershipView = companydao.membershipView(companyCode);
+        PersonalTrainingDTO personaltrainingView = companydao.personaltrainingView(companyCode);
+
+        System.out.println(membership);
 
         mav.setViewName("Company/CompanyView");
+        mav.addObject("membership", membershipView);
+        mav.addObject("personaltraining", personaltrainingView);
         mav.addObject("view", company);
         return mav;
     }
@@ -168,6 +175,7 @@ public class CompanyServiceImpl implements CompanyService{
 
     @Override
     public ModelAndView companyDelete(String companyCode) {
+
         int result = companydao.companyDelete(companyCode);
 
         if(result>0){
@@ -177,6 +185,4 @@ public class CompanyServiceImpl implements CompanyService{
         }
         return mav;
     }
-
-
 }
