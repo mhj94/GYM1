@@ -61,7 +61,7 @@ public class BoardController {
         return mav;
     }
 
-    //BoardModify : 게시글 수정 메소드
+    //BoardModify : 게시글 수정 메소드.
     @PostMapping("/boardModify")
     private ModelAndView boardModify(@ModelAttribute BoardDTO board) throws IllegalStateException, IOException {
 
